@@ -394,6 +394,7 @@ const Phase2Screen = ({ index, question, onSelect, qNum, total }: { index: numbe
 };
 
 const Phase3Screen = ({ question, onSelect, qNum, total, taps }: { question: any, onSelect: (tap: Omit<Tap, 'ts'>) => void, qNum: number, total: number, taps: Tap[] }) => {
+    console.log('🔍 Phase3Screen render - question:', question, 'qNum:', qNum, 'taps:', taps);
     const onKey = (e: React.KeyboardEvent, mv: string, detail: string, family: string) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onSelect({ phase: 'P3', family, mv, detail }); } };
     
     // compute counts from P1/P2 for this family (only if question exists)
@@ -401,12 +402,18 @@ const Phase3Screen = ({ question, onSelect, qNum, total, taps }: { question: any
         if (t.family === question.family && (t.phase === 'P1' || t.phase === 'P2')) { (acc as any)[t.mv] = ((acc as any)[t.mv]||0)+1; }
         return acc;
     }, { A:0, S:0, R:0 } as {A:number;S:number;R:number}) : { A:0, S:0, R:0 };
+    
+    console.log('📈 Phase3Screen counts for family', question?.family, ':', counts);
+    
     const arr = ([{k:'A',v:counts.A},{k:'S',v:counts.S},{k:'R',v:counts.R}] as Array<{k:'A'|'S'|'R';v:number}>).sort((x,y)=>y.v-x.v);
     const top = arr[0].k, second = arr[1].k;
     
+    console.log('🎯 Phase3Screen computed - top:', top, 'second:', second, 'arr:', arr);
+    
     // If only one movement type was chosen, auto-advance using useEffect
     useEffect(() => {
-        if (question && question.family && (second === undefined || arr[1].v === 0)) {
+        if (question && question.family && (second === undefined || (arr[1] && arr[1].v === 0))) {
+            console.log('⚡ Phase3Screen - Auto-advancing, second:', second, 'arr[1]:', arr[1]);
             const onlyChoice = top;
             const onlyOption = onlyChoice === 'A' ? question.A : (question as any)[onlyChoice];
             if (onlyOption) {
@@ -414,10 +421,11 @@ const Phase3Screen = ({ question, onSelect, qNum, total, taps }: { question: any
                 onSelect({ phase: 'P3', family: question.family, mv: onlyChoice, detail: onlyOption.detail });
             }
         }
-    }, [question, top, second, arr[1].v, onSelect]);
+    }, [question, top, second, arr, onSelect]);
     
     // Add safety check for question object
     if (!question || !question.family) {
+        console.log('❌ Phase3Screen - No question or family:', question);
         return (
             <div className="text-center py-8">
                 <p className="text-white/70">Loading question...</p>
@@ -426,7 +434,8 @@ const Phase3Screen = ({ question, onSelect, qNum, total, taps }: { question: any
     }
     
     // If only one movement type was chosen, show processing message
-    if (second === undefined || arr[1].v === 0) {
+    if (second === undefined || (arr[1] && arr[1].v === 0)) {
+        console.log('⚡ Phase3Screen - Auto-advancing, second:', second, 'arr[1]:', arr[1]);
         return (
             <div className="text-center py-8">
                 <p className="text-white/70">Processing {question.family}...</p>
@@ -434,13 +443,23 @@ const Phase3Screen = ({ question, onSelect, qNum, total, taps }: { question: any
         );
     }
     
-    const leftKey: 'A'|'S'|'R' = top;
-    const rightKey: 'A'|'S'|'R' = second;
+    // Only use movement types that actually exist in the question
+    const availableMovements = Object.keys(question).filter(key => key !== 'family' && key !== 'stem') as ('A'|'S'|'R')[];
+    console.log('🎯 Available movements in question:', availableMovements);
+    
+    // Filter the sorted array to only include movements that exist in the question
+    const availableArr = arr.filter(item => availableMovements.includes(item.k));
+    const leftKey: 'A'|'S'|'R' = availableArr[0]?.k || availableMovements[0];
+    const rightKey: 'A'|'S'|'R' = availableArr[1]?.k || availableMovements[1];
+    
     const left = leftKey === 'A' ? question.A : (question as any)[leftKey];
     const right = (question as any)[rightKey];
     
+    console.log('🔧 Phase3Screen - leftKey:', leftKey, 'rightKey:', rightKey, 'left:', left, 'right:', right);
+    
     // Add safety checks to prevent undefined errors
     if (!left || !right) {
+        console.log('❌ Phase3Screen - Missing left or right option:', { left, right, leftKey, rightKey, question });
         return (
             <div className="text-center py-8">
                 <p className="text-white/70">Loading question...</p>
@@ -505,7 +524,7 @@ const Phase3Screen = ({ question, onSelect, qNum, total, taps }: { question: any
     );
 };
 
-const EndScreen = ({ taps, router }: { taps: Tap[], onRestart: () => void, router: any }) => {
+const EndScreen = ({ taps, onRestart, router }: { taps: Tap[], onRestart: () => void, router: any }) => {
     const [state, setState] = useState<
         | { finalWinner: Seed | null, duels?: MatchLog[] }
         | {
@@ -624,34 +643,41 @@ const EndScreen = ({ taps, router }: { taps: Tap[], onRestart: () => void, route
     }
 
     // render current match per mode
-    const mode = state.stage.mode;
+    if (!(state as any).stage) {
+        return (
+            <div className="text-center py-8">
+                <p className="text-white/70">Building bracket...</p>
+            </div>
+        );
+    }
+    const mode = (state as any).stage.mode;
     if (mode === 'final') {
-        const [a, b] = state.stage.match;
+        const [a, b] = (state as any).stage.match;
         return <DuelScreen title={'Final — Close Candidates'} a={a} b={b} onPick={(w)=>pick(w, w.face===a.face?b:a, 'Final')} />;
     }
     if (mode === 'three-semi') {
-        const [a, b] = state.stage.match;
+        const [a, b] = (state as any).stage.match;
         return <DuelScreen title={'Semifinal'} a={a} b={b} onPick={(w)=>pick(w, w.face===a.face?b:a, 'Semifinal')} />;
     }
     if (mode === 'three-final') {
-        const [a, b] = state.stage.match;
+        const [a, b] = (state as any).stage.match;
         return <DuelScreen title={'Final — vs Top Seed'} a={a} b={b} onPick={(w)=>pick(w, w.face===a.face?b:a, 'Final')} />;
     }
     if (mode === 'full-r1') {
-        const idx = (state.stage as any).index as number;
-        const pair = state.bracket.r1![idx];
+        const idx = ((state as any).stage as any).index as number;
+        const pair = (state as any).bracket.r1![idx];
         return <DuelScreen title={`Round 1 — Match ${idx+1}`} a={pair[0]} b={pair[1]} onPick={(w)=>pick(w, w.face===pair[0].face?pair[1]:pair[0], `R1-M${idx+1}`)} />;
     }
     if (mode === 'full-r2-elim') {
-        const [a,b] = state.stage.match;
+        const [a,b] = (state as any).stage.match;
         return <DuelScreen title={'Round 2 — Eliminator'} a={a} b={b} onPick={(w)=>pick(w, w.face===a.face?b:a, 'R2-Eliminator')} />;
     }
     if (mode === 'full-r2-qual') {
-        const [a,b] = state.stage.match;
+        const [a,b] = (state as any).stage.match;
         return <DuelScreen title={'Round 2 — Qualifier'} a={a} b={b} onPick={(w)=>pick(w, w.face===a.face?b:a, 'R2-Qualifier')} />;
     }
     if (mode === 'full-final') {
-        const [a,b] = state.stage.match;
+        const [a,b] = (state as any).stage.match;
         return <DuelScreen title={'Final — Crown Match'} a={a} b={b} onPick={(w)=>pick(w, w.face===a.face?b:a, 'Final')} />;
     }
     return <div />;
@@ -821,4 +847,3 @@ const DuelCard = ({ seed, onPick, isSelected }: { seed: Seed, onPick: () => void
 
 
 // #endregion
-
