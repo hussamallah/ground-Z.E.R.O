@@ -176,18 +176,18 @@ export const ARCHETYPES = {
 
 export const RESULTS_LIB: { [key: string]: { [key: string]: { label: string; sentence: string; }; }; } = {
     "Control": {
-        "A1a": { "label": "Act • Command", "sentence": "You act by giving orders clearly, setting direction for others." },
-        "A1b": { "label": "Act • Self-take", "sentence": "You act by stepping in yourself, carrying the decision forward." },
-        "A2a": { "label": "Act • Sequence", "sentence": "You commit by breaking the task into steps, then enforcing them." },
-        "A2b": { "label": "Act • Signal", "sentence": "You commit by anchoring everything on one rule or marker." },
-        "S1a": { "label": "Scan • Balance", "sentence": "You keep two commands alive, weighing them evenly before choosing." },
-        "S1b": { "label": "Scan • Bias", "sentence": "You lean toward one option but hold a fallback ready." },
-        "S2a": { "label": "Scan • Delay", "sentence": "You stall, waiting for just a bit more context before deciding." },
-        "S2b": { "label": "Scan • Filter", "sentence": "You block noise, trusting only a single signal before moving." },
-        "R1a": { "label": "Reset • Over-push", "sentence": "You over-assert control, pressing harder than needed to force action." },
-        "R1b": { "label": "Reset • Cut-off", "sentence": "You shut down others abruptly to regain command." },
-        "R2a": { "label": "Reset • Drop", "sentence": "You abandon leadership, letting the call slip to others." },
-        "R2b": { "label": "Reset • Void", "sentence": "You withdraw into silence, forcing the group to fill the gap." }
+        "A1a": { "label": "Act • Command", "sentence": "You state the call clearly so everyone moves in the same direction." },
+        "A1b": { "label": "Act • Self-take", "sentence": "You carry the call yourself to make the path visible." },
+        "A2a": { "label": "Act • Sequence", "sentence": "You turn the call into steps so progress is enforceable." },
+        "A2b": { "label": "Act • Signal", "sentence": "You anchor the call to one marker so drift can't hide." },
+        "S1a": { "label": "Scan • Balance", "sentence": "You hold two calls in view and choose the one that survives reality." },
+        "S1b": { "label": "Scan • Bias", "sentence": "You lean toward one call while keeping a workable fallback." },
+        "S2a": { "label": "Scan • Delay", "sentence": "You wait briefly for context so the call lands with judgment." },
+        "S2b": { "label": "Scan • Filter", "sentence": "You trust a single clean signal so the call cuts through noise." },
+        "R1a": { "label": "Reset • Over-push", "sentence": "You press harder to break inertia when command stalls." },
+        "R1b": { "label": "Reset • Cut-off", "sentence": "You shut competing calls down so one voice can steer." },
+        "R2a": { "label": "Reset • Drop", "sentence": "You drop the current call to rebuild one that fits the field." },
+        "R2b": { "label": "Reset • Void", "sentence": "You step into deliberate quiet so the frame can reset." }
     },
     "Pace": {
         "A1a": { "label": "Act • Command", "sentence": "You set the tempo firmly, dictating the speed of movement." },
@@ -272,6 +272,236 @@ export const RESULTS_LIB: { [key: string]: { [key: string]: { label: string; sen
         "R1b": { "label": "Reset • Cut-off", "sentence": "You shut down options suddenly, freezing others too." },
         "R2a": { "label": "Reset • Drop", "sentence": "You collapse under strain, stopping action." },
         "R2b": { "label": "Reset • Void", "sentence": "You dissociate from the pressure, leaving the field mentally." }
+    }
+};
+
+/* ========= Family Intros ========= */
+export const FAMILY_INTROS: { [key: string]: string } = {
+    "Control": "In Control, you decide how calls are made, carried, structured, and reset.",
+    "Pace": "In Pace, you decide how fast to move, how to hold the beat, and when to stop the clock.",
+    "Boundary": "In Boundary, you decide where the line is, how to hold it, and when to redraw it.",
+    "Truth": "In Truth, you decide how facts form, how they close, and how to reboot bad stories.",
+    "Recognition": "In Recognition, you decide how contribution is witnessed, shared, and reset.",
+    "Bonding": "In Bonding, you decide how care is offered, balanced, structured, and reset when strained.",
+    "Stress": "In Stress, you decide how to act under fire, what you watch, and how you reset to recover."
+};
+
+/* ========= Dynamic Headlines ========= */
+export const FAMILY_HEADLINES: { [key: string]: { [key: string]: string } } = {
+    "Control": {
+        "ACT": "You set the call.",
+        "SCAN": "You weigh the call.",
+        "RESET": "You break and reset the call.",
+        "ACT+SCAN": "You test the call, then make it land.",
+        "ACT+RESET": "You drive the call, and know when to rebuild it.",
+        "SCAN+RESET": "You judge the call, and you reset when it fails."
+    },
+    "Pace": {
+        "ACT": "You set the rhythm.",
+        "SCAN": "You test the rhythm.",
+        "RESET": "You stop and restart the rhythm.",
+        "ACT+SCAN": "You try tempos, then land the beat.",
+        "ACT+RESET": "You push the pace, then reset when it breaks.",
+        "SCAN+RESET": "You sense the beat, and reset when it falters."
+    },
+    "Boundary": {
+        "ACT": "You state the line.",
+        "SCAN": "You weigh the line.",
+        "RESET": "You redraw the line.",
+        "ACT+SCAN": "You balance fairness and enforcement.",
+        "ACT+RESET": "You hold the line, then clear it when needed.",
+        "SCAN+RESET": "You weigh the line, and reset it when it fails."
+    },
+    "Truth": {
+        "ACT": "You assert the fact.",
+        "SCAN": "You test the fact.",
+        "RESET": "You reset the story.",
+        "ACT+SCAN": "You test truth, then close it.",
+        "ACT+RESET": "You call truth, then reopen when needed.",
+        "SCAN+RESET": "You weigh truth, then reset when it won't hold."
+    },
+    "Recognition": {
+        "ACT": "You show the proof.",
+        "SCAN": "You weigh the proof.",
+        "RESET": "You reset how proof is shown.",
+        "ACT+SCAN": "You share credit without breaking cohesion.",
+        "ACT+RESET": "You spotlight, then dim when it's wrong-shaped.",
+        "SCAN+RESET": "You balance recognition, then reset it when it distorts."
+    },
+    "Bonding": {
+        "ACT": "You build the bond.",
+        "SCAN": "You weigh the bond.",
+        "RESET": "You reset the bond.",
+        "ACT+SCAN": "You structure care and keep it attuned.",
+        "ACT+RESET": "You show up strong, then pull back when needed.",
+        "SCAN+RESET": "You weigh connection, then reset it when it strains."
+    },
+    "Stress": {
+        "ACT": "You drive under pressure.",
+        "SCAN": "You weigh under pressure.",
+        "RESET": "You reset under pressure.",
+        "ACT+SCAN": "You decide fast with just enough sensing.",
+        "ACT+RESET": "You act hard, then reset when it burns out.",
+        "SCAN+RESET": "You sense under fire, then reset when the frame breaks."
+    }
+};
+
+/* ========= Joiner System ========= */
+export const JOINERS: { [key: string]: { [key: string]: string } } = {
+    "Control": {
+        // Act joiners
+        "A1a+A1b": "You don't just name the call; you model it so others can follow.",
+        "A2a+A2b": "You make the call both trackable and unmistakable.",
+        "A1a+A2a": "Clear direction becomes enforceable steps.",
+        "A1b+A2a": "Personal carry becomes a plan others can execute.",
+        "A1a+A2b": "A clear call stays aligned around a single marker.",
+        "A1b+A2b": "Your first move locks the team onto the same signal.",
+        "A1a+A1b+A2a+A2b": "You set, carry, structure, and signal the call end to end.",
+        
+        // Scan joiners
+        "S1a+S1b": "You compare honestly, then commit with a safety net.",
+        "S2a+S2b": "You pause just enough to cut noise without losing tempo.",
+        "S1a+S2a": "You keep options alive until context makes the choice.",
+        "S1b+S2b": "You lean with intention and protect the call with a clean signal.",
+        "S1a+S1b+S2a+S2b": "You test, time, and tune the call until the right one carries.",
+        
+        // Reset joiners
+        "R1a+R1b": "You remove friction either by force or by silence.",
+        "R2a+R2b": "You clear the field by letting the wrong call die and the frame reset.",
+        "R1a+R2a": "You break the jam, then rebuild the ask that fits.",
+        "R1b+R2b": "You cut the noise, then let quiet re-center the room.",
+        "R1a+R1b+R2a+R2b": "You can restart control by pressure, by pruning, or by a full reset.",
+        
+        // Cross-mode joiners
+        "ACT+SCAN": "You move from testing calls to making one land.",
+        "SCAN+RESET": "You refuse to prop a bad call; you reset the frame when evidence says so.",
+        "ACT+RESET": "You enforce motion and also know when to stop and rebuild."
+    },
+    "Pace": {
+        // Act joiners
+        "A1a+A1b": "You don't just set speed; you pull the pack.",
+        "A2a+A2b": "The plan is visible and the cues are unmistakable.",
+        "A1a+A2a+A2b": "You define, lead, structure, and signal the tempo end to end.",
+        
+        // Scan joiners
+        "S1a+S1b": "You test tempos honestly, then commit with a fallback.",
+        "S2a+S2b": "You wait just enough to keep the beat clean.",
+        "S1a+S1b+S2a+S2b": "You compare, time, and tune until the rhythm holds.",
+        
+        // Reset joiners
+        "R1a+R1b": "You can jolt or brake to save timing.",
+        "R2a+R2b": "You stop the clock so a better beat can form.",
+        "R1a+R1b+R2a+R2b": "You can restart pace by push, stop, rebuild, or full freeze.",
+        
+        // Cross-mode joiners
+        "ACT+SCAN": "You move from tested rhythms to a landed beat.",
+        "SCAN+RESET": "When timing fails, you reset instead of forcing noise.",
+        "ACT+RESET": "You drive speed and also know when to stop the metronome."
+    },
+    "Boundary": {
+        // Act joiners
+        "A1a+A1b": "You hold the line by clarity and personal load.",
+        "A2a+A2b": "Rules and markers make the limit undeniable.",
+        "A1a+A1b+A2a+A2b": "You declare, shoulder, systematize, and signal the boundary.",
+        
+        // Scan joiners
+        "S1a+S1b": "You balance fairness with resolve.",
+        "S2a+S2b": "You buy time yet keep exceptions tight.",
+        "S1a+S1b+S2a+S2b": "You tune the line to the case without letting it blur.",
+        
+        // Reset joiners
+        "R1a+R1b": "You can escalate or cut to stop erosion.",
+        "R2a+R2b": "You clear space to set a better line.",
+        "R1a+R1b+R2a+R2b": "You reset boundaries by force, pruning, drop, or void.",
+        
+        // Cross-mode joiners
+        "ACT+SCAN": "You combine fairness with enforcement.",
+        "SCAN+RESET": "When the context changes, you redraw rather than ossify.",
+        "ACT+RESET": "You defend hard and also know when to wipe and re-line."
+    },
+    "Truth": {
+        // Act joiners
+        "A1a+A1b": "You don't just say the fact; you build it.",
+        "A2a+A2b": "The case is both rigorous and anchored.",
+        "A1a+A1b+A2a+A2b": "You assert, collect, sequence, and ground truth.",
+        
+        // Scan joiners
+        "S1a+S1b": "You explore fairly, then lean with a safety valve.",
+        "S2a+S2b": "You wait just enough and keep only clean signals.",
+        "S1a+S1b+S2a+S2b": "You weigh, guard, time, and filter until the fact survives.",
+        
+        // Reset joiners
+        "R1a+R1b": "You can over-close or over-cut when urgency spikes.",
+        "R2a+R2b": "You clear the story so a better one can start.",
+        "R1a+R1b+R2a+R2b": "You reboot truth by pressure, pruning, pause, or retreat.",
+        
+        // Cross-mode joiners
+        "ACT+SCAN": "You move from hypotheses to defensible closure.",
+        "SCAN+RESET": "If the data won't support it, you reset the claim.",
+        "ACT+RESET": "You close when proof allows and reopen when it doesn't."
+    },
+    "Recognition": {
+        // Act joiners
+        "A1a+A1b": "You make credit visible for all, including yourself.",
+        "A2a+A2b": "You make recognition both specific and unmistakable.",
+        "A1a+A1b+A2a+A2b": "You assign, claim, enumerate, and mark contribution.",
+        
+        // Scan joiners
+        "S1a+S1b": "You balance fairness with practical tilt.",
+        "S2a+S2b": "You wait until it's clear and trust strong testimony.",
+        "S1a+S1b+S2a+S2b": "You distribute, temper, time, and verify recognition.",
+        
+        // Reset joiners
+        "R1a+R1b": "You can distort or erase under pressure.",
+        "R2a+R2b": "You let visibility fall to reset how proof is shown.",
+        "R1a+R1b+R2a+R2b": "You rehab recognition by cutting, pausing, or reappearing clean.",
+        
+        // Cross-mode joiners
+        "ACT+SCAN": "You make credit visible without breaking cohesion.",
+        "SCAN+RESET": "If recognition is wrong, you reset how it's done.",
+        "ACT+RESET": "You can shine a light and also know when to darken the stage."
+    },
+    "Bonding": {
+        // Act joiners
+        "A1a+A1b": "You make care both organized and personal.",
+        "A2a+A2b": "Plans and rituals make trust durable.",
+        "A1a+A1b+A2a+A2b": "You structure, step in, schedule, and signal care.",
+        
+        // Scan joiners
+        "S1a+S1b": "You care for them without burning yourself down.",
+        "S2a+S2b": "You wait with presence and keep noise out.",
+        "S1a+S1b+S2a+S2b": "You balance, reserve, pause, and focus to protect trust.",
+        
+        // Reset joiners
+        "R1a+R1b": "You can over-hold or sever when hurt.",
+        "R2a+R2b": "You clear space when the bond needs a reset.",
+        "R1a+R1b+R2a+R2b": "You reset connection by loosen, cut, drop, or quiet.",
+        
+        // Cross-mode joiners
+        "ACT+SCAN": "You give care that's both structured and attuned.",
+        "SCAN+RESET": "When care is wrong-shaped, you reset instead of forcing it.",
+        "ACT+RESET": "You can show up strongly and still stop when that's healthier."
+    },
+    "Stress": {
+        // Act joiners
+        "A1a+A1b": "You lead and you carry, not one without the other.",
+        "A2a+A2b": "Recovery is both planned and rule-locked.",
+        "A1a+A1b+A2a+A2b": "You command, absorb, sequence, and signal under pressure.",
+        
+        // Scan joiners
+        "S1a+S1b": "You explore exits while keeping a live backup.",
+        "S2a+S2b": "You pause just enough to keep focus clean.",
+        "S1a+S1b+S2a+S2b": "You compare, commit, time, and filter to stay effective.",
+        
+        // Reset joiners
+        "R1a+R1b": "You can overdrive or hard-freeze; both carry risk.",
+        "R2a+R2b": "You clear the board when capacity collapses.",
+        "R1a+R1b+R2a+R2b": "You reset under stress by surge, shut, drop, or void.",
+        
+        // Cross-mode joiners
+        "ACT+SCAN": "You decide fast with just enough sensing.",
+        "SCAN+RESET": "When the frame is broken, you reset rather than flail.",
+        "ACT+RESET": "You can drive action and still know when to stop."
     }
 };
 
@@ -552,3 +782,173 @@ export const MIN_FINALISTS = 2;      // we always want at least a Final
 export const PROB_BACKOFF = 0.03;    // if pool < 2, widen to 3%
 
 export const DUEL_EPS = 0.02;
+
+// Helper functions for quiz logic
+export const familyScoresPure = (fam: string, allTaps: any[]) => {
+    const A = allTaps.reduce((n, t) => n + (t.family === fam && t.mv === 'A' ? 1 : 0), 0);
+    const S = allTaps.reduce((n, t) => n + (t.family === fam && t.mv === 'S' ? 1 : 0), 0);
+    const R = allTaps.reduce((n, t) => n + (t.family === fam && t.mv === 'R' ? 1 : 0), 0);
+    return { A, S, R, T: A + S + R || 1 };
+};
+
+export const detailNudge = (family: string, detail: string) => {
+    const lean = (LEAN as any)[family]?.[detail];
+    if (!lean) return 0;
+    const pair = familyPair(family);
+    return lean === pair.left ? +0.05 : -0.05;
+};
+
+export const band = (prob: number, margin: number, tapCount: number) => {
+    if (prob >= 0.64 && margin >= 0.20 && tapCount >= 4) return "High";
+    if (prob >= 0.55 && margin >= 0.12 && tapCount >= 3) return "Medium";
+    return "Low";
+};
+
+export const resolveFamilyArchetype = (family: string, allTaps: any[]): any => {
+    const familyTaps = allTaps.filter((t: any) => t.family === family);
+    const counts = familyScoresPure(family, allTaps);
+    const total = counts.T;
+    const share = { A: counts.A / total, S: counts.S / total, R: counts.R / total };
+    let raw = 0;
+    for (const mv of ["A", "S", "R"]) {
+        raw += share[mv as keyof typeof share] * ((priorLR as any)[family]?.[mv] || 0);
+    }
+    const nudgeSum = familyTaps.reduce((sum: number, t: any) => sum + detailNudge(family, t.detail), 0);
+    const avgDetailNudge = familyTaps.length ? (nudgeSum / familyTaps.length) : 0;
+    const lrScore = Math.max(-0.24, Math.min(+0.24, raw + avgDetailNudge));
+    const left = Math.exp(+lrScore);
+    const right = Math.exp(-lrScore);
+    const pL = left / (left + right);
+    const pR = right / (left + right);
+    const pair = familyPair(family);
+    const winner = pL >= pR ? pair.left : pair.right;
+    const confidence = band(Math.max(pL, pR), Math.abs(pL - pR), familyTaps.length);
+    return { family, winner, probs: { [pair.left]: pL, [pair.right]: pR }, share, lrScore, avgDetailNudge, confidence, taps: familyTaps };
+};
+
+export const resolveAllFamilies = (allTaps: any[]): any[] => FAMILIES.map(fam => resolveFamilyArchetype(fam, allTaps));
+
+export const pickWinnerMovement = (counts: {A:number;S:number;R:number}, fam: string) => {
+    const max = Math.max(counts.A, counts.S, counts.R);
+    const order = (TIE_ORDER as any)[fam] || ["A","S","R"];
+    return order.find((k: string) => (counts as any)[k] === max);
+};
+
+export const topDetailForMovement = (fam: string, mv: string, taps: any[]) => {
+    const counts: {[k:string]: number} = {};
+    taps.forEach((t: any) => { if (t.family===fam && t.mv===mv && t.detail) counts[t.detail] = (counts[t.detail]||0)+1; });
+    const sorted = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+    const fallback = mv==='A'?'A1a': mv==='S'?'S1a':'R1a';
+    return { detail: (sorted[0]?.[0] || fallback), n: (sorted[0]?.[1] || 0) };
+};
+
+// ========= Atomic + Joiner System =========
+export const calculateJoiners = (family: string, earnedLines: any[]) => {
+    const familyJoiners = (JOINERS as any)[family] || {};
+    const earnedCodes = earnedLines.map(line => line.detail);
+    const joiners: string[] = [];
+    
+    // Helper to check if all codes in a joiner key are present
+    const hasAllCodes = (joinerKey: string) => {
+        const codes = joinerKey.split('+');
+        return codes.every(code => earnedCodes.includes(code));
+    };
+    
+    // Helper to check if any codes from a mode are present
+    const hasMode = (mode: string) => {
+        const modeCodes = earnedCodes.filter(code => code.startsWith(mode[0]));
+        return modeCodes.length > 0;
+    };
+    
+    // Priority order: within-cluster joiners first, then cross-mode
+    const joinerKeys = Object.keys(familyJoiners);
+    
+    // Within-cluster joiners (Act, Scan, Reset)
+    const withinClusterJoiners = joinerKeys.filter(key => 
+        !key.includes('ACT+') && !key.includes('SCAN+') && !key.includes('RESET+')
+    );
+    
+    // Cross-mode joiners
+    const crossModeJoiners = joinerKeys.filter(key => 
+        key.includes('ACT+') || key.includes('SCAN+') || key.includes('RESET+')
+    );
+    
+    // Process within-cluster joiners (prefer longer overlaps first)
+    const sortedWithinCluster = withinClusterJoiners.sort((a, b) => {
+        const aLength = a.split('+').length;
+        const bLength = b.split('+').length;
+        if (aLength !== bLength) return bLength - aLength; // Longer first
+        return a.localeCompare(b); // Alphabetical for same length
+    });
+    
+    let withinClusterCount = 0;
+    for (const key of sortedWithinCluster) {
+        if (hasAllCodes(key) && withinClusterCount < 2) {
+            joiners.push(familyJoiners[key]);
+            withinClusterCount++;
+        }
+    }
+    
+    // Process cross-mode joiners (max 1)
+    if (joiners.length < 3) {
+        const hasAct = hasMode('ACT');
+        const hasScan = hasMode('SCAN');
+        const hasReset = hasMode('RESET');
+        
+        if (hasAct && hasScan && familyJoiners['ACT+SCAN']) {
+            joiners.push(familyJoiners['ACT+SCAN']);
+        } else if (hasScan && hasReset && familyJoiners['SCAN+RESET']) {
+            joiners.push(familyJoiners['SCAN+RESET']);
+        } else if (hasAct && hasReset && familyJoiners['ACT+RESET']) {
+            joiners.push(familyJoiners['ACT+RESET']);
+        }
+    }
+    
+    return joiners.slice(0, 3); // Cap at 3 joiners max
+};
+
+export const calculateHeadline = (family: string, earnedLines: any[]) => {
+    const familyHeadlines = (FAMILY_HEADLINES as any)[family] || {};
+    const earnedCodes = earnedLines.map(line => line.detail);
+    
+    // Check which clusters are present
+    const hasAct = earnedCodes.some(code => code.startsWith('A'));
+    const hasScan = earnedCodes.some(code => code.startsWith('S'));
+    const hasReset = earnedCodes.some(code => code.startsWith('R'));
+    
+    // Determine the cluster combination
+    let clusterCombo = '';
+    if (hasAct && hasScan && hasReset) {
+        // All three - pick the most relevant cross-mode
+        if (familyHeadlines['ACT+SCAN']) clusterCombo = 'ACT+SCAN';
+        else if (familyHeadlines['ACT+RESET']) clusterCombo = 'ACT+RESET';
+        else if (familyHeadlines['SCAN+RESET']) clusterCombo = 'SCAN+RESET';
+    } else if (hasAct && hasScan) {
+        clusterCombo = 'ACT+SCAN';
+    } else if (hasAct && hasReset) {
+        clusterCombo = 'ACT+RESET';
+    } else if (hasScan && hasReset) {
+        clusterCombo = 'SCAN+RESET';
+    } else if (hasAct) {
+        clusterCombo = 'ACT';
+    } else if (hasScan) {
+        clusterCombo = 'SCAN';
+    } else if (hasReset) {
+        clusterCombo = 'RESET';
+    }
+    
+    return familyHeadlines[clusterCombo] || `You work with ${family.toLowerCase()} patterns.`;
+};
+
+export const renderFamilyContent = (family: string, earnedLines: any[]) => {
+    const intro = (FAMILY_INTROS as any)[family] || `In ${family}, you work with movement patterns.`;
+    const headline = calculateHeadline(family, earnedLines);
+    const joiners = calculateJoiners(family, earnedLines);
+    
+    return {
+        intro,
+        headline,
+        atomicLines: earnedLines,
+        joiners
+    };
+};

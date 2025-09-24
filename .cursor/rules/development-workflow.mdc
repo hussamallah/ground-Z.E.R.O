@@ -1,0 +1,77 @@
+---
+alwaysApply: true
+description: Development workflow and testing guidelines
+---
+
+# Development Workflow
+
+## Project Setup
+- **Framework**: Next.js 14 with App Router
+- **Styling**: Tailwind CSS + Custom CSS
+- **Language**: TypeScript
+- **Package Manager**: pnpm
+
+## File Structure
+```
+app/
+├── page.tsx              # Main quiz interface
+├── globals.css           # Global styles and CSS variables
+├── quiz-data.ts          # Quiz logic and data
+├── results/              # Results pages
+│   ├── Architect/
+│   ├── Artisan/
+│   └── ... (14 total)
+└── components/           # Reusable components
+```
+
+## Development Guidelines
+
+### UI Enhancement Focus
+- **Preserve**: All quiz logic, scoring, and content
+- **Enhance**: Visual presentation, animations, interactions
+- **Improve**: User experience, responsive design, accessibility
+
+### Testing Approach
+1. **Functionality**: Ensure quiz still works correctly
+2. **Visual**: Test on multiple screen sizes
+3. **Performance**: Maintain smooth animations
+4. **Accessibility**: Check keyboard navigation and screen readers
+
+### Styling Approach
+- Use existing CSS variables for consistency
+- Enhance with Tailwind utilities
+- Maintain dark theme aesthetic
+- Focus on smooth transitions and micro-interactions
+
+## Key Enhancement Areas
+
+### 1. Quiz Interface
+- Better choice button designs
+- Improved progress indicators
+- Enhanced phase transitions
+- Smoother tournament bracket
+
+### 2. Results Display
+- More engaging archetype showcase
+- Better movement pattern visualization
+- Improved typography hierarchy
+- Enhanced pattern insights layout
+
+### 3. Interactive Elements
+- Better hover states and feedback
+- Smoother animations
+- Improved loading states
+- Enhanced touch interactions
+
+### 4. Responsive Design
+- Mobile-optimized layouts
+- Touch-friendly interactions
+- Consistent spacing across devices
+- Improved readability on small screens
+
+## Implementation Notes
+- Start with high-impact visual improvements
+- Test changes incrementally
+- Maintain existing functionality
+- Focus on user experience enhancements
+- Use consistent design patterns

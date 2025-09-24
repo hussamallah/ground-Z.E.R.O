@@ -1,0 +1,71 @@
+---
+globs: app/results/**/*.tsx
+description: Results page enhancement guidelines
+---
+
+# Results Page Enhancement Guide
+
+## Current Results Structure
+
+### Results Pages
+- 14 individual pages: [app/results/Architect/page.tsx](mdc:app/results/Architect/page.tsx), [app/results/Artisan/page.tsx](mdc:app/results/Artisan/page.tsx), etc.
+- Each page validates archetype match and displays results
+- Shared ResultsScreen component for consistent presentation
+
+### Results Display Sections
+
+#### 1. Movement Ledger
+- Shows movement code string (e.g., "A S R A S R A")
+- Lists each family with detected movement patterns
+- Groups by Act/Scan/Reset with specific details
+- Includes "Pattern Insights" (joiners) for each family
+
+#### 2. Action Buttons
+- Download Session JSON
+- Restart button
+
+#### 3. Final Archetype Face
+- Winning archetype name and definition
+- Strengths, blindspots, movement signature, tells
+- Fairness algorithm details
+
+## Enhancement Opportunities
+
+### Visual Improvements
+- **Movement Cards**: Better visual hierarchy for family sections
+- **Pattern Display**: More engaging movement pattern visualization
+- **Archetype Showcase**: Enhanced final archetype presentation
+- **Progress Flow**: Smoother transitions between sections
+
+### Interactive Elements
+- **Hover Effects**: Better button and card interactions
+- **Animations**: Staggered reveal animations for results
+- **Micro-interactions**: Subtle feedback for user actions
+
+### Layout Enhancements
+- **Typography**: Improved hierarchy and readability
+- **Spacing**: Better use of whitespace and grouping
+- **Color Coding**: Enhanced use of movement colors
+- **Responsive Design**: Better mobile experience
+
+## Data Preservation
+- **DO NOT** modify quiz logic or scoring
+- **DO NOT** change archetype definitions
+- **DO NOT** alter movement descriptions
+- **DO** focus on visual presentation only
+
+## Implementation Focus
+- Enhance card designs with better shadows and borders
+- Improve movement pattern visualization
+- Better archetype showcase layout
+- Enhanced pattern insights display
+- Smoother animations and transitions
+- Better responsive behavior
+
+## Key Components to Enhance
+- Family result cards
+- Movement pattern displays
+- Archetype definition sections
+- Pattern insights (joiners)
+- Action buttons
+- Overall page layout and flow

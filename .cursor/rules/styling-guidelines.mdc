@@ -1,0 +1,86 @@
+---
+globs: app/globals.css,app/**/*.tsx
+description: Styling and design system guidelines
+---
+
+# Styling Guidelines
+
+## Design System
+
+### Color Palette
+```css
+--bg: #0b0f1a        /* Main background */
+--card: #111217      /* Card backgrounds */
+--text: #f7f3ea      /* Primary text */
+--sub: #aeb7c7       /* Secondary text */
+--gold: #d4af37      /* Act movements */
+--cobalt: #2b7cff    /* Scan movements */
+--plum: #7C3AED      /* Reset movements */
+```
+
+### Typography
+- **Font**: Inter, ui-sans-serif, system-ui
+- **Primary Text**: #f7f3ea (--text)
+- **Secondary Text**: #aeb7c7 (--sub)
+- **Accent Text**: Use movement colors for highlights
+
+### Spacing & Layout
+- **Container**: max-width: 1100px, centered
+- **Card Padding**: 32px
+- **Card Margins**: 24px vertical
+- **Border Radius**: 24px for cards
+- **Gap**: Use consistent spacing patterns
+
+### Animations
+- **Duration**: 180ms (--dur)
+- **Easing**: cubic-bezier(.2,.8,.2,1) (--ease)
+- **Transitions**: Smooth, subtle, purposeful
+
+## Component Styling
+
+### Cards
+```css
+.card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 24px;
+  box-shadow: 0 12px 36px rgba(0,0,0,0.35);
+}
+```
+
+### Buttons
+- Primary: Gold accent with hover effects
+- Secondary: Subtle borders with hover states
+- Interactive: Clear visual feedback on interaction
+
+### Movement Indicators
+- **Act**: Gold (#d4af37)
+- **Scan**: Cobalt (#2b7cff)  
+- **Reset**: Plum (#7C3AED)
+
+## Enhancement Opportunities
+
+### Visual Polish
+- Add subtle gradients to cards
+- Improve button hover states
+- Enhance shadow depth
+- Add micro-animations
+
+### Interactive Elements
+- Better choice button designs
+- Improved progress indicators
+- Enhanced loading states
+- Smoother phase transitions
+
+### Results Display
+- More engaging archetype showcase
+- Better movement pattern visualization
+- Improved typography hierarchy
+- Enhanced pattern insights layout
+
+## Implementation Notes
+- Use Tailwind for rapid styling
+- Leverage existing CSS variables
+- Maintain dark theme consistency
+- Ensure accessibility compliance
+- Test on multiple screen sizes

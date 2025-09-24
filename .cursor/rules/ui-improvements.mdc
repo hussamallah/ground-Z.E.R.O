@@ -1,0 +1,58 @@
+---
+alwaysApply: true
+description: UI improvement guidelines for the Ground Zero Quiz App
+---
+
+# UI Improvement Guidelines
+
+## Current State
+The app has a functional skeleton with correct content and behavior. Focus on enhancing the visual presentation and user experience without changing the underlying logic or content.
+
+## Key Files
+- Main quiz interface: [app/page.tsx](mdc:app/page.tsx)
+- Results pages: [app/results/](mdc:app/results/)
+- Global styles: [app/globals.css](mdc:app/globals.css)
+- Quiz data: [app/quiz-data.ts](mdc:app/quiz-data.ts)
+
+## UI Enhancement Priorities
+
+### 1. Visual Polish
+- Improve card designs with better shadows, gradients, and borders
+- Enhance button hover states and transitions
+- Add micro-animations for better feedback
+- Improve typography hierarchy and spacing
+
+### 2. Interactive Elements
+- Better choice button designs with clear visual feedback
+- Improved progress indicators
+- Enhanced loading states
+- Smoother transitions between quiz phases
+
+### 3. Results Display
+- More engaging results presentation
+- Better visual hierarchy for movement patterns
+- Improved archetype showcase
+- Enhanced pattern insights display
+
+### 4. Responsive Design
+- Ensure all components work well on mobile
+- Optimize touch interactions
+- Improve spacing for different screen sizes
+
+## Design System
+- **Colors**: Use existing CSS variables (--gold, --cobalt, --plum, etc.)
+- **Typography**: Maintain Inter font family
+- **Spacing**: Use consistent padding/margin patterns
+- **Animations**: Keep smooth transitions with --dur and --ease variables
+
+## Content Preservation
+- **DO NOT** change quiz logic, scoring, or data processing
+- **DO NOT** modify archetype definitions or movement descriptions
+- **DO NOT** alter the results calculation algorithms
+- **DO** focus purely on visual presentation and user experience
+
+## Implementation Notes
+- Use Tailwind CSS classes for rapid styling
+- Leverage existing CSS custom properties
+- Maintain accessibility standards
+- Test on multiple screen sizes

@@ -1,0 +1,115 @@
+---
+globs: app/**/*.tsx
+description: Component patterns and best practices
+---
+
+# Component Patterns & Best Practices
+
+## Component Structure
+
+### Quiz Components
+- **QuizScreen**: Main container with phase management
+- **Phase Screens**: Individual phase implementations
+- **BracketScreen**: Tournament visualization
+- **ResultsScreen**: Results presentation
+
+### Results Components
+- **ResultsScreen**: Shared component across all result pages
+- **Family Cards**: Individual family result displays
+- **Movement Patterns**: Act/Scan/Reset visualization
+- **Archetype Showcase**: Final archetype presentation
+
+## Styling Patterns
+
+### Card Components
+```tsx
+<div className='card fade-in'>
+  <div className='section-title'>Section Title</div>
+  <h2 className='title'>Main Heading</h2>
+  {/* Content */}
+</div>
+```
+
+### Button Components
+```tsx
+<button className='btn primary'>Primary Action</button>
+<button className='btn'>Secondary Action</button>
+```
+
+### Movement Indicators
+```tsx
+<span className='code'>{movementCode}</span>
+<div className='muted'>{description}</div>
+```
+
+## Animation Patterns
+
+### Fade-in Animations
+```tsx
+<div className='fade-in' style={{ animationDelay: '0.1s' }}>
+  {/* Content */}
+</div>
+```
+
+### Staggered Animations
+```tsx
+{items.map((item, index) => (
+  <div key={item.id} style={{ animationDelay: `${index * 0.1}s` }}>
+    {/* Content */}
+  </div>
+))}
+```
+
+## Enhancement Patterns
+
+### Interactive Elements
+- Add hover states to buttons and cards
+- Implement smooth transitions
+- Use movement colors for accents
+- Add subtle shadows and depth
+
+### Visual Hierarchy
+- Use consistent typography scales
+- Implement proper spacing patterns
+- Apply color coding for movement types
+- Create clear content grouping
+
+### Responsive Design
+- Use Tailwind responsive classes
+- Ensure touch-friendly interactions
+- Optimize for mobile layouts
+- Test across screen sizes
+
+## Data Flow Patterns
+
+### State Management
+- Use useState for local state
+- Use useMemo for expensive calculations
+- Use useEffect for side effects
+- Preserve existing data structures
+
+### Props Patterns
+- Pass data down through props
+- Use TypeScript interfaces
+- Maintain existing prop structures
+- Add new props only for UI enhancements
+
+## Implementation Guidelines
+
+### Content Preservation
+- Never modify quiz logic
+- Never change archetype data
+- Never alter scoring algorithms
+- Focus only on visual presentation
+
+### Performance
+- Use React.memo for expensive components
+- Implement proper key props
+- Avoid unnecessary re-renders
+- Maintain existing performance characteristics
+
+### Accessibility
+- Maintain semantic HTML
+- Preserve keyboard navigation
+- Keep color contrast ratios
+- Ensure screen reader compatibility

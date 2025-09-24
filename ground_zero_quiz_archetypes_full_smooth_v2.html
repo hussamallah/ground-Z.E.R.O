@@ -1,0 +1,1860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ground Zero — Quiz + Archetypes</title>
+<style>
+  :root{
+    --bg:#0b0f1a;
+    --card:#111217;
+    --text:#f7f3ea;
+    --sub:#aeb7c7;
+    --gold:#d4af37;   /* Act */
+    --cobalt:#2b7cff; /* Scan */
+    --plum:#7C3AED;   /* Reset */
+    --win:#1c3f1c;
+    --lose:#2a1b1b;
+    --accent:#ff6b6b;
+    --success:#51cf66;
+    --warning:#ffd43b;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  html,body{
+    margin:0;
+    height:100%;
+    background: radial-gradient(1200px 600px at 50% -10%, rgba(255,255,255,.06), transparent 60%), #0b0f1a;
+    color: #f7f3ea;
+    font-family: Inter, ui-sans-serif, system-ui, Segoe UI, Roboto, Arial;
+    overflow-x: hidden;
+  }
+  
+  .wrap{
+    max-width:1024px;
+    margin:0 auto;
+    padding:28px;
+    position: relative;
+  }
+  
+  .card{
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 24px;
+    box-shadow: 0 12px 36px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.08);
+    padding: 32px;
+    margin: 24px 0;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s ease;
+  }
+  
+  .card:hover {
+    background: rgba(255,255,255,0.07);
+    border-color: rgba(255,255,255,0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.12);
+  }
+  
+  .title{
+    font-size:32px;
+    margin:0 0 12px;
+    font-weight:700;
+    color: #f7f3ea;
+  }
+  
+  .sub{
+    color: #aeb7c7;
+    font-size:16px;
+    margin-top:8px;
+    line-height: 1.5;
+  }
+  
+  .btn{
+    display:inline-block;
+    border-radius: 50px;
+    padding: 16px 32px;
+    border: 2px solid transparent;
+    background: linear-gradient(135deg, #d4af37, #e3c566);
+    color: #1a1208;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 900;
+    font-size: 16px;
+    text-align: center;
+    min-width: 200px;
+    box-shadow: 0 4px 12px rgba(212,175,55,0.3);
+  }
+  
+  .btn:hover{
+    background: linear-gradient(135deg, #e3c566, #f0d675);
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(212,175,55,0.4);
+  }
+  
+  .btn.primary{
+    background: linear-gradient(135deg, #d4af37, #e3c566);
+    color: #1a1208;
+    box-shadow: 0 4px 12px rgba(212,175,55,0.3);
+  }
+  
+  .btn.primary:hover {
+    background: linear-gradient(135deg, #e3c566, #f0d675);
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(212,175,55,0.4);
+  }
+  
+  .grid{
+    display:grid;
+    gap:16px;
+  }
+  
+  .grid.cols2{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  
+  .option{
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.04);
+    border-radius: 24px;
+    padding: 20px 24px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+    min-height: 88px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+  }
+  
+  .option:hover{
+    background: rgba(255,255,255,0.07);
+    border-color: rgba(255,255,255,0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(212,175,55,0.25), inset 0 1px 0 rgba(255,255,255,0.12);
+  }
+  
+  .option small{
+    display:inline-block;
+    margin-top:8px;
+    padding:4px 12px;
+    border-radius:12px;
+    background: rgba(255,255,255,0.1);
+    color: #aeb7c7;
+    border: 1px solid rgba(255,255,255,0.2);
+    font-size: 11px;
+    font-weight: 500;
+  }
+  
+  .pill{
+    display:inline-block;
+    border-radius:999px;
+    padding: 4px 8px;
+    font-size: 11px;
+    margin-left: 8px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: 1px solid;
+  }
+  
+  .pill.act{
+    background: rgba(212,175,55,0.2);
+    color: #d4af37;
+    border-color: rgba(212,175,55,0.3);
+  }
+  
+  .pill.scan{
+    background: rgba(43,124,255,0.2);
+    color: #2b7cff;
+    border-color: rgba(43,124,255,0.3);
+  }
+  
+  .pill.reset{
+    background: rgba(124,58,237,0.2);
+    color: #7C3AED;
+    border-color: rgba(124,58,237,0.3);
+  }
+  
+  .progress{
+    height: 6px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.1);
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .bar{
+    height: 100%;
+    width: 0;
+    background: rgba(255,255,255,0.8);
+    transition: width 0.3s ease;
+    position: relative;
+    border-radius: inherit;
+  }
+  
+  .section-title{
+    font-size:20px;
+    margin:8px 0 16px;
+    color: #f7f3ea;
+    font-weight: 600;
+  }
+  
+  .footer{
+    display:flex;
+    gap:16px;
+    justify-content:flex-end;
+    margin-top:20px;
+  }
+  
+  .kbd{
+    font-family:ui-monospace,SFMono-Regular,Consolas,Menlo,monospace;
+    font-size:12px;
+    color: rgba(255,255,255,0.7);
+    background: rgba(255,255,255,0.1);
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  
+  .hr{
+    height:1px;
+    background: rgba(255,255,255,0.1);
+    margin:20px 0;
+    border:0;
+  }
+  
+  .stack{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  
+  .badge{
+    padding:6px 12px;
+    border-radius:12px;
+    background: rgba(255,255,255,0.1);
+    border:1px solid rgba(255,255,255,0.2);
+    color: #aeb7c7;
+    font-size:11px;
+    font-weight: 500;
+  }
+  
+  .result-family{
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:18px;
+    padding:20px;
+    margin:12px 0;
+    background: rgba(255,255,255,0.04);
+    transition: all 0.2s ease;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+  }
+  
+  .result-family:hover {
+    transform: translateY(-1px);
+    background: rgba(255,255,255,0.07);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.12);
+  }
+  
+  .code{
+    font-family:ui-monospace,SFMono-Regular,Consolas,Menlo,monospace;
+    background: rgba(255,255,255,0.1);
+    border:1px solid rgba(255,255,255,0.2);
+    border-radius:12px;
+    padding:10px 14px;
+    display:inline-block;
+    font-size: 14px;
+  }
+  
+  .muted{
+    color: #aeb7c7;
+  }
+  
+  .legend{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  
+  .legend .legend-item{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 12px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.1);
+    transition: all 0.2s ease;
+  }
+  
+  .legend .legend-item:hover {
+    background: rgba(255,255,255,0.15);
+    transform: translateY(-1px);
+  }
+  
+  .legend .dot{
+    width:12px;
+    height:12px;
+    border-radius:999px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
+  
+  .dot.act{background:var(--gold)}
+  .dot.scan{background:var(--cobalt)}
+  .dot.reset{background:var(--plum)}
+  
+  .line{
+    margin-top:12px;
+    padding:16px;
+    border-radius:16px;
+    border:1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.04);
+    opacity:1;
+    transition: all 0.2s ease;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+  }
+  
+  .line.primary{
+    border-color: rgba(212,175,55,0.3);
+    background: rgba(212,175,55,0.1);
+    box-shadow: 0 4px 15px rgba(212,175,55,0.2), inset 0 1px 0 rgba(212,175,55,0.2);
+  }
+  
+  .line.undetected{
+    opacity:.55; 
+    filter: grayscale(30%);
+  }
+  
+  .arch-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+    margin-top:12px;
+  }
+  
+  .arch{
+    padding:16px;
+    border-radius:16px;
+    border:1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.04);
+    transition: all 0.2s ease;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+  }
+  
+  .arch.win{
+    border-color: rgba(212,175,55,0.3);
+    background: rgba(212,175,55,0.1);
+    box-shadow: 0 4px 15px rgba(212,175,55,0.2), inset 0 1px 0 rgba(212,175,55,0.2);
+  }
+  
+  .arch.lose{
+    opacity:.8;
+  }
+  
+  .arch .name{
+    font-weight:600;
+    font-size: 16px;
+  }
+  
+  .tag{
+    display:inline-block;
+    padding:4px 10px;
+    border:1px solid rgba(255,255,255,0.2);
+    border-radius:999px;
+    font-size:11px;
+    margin-left:8px;
+    color: #aeb7c7;
+    font-weight: 500;
+    background: rgba(255,255,255,0.1);
+  }
+  
+  .duel-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+    margin:20px 0;
+  }
+  
+  .duel-card{
+    padding:24px;
+    border-radius: 24px;
+    background: rgba(255,255,255,0.035);
+    border: 1px solid rgba(255,255,255,0.12);
+    text-align:left;
+    cursor:pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 12px 36px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.08);
+  }
+  
+  .duel-card:hover{
+    transform: translateY(-2px);
+    border-color: rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.07);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.12);
+  }
+  
+  .duel-name{
+    font-weight:700;
+    font-size:1.3rem;
+    margin-bottom:8px;
+    color: #f7f3ea;
+  }
+  
+  .duel-desc{
+    opacity:0.8;
+    color: #aeb7c7;
+    font-size:15px;
+    line-height: 1.5;
+  }
+  
+  /* Duel card images */
+  .duel-figure {
+    aspect-ratio: 4 / 5;
+    border-radius: 16px;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    background: radial-gradient(120% 100% at 50% 0%, #1a1f2e 0%, #0e121c 65%);
+    border: 1px solid #2c3140;
+    transition: border-color .18s ease, transform .18s ease, background .18s ease;
+    margin-bottom: 12px;
+  }
+  
+  .duel-card:hover .duel-figure { 
+    border-color: #3a4152; 
+    transform: translateY(-1px); 
+  }
+  
+  .duel-figure img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    image-rendering: auto;
+    filter: drop-shadow(0 12px 24px rgba(0,0,0,.45));
+  }
+  
+  .duel-name { 
+    font-weight: 700; 
+    font-size: 1.05rem; 
+    margin-top: 10px; 
+  }
+  
+  .duel-desc { 
+    color: #A8ACB8; 
+    font-size: 0.9rem; 
+    margin-top: 4px; 
+  }
+  
+  .duel-card.picked { 
+    outline: 2px solid #D4AF37; 
+    outline-offset: 3px; 
+  }
+  
+  @keyframes fly {
+    0%, 100% { transform: translateX(0) translateY(0) rotate(0deg); }
+    25% { transform: translateX(10px) translateY(-5px) rotate(5deg); }
+    50% { transform: translateX(-5px) translateY(-10px) rotate(-3deg); }
+    75% { transform: translateX(5px) translateY(-3px) rotate(2deg); }
+  }
+  
+  /* Smooth transitions */
+  .fade-in {
+    animation: fadeIn 0.18s ease-out;
+  }
+  
+  .slide-in-left {
+    animation: slideInLeft 0.22s ease-out;
+  }
+  
+  .slide-in-right {
+    animation: slideInRight 0.22s ease-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-30px) translateY(20px); }
+    to { opacity: 1; transform: translateX(0) translateY(0); }
+  }
+  
+  @keyframes slideInRight {
+    from { opacity: 0; transform: translateX(30px) translateY(20px); }
+    to { opacity: 1; transform: translateX(0) translateY(0); }
+  }
+  
+  
+  /* Pulsing effect for important elements */
+  .pulse {
+    animation: pulse 2s infinite;
+  }
+  
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+  }
+  
+  /* Glow effects */
+  .glow-gold {
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+  }
+  
+  .glow-cobalt {
+    box-shadow: 0 0 20px rgba(43, 124, 255, 0.3);
+  }
+  
+  .glow-plum {
+    box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
+  }
+</style>
+
+<!-- Smooth UI Kit v1 (non-destructive overrides) -->
+<style>
+  :root{
+    --dur: 180ms;
+    --ease: cubic-bezier(.2,.8,.2,1);
+  }
+  * { -webkit-tap-highlight-color: transparent; }
+  .wrap{ max-width: 1100px; padding: 28px 20px; }
+  .card{
+    transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease), background var(--dur) var(--ease), box-shadow var(--dur) var(--ease), opacity var(--dur) var(--ease);
+    will-change: transform, opacity;
+  }
+  .option, .duel-card, .btn{
+    transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease), background var(--dur) var(--ease), box-shadow var(--dur) var(--ease), opacity var(--dur) var(--ease);
+    will-change: transform, opacity;
+    touch-action: manipulation;
+  }
+  .option:active, .duel-card:active, .btn:active { transform: translateY(0) scale(.99); }
+  .option{min-height: 92px}
+  .grid{ gap: 14px }
+  .btn{ border-radius: 14px; padding: 12px 16px; font-weight: 700 }
+  .btn.primary{ filter: saturate(.98) }
+  .btn.primary:hover{ filter: saturate(1) brightness(1.06) }
+  .progress{ height: 8px; position: relative; overflow: hidden }
+  .bar{
+    /* transform-based fill for GPU perf; width kept as fallback */
+    --pct: 0;
+    transform-origin: left center;
+    transform: scaleX(var(--pct));
+    will-change: transform;
+    transition: transform var(--dur) var(--ease);
+  }
+  /* Focus visibility */
+  .option:focus-visible, .btn:focus-visible, .duel-card:focus-visible{
+    outline: 2px solid #3B82F6; outline-offset: 3px;
+  }
+  /* Reduce animation for users who prefer less motion */
+  @media (prefers-reduced-motion: reduce){
+    .option, .duel-card, .btn, .card{ transition: none !important }
+    .slide-in-left, .slide-in-right, .fade-in{ animation: none !important }
+    .bird{ animation: none !important }
+  }
+  /* Mobile breathing room */
+  @media (max-width: 420px){
+    .wrap{ padding: 20px 14px }
+  }
+</style>
+
+</head>
+<body>
+
+<script>
+// Smooth UI Kit v1 helpers
+(function(){
+  // Single-tap lock to prevent double submissions during transitions
+  window.__gz_lock = false;
+  window.__gz_lock_for = function(ms){ window.__gz_lock = true; setTimeout(()=>{window.__gz_lock = false; }, ms||260); };
+
+  // Bind click + keyboard with lock guard
+  window.bindChoice = function(el, handler){
+    el.onclick = () => { if (window.__gz_lock) return; handler(); window.__gz_lock_for(260); };
+    el.onkeydown = (e) => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); if (window.__gz_lock) return; handler(); window.__gz_lock_for(260); }
+    };
+    el.setAttribute("role","button");
+    el.tabIndex = 0;
+  };
+
+  // Progress bar: prefer transform scaleX via CSS var, keep width as fallback
+  window.__gz_setProgress = function(pct){
+    var bar = document.getElementById('progressBar');
+    if (!bar) return;
+    bar.style.setProperty('--pct', Math.max(0, Math.min(1, pct/100)));
+    bar.style.width = pct + '%'; // fallback
+  };
+})();
+</script>
+
+
+<div class="wrap">
+  <div class="card">
+    <h1 class="title" style="font-size: 4rem; font-weight: bold; color: #d4af37; margin-bottom: 1rem; line-height: 1.1;">Ground Zero</h1>
+    <div class="sub" style="font-size: 1.25rem; color: #aeb7c7; margin-bottom: 2rem; line-height: 1.5;">Movement Quiz + Archetype Resolver</div>
+    <div class="legend" style="margin-top:10px">
+      <div class="legend-item"><span class="dot act"></span><span>Act</span></div>
+      <div class="legend-item"><span class="dot scan"></span><span>Scan</span></div>
+      <div class="legend-item"><span class="dot reset"></span><span>Reset</span></div>
+    </div>
+    <div class="hr"></div>
+    <div class="progress"><div class="bar" id="progressBar"></div></div>
+    <div id="stage"></div>
+  </div>
+</div>
+
+<script>
+/* ========= Face Art Mapping ========= */
+const FaceArt = {
+  "Sovereign": "apps/web/public/soverign.png",
+  "Rebel": "apps/web/public/rebel.png",
+  "Visionary": "apps/web/public/Visionary.png",
+  "Navigator": "apps/web/public/navigator.png",
+  "Equalizer": "apps/web/public/Equalizer.png",
+  "Guardian": "apps/web/public/Guardian.png",
+  "Seeker": "apps/web/public/seeker.png",
+  "Architect": "apps/web/public/Architect.png",
+  "Spotlight": "apps/web/public/spotlight.png",
+  "Diplomat": "apps/web/public/Diplomat.png",
+  "Partner": "apps/web/public/partner.png",
+  "Provider": "apps/web/public/provider.png",
+  "Catalyst": "apps/web/public/Catalyst.png",
+  "Artisan": "apps/web/public/artisan.png"
+};
+
+const FaceCopy = {
+  "Sovereign": "I rise in direct ascent, wings locked, owning the sky. Nothing above me but the sun itself.",
+  "Rebel": "I twist through air in erratic bursts, sharp turns breaking every pattern mid-flight. Order means nothing to me.",
+  "Visionary": "I carve long arcs forward, eyes set on horizons no one else has seen yet. My body lives in tomorrow's wind.",
+  "Navigator": "I glide across endless distances, adjusting course through every crosswind. Storm or calm, I find the way.",
+  "Equalizer": "I hold altitude in balance, wings stretched level, symmetry unbroken. Night or day, the measure is steady.",
+  "Guardian": "I circle wide, watching, shielding the formation. Approach with peace and I stay graceful; threaten and I rise fierce.",
+  "Seeker": "I dive with piercing precision, cutting through veils and illusions. What lies beneath is mine to uncover.",
+  "Architect": "I climb in measured steps, every angle chosen, every strand reinforced. My flight builds as much as it moves.",
+  "Spotlight": "I spiral upward, radiant, all eyes pulled to my shimmer. Flight is my stage, the sky my mirror.",
+  "Diplomat": "I weave gently through the currents, smoothing turbulence, easing the path of those beside me.",
+  "Partner": "I fly in water if not in sky, always wing-to-wing, never breaking from the one I've chosen.",
+  "Provider": "I lift with strength enough for others, carrying their weight in my draft. My currents are never just for me.",
+  "Catalyst": "I explode off the air in impossible speed, scattering stillness, igniting motion where none existed.",
+  "Artisan": "I stroke the air in slow, deliberate movements, each motion refined, each landing an act of grace."
+};
+
+/* ========= Canon ========= */
+const FAMILIES = ["Control","Pace","Boundary","Truth","Recognition","Bonding","Stress"];
+
+const ARCHETYPES = {
+  Control: {
+    L: {
+      name: "Sovereign",
+      definition: "Decisive enforcement. Sets direction, expects alignment.",
+      signature: "High A, medium S, low R.",
+      tells: ["A1a (Command)", "A2a (Sequence)", "S2b (Filter)"],
+      strengths: "clarity, speed of decision, predictable enforcement.",
+      blindspots: "brittle to dissent, can ignore nuance."
+    },
+    R: {
+      name: "Rebel",
+      definition: "Withholds or overturns imposed control; resets the frame.",
+      signature: "Elevated R or low A; S variable.",
+      tells: ["R1a (Over-push)", "R2b (Void/withdraw)", "S1b (Bias fallback)"],
+      strengths: "breaks bad orders, prevents ossification.",
+      blindspots: "destabilizes groups; appears obstructive."
+    },
+    sentences:{L:"Sets direction directly, enforces the move, expects alignment.", R:"Disrupts imposed control or withdraws to reset the field."}},
+  Pace: {
+    L: {
+      name: "Visionary",
+      definition: "Tests tempos and options; prefers exploration before commitment.",
+      signature: "High S, moderate A.",
+      tells: ["S1a (Balance)", "S1b (Bias)", "S2a (Delay)"],
+      strengths: "finds novel rhythms, prevents premature lock-in.",
+      blindspots: "indecision; misses deadlines."
+    },
+    R: {
+      name: "Navigator",
+      definition: "Designs and lands schedules; sequences and enforces tempo.",
+      signature: "High A, moderate S.",
+      tells: ["A2a (Sequence)", "A2b (Signal)", "A1a (Command)"],
+      strengths: "delivers timetables, predictable execution.",
+      blindspots: "rigidity, under-weights exploration."
+    },
+    sentences:{L:"Explores tempo and options, tests rhythms before locking one.", R:"Plans tempo step by step and lands deadlines with clear markers."}},
+  Boundary: {
+    L: {
+      name: "Equalizer",
+      definition: "Fairness-first boundary worker; calibrates rules to context.",
+      signature: "S-dominant with measured A.",
+      tells: ["S1a (Balance)", "S2a (Delay)", "S1b (Bias fallback)"],
+      strengths: "fairness, context-sensitive limits.",
+      blindspots: "slow enforcement; may appear indecisive."
+    },
+    R: {
+      name: "Guardian",
+      definition: "Clear guardrails and firm enforcement; limits are explicit.",
+      signature: "A-dominant with supporting S for enforcement checks.",
+      tells: ["A1a (Command)", "S2b (Filter)", "A2b (Signal)"],
+      strengths: "reliability, prevents boundary erosion.",
+      blindspots: "overbearing, escalates conflict."
+    },
+    sentences:{L:"Balances claims and context to draw a fair line.", R:"States non-negotiables and defends them without drift."}},
+  Truth: {
+    L: {
+      name: "Seeker",
+      definition: "Holds multiple hypotheses, waits for evidence; methodical tester.",
+      signature: "S-heavy, low-to-medium A.",
+      tells: ["S1a (Balance)", "S2a (Delay)", "S1b (Bias)"],
+      strengths: "robust conclusions, fewer false positives.",
+      blindspots: "slow closure when needed."
+    },
+    R: {
+      name: "Architect",
+      definition: "Builds evidence stacks and rules; closes on proof via sequence.",
+      signature: "A-dominant, uses S minimally as filter.",
+      tells: ["A2a (Sequence)", "A2b (Signal)", "S2b (Filter)"],
+      strengths: "convincing cases, defensible decisions.",
+      blindspots: "can over-index on a single source."
+    },
+    sentences:{L:"Runs alternatives and waits for decisive evidence.", R:"Builds a proof path from sources and sequences to closure."}},
+  Recognition: {
+    L: {
+      name: "Diplomat",
+      definition: "Balances recognition across people; preserves cohesion.",
+      signature: "S-leaning with balancing tells.",
+      tells: ["S1a (Balance)", "S1b (Bias fallback)", "S2a (Delay)"],
+      strengths: "preserves relationships, fair attribution.",
+      blindspots: "under-claims individual effort."
+    },
+    R: {
+      name: "Spotlight",
+      definition: "Makes contribution visible; claims and clarifies credit.",
+      signature: "A-favouring, uses sequence/signal for visibility.",
+      tells: ["A1b (Self-take)", "A2a/A2b (Sequence/Signal)"],
+      strengths: "raises morale, prevents disappearing credit.",
+      blindspots: "can hog credit, appear self-promoting."
+    },
+    sentences:{L:"Distributes credit proportionally and preserves cohesion.", R:"Makes contribution visible and specific, including self when needed."}},
+  Bonding: {
+    L: {
+      name: "Partner",
+      definition: "Co-regulates; holds space, offers options, mutual support.",
+      signature: "S-dominant with warm A when stepping in.",
+      tells: ["S1a (Balance)", "A1b (Self-take supportive)", "S2a (Delay/space)"],
+      strengths: "emotional attunement, durable connections.",
+      blindspots: "may avoid decisive action when needed."
+    },
+    R: {
+      name: "Provider",
+      definition: "Delivers concrete support plans and visible care.",
+      signature: "A-leaning, sequence-driven support moves.",
+      tells: ["A2a (Sequence)", "A1b (Self-take)", "A2b (Signal rituals)"],
+      strengths: "dependable assistance, reduces friction.",
+      blindspots: "smothering; ignores autonomy."
+    },
+    sentences:{L:"Co-regulates, offers choices, keeps space open.", R:"Delivers concrete support plans and visible care."}},
+  Stress: {
+    L: {
+      name: "Artisan",
+      definition: "Methodical under pressure; isolates the critical cue and fixes it.",
+      signature: "S/A mixed but precise—filters signals to exact responses.",
+      tells: ["S2b (Filter)", "S1a (Balance)", "A2a (Sequence fixes)"],
+      strengths: "low-error fixes, calm precision.",
+      blindspots: "slow under runaway crises; can over-optimize."
+    },
+    R: {
+      name: "Catalyst",
+      definition: "Drives motion under pressure; initiates recovery and pushes action.",
+      signature: "High A, rapid R spike possible when forced.",
+      tells: ["A1a (Command under fire)", "R1a (Over-push)", "A2b (Survival rule)"],
+      strengths: "decisive rescue, momentum creation.",
+      blindspots: "burns margins; can create collateral stress."
+    },
+    sentences:{L:"Works methodically under pressure, focusing on the critical cue.", R:"Initiates motion under pressure and drives recovery."}}
+};
+
+const RESULTS_LIB = {
+  "Control": {
+    "A1a": {"label":"Act • Command","sentence":"You act by giving orders clearly, setting direction for others."},
+    "A1b": {"label":"Act • Self-take","sentence":"You act by stepping in yourself, carrying the decision forward."},
+    "A2a": {"label":"Act • Sequence","sentence":"You commit by breaking the task into steps, then enforcing them."},
+    "A2b": {"label":"Act • Signal","sentence":"You commit by anchoring everything on one rule or marker."},
+    "S1a": {"label":"Scan • Balance","sentence":"You keep two commands alive, weighing them evenly before choosing."},
+    "S1b": {"label":"Scan • Bias","sentence":"You lean toward one option but hold a fallback ready."},
+    "S2a": {"label":"Scan • Delay","sentence":"You stall, waiting for just a bit more context before deciding."},
+    "S2b": {"label":"Scan • Filter","sentence":"You block noise, trusting only a single signal before moving."},
+    "R1a": {"label":"Reset • Over-push","sentence":"You over-assert control, pressing harder than needed to force action."},
+    "R1b": {"label":"Reset • Cut-off","sentence":"You shut down others abruptly to regain command."},
+    "R2a": {"label":"Reset • Drop","sentence":"You abandon leadership, letting the call slip to others."},
+    "R2b": {"label":"Reset • Void","sentence":"You withdraw into silence, forcing the group to fill the gap."}
+  },
+  "Pace": {
+    "A1a": {"label":"Act • Command","sentence":"You set the tempo firmly, dictating the speed of movement."},
+    "A1b": {"label":"Act • Self-take","sentence":"You push the pace yourself, leading from the front."},
+    "A2a": {"label":"Act • Sequence","sentence":"You create a time-block plan and move step by step."},
+    "A2b": {"label":"Act • Signal","sentence":"You tie progress to a clear signal — a bell, deadline, or cue."},
+    "S1a": {"label":"Scan • Balance","sentence":"You test two rhythms in parallel to see which holds."},
+    "S1b": {"label":"Scan • Bias","sentence":"You lean into one tempo but keep another as backup."},
+    "S2a": {"label":"Scan • Delay","sentence":"You hold the rhythm back, waiting for the right moment."},
+    "S2b": {"label":"Scan • Filter","sentence":"You screen out distractions to keep one steady beat."},
+    "R1a": {"label":"Reset • Over-push","sentence":"You rush beyond safe tempo, driving too hard."},
+    "R1b": {"label":"Reset • Cut-off","sentence":"You slam the brakes, halting pace abruptly."},
+    "R2a": {"label":"Reset • Drop","sentence":"You let the schedule collapse, abandoning timing altogether."},
+    "R2b": {"label":"Reset • Void","sentence":"You freeze rhythm, suspending movement until later."}
+  },
+  "Boundary": {
+    "A1a": {"label":"Act • Command","sentence":"You state limits clearly and enforce them without hesitation."},
+    "A1b": {"label":"Act • Self-take","sentence":"You carry the load yourself to hold the line."},
+    "A2a": {"label":"Act • Sequence","sentence":"You create conditional boundaries — clear rules and terms."},
+    "A2b": {"label":"Act • Signal","sentence":"You mark boundaries with visible signs or cues."},
+    "S1a": {"label":"Scan • Balance","sentence":"You weigh both yes and no, holding fairness in view."},
+    "S1b": {"label":"Scan • Bias","sentence":"You tilt toward refusal while leaving leeway."},
+    "S2a": {"label":"Scan • Delay","sentence":"You stall on decisions, buying time before setting a limit."},
+    "S2b": {"label":"Scan • Filter","sentence":"You allow one exception but block the rest firmly."},
+    "R1a": {"label":"Reset • Over-push","sentence":"You enforce boundaries too sharply, escalating conflict."},
+    "R1b": {"label":"Reset • Cut-off","sentence":"You sever ties suddenly to defend your line."},
+    "R2a": {"label":"Reset • Drop","sentence":"You let boundaries collapse, taking no stand."},
+    "R2b": {"label":"Reset • Void","sentence":"You vanish from the boundary, leaving it undefined."}
+  },
+  "Truth": {
+    "A1a": {"label":"Act • Command","sentence":"You assert conclusions directly, declaring what is fact."},
+    "A1b": {"label":"Act • Self-take","sentence":"You gather the proof yourself and put it forward."},
+    "A2a": {"label":"Act • Sequence","sentence":"You arrange facts step by step to build the case."},
+    "A2b": {"label":"Act • Signal","sentence":"You anchor everything on one trusted source or rule."},
+    "S1a": {"label":"Scan • Balance","sentence":"You keep two explanations alive, weighing them equally."},
+    "S1b": {"label":"Scan • Bias","sentence":"You favor one explanation while keeping another in reserve."},
+    "S2a": {"label":"Scan • Delay","sentence":"You wait for more data before finalizing truth."},
+    "S2b": {"label":"Scan • Filter","sentence":"You cut away noise, trusting only one line of evidence."},
+    "R1a": {"label":"Reset • Over-push","sentence":"You push a narrative too hard, bending past the evidence."},
+    "R1b": {"label":"Reset • Cut-off","sentence":"You dismiss counter-evidence suddenly, closing the debate."},
+    "R2a": {"label":"Reset • Drop","sentence":"You abandon fact-finding and accept uncertainty."},
+    "R2b": {"label":"Reset • Void","sentence":"You retreat from reasoning, leaving truth unspoken."}
+  },
+  "Recognition": {
+    "A1a": {"label":"Act • Command","sentence":"You assign credit directly, making contributions visible."},
+    "A1b": {"label":"Act • Self-take","sentence":"You claim your own contribution openly."},
+    "A2a": {"label":"Act • Sequence","sentence":"You list names and roles step by step."},
+    "A2b": {"label":"Act • Signal","sentence":"You mark credit with signatures or symbols."},
+    "S1a": {"label":"Scan • Balance","sentence":"You weigh recognition evenly across people."},
+    "S1b": {"label":"Scan • Bias","sentence":"You tilt credit toward one side while leaving fallback praise."},
+    "S2a": {"label":"Scan • Delay","sentence":"You postpone recognition until more clarity comes."},
+    "S2b": {"label":"Scan • Filter","sentence":"You honor only one trusted testimony as proof."},
+    "R1a": {"label":"Reset • Over-push","sentence":"You exaggerate proof, over-asserting recognition."},
+    "R1b": {"label":"Reset • Cut-off","sentence":"You erase others to spotlight yourself."},
+    "R2a": {"label":"Reset • Drop","sentence":"You skip recognition entirely, leaving it blank."},
+    "R2b": {"label":"Reset • Void","sentence":"You retreat from visibility, hiding the proof."}
+  },
+  "Bonding": {
+    "A1a": {"label":"Act • Command","sentence":"You create clear care structures, setting firm check-ins."},
+    "A1b": {"label":"Act • Self-take","sentence":"You step in personally to support or comfort."},
+    "A2a": {"label":"Act • Sequence","sentence":"You build plans of support in steady steps."},
+    "A2b": {"label":"Act • Signal","sentence":"You use gestures or rituals to anchor trust."},
+    "S1a": {"label":"Scan • Balance","sentence":"You balance your needs and theirs carefully."},
+    "S1b": {"label":"Scan • Bias","sentence":"You lean toward care but hold a reserve for yourself."},
+    "S2a": {"label":"Scan • Delay","sentence":"You wait, holding space without immediate action."},
+    "S2b": {"label":"Scan • Filter","sentence":"You focus on one channel of care, blocking noise."},
+    "R1a": {"label":"Reset • Over-push","sentence":"You smother with care, stripping autonomy."},
+    "R1b": {"label":"Reset • Cut-off","sentence":"You cut connection sharply when hurt."},
+    "R2a": {"label":"Reset • Drop","sentence":"You withdraw support and let the bond sag."},
+    "R2b": {"label":"Reset • Void","sentence":"You vanish from the bond, leaving it in limbo."}
+  },
+  "Stress": {
+    "A1a": {"label":"Act • Command","sentence":"You call the move under pressure, leading others through it."},
+    "A1b": {"label":"Act • Self-take","sentence":"You shoulder the stress yourself, acting directly."},
+    "A2a": {"label":"Act • Sequence","sentence":"You lay out a recovery plan in steps."},
+    "A2b": {"label":"Act • Signal","sentence":"You lock onto one survival rule and follow it."},
+    "S1a": {"label":"Scan • Balance","sentence":"You weigh two escape routes in parallel."},
+    "S1b": {"label":"Scan • Bias","sentence":"You lean into one escape, but keep another alive."},
+    "S2a": {"label":"Scan • Delay","sentence":"You hold one beat under fire to reassess."},
+    "S2b": {"label":"Scan • Filter","sentence":"You block panic noise and fix on one cue."},
+    "R1a": {"label":"Reset • Over-push","sentence":"You surge recklessly, breaking safety margins."},
+    "R1b": {"label":"Reset • Cut-off","sentence":"You shut down options suddenly, freezing others too."},
+    "R2a": {"label":"Reset • Drop","sentence":"You collapse under strain, stopping action."},
+    "R2b": {"label":"Reset • Void","sentence":"You dissociate from the pressure, leaving the field mentally."}
+  }
+};
+
+/* ========= Quiz content (same flow as earlier build): 7x(6), 14 binaries, 7 binaries ========= */
+const PHASE1 = [
+  { family:"Control", stem:"Plan split in 10 minutes. Pick a direction.",
+    choices:[
+      { text:"Pick route A, assign first three steps, roll.", mv:"A", detail:"A1a" },
+      { text:"Pick route B, assign people, start now.", mv:"A", detail:"A1b" },
+      { text:"Hold A and B; ask for one quick check each.", mv:"S", detail:"S1a" },
+      { text:"Add route C; ask group to keep options open.", mv:"S", detail:"S1b" },
+      { text:"Announce A then keep changing calls mid-start.", mv:"R", detail:"R1a" },
+      { text:"Stall on perfect info; no start.", mv:"R", detail:"R2b" }
+    ]},
+  { family:"Pace", stem:"Trip late, two stops left.",
+    choices:[
+      { text:"Cut one stop, set the new arrival time, move.", mv:"A", detail:"A1a" },
+      { text:"Keep both stops; shrink stop time to 10 minutes.", mv:"A", detail:"A2a" },
+      { text:"Suggest two options, get quick feedback.", mv:"S", detail:"S1a" },
+      { text:"Ask for one more idea before moving.", mv:"S", detail:"S2a" },
+      { text:"Speed past limits; push people to rush.", mv:"R", detail:"R1a" },
+      { text:"Pull over and rethink.", mv:"R", detail:"R2a" }
+    ]},
+  { family:"Boundary", stem:"Neighbor asks to store boxes in your hall for a week.",
+    choices:[
+      { text:"Decline clearly; suggest pickup window.", mv:"A", detail:"A1a" },
+      { text:"Allow 24 hours; mark the boundary line.", mv:"A", detail:"A2b" },
+      { text:"Offer one box spot; confirm removal date.", mv:"S", detail:"S1b" },
+      { text:"Say maybe and avoid a date.", mv:"S", detail:"S2a" },
+      { text:"Enforce harshly; escalate conflict.", mv:"R", detail:"R1a" },
+      { text:"Avoid reply; let it pile up.", mv:"R", detail:"R2b" }
+    ]},
+  { family:"Truth", stem:"Conflicting dates; decision in 5 minutes.",
+    choices:[
+      { text:"Pick one source of record, verify once, decide.", mv:"A", detail:"A2b" },
+      { text:"Call the host; confirm; publish final time.", mv:"A", detail:"A1b" },
+      { text:"Keep two candidates; ask for one proof ping.", mv:"S", detail:"S1a" },
+      { text:"Gather screenshots; no decision yet.", mv:"S", detail:"S2a" },
+      { text:"Argue tone, not evidence.", mv:"R", detail:"R1a" },
+      { text:"Accept whatever was said first.", mv:"R", detail:"R2a" }
+    ]},
+  { family:"Recognition", stem:"Unclear credit at hand-in.",
+    choices:[
+      { text:"List names with exact contributions; send.", mv:"A", detail:"A2a" },
+      { text:"Ask lead to attach the list of what each did.", mv:"A", detail:"A2b" },
+      { text:"Draft two ways to share credit; request quick pick.", mv:"S", detail:"S1a" },
+      { text:"Nudge privately; hope the doc gets fixed.", mv:"S", detail:"S2a" },
+      { text:"Claim more credit than you had in the summary.", mv:"R", detail:"R1a" },
+      { text:"Submit without your name attached.", mv:"R", detail:"R2a" }
+    ]},
+  { family:"Bonding", stem:"Friend spiraling before their talk.",
+    choices:[
+      { text:"Block 15 minutes, rehearse opener, walk them in.", mv:"A", detail:"A1b" },
+      { text:"Get water and seats; set one check-in time.", mv:"A", detail:"A2a" },
+      { text:"Offer choices: vent, run notes, silent sit.", mv:"S", detail:"S1a" },
+      { text:"Send a long voice note; no live help.", mv:"S", detail:"S2b" },
+      { text:"Take over their plan yourself.", mv:"R", detail:"R1a" },
+      { text:"Ghost to give space.", mv:"R", detail:"R2b" }
+    ]},
+  { family:"Stress", stem:"Flat tire en route to interview; 20 minutes buffer.",
+    choices:[
+      { text:"Call rideshare; message arrival time; keep moving.", mv:"A", detail:"A1a" },
+      { text:"Swap to spare, confirm arrival, continue.", mv:"A", detail:"A2a" },
+      { text:"Try both: call a ride while you try the spare.", mv:"S", detail:"S1a" },
+      { text:"Phone three friends first.", mv:"S", detail:"S2a" },
+      { text:"Rage at traffic; no move.", mv:"R", detail:"R1a" },
+      { text:"Cancel; say nothing.", mv:"R", detail:"R2a" }
+    ]}
+];
+
+const PHASE2 = [
+  { family:"Stress", stem:"Oven broken, dinner in 30 minutes.",
+    A:{text:"Book earliest repair; switch meal to no-oven.", detail:"A2b"},
+    S:{text:"Try quick reset; if fails, book repair.", detail:"S1a"} },
+  { family:"Pace", stem:"Weekend overbooked; three invites overlap.",
+    A:{text:"Cancel one; confirm the other two with times.", detail:"A1a"},
+    S:{text:"Ask hosts for flexible windows before deciding.", detail:"S1a"} },
+  { family:"Truth", stem:"Card charged twice at checkout.",
+    A:{text:"Cancel and run again; verify receipt now.", detail:"A1b"},
+    R:{text:"Walk out annoyed; fix later.", detail:"R2a"} },
+  { family:"Control", stem:"Group chat spiraling; decision due today.",
+    A:{text:"Propose single next step; turn off notifications for one hour.", detail:"A1a"},
+    R:{text:"Rapid replies; escalate tone.", detail:"R1a"} },
+  { family:"Pace", stem:"Ambiguous invite this week.",
+    A:{text:"Offer two concrete slots; ask for one confirm.", detail:"A2b"},
+    S:{text:"Ask clarifying questions about place and length.", detail:"S2a"} },
+  { family:"Truth", stem:"Task handoff missing clear finish line.",
+    A:{text:"Restate task result; confirm what done means.", detail:"A2a"},
+    S:{text:"Start a draft; schedule a clarification call.", detail:"S1a"} },
+  { family:"Pace", stem:"Wrong address sent; you’re en route.",
+    A:{text:"Call; share live location, confirm which entrance.", detail:"A1b"},
+    S:{text:"Text for a pin; slow down until reply.", detail:"S2a"} },
+  { family:"Stress", stem:"Desk clutter blocking work; 15 minutes free.",
+    A:{text:"Sort: trash, keep, act today.", detail:"A2a"},
+    S:{text:"Tidy visible area; list remaining for tomorrow.", detail:"S1b"} },
+  { family:"Boundary", stem:"Friend late twice this week.",
+    A:{text:"Shift future meets 15 minutes later; confirm.", detail:"A2a"},
+    S:{text:"Ask what timing works better; adjust once.", detail:"S1a"} },
+  { family:"Truth", stem:"Two articles conflict.",
+    A:{text:"Read methods; choose stronger evidence; write why.", detail:"A2a"},
+    R:{text:"Share catchier headline without checking.", detail:"R1a"} },
+  { family:"Recognition", stem:"Your name missing from photo book draft.",
+    A:{text:"Add caption with your role; tag the editor.", detail:"A1b"},
+    R:{text:"Ignore it; tell friends the book is wrong.", detail:"R2a"} },
+  { family:"Pace", stem:"Double-booked calls in same hour.",
+    A:{text:"Keep higher-impact call; reschedule the other.", detail:"A1a"},
+    S:{text:"Ask both for 15-minute shifts; try to fit.", detail:"S1b"} },
+  { family:"Boundary", stem:"Cousin asks for your streaming password.",
+    A:{text:"Decline; help set up their own plan.", detail:"A2b"},
+    R:{text:"Share password; worry later.", detail:"R2b"} },
+  { family:"Bonding", stem:"Partner anxious at airport; 20 minutes.",
+    A:{text:"Take bag, check gate, walk them in.", detail:"A1b"},
+    S:{text:"Ask what helps most, stay close.", detail:"S1a"} }
+];
+
+const PHASE3 = [
+  { family:"Stress", stem:"Cluttered desk.",
+    A:{text:"10-minute sweep: trash, keep, action.", detail:"A2a"},
+    R:{text:"Close the door; deal tomorrow.", detail:"R2a"} },
+  { family:"Boundary", stem:"Friend late twice.",
+    A:{text:"Shift meets 15 minutes later; confirm.", detail:"A2a"},
+    S:{text:"Ask timing that works; adjust once.", detail:"S1a"} },
+  { family:"Truth", stem:"Conflicting article claims.",
+    A:{text:"Read methods; accept the stronger one.", detail:"A2a"},
+    R:{text:"Share the catchier headline.", detail:"R1a"} },
+  { family:"Recognition", stem:"Photo book credit missing you.",
+    A:{text:"Add your caption; tag editor.", detail:"A1b"},
+    R:{text:"Skip the add; let it slide.", detail:"R2a"} },
+  { family:"Pace", stem:"Double-booked calls.",
+    A:{text:"Keep higher-impact; move the other.", detail:"A1a"},
+    S:{text:"Ask both to shift 15 minutes.", detail:"S1b"} },
+  { family:"Boundary", stem:"Cousin asks for login.",
+    A:{text:"Decline; help set up instead.", detail:"A2b"},
+    R:{text:"Share password, fix later.", detail:"R2b"} },
+  { family:"Bonding", stem:"Partner tense before flight.",
+    A:{text:"Take bag, check gate, walk them in.", detail:"A1b"},
+    S:{text:"Ask what helps; stay close.", detail:"S1a"} }
+];
+
+/* ========= Duel Card Builder ========= */
+function buildDuelCard(face, onPick) {
+  const el = document.createElement("div");
+  el.className = "duel-card";
+  el.innerHTML = `
+    <figure class="duel-figure">
+      <img src="${FaceArt[face] || ''}" alt="${face} emblem"
+           loading="lazy" decoding="async" width="800" height="1000">
+    </figure>
+    <div class="duel-name">${face}</div>
+    <div class="duel-desc">${FaceCopy[face] || ""}</div>
+  `;
+
+  const handler = () => {
+    try { el.classList.add("picked"); } catch {}
+    onPick(face);
+  };
+
+  if (typeof bindChoice === "function") {
+    bindChoice(el, handler);
+  } else {
+    el.setAttribute("role","button");
+    el.tabIndex = 0;
+    el.onclick = handler;
+    el.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handler(); } };
+  }
+  return el;
+}
+
+/* ========= Engine ========= */
+const session = { taps: [], p1:0, p2:0, p3:0 };
+let intro = false;
+function setProgress(pct){ if (window.__gz_setProgress) return window.__gz_setProgress(pct); try{ document.getElementById('progressBar').style.width = pct + '%'; }catch(_){} }
+function addTap(t){ session.taps.push({ ...t, ts: Date.now() }); }
+function render(){
+  const root = document.getElementById('stage'); 
+  
+  // Smooth transition - fade out current content
+  const existingCards = root.querySelectorAll('.card');
+  existingCards.forEach(card => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(-10px)';
+    card.style.transition = 'all 0.3s ease-out';
+  });
+  
+  // Wait for fade out, then load new content
+  setTimeout(()=>{root.innerHTML = '';
+    
+    const total = 1 + PHASE1.length + PHASE2.length + PHASE3.length + 1;
+    const done = (intro?1:0) + session.p1 + session.p2 + session.p3;
+    setProgress(Math.round(100 * done / (total-1)));
+    
+    if(!intro) return renderIntro(root);
+    if(session.p1 < PHASE1.length) return renderP1(root);
+    if(session.p2 < PHASE2.length) return renderP2(root);
+    if(session.p3 < PHASE3.length) return renderP3(root);
+    return onPhase3Complete();
+  }, 240);
+}
+
+function onPhase3Complete() {
+  const familyResults = resolveAllFamilies();
+  const duelQueue = buildDuelQueue(familyResults);
+
+  if (duelQueue.length) {
+    enterDuelPhase(duelQueue, familyResults);
+  } else {
+    renderResults(familyResults);
+  }
+}
+
+function resolveAllFamilies() {
+  const familyResults = [];
+  for (const fam of FAMILIES) {
+    const scores = familyScoresPure(fam, session.taps);
+    const familyTaps = session.taps.filter(t => t.family === fam);
+    const res = resolveFamilyArchetype(fam, scores, familyTaps);
+    familyResults.push(res);
+  }
+  return familyResults;
+}
+
+/* ========= Renderers ========= */
+function renderIntro(root){
+  const c = document.createElement('div'); 
+  c.className='card fade-in';
+  c.innerHTML = `
+    <div class="section-title">Start</div>
+    <div class="stack">
+      <div class="muted">7 six-choice scenarios, 14 binaries, 7 quick checks. Every tap = 1. Movement triads shown. Archetype per family resolved with priors + capped nudges.</div>
+      <div><button class="btn primary pulse" id="startBtn">Begin</button></div>
+    </div>`;
+  root.appendChild(c);
+  document.getElementById('startBtn').onclick = ()=>{ intro = true; render(); };
+}
+
+function renderP1(root){
+  const q = PHASE1[session.p1];
+  const card = document.createElement('div'); 
+  card.className='card fade-in';
+  card.innerHTML = `
+    <div class="section-title">Phase 1 • ${q.family}</div>
+    <h2 class="title" style="font-size:22px">${q.stem}</h2>
+    <div class="grid cols2" id="choices"></div>
+    <div class="footer"><span class="kbd">Question ${session.p1+1}/7</span></div>`;
+  root.appendChild(card);
+  const box = document.getElementById('choices');
+  q.choices.forEach((ch, index)=>{
+    const div = document.createElement('div'); 
+    div.className='option'; div.setAttribute('role','button'); div.tabIndex = 0;
+    const pill = ch.mv==='A' ? '<span class="pill act">Act</span>' : ch.mv==='S' ? '<span class="pill scan">Scan</span>' : '<span class="pill reset">Reset</span>';
+    div.innerHTML = `<div>${ch.text}</div><small>${pill} <span class="badge">${ch.detail}</span></small>`;
+    div.style.animationDelay = `${index * 0.08}s`; // 0.08s stagger - faster together
+    div.classList.add('slide-in-left');
+    bindChoice(div, ()=>{ 
+      addTap({phase:'P1', family:q.family, mv:ch.mv, detail:ch.detail}); 
+      session.p1++; 
+      render(); 
+    });
+    box.appendChild(div);
+  });
+}
+
+function renderP2(root){
+  const q = PHASE2[session.p2];
+  const card = document.createElement('div'); 
+  card.className='card fade-in';
+  card.innerHTML = `
+    <div class="section-title">Phase 2 • Options</div>
+    <h2 class="title" style="font-size:22px">${q.stem}</h2>
+    <div class="grid cols2" id="bin"></div>
+    <div class="footer"><span class="kbd">Item ${session.p2+1}/14</span></div>`;
+  root.appendChild(card);
+  const opts = []; if(q.A) opts.push({mv:'A', ...q.A}); if(q.S) opts.push({mv:'S', ...q.S}); if(q.R) opts.push({mv:'R', ...q.R});
+  const shown = opts.length===3 ? [opts[0], opts[(session.p2%2)+1]] : opts;
+  const bin = document.getElementById('bin');
+  shown.forEach((o, index)=>{
+    const div = document.createElement('div'); 
+    div.className='option'; div.setAttribute('role','button'); div.tabIndex = 0;
+    const pill = o.mv==='A' ? '<span class="pill act">Act</span>' : o.mv==='S' ? '<span class="pill scan">Scan</span>' : '<span class="pill reset">Reset</span>';
+    div.innerHTML = `<div>${o.text}</div><small>${pill} <span class="badge">${o.detail}</span></small>`;
+    div.style.animationDelay = `${index * 0.08}s`; // 0.08s stagger - faster together
+    div.classList.add('slide-in-right');
+    bindChoice(div, ()=>{ addTap({phase:'P2', family:q.family, mv:o.mv, detail:o.detail}); session.p2++; render(); });
+    bin.appendChild(div);
+  });
+}
+
+function renderP3(root){
+  const q = PHASE3[session.p3];
+  const card = document.createElement('div'); 
+  card.className='card fade-in';
+  card.innerHTML = `
+    <div class="section-title">Phase 3 • Pattern</div>
+    <h2 class="title" style="font-size:22px">${q.stem}</h2>
+    <div class="grid cols2" id="bin3"></div>
+    <div class="footer"><span class="kbd">Check ${session.p3+1}/7</span></div>`;
+  root.appendChild(card);
+  const bin = document.getElementById('bin3');
+  const A = document.createElement('div'); 
+  A.className='option slide-in-left';
+  A.style.animationDelay = '0s';
+  A.innerHTML = `<div>${q.A.text}</div><small><span class="pill act">Act</span> <span class="badge">${q.A.detail}</span></small>`;
+  bindChoice(A, ()=>{ addTap({phase:'P3', family:q.family, mv:'A', detail:q.A.detail}); session.p3++; render(); });
+  bin.appendChild(A);
+  const otherKey = q.S ? 'S' : 'R'; const other = q[otherKey];
+  const B = document.createElement('div'); 
+  B.className='option slide-in-right';
+  B.style.animationDelay = '0.16s'; // 0.16s stagger
+  B.innerHTML = `<div>${other.text}</div><small><span class="pill ${otherKey==='S'?'scan':'reset'}">${otherKey==='S'?'Scan':'Reset'}</span> <span class="badge">${other.detail}</span></small>`;
+  bindChoice(B, ()=>{ addTap({phase:'P3', family:q.family, mv:otherKey, detail:other.detail}); session.p3++; render(); });
+  bin.appendChild(B);
+}
+
+/* ========= Evidence scoring ========= */
+function familyScoresPure(fam, taps){
+  const A = taps.reduce((n,t)=> n + (t.family===fam && t.mv==='A' ? 1 : 0), 0);
+  const S = taps.reduce((n,t)=> n + (t.family===fam && t.mv==='S' ? 1 : 0), 0);
+  const R = taps.reduce((n,t)=> n + (t.family===fam && t.mv==='R' ? 1 : 0), 0);
+  const T = A+S+R || 1;
+  return { A, S, R, T };
+}
+function topDetailForMovement(fam, mv){
+  const counts = {};
+  session.taps.forEach(t=>{
+    if(t.family===fam && t.mv===mv && t.detail){
+      counts[t.detail] = (counts[t.detail]||0)+1;
+    }
+  });
+  const sorted = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+  const fallback = mv==='A'?'A1a': mv==='S'?'S1a':'R1a';
+  return { detail: (sorted[0]?.[0] || fallback), n: (sorted[0]?.[1] || 0) };
+}
+const TIE_ORDER = {
+  Control:     ["S","A","R"], // don't always hand Act the crown
+  Pace:        ["S","A","R"],
+  Boundary:    ["S","A","R"],
+  Truth:       ["S","A","R"],
+  Recognition: ["S","A","R"],
+  Bonding:     ["S","A","R"],
+  Stress:      ["A","S","R"], // Stress keeps Act first; it's the emergency line
+};
+
+function pickWinnerMovement(counts, fam) {
+  const max = Math.max(counts.A, counts.S, counts.R);
+  const order = TIE_ORDER[fam] || ["A","S","R"];
+  return order.find(k => counts[k] === max);
+}
+function computeTriad(){
+  const families = [];
+  for(const fam of FAMILIES){
+    const scores = familyScoresPure(fam, session.taps);
+    const winner = pickWinnerMovement(scores, fam);
+    const A = { mv:'A', count:scores.A, share:+((scores.A/(scores.T||1))).toFixed(2), ...topDetailForMovement(fam,'A') };
+    const S = { mv:'S', count:scores.S, share:+((scores.S/(scores.T||1))).toFixed(2), ...topDetailForMovement(fam,'S') };
+    const R = { mv:'R', count:scores.R, share:+((scores.R/(scores.T||1))).toFixed(2), ...topDetailForMovement(fam,'R') };
+    const ordered = [A,S,R].sort((x,y)=>y.share - x.share);
+    const makeLine = (x)=> ({
+      mv: x.mv,
+      label: RESULTS_LIB[fam][x.detail].label,
+      sentence: RESULTS_LIB[fam][x.detail].sentence,
+      detail: x.detail,
+      count: x.count,
+      share: x.share,
+      primary: x.mv===winner,
+      undetected: x.count===0
+    });
+    families.push({ family:fam, lines: ordered.map(makeLine), totals:{A:scores.A,S:scores.S,R:scores.R} });
+  }
+  return families;
+}
+
+/* ========= Archetype resolver ========= */
+// Prior lean of movements toward Left/Right per family.
+// Values are deltas added before normalization, small and symmetric.
+const priorLR = {
+  Control:   { A:+0.10, S:+0.00, R:-0.10 }, // Harmonized ±0.10 standard
+  Pace:      { A:-0.10, S:+0.10, R:0.00   }, // Scan→Visionary(L), Act→Navigator(R)
+  Boundary:  { A:-0.10, S:+0.10, R:0.00   }, // Scan→Equalizer(L), Act→Guardian(R)
+  Truth:     { A:-0.10, S:+0.10, R:0.00   }, // Scan→Seeker(L), Act→Architect(R)
+  Recognition:{A:-0.10, S:+0.10, R:0.00   }, // Scan→Diplomat(L), Act→Spotlight(R)
+  Bonding:   { A:-0.10, S:+0.10, R:0.00   }, // Scan→Partner(L), Act→Provider(R)
+  Stress:    { A:-0.05, S:+0.05, R:+0.05 }, // Harmonized ±0.05 for Stress
+};
+
+// Answer-to-archetype mapping
+const LEAN = {
+  Control: {
+    A1a: "Sovereign", A1b: "Sovereign", A2a: "Sovereign", A2b: "Sovereign",
+    S1a: "Sovereign", S1b: "Rebel",     S2a: "Rebel",     S2b: "Sovereign",
+    R1a: "Rebel",     R1b: "Rebel",     R2a: "Rebel",     R2b: "Rebel",
+  },
+  Pace: {
+    A1a: "Navigator", A1b: "Navigator", A2a: "Navigator", A2b: "Navigator",
+    S1a: "Visionary", S1b: "Visionary", S2a: "Visionary", S2b: "Navigator",
+    R1a: "Visionary", R1b: "Visionary", R2a: "Visionary", R2b: "Visionary",
+  },
+  Boundary: {
+    A1a: "Guardian",  A1b: "Guardian",  A2a: "Guardian",  A2b: "Guardian",
+    S1a: "Equalizer", S1b: "Equalizer", S2a: "Equalizer", S2b: "Guardian",
+    R1a: "Guardian",  R1b: "Guardian",  R2a: "Equalizer", R2b: "Equalizer",
+  },
+  Truth: {
+    A1a: "Architect", A1b: "Architect", A2a: "Architect", A2b: "Architect",
+    S1a: "Seeker",    S1b: "Seeker",    S2a: "Seeker",    S2b: "Architect",
+    R1a: "Architect", R1b: "Architect", R2a: "Seeker",    R2b: "Seeker",
+  },
+  Recognition: {
+    A1a: "Spotlight", A1b: "Spotlight", A2a: "Spotlight", A2b: "Spotlight",
+    S1a: "Diplomat",  S1b: "Diplomat",  S2a: "Diplomat",  S2b: "Spotlight",
+    R1a: "Spotlight", R1b: "Spotlight", R2a: "Diplomat",  R2b: "Diplomat",
+  },
+  Bonding: {
+    A1a: "Provider",  A1b: "Provider",  A2a: "Provider",  A2b: "Provider",
+    S1a: "Partner",   S1b: "Partner",   S2a: "Partner",   S2b: "Provider",
+    R1a: "Provider",  R1b: "Partner",   R2a: "Partner",   R2b: "Partner",
+  },
+  Stress: {
+    A1a: "Catalyst",  A1b: "Catalyst",  A2a: "Artisan",   A2b: "Catalyst",
+    S1a: "Artisan",   S1b: "Artisan",   S2a: "Artisan",   S2b: "Artisan",
+    R1a: "Catalyst",  R1b: "Catalyst",  R2a: "Artisan",   R2b: "Artisan",
+  },
+};
+
+// Returns a small Left/Right delta from the detail code, per family.
+function detailNudge(family, mv, detail) {
+  const lean = LEAN[family]?.[detail];
+  if (!lean) return 0;
+
+  const pair = familyPair(family);
+  const isLeft = lean === pair.left;
+  const delta = isLeft ? +0.05 : -0.05; // Harmonized ±0.05 nudges
+
+  // Global cap
+  if (delta > +0.05) delta = +0.05;
+  if (delta < -0.05) delta = -0.05;
+  return delta;
+}
+
+function familyPair(family) {
+  const map = {
+    Control:    { left: "Sovereign",  right: "Rebel" },
+    Pace:       { left: "Visionary",  right: "Navigator" },
+    Boundary:   { left: "Equalizer",  right: "Guardian" },
+    Truth:      { left: "Seeker",     right: "Architect" },
+    Recognition:{ left: "Diplomat",   right: "Spotlight" },
+    Bonding:    { left: "Partner",    right: "Provider" },
+    Stress:     { left: "Artisan",    right: "Catalyst" },
+  };
+  return map[family];
+}
+
+function djb2(str){
+  let h = 5381;
+  for (let i=0;i<str.length;i++) h = ((h << 5) + h) + str.charCodeAt(i);
+  return h >>> 0;
+}
+
+function pickBalancedFamilyIndex(familyResults, taps){
+  // Deterministic seed from exactly what the user did
+  const seed = taps.map(t => `${t.family[0]}:${t.mv}:${t.detail}`).join('|');
+  const h = djb2(seed);
+  return h % FAMILIES.length; // 0..6
+}
+
+function band(prob, margin, tapCount) {
+  // margin = |pL - pR|
+  if (prob >= 0.64 && margin >= 0.20 && tapCount >= 4) return "High";
+  if (prob >= 0.55 && margin >= 0.12 && tapCount >= 3) return "Medium";
+  return "Low";
+}
+
+function resolveFamilyArchetype(family, counts, taps) {
+  // counts: {A,S,R}; taps: [{mv, detail}, ...]
+  const total = counts.A + counts.S + counts.R || 1;
+  const share = { A: counts.A/total, S: counts.S/total, R: counts.R/total };
+
+  // Base lean: movement shares projected to LR by priors
+  let raw = 0;
+  for (const mv of ["A","S","R"]) raw += share[mv] * (priorLR[family]?.[mv] || 0);
+
+  // Detail nudges: mean of per-tap nudges to avoid single-tap flips
+  let nudgeSum = 0;
+  for (const t of taps) nudgeSum += detailNudge(family, t.mv, t.detail);
+  const avgDetailNudge = taps.length ? (nudgeSum / taps.length) : 0;
+
+  let lrScore = raw + avgDetailNudge;       // Left positive, Right negative
+  lrScore = Math.max(-0.24, Math.min(+0.24, lrScore)); // final safety cap
+
+  // Softmax-ish: convert to probabilities
+  const left  = Math.exp(+lrScore);
+  const right = Math.exp(-lrScore);
+  const pL = left/(left+right);
+  const pR = right/(left+right);
+
+  const pair = familyPair(family);
+  const winner = pL >= pR ? pair.left : pair.right;
+  const prob = Math.max(pL, pR);
+  const margin = Math.abs(pL - pR);
+  const confidence = band(prob, margin, taps.length);
+
+  return { family, winner, probs: { [pair.left]: pL, [pair.right]: pR }, share, lrScore, avgDetailNudge, confidence, taps };
+}
+
+// Hybrid tournament filtering - exact vote match + probability proximity
+const VOTE_WINDOW = 0;        // exact same votes as leader only
+const PROB_WINDOW = 0.02;     // within 2 percentage points of the leader's p
+const MIN_FINALISTS = 2;      // we always want at least a Final
+const PROB_BACKOFF = 0.03;    // if pool < 2, widen to 3%
+
+/* ========= Duel System ========= */
+function needsDuel(fr) {
+  // fr.probs = { LeftName: pL, RightName: pR } exactly two keys
+  const vals = Object.values(fr.probs);
+  const margin = Math.abs(vals[0] - vals[1]);
+  // Duel if exact tie, near tie, or confidence already "Low"
+  return (margin <= DUEL_EPS) || fr.confidence === "Low";
+}
+
+function onPhase3Complete(){
+  const familyResults = resolveAllFamilies();
+  
+  // Check if we need a tournament (hybrid filtering)
+  const seeds = makeSeeds(familyResults, session.taps);
+  const bracket = buildAdaptiveBracket(seeds);
+  
+  // If only one face or no close faces, go straight to results
+  if (bracket.mode === "solo" || seeds.length <= 1) {
+    renderResults(familyResults);
+  } else {
+    runTournamentCloseOnly(familyResults, session.taps);
+  }
+}
+
+/* ========= Hybrid Tournament System ========= */
+
+// Hybrid seeding function - exact vote match + probability proximity
+function fhash(s) {
+  let h = 2166136261 >>> 0;
+  for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
+  return h >>> 0;
+}
+
+function seedFromFamily(fr, taps) {
+  const pair = familyPair(fr.family);
+  const pW = fr.probs[fr.winner] ?? 0.5;
+  let votes = 1 + (pW >= 0.60 ? 1 : 0) + ((fr.confidence === "High" || fr.confidence === "User") ? 1 : 0);
+  if (votes > 3) votes = 3;
+  const pL = fr.probs[pair.left] ?? 0.5, pR = fr.probs[pair.right] ?? 0.5;
+  const margin = Math.abs(pL - pR);
+  const tb = fhash(taps.map(t => `${t.family[0]}:${t.mv}:${t.detail}`).join('|') + '|' + fr.winner);
+  return { face: fr.winner, family: fr.family, votes, p: pW, margin, _tb: tb };
+}
+
+// Hybrid filtering and seeding - exact vote match + probability proximity
+function makeSeeds(familyResults, taps){
+  // base seeding list
+  const seeded = familyResults.map(fr => seedFromFamily(fr, taps)).sort((a, b) =>
+    (b.votes - a.votes) || (b.p - a.p) || (b.margin - a.margin) || ((a._tb % 997) - (b._tb % 997))
+  );
+
+  const topVotes = seeded[0].votes;
+
+  // Step 1: votes gate (exact match with leader)
+  const byVotes = seeded.filter(s => s.votes === topVotes);
+
+  // Step 2: probability gate inside the votes-tied pool
+  const refProb = Math.max(...byVotes.map(s => s.p));
+  let pool = byVotes.filter(s => (refProb - s.p) <= PROB_WINDOW);
+
+  // Backoff: widen prob window if we still don't have a duel
+  if (pool.length < MIN_FINALISTS) {
+    pool = byVotes.filter(s => (refProb - s.p) <= PROB_BACKOFF);
+  }
+
+  // Final safety: if still < 2, add next best seeds until we have 2
+  if (pool.length < MIN_FINALISTS) {
+    const extras = seeded.filter(s => !pool.includes(s)).slice(0, MIN_FINALISTS - pool.length);
+    pool = pool.concat(extras);
+  }
+
+  // assign seed numbers within the final pool
+  return pool.map((f, i) => ({ ...f, seed: i + 1 }));
+}
+
+// Adaptive bracket builder
+function buildAdaptiveBracket(seeds){
+  const n = seeds.length;
+
+  if (n === 1) return { mode: "solo", solo: seeds[0] };
+  if (n === 2) return { mode: "final", final: [seeds[0], seeds[1]] };
+  if (n === 3) {
+    // top seed bye to Final, other two duel
+    return { mode: "three", byeFinal: seeds[0], semi: [seeds[1], seeds[2]] };
+  }
+  // 4..7 → structured: Seed1 bye to Final; R1: 2vN, 3v(N-1), 4v(N-2) as long as pairs exist
+  const pairs = [];
+  for (let i = 1, j = n - 1; i < j; i++, j--) pairs.push([seeds[i], seeds[j]]);
+  if ((n - 1) % 2 === 1) pairs.push([seeds[Math.ceil((n - 1) / 2)], seeds[Math.ceil((n - 1) / 2) + 1]]);
+  return { mode: "full", seed1Final: seeds[0], r1: pairs };
+}
+
+// Match rendering
+function renderMatch(title, a, b, onPick){
+  const root = document.getElementById('stage');
+  root.innerHTML = `
+    <div class="card fade-in">
+      <h2 class="title">${title}</h2>
+      <div class="duel-grid">
+        <div id="mA" class="slide-in-left" style="animation-delay: 0s;"></div>
+        <div id="mB" class="slide-in-right" style="animation-delay: 0.2s;"></div>
+      </div>
+      <div class="kbd" style="margin-top:12px">Tournament: pick who advances.</div>
+    </div>
+  `;
+  
+  // Build the duel cards with images
+  const leftCard = buildDuelCard(a.face, () => onPick(a, b, a));
+  const rightCard = buildDuelCard(b.face, () => onPick(a, b, b));
+  
+  // Add seed and family info
+  leftCard.querySelector('.duel-name').innerHTML = `#${a.seed} ${a.face}`;
+  leftCard.querySelector('.duel-desc').innerHTML = `${FaceCopy[a.face] || ""}<br><small style="color: #666; font-size: 0.8em;">${a.family} • votes:${a.votes}</small>`;
+  
+  rightCard.querySelector('.duel-name').innerHTML = `#${b.seed} ${b.face}`;
+  rightCard.querySelector('.duel-desc').innerHTML = `${FaceCopy[b.face] || ""}<br><small style="color: #666; font-size: 0.8em;">${b.family} • votes:${b.votes}</small>`;
+  
+  document.getElementById('mA').appendChild(leftCard);
+  document.getElementById('mB').appendChild(rightCard);
+}
+
+// Match logging
+function logMatch(round, left, right, winner){
+  session.tournament.matches.push({
+    round, 
+    left: {face:left.face, seed:left.seed},
+    right: {face:right.face, seed:right.seed},
+    chosen: winner.face, 
+    t: Date.now()
+  });
+}
+
+// Final results renderer
+function renderFinalResults(winnerFace) {
+  // Get the family results for proper display
+  const familyResults = resolveAllFamilies();
+  
+  // Find the archetype object
+  let winnerArchetype = null;
+  for (const fam of FAMILIES) {
+    if (ARCHETYPES[fam].L.name === winnerFace) winnerArchetype = ARCHETYPES[fam].L;
+    if (ARCHETYPES[fam].R.name === winnerFace) winnerArchetype = ARCHETYPES[fam].R;
+  }
+
+  const finalResult = {
+    winner: winnerFace,
+    winnerArchetype,
+    isProvisional: false,
+    runnerUp: null,
+    chosenFamily: "Tournament"
+  };
+
+  // Use existing renderResults but with tournament winner
+  const originalComputeFinalArchetype = computeFinalArchetype;
+  computeFinalArchetype = () => finalResult;
+  renderResults(familyResults);
+  computeFinalArchetype = originalComputeFinalArchetype;
+}
+
+// Main tournament runner
+function runTournamentCloseOnly(familyResults, taps){
+  const seeds = makeSeeds(familyResults, taps);
+  session.tournament = { 
+    seeding: seeds.map(({seed,face,family,votes,p}) =>
+      ({seed,face,family,votes,p:+p.toFixed(3)})), 
+    matches: [] 
+  };
+
+  const bracket = buildAdaptiveBracket(seeds);
+
+  if (bracket.mode === "solo") {
+    renderFinalResults(bracket.solo.face);
+    return;
+  }
+
+  if (bracket.mode === "final") {
+    renderMatch("Final — Close Candidates", bracket.final[0], bracket.final[1],
+      (L,R,W) => { logMatch("Final", L, R, W); renderFinalResults(W.face); });
+    return;
+  }
+
+  if (bracket.mode === "three") {
+    renderMatch("Semifinal", bracket.semi[0], bracket.semi[1], (L,R,Wsemi) => {
+      logMatch("Semifinal", L, R, Wsemi);
+      renderMatch("Final — vs Top Seed", bracket.byeFinal, Wsemi, (LF,RF,WF) => {
+        logMatch("Final", LF, RF, WF);
+        renderFinalResults(WF.face);
+      });
+    });
+    return;
+  }
+
+  // mode: full (4..7)
+  const s1 = bracket.seed1Final;
+  // Round 1 chain
+  const playR1 = (i, winners=[]) => {
+    if (i >= bracket.r1.length) {
+      // R2: among R1 winners, highest original seed gets bye; other two duel; winner faces bye
+      const sorted = winners.sort((a,b)=>a.seed - b.seed);
+      const bye = sorted[0], rest = sorted.slice(1);
+      if (rest.length === 0) {
+        renderMatch("Final — vs Top Seed", s1, bye, (LF,RF,WF)=>{
+          logMatch("Final", LF, RF, WF); renderFinalResults(WF.face);
+        });
+        return;
+      }
+      if (rest.length === 1) {
+        renderMatch("Final — vs Top Seed", s1, rest[0], (LF,RF,WF)=>{
+          logMatch("Final", LF, RF, WF); renderFinalResults(WF.face);
+        });
+        return;
+      }
+      renderMatch("Round 2 — Eliminator", rest[0], rest[1], (L2,R2,We)=>{
+        logMatch("R2-Eliminator", L2, R2, We);
+        renderMatch("Round 2 — Qualifier", bye, We, (Lq,Rq,Wq)=>{
+          logMatch("R2-Qualifier", Lq, Rq, Wq);
+          renderMatch("Final — Crown Match", s1, Wq, (LF,RF,WF)=>{
+            logMatch("Final", LF, RF, WF); renderFinalResults(WF.face);
+          });
+        });
+      });
+      return;
+    }
+    const [a,b] = bracket.r1[i];
+    renderMatch(`Round 1 — Match ${i+1}`, a, b, (L,R,W)=>{
+      logMatch(`R1-M${i+1}`, L, R, W);
+      playR1(i+1, winners.concat(W));
+    });
+  };
+  playR1(0, []);
+}
+
+
+
+
+
+
+/* ========= Final Archetype Calculation ========= */
+function pickSingleFace(familyResults) {
+  // familyResults: [{family, winner, probs}]
+  const tally = new Map(); // face → {count, probSum, strongFamilies}
+  for (const fr of familyResults) {
+    const face = fr.winner;
+    if (!tally.has(face)) tally.set(face, {count:0, probSum:0, strongFamilies:0});
+    const t = tally.get(face);
+    t.count += 1;
+    t.probSum += Math.max(...Object.values(fr.probs));
+    const margin = Math.abs(Object.values(fr.probs)[0] - Object.values(fr.probs)[1]);
+    if (margin >= 0.12) t.strongFamilies += 1;
+  }
+
+  // mode
+  let best = null;
+  for (const [face, stats] of tally) {
+    if (!best) { best = [face, stats]; continue; }
+    const [bf, bs] = best;
+    if (stats.count !== bs.count) { if (stats.count > bs.count) best = [face, stats]; continue; }
+    if (stats.probSum !== bs.probSum) { if (stats.probSum > bs.probSum) best = [face, stats]; continue; }
+    if (stats.strongFamilies > bs.strongFamilies) best = [face, stats];
+  }
+  return best ? best[0] : null;
+}
+
+function computeFinalArchetype(familyResults, taps){
+  if (!familyResults.length) return null;
+
+  // Equalize margin influence across families
+  // Use normalized margin = |pL - pR| (still reported, but not used to pick family)
+  const idx = pickBalancedFamilyIndex(familyResults, taps);
+  const chosenFamily = FAMILIES[idx];
+
+  const chosen = familyResults.find(r => r.family === chosenFamily) || familyResults[0];
+  const pair = familyPair(chosen.family);
+
+  const winnerName = chosen.winner;
+  const runnerUpName = (winnerName === pair.left) ? pair.right : pair.left;
+
+  const lowConfidenceCount = familyResults.filter(r => r.confidence === 'Low').length;
+  const isProvisional = lowConfidenceCount > 3;
+
+  // Find the full archetype object for prose
+  let winnerArchetype = null;
+  if (ARCHETYPES[chosen.family].L.name === winnerName) winnerArchetype = ARCHETYPES[chosen.family].L;
+  if (ARCHETYPES[chosen.family].R.name === winnerName) winnerArchetype = ARCHETYPES[chosen.family].R;
+
+  return {
+    winner: winnerName,
+    winnerArchetype,
+    isProvisional,
+    runnerUp: runnerUpName,
+    chosenFamily
+  };
+}
+
+/* ========= Results ========= */
+function renderResults(familyResults){
+  const root = document.getElementById('stage');
+  root.innerHTML = '';
+  
+  const triad = computeTriad();
+  const code = triad.map(f => f.lines.find(l=>l.primary).mv).join(' ');
+
+  const card = document.createElement('div'); 
+  card.className='card fade-in';
+  card.innerHTML = `
+    <div class="section-title">Results</div>
+    <h2 class="title">Movement Ledger</h2>
+    <div class="stack">
+      <div><span class="code">${code}</span></div>
+      <div class="muted">Three lines per family (Act, Scan, Reset). Zero-share lines are dimmed and marked undetected.</div>
+      <div class="hr"></div>
+      <div id="triadList"></div>
+    </div>`;
+  root.appendChild(card);
+
+  const triadList = document.getElementById('triadList');
+  triad.forEach((item, index)=>{
+    const row = document.createElement('div'); 
+    row.className='result-family fade-in';
+    row.style.animationDelay = `${index * 0.1}s`;
+    row.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+        <div><strong>${item.family}</strong></div>
+        <div class="kbd">A:${item.totals.A} • S:${item.totals.S} • R:${item.totals.R}</div>
+      </div>
+      ${item.lines.map(l=>`
+        <div class="line ${l.primary?'primary':''} ${l.undetected?'undetected':''}">
+          <div><span class="badge">${l.label}</span> <span class="kbd">(${l.mv} • ${l.detail} • share ${l.share}${l.undetected?' • undetected':''})</span></div>
+          <div style="margin-top:6px">${l.undetected ? '<span class="muted">(undetected)</span>' : l.sentence}</div>
+        </div>
+      `).join('')}
+    `;
+    triadList.appendChild(row);
+  });
+
+  // Archetypes block
+  const archCard = document.createElement('div'); 
+  archCard.className='card fade-in';
+  archCard.style.animationDelay = '0.5s';
+  archCard.innerHTML = `
+    <h2 class="title">Archetypes per Family</h2>
+    <div class="muted">Resolved with priors + capped nudges. Both sides shown; winner highlighted.</div>
+    <div class="hr"></div>
+    <div id="archList"></div>
+    <div class="hr"></div>
+    <div>
+      <button class="btn primary" id="downloadJson">Download Session JSON</button>
+      <button class="btn" id="restart">Restart</button>
+    </div>
+  `;
+  root.appendChild(archCard);
+  const archList = document.getElementById('archList');
+
+  const manifest = {
+    schema: "asr.session.v7.triad+archetype",
+    version: "1.0.0",
+    tieBreakOrder: ["A","S","R"],
+    priorLR: JSON.stringify(priorLR),
+    nudgeMap: "see detailNudge function",
+    duels: session.duels || [],
+    families: []
+  };
+
+  familyResults.forEach((res, index) => {
+    const fam = FAMILIES[index];
+    const scores = familyScoresPure(fam, session.taps);
+    
+    const pair = familyPair(fam);
+    const Lname = pair.left, Rname = pair.right;
+    const Lsent = ARCHETYPES[fam].sentences.L, Rsent = ARCHETYPES[fam].sentences.R;
+    const Lp = +res.probs[Lname].toFixed(2), Rp = +res.probs[Rname].toFixed(2);
+
+    const row = document.createElement('div'); 
+    row.className='result-family fade-in';
+    row.style.animationDelay = `${(index + 1) * 0.1}s`;
+    row.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+        <div><strong>${fam}</strong> <span class="tag">${res.confidence} confidence</span></div>
+        <div class="kbd">A:${scores.A} • S:${scores.S} • R:${scores.R}</div>
+      </div>
+      <div class="arch-row">
+        <div class="arch ${res.winner===Lname?'win':'lose'} slide-in-left" style="animation-delay: ${(index + 1) * 0.1 + 0.1}s;">
+          <div class="name">${Lname} <span class="tag">p=${Lp}</span></div>
+          <div style="margin-top:6px">${Lsent}</div>
+        </div>
+        <div class="arch ${res.winner===Rname?'win':'lose'} slide-in-right" style="animation-delay: ${(index + 1) * 0.1 + 0.2}s;">
+          <div class="name">${Rname} <span class="tag">p=${Rp}</span></div>
+          <div style="margin-top:6px">${Rsent}</div>
+        </div>
+      </div>
+      <div class="kbd" style="margin-top:8px;opacity:.85">
+        Shares A:${res.share.A.toFixed(2)} S:${res.share.S.toFixed(2)} R:${res.share.R.toFixed(2)} |
+        Nudge: ${res.avgDetailNudge.toFixed(2)} |
+        Score: ${res.lrScore.toFixed(2)}
+      </div>
+      <div class="kbd" style="margin-top:4px;opacity:.75">${res.taps.map(t=>`${t.phase}:${t.detail||t.mv}`).join(' • ')}</div>
+    `;
+    archList.appendChild(row);
+
+    manifest.families.push({
+      name: fam,
+      counts: {A: scores.A, S: scores.S, R: scores.R},
+      share: res.share,
+      winnerMovement: pickWinnerMovement(scores, fam),
+      archetype: {winner: res.winner, probs: res.probs, band: res.confidence},
+      avgDetailNudge: res.avgDetailNudge,
+      lrScore: res.lrScore,
+      taps: res.taps.map(t => ({mv: t.mv, detail: t.detail}))
+    });
+  });
+
+  const finalArchResult = computeFinalArchetype(familyResults, session.taps);
+  manifest.finalFace = {
+    name: finalArchResult.winner, 
+    provisional: finalArchResult.isProvisional, 
+    chosenFamily: finalArchResult.chosenFamily,
+    runnerUp: finalArchResult.runnerUp,
+    archetype: finalArchResult.winnerArchetype
+  };
+
+  document.getElementById('downloadJson').onclick = ()=>{
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(manifest,null,2)], {type: 'application/json'}));
+    a.download = 'ground_zero_session_triad_archetype.json';
+    a.click();
+  };
+  document.getElementById('restart').onclick = ()=>{ location.reload(); };
+  
+  if (finalArchResult && finalArchResult.winnerArchetype) {
+    const finalCard = document.createElement('div');
+    finalCard.className = 'card fade-in pulse';
+    finalCard.style.animationDelay = '1s';
+    const winner = finalArchResult.winnerArchetype;
+    let runnerUpHTML = '';
+    if (finalArchResult.runnerUp) {
+        runnerUpHTML = `<div class="muted" style="margin-top:12px;"><strong>Near Flavor:</strong> ${finalArchResult.runnerUp}</div>`;
+    }
+    finalCard.innerHTML = `
+        <h2 class="title">Final Archetype Face</h2>
+        <div class="result-family">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h3 style="margin:0; font-size: 24px;">${finalArchResult.winner}</h3>
+                ${finalArchResult.isProvisional ? '<span class="tag">Provisional</span>' : ''}
+            </div>
+            <div class="sub">${winner.definition}</div>
+            <div class="hr"></div>
+            <div class="grid cols2">
+                <div class="slide-in-left" style="animation-delay: 1.2s;">
+                    <strong>Strengths:</strong>
+                    <div class="muted">${winner.strengths}</div>
+                </div>
+                <div class="slide-in-right" style="animation-delay: 1.3s;">
+                    <strong>Blindspots:</strong>
+                    <div class="muted">${winner.blindspots}</div>
+                </div>
+            </div>
+            <div class="hr"></div>
+            <div class="fade-in" style="animation-delay: 1.4s;"><strong>Movement Signature:</strong> <span class="code">${winner.signature}</span></div>
+            <div class="fade-in" style="margin-top:8px; animation-delay: 1.5s;"><strong>Top Tells:</strong> <span class="muted">${winner.tells.join(', ')}</span></div>
+            <div class="kbd" style="margin-top:8px">
+              Fairness: harmonized priors ±0.10, nudges ±0.05, rotated A/S/R tie-order, deterministic family picker, face duels on ties.
+            </div>
+            ${runnerUpHTML}
+        </div>
+    `;
+    root.appendChild(finalCard);
+  }
+}
+
+// boot
+render();
+</script>
+</body>
+</html>

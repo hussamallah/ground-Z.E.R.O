@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root{
   --bg:#0b0f1a;
   --card:#111217;
@@ -13,6 +17,106 @@
   --warning:#ffd43b;
   --dur: 180ms;
   --ease: cubic-bezier(.2,.8,.2,1);
+}
+
+/* Movement Colors */
+.bg-gold { background-color: var(--gold); }
+.bg-cobalt { background-color: var(--cobalt); }
+.bg-plum { background-color: var(--plum); }
+.text-gold { color: var(--gold); }
+.text-cobalt { color: var(--cobalt); }
+.text-plum { color: var(--plum); }
+
+/* Guardian Panel Styles */
+.guardian-panel {
+  background: rgba(11, 15, 22, 0.7);
+  border: 1px solid rgba(58, 160, 255, 0.3);
+  border-radius: 12px;
+  padding: 24px;
+  position: relative;
+  box-shadow: 0 0 20px rgba(58, 160, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  animation-name: guardianPanelEntrance, guardianNeonShimmer;
+  animation-duration: 200ms, 8s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1), ease-in-out;
+  animation-iteration-count: 1, infinite;
+  animation-fill-mode: both;
+}
+
+.guardian-section-label {
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  font-weight: 600;
+  color: #9FB2C7;
+  margin-bottom: 8px;
+}
+
+.guardian-value-text {
+  font-size: clamp(18px, 2.5vw, 20px);
+  font-weight: 600;
+  color: #E6ECF2;
+  line-height: 1.25;
+}
+
+.guardian-vertical-divider {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.guardian-horizontal-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 18px 0 0 0;
+}
+
+.guardian-chip {
+  background: rgba(58, 160, 255, 0.12);
+  color: #BFE1FF;
+  border: none;
+  border-radius: 11px;
+  height: 32px;
+  padding: 0 13px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 120ms cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.guardian-chip:hover {
+  background: rgba(58, 160, 255, 0.18);
+  transform: translateY(-1px);
+  box-shadow: 0 0 12px rgba(58, 160, 255, 0.20);
+}
+
+.guardian-chip:active {
+  background: rgba(58, 160, 255, 0.24);
+  box-shadow: inset 0 0 0 1px rgba(58, 160, 255, 0.4);
+}
+
+/* Guardian Panel Animations */
+@keyframes guardianPanelEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes guardianNeonShimmer {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(58, 160, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(58, 160, 255, 0.11), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
 }
 
 * {
@@ -393,7 +497,7 @@ html,body{
   position: relative;
   overflow: hidden;
   box-shadow: 0 12px 36px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.08);
-  transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease), background var(--dur) var(--ease), box-shadow var(--dur) var(--ease), opacity var(--dur) var(--ease);
+  transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease), background var(--dur) var(--ease), box-shadow var(--dur) var(--ease), opacity var(--dur) var(--ease), outline var(--dur) var(--ease);
   will-change: transform, opacity;
   touch-action: manipulation;
 }
@@ -460,8 +564,12 @@ html,body{
 }
 
 .duel-card.picked { 
-  outline: 2px solid #D4AF37; 
-  outline-offset: 3px; 
+  outline: 3px solid #D4AF37; 
+  outline-offset: 4px; 
+  background: rgba(212, 175, 55, 0.1);
+  border-color: rgba(212, 175, 55, 0.3);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.4), 0 8px 32px rgba(0, 0, 0, 0.4);
+  transform: scale(1.02);
 }
 
 @keyframes fly {
@@ -539,4 +647,221 @@ html,body{
 /* Mobile breathing room */
 @media (max-width: 420px){
   .wrap{ padding: 20px 14px }
+}
+
+/* Enhanced focus states for new radio inputs */
+input[type="radio"]:focus + * {
+  outline: 2px solid rgba(212, 175, 55, 0.6);
+  outline-offset: 2px;
+}
+
+/* Ensure proper spacing for new layout */
+.space-y-6 > * + * {
+  margin-top: 1.5rem;
+}
+
+.space-y-4 > * + * {
+  margin-top: 1rem;
+}
+
+/* Enhanced transition timing */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.duration-120 {
+  transition-duration: 120ms;
+}
+
+/* Ensure proper line height for readability */
+.leading-relaxed {
+  line-height: 1.625;
+}
+
+/* Tabular numbers for consistent spacing */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Enhanced hover states */
+.group:hover .group-hover\:bg-white\/\[0\.06\] {
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+/* Focus ring improvements */
+.focus-within\:ring-2:focus-within {
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+
+.focus-within\:ring-yellow-400\/60:focus-within {
+  --tw-ring-color: rgba(250, 204, 21, 0.6);
+}
+
+/* Enhanced focus states for keyboard navigation */
+.focus-visible\:ring-2:focus-visible {
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+
+.focus-visible\:ring-yellow-300\/60:focus-visible {
+  --tw-ring-color: rgba(252, 211, 77, 0.6);
+}
+
+/* GPU acceleration for smooth animations */
+.will-change-transform {
+  will-change: transform;
+}
+
+.transform-gpu {
+  transform: translateZ(0);
+}
+
+/* Enhanced backdrop blur support */
+.supports-\[backdrop-filter\]\:bg-black\/20:has([style*="backdrop-filter"]) {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Improved text balance and hyphenation */
+.text-balance {
+  text-wrap: balance;
+}
+
+.hyphens-auto {
+  hyphens: auto;
+}
+
+/* Enhanced card shadows */
+.shadow-\[0_8px_24px_rgba\(0\,0\,0\,\.35\)\] {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+/* Sticky positioning improvements */
+.sticky {
+  position: sticky;
+}
+
+/* Enhanced transition timing */
+.duration-150 {
+  transition-duration: 150ms;
+}
+
+.duration-80 {
+  transition-duration: 80ms;
+}
+
+/* Improved color system */
+.text-\[\#E8E8E8\] {
+  color: #E8E8E8;
+}
+
+.text-white\/65 {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* Enhanced card selection states */
+.ring-2 {
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+
+.ring-yellow-400\/60 {
+  --tw-ring-color: rgba(250, 204, 21, 0.6);
+}
+
+/* Enhanced hover states */
+.hover\:translate-y-\[\.5px\]:hover {
+  transform: translateY(0.5px);
+}
+
+.hover\:bg-yellow-400\/10:hover {
+  background-color: rgba(250, 204, 21, 0.1);
+}
+
+.active\:border-0:active {
+  border: none !important;
+}
+
+/* Border glow effect for question cards */
+.question-card-backlight {
+  position: relative;
+}
+
+.question-card-backlight:hover {
+  border-color: rgba(250, 204, 21, 0.4) !important;
+  box-shadow: 0 0 0 1px rgba(250, 204, 21, 0.2), 0 0 20px rgba(250, 204, 21, 0.1);
+}
+
+/* Enhanced glass card effects */
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(250, 204, 21, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Selection state for answer cards */
+.answer-card-selected {
+  border-color: rgba(250, 204, 21, 0.4) !important;
+  background: rgba(250, 204, 21, 0.05) !important;
+  box-shadow: 0 0 0 1px rgba(250, 204, 21, 0.2), 0 0 20px rgba(250, 204, 21, 0.1);
+}
+
+/* Dim other cards when one is selected */
+.answer-card-dimmed {
+  opacity: 0.7;
+  filter: grayscale(20%);
+}
+
+/* Enhanced keyboard badge styling */
+.keyboard-badge {
+  font-family: ui-monospace, SFMono-Regular, Consolas, Menlo, monospace;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 150ms ease;
+}
+
+.keyboard-badge:hover {
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Text balance utility */
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Line clamp utilities */
+.line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+/* Enhanced backdrop blur support */
+.supports-\[backdrop-filter\]\:bg-black\/20 {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+@supports (backdrop-filter: blur(1px)) {
+  .supports-\[backdrop-filter\]\:bg-black\/20 {
+    backdrop-filter: blur(8px);
+  }
 }

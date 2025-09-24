@@ -1,0 +1,48 @@
+---
+globs: app/page.tsx,app/results/**/*.tsx
+description: Quiz app structure and component organization
+---
+
+# Quiz App Structure Guide
+
+## Main Components
+
+### Quiz Interface ([app/page.tsx](mdc:app/page.tsx))
+- **QuizScreen**: Main quiz interface with phase management
+- **Phase1Screen**: First phase with 7 family questions
+- **Phase2Screen**: Second phase with 14 binary choices
+- **Phase3Screen**: Final phase with 7 binary choices
+- **BracketScreen**: Tournament bracket display
+- **ResultsScreen**: Final results presentation
+
+### Results Pages ([app/results/](mdc:app/results/))
+- 14 individual result pages (one per archetype)
+- Each page validates archetype match and displays results
+- Shared ResultsScreen component for consistent presentation
+
+## Data Flow
+1. **Quiz Taps**: User selections stored as Tap objects
+2. **Family Processing**: resolveAllFamilies() processes quiz data
+3. **Tournament System**: makeSeedsHybrid() creates tournament seeds
+4. **Final Results**: computeFinal() determines winning archetype
+5. **Results Display**: Movement ledger + archetype details
+
+## Key Functions
+- `resolveAllFamilies()`: Processes quiz taps into family results
+- `makeSeedsHybrid()`: Creates tournament seeds from family results
+- `renderFamilyContent()`: Generates dynamic content for results
+- `pickWinnerMovement()`: Determines primary movement per family
+
+## UI Components to Enhance
+- Choice buttons with better visual feedback
+- Progress indicators and phase transitions
+- Tournament bracket visualization
+- Results cards with improved layouts
+- Movement pattern displays
+- Archetype showcase sections
+
+## Styling Approach
+- Use existing CSS variables for consistency
+- Enhance with Tailwind utilities
+- Maintain dark theme aesthetic
+- Focus on smooth animations and transitions
