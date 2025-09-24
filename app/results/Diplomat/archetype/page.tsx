@@ -5,22 +5,15 @@ import { useRouter } from 'next/navigation';
 import {
     FAMILIES,
     ARCHETYPES,
-    RESULTS_LIB,
     TIE_ORDER,
     familyPair,
     resolveAllFamilies,
     familyScoresPure,
     Tap,
     Seed,
-    MatchLog,
-    FamilyResult,
-    FAMILY_INTROS,
-    JOINERS,
-    calculateJoiners,
-    calculateHeadline,
-    renderFamilyContent
+    MatchLog
 } from '../../../quiz-data';
-import Image from 'next/image';
+
 
 const CURRENT_ARCHETYPE = "Diplomat";
 
@@ -104,7 +97,7 @@ const ArchetypeScreen = ({ taps, finalWinner, duels, onRestart, router }: { taps
         const lowConfidenceCount = familyResults.filter(r => r.confidence === 'Low').length;
         const isProvisional = lowConfidenceCount > 3;
         const archetypeFamily = (ARCHETYPES as any)[chosen.family];
-        let winnerArchetype = archetypeFamily.L.name === winnerName ? archetypeFamily.L : archetypeFamily.R;
+        const winnerArchetype = archetypeFamily.L.name === winnerName ? archetypeFamily.L : archetypeFamily.R;
         return { winner: winnerName, winnerArchetype, isProvisional, runnerUp: runnerUpName, chosenFamily };
     }, [taps, finalWinner, familyResults]);
 
@@ -120,7 +113,7 @@ const ArchetypeScreen = ({ taps, finalWinner, duels, onRestart, router }: { taps
                 archetype: { winner: res.winner, probs: res.probs, band: res.confidence },
                 avgDetailNudge: res.avgDetailNudge,
                 lrScore: res.lrScore,
-                taps: res.taps.map(t => ({ mv: t.mv, detail: t.detail }))
+                taps: res.taps.map((t: any) => ({ mv: t.mv, detail: t.detail }))
             };
         });
         const manifest = {

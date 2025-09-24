@@ -1,5 +1,11 @@
 /* eslint-disable */
 
+/* ========= Type Definitions ========= */
+export type Tap = { phase: string; family: string; mv: string; detail: string; ts: number; };
+export type FamilyResult = { family: string; winner: string; probs: { [key: string]: number; }; share: { A: number; S: number; R: number; }; lrScore: number; avgDetailNudge: number; confidence: string; taps: Tap[]; };
+export type Seed = { face: string; family: string; votes: number; p: number; margin: number; _tb: number; seed: number; };
+export type MatchLog = { round: string; left: { face: string; seed: number; }; right: { face: string; seed: number; }; chosen: string; };
+
 /* ========= Face Art Mapping ========= */
 export const FaceArt: { [key: string]: string } = {
     "Sovereign": "/sovereign.png",

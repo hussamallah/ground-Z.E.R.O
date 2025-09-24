@@ -2,15 +2,11 @@
 
 import { useState, useMemo, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { PHASE1, PHASE2, PHASE3, FAMILIES, ARCHETYPES, FaceArt, FaceCopy, RESULTS_LIB, TIE_ORDER, priorLR, LEAN, familyPair, PROB_WINDOW, MIN_FINALISTS, PROB_BACKOFF, familyScoresPure, detailNudge, band, resolveFamilyArchetype, resolveAllFamilies, pickWinnerMovement, topDetailForMovement } from './quiz-data';
+import { PHASE1, PHASE2, PHASE3, FaceArt, FaceCopy, familyPair, PROB_WINDOW, MIN_FINALISTS, PROB_BACKOFF, resolveAllFamilies, Tap, FamilyResult, Seed, MatchLog } from './quiz-data';
 import Image from 'next/image';
 
 // #region Helper Types and Functions
-type Tap = { phase: string; family: string; mv: string; detail: string; ts: number; };
-type FamilyResult = { family: string; winner: string; probs: { [key: string]: number; }; share: { A: number; S: number; R: number; }; lrScore: number; avgDetailNudge: number; confidence: string; taps: Tap[]; };
-type Seed = { face: string; family: string; votes: number; p: number; margin: number; _tb: number; seed: number; };
 type Bracket = { mode: "solo" | "final" | "three" | "full"; solo?: Seed; final?: [Seed, Seed]; byeFinal?: Seed; semi?: [Seed, Seed]; seed1Final?: Seed; r1?: [Seed, Seed][]; };
-type MatchLog = { round: string; left: { face: string; seed: number; }; right: { face: string; seed: number; }; chosen: string; };
 
 const fhash = (s: string) => {
     let h = 2166136261 >>> 0;
@@ -124,8 +120,8 @@ export default function Home() {
                 if (second === undefined || arr[1].v === 0) {
                     options = [];
                 } else {
-                    let leftKey: 'A'|'S'|'R' = top;
-                    let rightKey: 'A'|'S'|'R' = second;
+                    const leftKey: 'A'|'S'|'R' = top;
+                    const rightKey: 'A'|'S'|'R' = second;
                     const left = leftKey === 'A' ? currentQuestion.A : (currentQuestion as any)[leftKey];
                     const right = (currentQuestion as any)[rightKey];
                     
@@ -438,8 +434,8 @@ const Phase3Screen = ({ question, onSelect, qNum, total, taps }: { question: any
         );
     }
     
-    let leftKey: 'A'|'S'|'R' = top;
-    let rightKey: 'A'|'S'|'R' = second;
+    const leftKey: 'A'|'S'|'R' = top;
+    const rightKey: 'A'|'S'|'R' = second;
     const left = leftKey === 'A' ? question.A : (question as any)[leftKey];
     const right = (question as any)[rightKey];
     
@@ -509,7 +505,7 @@ const Phase3Screen = ({ question, onSelect, qNum, total, taps }: { question: any
     );
 };
 
-const EndScreen = ({ taps, onRestart, router }: { taps: Tap[], onRestart: () => void, router: any }) => {
+const EndScreen = ({ taps, router }: { taps: Tap[], onRestart: () => void, router: any }) => {
     const [state, setState] = useState<
         | { finalWinner: Seed | null, duels?: MatchLog[] }
         | {
@@ -746,15 +742,6 @@ const DuelCard = ({ seed, onPick, isSelected }: { seed: Seed, onPick: () => void
         }
     };
 
-    const getShadowColor = (face: string) => {
-        switch (face) {
-            case 'Sovereign': return 'rgba(250, 204, 21, 0.1)'; // Gold shadow
-            case 'Rebel': return 'rgba(239, 68, 68, 0.1)'; // Red shadow
-            case 'Artisan': return 'rgba(250, 204, 21, 0.1)'; // Gold shadow
-            case 'Spotlight': return 'rgba(250, 204, 21, 0.1)'; // Gold shadow
-            default: return 'rgba(6, 182, 212, 0.1)'; // Teal shadow for others
-        }
-    };
 
     return (
         <button

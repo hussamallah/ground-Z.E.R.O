@@ -2,25 +2,18 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import {
-    FAMILIES,
+import { FAMILIES, RESULTS_LIB,
     ARCHETYPES,
-    RESULTS_LIB,
     TIE_ORDER,
     familyPair,
     resolveAllFamilies,
     familyScoresPure,
+    renderFamilyContent,
     Tap,
     Seed,
-    MatchLog,
-    FamilyResult,
-    FAMILY_INTROS,
-    JOINERS,
-    calculateJoiners,
-    calculateHeadline,
-    renderFamilyContent
+    MatchLog
 } from '../../quiz-data';
-import Image from 'next/image';
+
 
 const CURRENT_ARCHETYPE = "Visionary";
 
@@ -139,11 +132,11 @@ const ResultsScreen = ({ taps, finalWinner, duels, onRestart, router }: { taps: 
         const lowConfidenceCount = familyResults.filter(r => r.confidence === 'Low').length;
         const isProvisional = lowConfidenceCount > 3;
         const archetypeFamily = (ARCHETYPES as any)[chosen.family];
-        let winnerArchetype = archetypeFamily.L.name === winnerName ? archetypeFamily.L : archetypeFamily.R;
+        const winnerArchetype = archetypeFamily.L.name === winnerName ? archetypeFamily.L : archetypeFamily.R;
         return { winner: winnerName, winnerArchetype, isProvisional, runnerUp: runnerUpName, chosenFamily };
     }, [taps, finalWinner, familyResults]);
 
-    const code = triad.map(f => (f.lines.find((l:any)=>l.primary)?.mv || f.lines[0]?.mv || '')).join(' ');
+    
 
     const handleFamilyClick = (family: string) => {
         setSelectedFamily(family);
@@ -167,7 +160,7 @@ const ResultsScreen = ({ taps, finalWinner, duels, onRestart, router }: { taps: 
                 archetype: { winner: res.winner, probs: res.probs, band: res.confidence },
                 avgDetailNudge: res.avgDetailNudge,
                 lrScore: res.lrScore,
-                taps: res.taps.map(t => ({ mv: t.mv, detail: t.detail }))
+                taps: res.taps.map((t: any) => ({ mv: t.mv, detail: t.detail }))
             };
         });
         const manifest = {
