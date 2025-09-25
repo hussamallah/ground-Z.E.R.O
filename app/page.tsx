@@ -63,6 +63,48 @@ const buildAdaptiveBracket = (seeds: Seed[]): Bracket => {
     }
     return { mode: "full", seed1Final: seeds[0], r1: pairs };
 };
+// Helper function to determine which Phase 3 questions should be shown
+const getPhase3Questions = (taps: Tap[]) => {
+    const familyMovementCounts: { [family: string]: { A: number; S: number; R: number } } = {};
+    
+    // Count movements per family from P1 and P2 with safety checks
+    taps.forEach(tap => {
+        if ((tap.phase === 'P1' || tap.phase === 'P2') && tap.family && tap.mv) {
+            if (!familyMovementCounts[tap.family]) {
+                familyMovementCounts[tap.family] = { A: 0, S: 0, R: 0 };
+            }
+            
+            // Safe movement increment with validation
+            const movement = tap.mv as 'A'|'S'|'R';
+            if (movement === 'A' || movement === 'S' || movement === 'R') {
+                familyMovementCounts[tap.family][movement]++;
+            }
+        }
+    });
+    
+    // Determine which questions to show based on movement conflicts
+    const questionsToShow: any[] = [];
+    
+    PHASE3.forEach(question => {
+        // Safety check for question structure
+        if (!question || !question.family) {
+            return;
+        }
+        
+        const counts = familyMovementCounts[question.family] || { A: 0, S: 0, R: 0 };
+        
+        // Count how many different movement types have votes
+        const nonZeroMovements = Object.values(counts).filter(v => v > 0).length;
+        
+        // Only show question if there are at least 2 different movement types with votes
+        if (nonZeroMovements >= 2) {
+            questionsToShow.push(question);
+        }
+    });
+    
+    return questionsToShow;
+};
+
 // #endregion
 
 export default function Home() {
@@ -100,7 +142,15 @@ export default function Home() {
                     options = opts.length === 3 ? [opts[0], opts[(p2Index % 2) + 1]] : opts;
                 }
             } else if (phase === 'p3') {
-                currentQuestion = PHASE3[p3Index];
+                const availableQuestions = getPhase3Questions(gameState.taps);
+                
+                // If no questions available, skip keyboard handling
+                if (availableQuestions.length === 0) {
+                    options = [];
+                    return;
+                }
+                
+                currentQuestion = availableQuestions[p3Index];
                 
                 // Add safety check for currentQuestion
                 if (!currentQuestion || !currentQuestion.family) {
@@ -116,24 +166,23 @@ export default function Home() {
                 const arr = ([{k:'A',v:counts.A},{k:'S',v:counts.S},{k:'R',v:counts.R}] as Array<{k:'A'|'S'|'R';v:number}>).sort((x,y)=>y.v-x.v);
                 const top = arr[0].k, second = arr[1].k;
                 
-                // If only one movement type was chosen, no keyboard options
-                if (second === undefined || arr[1].v === 0) {
-                    options = [];
+                // Only use movement types that actually exist in the question
+                const availableMovements = Object.keys(currentQuestion).filter(key => key !== 'family' && key !== 'stem') as ('A'|'S'|'R')[];
+                const availableArr = arr.filter(item => availableMovements.includes(item.k));
+                const leftKey: 'A'|'S'|'R' = availableArr[0]?.k || availableMovements[0];
+                const rightKey: 'A'|'S'|'R' = availableArr[1]?.k || availableMovements[1];
+                
+                const left = leftKey === 'A' ? currentQuestion.A : (currentQuestion as any)[leftKey];
+                const right = (currentQuestion as any)[rightKey];
+                
+                // Add safety checks to prevent undefined errors
+                if (left && right && left.detail && right.detail) {
+                    options = [
+                        { mv: leftKey, detail: left.detail, text: left.text },
+                        { mv: rightKey, detail: right.detail, text: right.text }
+                    ];
                 } else {
-                    const leftKey: 'A'|'S'|'R' = top;
-                    const rightKey: 'A'|'S'|'R' = second;
-                    const left = leftKey === 'A' ? currentQuestion.A : (currentQuestion as any)[leftKey];
-                    const right = (currentQuestion as any)[rightKey];
-                    
-                    // Add safety checks to prevent undefined errors
-                    if (left && right && left.detail && right.detail) {
-                        options = [
-                            { mv: leftKey, detail: left.detail, text: left.text },
-                            { mv: rightKey, detail: right.detail, text: right.text }
-                        ];
-                    } else {
-                        options = [];
-                    }
+                    options = [];
                 }
                 }
             }
@@ -180,9 +229,26 @@ export default function Home() {
         let { phase, p1Index, p2Index, p3Index } = gameState;
 
         // Optimistic advance
-        if (phase === 'p1') { if (p1Index < PHASE1.length - 1) p1Index++; else phase = 'p2'; } 
-        else if (phase === 'p2') { if (p2Index < PHASE2.length - 1) p2Index++; else phase = 'p3'; } 
-        else if (phase === 'p3') { if (p3Index < PHASE3.length - 1) p3Index++; else phase = 'end'; }
+        if (phase === 'p1') { 
+            if (p1Index < PHASE1.length - 1) p1Index++; 
+            else phase = 'p2'; 
+        } 
+        else if (phase === 'p2') { 
+            if (p2Index < PHASE2.length - 1) p2Index++; 
+            else phase = 'p3'; 
+        } 
+        else if (phase === 'p3') { 
+            // For Phase 3, we need to determine the next question dynamically
+            const availableQuestions = getPhase3Questions(newTaps);
+            if (availableQuestions.length === 0) {
+                // No Phase 3 questions needed, go to end
+                phase = 'end';
+            } else if (p3Index < availableQuestions.length - 1) {
+                p3Index++; 
+            } else {
+                phase = 'end'; 
+            }
+        }
         
         setIsFading(true);
         setTimeout(() => {
@@ -198,13 +264,30 @@ export default function Home() {
         if (phase === 'intro') return <IntroScreen onStart={() => { if (lockRef.current) return; lockRef.current = true; setTimeout(()=>{ lockRef.current = false; }, 260); setIsFading(true); setTimeout(()=>{ setGameState(prev => ({...prev, phase: 'p1'})); setIsFading(false); }, 240); }} />;
         if (phase === 'p1') return <Phase1Screen question={PHASE1[p1Index]} onSelect={handleOptionClick} qNum={p1Index + 1} total={PHASE1.length} selectedOption={selectedOption} />;
         if (phase === 'p2') return <Phase2Screen index={p2Index} question={PHASE2[p2Index]} onSelect={handleOptionClick} qNum={p2Index + 1} total={PHASE2.length} />;
-        if (phase === 'p3') return <Phase3Screen question={PHASE3[p3Index]} taps={taps} onSelect={handleOptionClick} qNum={p3Index + 1} total={PHASE3.length} />;
+        if (phase === 'p3') {
+            const availableQuestions = getPhase3Questions(taps);
+            
+            // If no Phase 3 questions needed, skip to end
+            if (availableQuestions.length === 0) {
+                return <EndScreen taps={taps} onRestart={restart} router={router} />;
+            }
+            
+            const currentQuestion = availableQuestions[p3Index];
+            
+            // If current question is invalid, skip to end
+            if (!currentQuestion) {
+                return <EndScreen taps={taps} onRestart={restart} router={router} />;
+            }
+            
+            return <Phase3Screen question={currentQuestion} taps={taps} onSelect={handleOptionClick} qNum={p3Index + 1} total={availableQuestions.length} />;
+        }
         if (phase === 'end') return <EndScreen taps={taps} onRestart={restart} router={router} />;
         return null;
     };
     
     const progress = useMemo(() => {
-        const total = PHASE1.length + PHASE2.length + PHASE3.length; // total questions
+        const phase3Questions = getPhase3Questions(gameState.taps);
+        const total = PHASE1.length + PHASE2.length + phase3Questions.length; // total questions
         const done = gameState.p1Index + gameState.p2Index + gameState.p3Index;
         if (gameState.phase === 'end') return 100;
         if (gameState.phase === 'intro') return 0;
@@ -394,38 +477,10 @@ const Phase2Screen = ({ index, question, onSelect, qNum, total }: { index: numbe
 };
 
 const Phase3Screen = ({ question, onSelect, qNum, total, taps }: { question: any, onSelect: (tap: Omit<Tap, 'ts'>) => void, qNum: number, total: number, taps: Tap[] }) => {
-    console.log('🔍 Phase3Screen render - question:', question, 'qNum:', qNum, 'taps:', taps);
     const onKey = (e: React.KeyboardEvent, mv: string, detail: string, family: string) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onSelect({ phase: 'P3', family, mv, detail }); } };
-    
-    // compute counts from P1/P2 for this family (only if question exists)
-    const counts = question && question.family ? taps.reduce((acc, t) => {
-        if (t.family === question.family && (t.phase === 'P1' || t.phase === 'P2')) { (acc as any)[t.mv] = ((acc as any)[t.mv]||0)+1; }
-        return acc;
-    }, { A:0, S:0, R:0 } as {A:number;S:number;R:number}) : { A:0, S:0, R:0 };
-    
-    console.log('📈 Phase3Screen counts for family', question?.family, ':', counts);
-    
-    const arr = ([{k:'A',v:counts.A},{k:'S',v:counts.S},{k:'R',v:counts.R}] as Array<{k:'A'|'S'|'R';v:number}>).sort((x,y)=>y.v-x.v);
-    const top = arr[0].k, second = arr[1].k;
-    
-    console.log('🎯 Phase3Screen computed - top:', top, 'second:', second, 'arr:', arr);
-    
-    // If only one movement type was chosen, auto-advance using useEffect
-    useEffect(() => {
-        if (question && question.family && (second === undefined || (arr[1] && arr[1].v === 0))) {
-            console.log('⚡ Phase3Screen - Auto-advancing, second:', second, 'arr[1]:', arr[1]);
-            const onlyChoice = top;
-            const onlyOption = onlyChoice === 'A' ? question.A : (question as any)[onlyChoice];
-            if (onlyOption) {
-                // Auto-advance after component mounts
-                onSelect({ phase: 'P3', family: question.family, mv: onlyChoice, detail: onlyOption.detail });
-            }
-        }
-    }, [question, top, second, arr, onSelect]);
     
     // Add safety check for question object
     if (!question || !question.family) {
-        console.log('❌ Phase3Screen - No question or family:', question);
         return (
             <div className="text-center py-8">
                 <p className="text-white/70">Loading question...</p>
@@ -433,19 +488,19 @@ const Phase3Screen = ({ question, onSelect, qNum, total, taps }: { question: any
         );
     }
     
-    // If only one movement type was chosen, show processing message
-    if (second === undefined || (arr[1] && arr[1].v === 0)) {
-        console.log('⚡ Phase3Screen - Auto-advancing, second:', second, 'arr[1]:', arr[1]);
-        return (
-            <div className="text-center py-8">
-                <p className="text-white/70">Processing {question.family}...</p>
-            </div>
-        );
-    }
+    // compute counts from P1/P2 for this family
+    const counts = taps.reduce((acc, t) => {
+        if (t.family === question.family && (t.phase === 'P1' || t.phase === 'P2')) { 
+            (acc as any)[t.mv] = ((acc as any)[t.mv]||0)+1; 
+        }
+        return acc;
+    }, { A:0, S:0, R:0 } as {A:number;S:number;R:number});
+    
+    const arr = ([{k:'A',v:counts.A},{k:'S',v:counts.S},{k:'R',v:counts.R}] as Array<{k:'A'|'S'|'R';v:number}>).sort((x,y)=>y.v-x.v);
+    const top = arr[0].k, second = arr[1].k;
     
     // Only use movement types that actually exist in the question
     const availableMovements = Object.keys(question).filter(key => key !== 'family' && key !== 'stem') as ('A'|'S'|'R')[];
-    console.log('🎯 Available movements in question:', availableMovements);
     
     // Filter the sorted array to only include movements that exist in the question
     const availableArr = arr.filter(item => availableMovements.includes(item.k));
@@ -455,11 +510,8 @@ const Phase3Screen = ({ question, onSelect, qNum, total, taps }: { question: any
     const left = leftKey === 'A' ? question.A : (question as any)[leftKey];
     const right = (question as any)[rightKey];
     
-    console.log('🔧 Phase3Screen - leftKey:', leftKey, 'rightKey:', rightKey, 'left:', left, 'right:', right);
-    
     // Add safety checks to prevent undefined errors
     if (!left || !right) {
-        console.log('❌ Phase3Screen - Missing left or right option:', { left, right, leftKey, rightKey, question });
         return (
             <div className="text-center py-8">
                 <p className="text-white/70">Loading question...</p>
