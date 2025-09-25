@@ -355,7 +355,7 @@ const IntroScreen = ({ onStart }: { onStart: () => void }) => (
             <p className="text-xl md:text-2xl text-yellow-400 leading-relaxed max-w-3xl mx-auto
                          font-medium tracking-wide drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]
                          bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 bg-clip-text text-transparent">
-                Discover Your Decision-Making DNA. The Ground Zero Archetype Quiz is different. It's not a personality test; it's a sophisticated diagnostic tool designed to reveal the underlying patterns of how you move through the world. We don't just show you a label; we show you your logic.
+                Discover Your Decision-Making DNA. The Ground Zero Archetype Quiz is different. It&apos;s not a personality test; it&apos;s a sophisticated diagnostic tool designed to reveal the underlying patterns of how you move through the world. We don&apos;t just show you a label; we show you your logic.
             </p>
         </div>
         <div className="flex justify-center">
@@ -374,7 +374,7 @@ const IntroScreen = ({ onStart }: { onStart: () => void }) => (
     </div>
 );
 
-const Phase1Screen = ({ question, onSelect, qNum, total, selectedOption }: { question: any, onSelect: (tap: Omit<Tap, 'ts'>) => void, qNum: number, total: number, selectedOption: string | null }) => {
+const Phase1Screen = ({ question, onSelect, qNum, total }: { question: any, onSelect: (tap: Omit<Tap, 'ts'>) => void, qNum: number, total: number, selectedOption: string | null }) => {
     const onKey = (e: React.KeyboardEvent, mv: string, detail: string, family: string) => {
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onSelect({ phase: 'P1', family, mv, detail }); }
     };
@@ -503,7 +503,6 @@ const Phase3Screen = ({ question, onSelect, qNum, total, taps }: { question: any
     }, { A:0, S:0, R:0 } as {A:number;S:number;R:number});
     
     const arr = ([{k:'A',v:counts.A},{k:'S',v:counts.S},{k:'R',v:counts.R}] as Array<{k:'A'|'S'|'R';v:number}>).sort((x,y)=>y.v-x.v);
-    const top = arr[0].k, second = arr[1].k;
     
     // Only use movement types that actually exist in the question
     const availableMovements = Object.keys(question).filter(key => key !== 'family' && key !== 'stem') as ('A'|'S'|'R')[];
@@ -582,7 +581,7 @@ const Phase3Screen = ({ question, onSelect, qNum, total, taps }: { question: any
     );
 };
 
-const EndScreen = ({ taps, onRestart, router }: { taps: Tap[], onRestart: () => void, router: any }) => {
+const EndScreen = ({ taps, router }: { taps: Tap[], onRestart: () => void, router: any }) => {
     const [state, setState] = useState<
         | { finalWinner: Seed | null, duels?: MatchLog[] }
         | {
