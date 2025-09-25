@@ -21,7 +21,7 @@ export const FaceArt: { [key: string]: string } = {
     "Partner": "/partner.png",
     "Provider": "/provider.png",
     "Catalyst": "/catalyst.png",
-    "Artisan": "/artisan.png"
+    "Artisan": "/catalyst.png"
 };
 
 export const FaceCopy: { [key: string]: string } = {

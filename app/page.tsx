@@ -347,19 +347,25 @@ export default function Home() {
 // #region Components
 const IntroScreen = ({ onStart }: { onStart: () => void }) => (
     <div className="space-y-6">
-        <div className="text-center">
-            <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-white mb-4">
+        <div className="text-center mt-12">
+            <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-white mb-6 
+                         bg-gradient-to-r from-white via-yellow-100 to-white bg-clip-text text-transparent">
                 Ground Zero
             </h1>
-            <p className="text-lg text-white/70 leading-relaxed max-w-2xl mx-auto">
-                7 six-choice scenarios, 14 binaries, 7 quick checks. Every tap = 1. Movement triads shown. Archetype per family resolved with priors + capped nudges.
+            <p className="text-xl md:text-2xl text-yellow-400 leading-relaxed max-w-3xl mx-auto
+                         font-medium tracking-wide drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]
+                         bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 bg-clip-text text-transparent">
+                Discover Your Decision-Making DNA. The Ground Zero Archetype Quiz is different. It's not a personality test; it's a sophisticated diagnostic tool designed to reveal the underlying patterns of how you move through the world. We don't just show you a label; we show you your logic.
             </p>
         </div>
         <div className="flex justify-center">
             <button 
-                className="px-8 py-4 bg-gradient-to-r from-yellow-400 to-yellow-300 text-black font-semibold rounded-2xl
-                         hover:from-yellow-300 hover:to-yellow-200 active:scale-[.98] transition-all duration-120 ease-out
-                         focus:ring-2 focus:ring-yellow-400/60 focus:outline-none"
+                className="relative px-10 py-5 bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 text-white font-bold text-lg rounded-2xl
+                         hover:from-blue-500 hover:via-blue-400 hover:to-blue-500 hover:scale-105 hover:shadow-[0_10px_30px_rgba(59,130,246,0.4)]
+                         active:scale-[.98] transition-all duration-300 ease-out
+                         focus:ring-4 focus:ring-blue-400/40 focus:outline-none
+                         shadow-[0_4px_15px_rgba(59,130,246,0.3)] border border-blue-400/20
+                         before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-r before:from-white/10 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-300"
                 onClick={onStart}
             >
                 Begin
@@ -888,7 +894,7 @@ const DuelCard = ({ seed, onPick, isSelected }: { seed: Seed, onPick: () => void
                 </h3>
                 
                 {/* Description with improved typography */}
-                <p className="text-white/70 leading-relaxed line-clamp-3 italic text-sm md:text-base">
+                <p className="text-white/70 leading-relaxed italic text-sm md:text-base">
                     {FaceCopy[seed.face]}
                 </p>
             </div>
