@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { PHASE1, PHASE2, PHASE3, FaceArt, FaceCopy, familyPair, PROB_WINDOW, MIN_FINALISTS, PROB_BACKOFF, resolveAllFamilies, Tap, FamilyResult, Seed, MatchLog } from './quiz-data';
+import { PHASE1, PHASE2, PHASE3, FaceArt, FaceCopy, familyPair, PROB_WINDOW, MIN_FINALISTS, PROB_BACKOFF, resolveAllFamilies, Tap, FamilyResult, Seed, MatchLog } from '../quiz-data';
 import Image from 'next/image';
 
 // #region Helper Types and Functions
