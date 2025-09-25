@@ -667,39 +667,39 @@ export const PHASE2 = [
 
 export const PHASE3 = [
     {
-        family: "Stress", stem: "Cluttered desk.",
-        A: { text: "10-minute sweep: trash, keep, action.", detail: "A2a" },
-        R: { text: "Close the door; deal tomorrow.", detail: "R2a" }
+        family: "Control", stem: "Team meeting derailed by side conversations.",
+        A: { text: "Call for attention; redirect to agenda item.", detail: "A1a" },
+        S: { text: "Let it flow; see if useful ideas emerge.", detail: "S1a" }
     },
     {
-        family: "Boundary", stem: "Friend late twice.",
-        A: { text: "Shift meets 15 minutes later; confirm.", detail: "A2a" },
-        S: { text: "Ask timing that works; adjust once.", detail: "S1a" }
+        family: "Pace", stem: "Project deadline moved up by one week.",
+        A: { text: "Reorganize timeline; assign new due dates.", detail: "A2a" },
+        S: { text: "Assess what can realistically be delivered.", detail: "S1a" }
     },
     {
-        family: "Truth", stem: "Conflicting article claims.",
-        A: { text: "Read methods; accept the stronger one.", detail: "A2a" },
-        R: { text: "Share the catchier headline.", detail: "R1a" }
+        family: "Boundary", stem: "Colleague asks you to cover their shift last minute.",
+        A: { text: "Decline; suggest they find someone else.", detail: "A1a" },
+        S: { text: "Check your schedule; offer partial coverage.", detail: "S1b" }
     },
     {
-        family: "Recognition", stem: "Photo book credit missing you.",
-        A: { text: "Add your caption; tag editor.", detail: "A1b" },
-        R: { text: "Skip the add; let it slide.", detail: "R2a" }
+        family: "Truth", stem: "Friend claims something you know is false.",
+        A: { text: "Correct them directly with the facts.", detail: "A1a" },
+        S: { text: "Consider both perspectives; ask for their source.", detail: "S1a" }
     },
     {
-        family: "Pace", stem: "Double-booked calls.",
-        A: { text: "Keep higher-impact; move the other.", detail: "A1a" },
-        S: { text: "Ask both to shift 15 minutes.", detail: "S1b" }
+        family: "Recognition", stem: "Your idea gets presented as someone else's.",
+        A: { text: "Speak up immediately; claim your contribution.", detail: "A1b" },
+        S: { text: "Wait for right moment; mention it casually.", detail: "S1a" }
     },
     {
-        family: "Boundary", stem: "Cousin asks for login.",
-        A: { text: "Decline; help set up instead.", detail: "A2b" },
-        R: { text: "Share password, fix later.", detail: "R2b" }
+        family: "Bonding", stem: "Roommate seems distant; avoiding conversation.",
+        A: { text: "Ask directly what's wrong; offer to help.", detail: "A1b" },
+        S: { text: "Give them space; check in gently later.", detail: "S1a" }
     },
     {
-        family: "Bonding", stem: "Partner tense before flight.",
-        A: { text: "Take bag, check gate, walk them in.", detail: "A1b" },
-        S: { text: "Ask what helps; stay close.", detail: "S1a" }
+        family: "Stress", stem: "Computer crashes during important presentation.",
+        A: { text: "Restart quickly; continue with backup slides.", detail: "A1a" },
+        S: { text: "Assess damage; decide best recovery approach.", detail: "S1a" }
     }
 ];
 

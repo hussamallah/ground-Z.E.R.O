@@ -295,20 +295,19 @@ export default function Home() {
     }, [gameState]);
 
     const isTournamentPhase = gameState.phase === 'end';
-    const inIntro = gameState.phase === 'intro';
 
     return (
-        <div className={inIntro ? "" : "max-w-3xl mx-auto px-4 md:px-6 py-2 md:py-4 space-y-8 -mt-10"}>
+        <div className="max-w-3xl mx-auto px-4 md:px-6 py-2 md:py-4 space-y-8 -mt-10">
             <div role="status" aria-live="polite" className="sr-only">
                 {gameState.phase !== 'intro' && gameState.phase !== 'end' && 
                     `Question ${gameState.p1Index + gameState.p2Index + gameState.p3Index + 1}/7`}
             </div>
             
-            {!inIntro && !isTournamentPhase && (
+            {!isTournamentPhase && (
                 <header className="flex items-center justify-center py-3">
                         <Image 
                             src="/THE-Axiarch.png" 
-                            alt="Ground Zero" 
+                        alt="Ground Zero" 
                             width={192} 
                             height={192} 
                             className="h-48 [filter:drop-shadow(0_0_10px_rgba(212,175,55,.35))]"
@@ -316,7 +315,7 @@ export default function Home() {
                 </header>
             )}
             
-            {!inIntro && !isTournamentPhase && (
+            {!isTournamentPhase && (
                 <div className="absolute bottom-4 left-0 right-0 px-4 md:px-6 z-10">
                     <div className="flex items-center gap-3">
                         <div aria-label="Progress" className="relative h-1.5 w-full rounded-full bg-white/5 overflow-hidden">
@@ -336,7 +335,7 @@ export default function Home() {
                 </div>
             )}
             
-            <div id="stage" className={inIntro ? "" : "min-h-[500px]"}>
+            <div id="stage" className="min-h-[500px]">
                 <div style={isFading ? { opacity: 0, transition: 'opacity 90ms ease-out' } : { opacity: 1, transition: 'opacity 120ms ease-out' }}>
                     {renderContent()}
                 </div>
@@ -347,66 +346,31 @@ export default function Home() {
 
 // #region Components
 const IntroScreen = ({ onStart }: { onStart: () => void }) => (
-    <div className="wrap">
-        <section className="hero center">
-            <div className="glow" />
-            <div className="logo" aria-hidden="true">
-                <img src="/THE-Axiarch.png" alt="Ground Zero Emblem" />
-            </div>
-            <h1>Ground Zero</h1>
-            <p className="lead">The only diagnostic quiz that reveals <em>how you think</em>, not just what you are.</p>
-            <div className="mt-4">
-                <button className="btn" onClick={onStart}>Begin</button>
-            </div>
-        </section>
-
-        <section className="section">
-            <div className="cols">
-                <div>
-                    <div className="kicker">About</div>
-                    <h2>Not Another Personality Test</h2>
-                    <div className="divider" />
-                    <p className="p">Most quizzes hand you a random label. They’re built on shallow point systems that shift with every attempt.</p>
-                    <p className="p">Ground Zero is <b>deterministic</b>. Same choices, same results — always. It captures the logic of how you decide: the patterns, pauses, and resets that shape your moves in the real world.</p>
-                    <p className="p">Transparent. Fair. Un‑gameable.</p>
-
-                    <div className="diagram mt-3" aria-hidden="true">
-                        <div className="step"><b>Question</b><div className="muted">Situational choices</div></div>
-                        <div className="arrow" />
-                        <div className="step"><b>Engine</b><div className="muted">Deterministic ledger</div></div>
-                        <div className="arrow" />
-                        <div className="step"><b>Your Archetype</b><div className="muted">With proof</div></div>
-                    </div>
-                </div>
-
-                <div>
-                    <div className="kicker">Why it’s different</div>
-                    <h2>What powers the insight</h2>
-                    <div className="divider" />
-                    <div className="mini">
-                        <div className="card">
-                            <h3>Evidence, not vibes</h3>
-                            <div className="muted">Multi‑phase questions build a replayable record of your logic.</div>
-                        </div>
-                        <div className="card">
-                            <h3>Deterministic</h3>
-                            <div className="muted">Same inputs, same outputs. No randomness, no mood swings.</div>
-                        </div>
-                        <div className="card">
-                            <h3>Fair by design</h3>
-                            <div className="muted">Clear rules, rotated tie breaks, and transparent weights.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <div className="separator" role="presentation" />
-
-        <section className="cta">
-            <button className="btn" onClick={onStart}>Start the 5‑minute assessment</button>
-            <div className="note">No sign‑up required. You’ll see your decision‑making fingerprint at the end.</div>
-        </section>
+    <div className="space-y-6">
+        <div className="text-center mt-12">
+            <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-white mb-6 
+                         bg-gradient-to-r from-white via-yellow-100 to-white bg-clip-text text-transparent">
+                Ground Zero
+            </h1>
+            <p className="text-xl md:text-2xl text-yellow-400 leading-relaxed max-w-3xl mx-auto
+                         font-medium tracking-wide drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]
+                         bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 bg-clip-text text-transparent">
+                Discover Your Decision-Making DNA. The Ground Zero Archetype Quiz is different. It&apos;s not a personality test; it&apos;s a sophisticated diagnostic tool designed to reveal the underlying patterns of how you move through the world. We don&apos;t just show you a label; we show you your logic.
+            </p>
+        </div>
+        <div className="flex justify-center">
+            <button 
+                className="relative px-10 py-5 bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 text-white font-bold text-lg rounded-2xl
+                         hover:from-blue-500 hover:via-blue-400 hover:to-blue-500 hover:scale-105 hover:shadow-[0_10px_30px_rgba(59,130,246,0.4)]
+                         active:scale-[.98] transition-all duration-300 ease-out
+                         focus:ring-4 focus:ring-blue-400/40 focus:outline-none
+                         shadow-[0_4px_15px_rgba(59,130,246,0.3)] border border-blue-400/20
+                         before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-r before:from-white/10 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-300"
+                onClick={onStart}
+            >
+                Begin
+            </button>
+        </div>
     </div>
 );
 
