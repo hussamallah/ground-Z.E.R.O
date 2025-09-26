@@ -833,9 +833,9 @@ html,body{
 }
 
 /* Enhanced focus states for new radio inputs */
-input[type="radio"]:focus + * {
-  outline: 2px solid rgba(212, 175, 55, 0.6);
-  outline-offset: 2px;
+/* Disable golden focus outline only inside the quiz stage */
+#stage input[type="radio"]:focus + * {
+  outline: none !important;
 }
 
 /* Ensure proper spacing for new layout */
@@ -922,6 +922,42 @@ input[type="radio"]:focus + * {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
 }
 
+/* Premium gold card with inner shine for quiz options */
+.gold-card-premium {
+  position: relative;
+  border: 1px solid rgba(212, 175, 55, 0.55) !important;
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow:
+    0 0 0 1px rgba(212, 175, 55, 0.25),      /* subtle outer edge */
+    0 8px 24px rgba(212, 175, 55, 0.10),     /* soft golden glow */
+    inset 0 1px 0 rgba(255, 255, 255, 0.06), /* top inner highlight */
+    inset 0 0 28px rgba(212, 175, 55, 0.12); /* inner shine */
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+
+.gold-card-premium::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(120% 120% at 50% -10%, rgba(212, 175, 55, 0.18), transparent 60%);
+}
+
+/* Depressed press feedback */
+.gold-card-premium:active {
+  transform: translateY(1px) scale(0.996);
+  box-shadow:
+    0 0 0 1px rgba(212, 175, 55, 0.25),
+    0 4px 14px rgba(212, 175, 55, 0.08),
+    inset 0 2px 10px rgba(0, 0, 0, 0.35),    /* inner depth */
+    inset 0 0 18px rgba(212, 175, 55, 0.10); /* reduced inner shine */
+}
+
+.gold-card-premium:active::after {
+  background: radial-gradient(120% 120% at 50% -10%, rgba(212, 175, 55, 0.12), transparent 60%);
+}
+
 /* Sticky positioning improvements */
 .sticky {
   position: sticky;
@@ -974,9 +1010,10 @@ input[type="radio"]:focus + * {
   position: relative;
 }
 
+/* Neutralize hover glow for question cards */
 .question-card-backlight:hover {
-  border-color: rgba(250, 204, 21, 0.4) !important;
-  box-shadow: 0 0 0 1px rgba(250, 204, 21, 0.2), 0 0 20px rgba(250, 204, 21, 0.1);
+  border-color: inherit !important;
+  box-shadow: none !important;
 }
 
 /* Enhanced glass card effects */
@@ -995,11 +1032,8 @@ input[type="radio"]:focus + * {
 }
 
 /* Selection state for answer cards */
-.answer-card-selected {
-  border-color: rgba(250, 204, 21, 0.4) !important;
-  background: rgba(250, 204, 21, 0.05) !important;
-  box-shadow: 0 0 0 1px rgba(250, 204, 21, 0.2), 0 0 20px rgba(250, 204, 21, 0.1);
-}
+/* Remove selection styling for answer cards */
+.answer-card-selected { border-color: inherit !important; background: inherit !important; box-shadow: none !important; }
 
 /* Dim other cards when one is selected */
 .answer-card-dimmed {

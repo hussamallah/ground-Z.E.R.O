@@ -116,7 +116,6 @@ export default function Home() {
     });
     const lockRef = useRef(false);
     const [isFading, setIsFading] = useState(false);
-    const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
     // Enhanced keyboard flow
     useEffect(() => {
@@ -193,7 +192,6 @@ export default function Home() {
                 e.preventDefault();
                 const option = options[digit - 1];
                 if (option && currentQuestion) {
-                    setSelectedOption(option.detail);
                     handleOptionClick({ 
                         phase: phase.toUpperCase() as any, 
                         family: currentQuestion.family, 
@@ -204,7 +202,7 @@ export default function Home() {
             }
             
             // Handle Enter to confirm/advance
-            if (e.key === 'Enter' && selectedOption) {
+            if (e.key === 'Enter') {
                 e.preventDefault();
                 // Auto-advance is already handled in handleOptionClick
             }
@@ -212,17 +210,15 @@ export default function Home() {
 
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [gameState, selectedOption]);
+    }, [gameState]);
 
     const handleOptionClick = (tapData: Omit<Tap, 'ts'>) => {
         if (lockRef.current) return;
         lockRef.current = true;
-        setSelectedOption(tapData.detail);
         
         // Debounce for 250ms to prevent double taps
         setTimeout(() => { 
             lockRef.current = false; 
-            setSelectedOption(null);
         }, 250);
         
         const newTaps = [...gameState.taps, { ...tapData, ts: Date.now() }];
@@ -262,7 +258,7 @@ export default function Home() {
     const renderContent = () => {
         const { phase, p1Index, p2Index, p3Index, taps } = gameState;
         if (phase === 'intro') return <IntroScreen onStart={() => { if (lockRef.current) return; lockRef.current = true; setTimeout(()=>{ lockRef.current = false; }, 260); setIsFading(true); setTimeout(()=>{ setGameState(prev => ({...prev, phase: 'p1'})); setIsFading(false); }, 240); }} />;
-        if (phase === 'p1') return <Phase1Screen question={PHASE1[p1Index]} onSelect={handleOptionClick} qNum={p1Index + 1} total={PHASE1.length} selectedOption={selectedOption} />;
+        if (phase === 'p1') return <Phase1Screen question={PHASE1[p1Index]} onSelect={handleOptionClick} qNum={p1Index + 1} total={PHASE1.length} />;
         if (phase === 'p2') return <Phase2Screen index={p2Index} question={PHASE2[p2Index]} onSelect={handleOptionClick} qNum={p2Index + 1} total={PHASE2.length} />;
         if (phase === 'p3') {
             const availableQuestions = getPhase3Questions(taps);
@@ -374,7 +370,7 @@ const IntroScreen = ({ onStart }: { onStart: () => void }) => (
     </div>
 );
 
-const Phase1Screen = ({ question, onSelect, qNum, total }: { question: any, onSelect: (tap: Omit<Tap, 'ts'>) => void, qNum: number, total: number, selectedOption: string | null }) => {
+const Phase1Screen = ({ question, onSelect, qNum, total }: { question: any, onSelect: (tap: Omit<Tap, 'ts'>) => void, qNum: number, total: number }) => {
     const onKey = (e: React.KeyboardEvent, mv: string, detail: string, family: string) => {
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onSelect({ phase: 'P1', family, mv, detail }); }
     };
@@ -398,11 +394,9 @@ const Phase1Screen = ({ question, onSelect, qNum, total }: { question: any, onSe
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
                 {question.choices.map((ch: any, index: number) => (
                         <div key={index} className="h-full">
-                            <label className="group relative cursor-pointer rounded-xl border border-white/8 bg-white/[0.03] p-4 question-card-backlight
-                                               hover:translate-y-[-2px] hover:shadow-[0_8px_25px_rgba(0,0,0,0.15)] hover:border-yellow-400/30 
-                                               active:scale-[.99] active:border-0 transition-all duration-150 will-change-transform
-                                               focus-visible:ring-2 focus-visible:ring-yellow-300/60 h-full flex flex-col
-                                               data-[selected=true]:border-yellow-400/40 data-[selected=true]:bg-yellow-400/5">
+                            <label className="group relative cursor-pointer rounded-xl gold-card-premium p-4
+                                               transition-all duration-150 will-change-transform h-full flex flex-col
+">
                                 <input 
                                     type="radio" 
                                     name={`q${qNum}`} 
@@ -452,11 +446,9 @@ const Phase2Screen = ({ index, question, onSelect, qNum, total }: { index: numbe
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
                 {shown.map((o: any, idx: number) => (
                         <div key={idx} className="h-full">
-                            <label className="group relative cursor-pointer rounded-xl border border-white/8 bg-white/[0.03] p-4 question-card-backlight
-                                               hover:translate-y-[-2px] hover:shadow-[0_8px_25px_rgba(0,0,0,0.15)] hover:border-yellow-400/30 
-                                               active:scale-[.99] active:border-0 transition-all duration-150 will-change-transform
-                                               focus-visible:ring-2 focus-visible:ring-yellow-300/60 h-full flex flex-col
-                                               data-[selected=true]:border-yellow-400/40 data-[selected=true]:bg-yellow-400/5">
+                        <label className="group relative cursor-pointer rounded-xl gold-card-premium p-4
+                                               transition-all duration-150 will-change-transform h-full flex flex-col
+">
                                 <input 
                                     type="radio" 
                                     name={`q${qNum}`} 
@@ -533,11 +525,9 @@ const Phase3Screen = ({ question, onSelect, qNum, total, taps }: { question: any
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
                     <div className="h-full">
-                        <label className="group relative cursor-pointer rounded-xl border border-white/8 bg-white/[0.03] p-4 question-card-backlight
-                                           hover:translate-y-[-2px] hover:shadow-[0_8px_25px_rgba(0,0,0,0.15)] hover:border-yellow-400/30 
-                                           active:scale-[.99] active:border-0 transition-all duration-150 will-change-transform
-                                           focus-visible:ring-2 focus-visible:ring-yellow-300/60 h-full flex flex-col
-                                           data-[selected=true]:border-yellow-400/40 data-[selected=true]:bg-yellow-400/5">
+                        <label className="group relative cursor-pointer rounded-xl border border-white/8 bg-white/[0.03] p-4
+                                           transition-all duration-150 will-change-transform h-full flex flex-col
+">
                             <input 
                                 type="radio" 
                                 name={`q${qNum}`} 
@@ -552,11 +542,9 @@ const Phase3Screen = ({ question, onSelect, qNum, total, taps }: { question: any
                     </div>
                     
                     <div className="h-full">
-                        <label className="group relative cursor-pointer rounded-xl border border-white/8 bg-white/[0.03] p-4 question-card-backlight
-                                           hover:translate-y-[-2px] hover:shadow-[0_8px_25px_rgba(0,0,0,0.15)] hover:border-yellow-400/30 
-                                           active:scale-[.99] active:border-0 transition-all duration-150 will-change-transform
-                                           focus-visible:ring-2 focus-visible:ring-yellow-300/60 h-full flex flex-col
-                                           data-[selected=true]:border-yellow-400/40 data-[selected=true]:bg-yellow-400/5">
+                        <label className="group relative cursor-pointer rounded-xl border border-white/8 bg-white/[0.03] p-4
+                                           transition-all duration-150 will-change-transform h-full flex flex-col
+">
                             <input 
                                 type="radio" 
                                 name={`q${qNum}`} 
@@ -770,9 +758,9 @@ const DuelScreen = ({ title, a, b, onPick }: { title: string, a: Seed, b: Seed, 
                         isSelected={selectedWinner?.face === a.face}
                     />
                 </div>
-                <div className="flex-shrink-0 relative flex flex-col items-center justify-center gap-4" style={{ minHeight: '400px' }}>
+            <div className="flex-shrink-0 relative flex flex-col items-center justify-center gap-3" style={{ minHeight: '320px' }}>
                     {/* Flare animation behind VS */}
-                    <div className="relative" style={{ transform: 'translateY(50px)' }}>
+                    <div className="relative" style={{ transform: 'translateY(10px)' }}>
                         <div className="absolute inset-0 rounded-full bg-gradient-to-r from-red-800/20 via-red-700/30 to-red-800/20 animate-pulse blur-sm scale-110" />
                         <div className="absolute inset-0 rounded-full bg-gradient-to-r from-red-800/10 via-red-700/20 to-red-800/10 animate-ping blur-md scale-125" />
                         
@@ -781,8 +769,7 @@ const DuelScreen = ({ title, a, b, onPick }: { title: string, a: Seed, b: Seed, 
                             <span className="text-lg md:text-xl font-bold text-white tracking-wider">VS</span>
                         </div>
                     </div>
-                    <div className="flex flex-col items-center gap-4 mt-auto">
-                        <p className="text-sm text-center text-white/60">Choose who advances.</p>
+                    <div className="flex flex-col items-center gap-2 mt-2">
                         <button 
                             className={`px-8 py-4 text-black font-semibold rounded-2xl relative overflow-hidden
                                          hover:scale-105 active:scale-[.98] transition-all duration-300 group
@@ -794,8 +781,7 @@ const DuelScreen = ({ title, a, b, onPick }: { title: string, a: Seed, b: Seed, 
                                     'linear-gradient(135deg, #F4D03F 0%, #F7DC6F 50%, #F4D03F 100%)',
                                 boxShadow: selectedWinner ? 
                                     '0 0 20px rgba(127, 29, 29, 0.4)' :
-                                    '0 0 20px rgba(244, 208, 63, 0.4)',
-                                transform: 'translateY(20px)'
+                                    '0 0 20px rgba(244, 208, 63, 0.4)'
                             }}
                             onClick={handleNext}
                             disabled={!selectedWinner}
@@ -804,6 +790,7 @@ const DuelScreen = ({ title, a, b, onPick }: { title: string, a: Seed, b: Seed, 
                             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                             <span className="relative z-10">Next</span>
                         </button>
+                        <p className="text-sm text-center text-white/60">Choose who advances.</p>
                     </div>
                 </div>
                 <div className="flex-1 max-w-[400px]">

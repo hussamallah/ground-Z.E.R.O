@@ -540,11 +540,8 @@ const Phase1Screen = ({
           {question.choices.map((ch: any, index: number) => (
             <div key={index} className="h-full">
               <label
-                className="group relative cursor-pointer rounded-xl border border-white/8 bg-white/[0.03] p-3 sm:p-4 question-card-backlight
-                                               hover:translate-y-[-2px] hover:shadow-[0_8px_25px_rgba(0,0,0,0.15)] hover:border-yellow-400/30 
-                                               active:scale-[.99] active:border-0 transition-all duration-150 will-change-transform
-                                               focus-visible:ring-2 focus-visible:ring-yellow-300/60 h-full flex flex-col
-                                               data-[selected=true]:border-yellow-400/40 data-[selected=true]:bg-yellow-400/5"
+                className="group relative cursor-pointer rounded-xl gold-card-premium p-3 sm:p-4
+                                               transition-all duration-150 will-change-transform h-full flex flex-col"
               >
                 <input
                   type="radio"
@@ -614,11 +611,8 @@ const Phase2Screen = ({
           {shown.map((o: any, idx: number) => (
             <div key={idx} className="h-full">
               <label
-                className="group relative cursor-pointer rounded-xl border border-white/8 bg-white/[0.03] p-3 sm:p-4 question-card-backlight
-                                               hover:translate-y-[-2px] hover:shadow-[0_8px_25px_rgba(0,0,0,0.15)] hover:border-yellow-400/30 
-                                               active:scale-[.99] active:border-0 transition-all duration-150 will-change-transform
-                                               focus-visible:ring-2 focus-visible:ring-yellow-300/60 h-full flex flex-col
-                                               data-[selected=true]:border-yellow-400/40 data-[selected=true]:bg-yellow-400/5"
+                className="group relative cursor-pointer rounded-xl gold-card-premium p-3 sm:p-4
+                                               transition-all duration-150 will-change-transform h-full flex flex-col"
               >
                 <input
                   type="radio"
@@ -879,23 +873,22 @@ const DuelScreen = ({ title, a, b, onPick }: { title: string; a: Seed; b: Seed; 
   return (
     <div className="fade-in">
       <h2 className="text-xl sm:text-2xl md:text-[28px] font-semibold tracking-tight text-balance text-center mb-4 sm:mb-6 px-2">{title}</h2>
-      <div className="flex flex-row items-center justify-center gap-2 md:gap-4">
+      <div className="flex flex-row items-center justify-center gap-2 md:gap-4 min-h-[50vh]">
         <div className="flex-1 max-w-[400px]">
           <DuelCard key={`left-${a.face}-${a.seed}`} seed={a} onPick={() => handlePick(a)} isSelected={selectedWinner?.face === a.face} />
         </div>
         <div className="flex-shrink-0 relative">
           <div className="absolute inset-0 rounded-full bg-gradient-to-r from-red-800/20 via-red-700/30 to-red-800/20 animate-pulse blur-sm scale-110" />
           <div className="absolute inset-0 rounded-full bg-gradient-to-r from-red-800/10 via-red-700/20 to-red-800/10 animate-ping blur-md scale-125" />
-          <div className="relative w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-red-800 via-red-700 to-red-900 flex items-center justify-center shadow-[0_0_20px_rgba(127,29,29,0.5)] border-2 border-red-700/50">
-            <span className="text-sm sm:text-lg md:text-xl font-bold text-white tracking-wider">VS</span>
+          <div className="relative w-10 h-10 sm:w-14 sm:h-14 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-red-800 via-red-700 to-red-900 flex items-center justify-center shadow-[0_0_20px_rgba(127,29,29,0.5)] border-2 border-red-700/50">
+            <span className="text-xs sm:text-base md:text-xl font-bold text-white tracking-wider">VS</span>
           </div>
         </div>
         <div className="flex-1 max-w-[400px]">
           <DuelCard key={`right-${b.face}-${b.seed}`} seed={b} onPick={() => handlePick(b)} isSelected={selectedWinner?.face === b.face} />
         </div>
       </div>
-      <p className="text-xs sm:text-sm text-center text-white/60 mt-4 sm:mt-6 px-2">Choose who advances.</p>
-      <div className="sticky bottom-0 pb-[env(safe-area-inset-bottom)] mt-4 sm:mt-6">
+      <div className="fixed left-0 right-0 bottom-8 sm:bottom-12 z-30">
         <div className="flex justify-center px-4">
           <button
             className={`px-6 sm:px-8 py-3 sm:py-4 text-black font-semibold rounded-2xl relative overflow-hidden w-full sm:w-auto
@@ -914,6 +907,9 @@ const DuelScreen = ({ title, a, b, onPick }: { title: string; a: Seed; b: Seed; 
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
             <span className="relative z-10">Next</span>
           </button>
+        </div>
+        <div className="flex justify-center mt-2">
+          <p className="text-xs sm:text-sm text-center text-white/60 px-2">Choose who advances.</p>
         </div>
       </div>
     </div>
@@ -974,7 +970,7 @@ const DuelCard = ({ seed, onPick, isSelected }: { seed: Seed; onPick: () => void
           alt={`${seed.face} emblem`}
           width={420}
           height={560}
-          className="max-h-[280px] sm:max-h-[350px] md:max-h-[420px] object-contain mx-auto relative z-10"
+          className="max-h-[320px] sm:max-h-[380px] md:max-h-[420px] object-contain mx-auto relative z-10"
           unoptimized
         />
       </div>
