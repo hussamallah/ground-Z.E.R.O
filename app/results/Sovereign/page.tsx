@@ -45,6 +45,65 @@ const FAMILY_ICONS: { [key: string]: string } = {
 
 const CURRENT_ARCHETYPE = "Sovereign";
 
+// Prize pattern locks - "X needs Y" means X only clicks when Y is the Secondary
+const PRIZE_LOCKS: { [key: string]: string } = {
+    // Control → needs Recognition
+    'Sovereign': 'Diplomat',
+    'Rebel': 'Spotlight',
+    
+    // Recognition → needs Truth
+    'Spotlight': 'Seeker',
+    'Diplomat': 'Architect',
+    
+    // Truth → needs Control
+    'Seeker': 'Sovereign',
+    'Architect': 'Rebel',
+    
+    // Pace → needs Stress
+    'Visionary': 'Catalyst',
+    'Navigator': 'Artisan',
+    
+    // Stress → needs Pace
+    'Catalyst': 'Navigator',
+    'Artisan': 'Visionary',
+    
+    // Boundary → needs Bonding
+    'Equalizer': 'Provider',
+    'Guardian': 'Partner',
+    
+    // Bonding → needs Boundary
+    'Partner': 'Guardian',
+    'Provider': 'Equalizer'
+};
+
+type PrizeActivation =
+    | { state: "ACTIVE"; main: string; secondary: string; required: string }
+    | { state: "DARK"; main: string; secondary: string; required: string; reason: "missing_partner" | "low_evidence" | "wide_margin" };
+
+// Prize activation logic
+const evaluatePrizeActivation = (main: string, secondary: Seed | null, taps: Tap[]): PrizeActivation => {
+    const required = PRIZE_LOCKS[main];
+    if (!required) {
+        return { state: "DARK", main, secondary: secondary?.face || "none", required: "none", reason: "missing_partner" };
+    }
+    
+    if (!secondary) {
+        return { state: "DARK", main, secondary: "none", required, reason: "missing_partner" };
+    }
+    
+    // Check evidence threshold (taps >= 18)
+    if (taps.length < 18) {
+        return { state: "DARK", main, secondary: secondary.face, required, reason: "low_evidence" };
+    }
+    
+    // Check if secondary matches required partner
+    if (secondary.face === required) {
+        return { state: "ACTIVE", main, secondary: secondary.face, required };
+    }
+    
+    return { state: "DARK", main, secondary: secondary.face, required, reason: "missing_partner" };
+};
+
 export default function SovereignResultsPage() {
     const router = useRouter();
     
@@ -105,16 +164,22 @@ export default function SovereignResultsPage() {
 }
 
 // #13) Component contract
-const HeroBand = ({ finalWinner, secondaryFace, pureOneFace }: { finalWinner: Seed | null, secondaryFace?: Seed | null, pureOneFace?: boolean }) => (
-    <div className="mb-10 pt-10">
-        <div className="max-w-4xl mx-auto flex flex-col items-start text-left gap-y-3">
-            <div className="flex items-baseline gap-x-4">
+const HeroBand = ({ finalWinner, secondaryFace, pureOneFace, taps }: { finalWinner: Seed | null, secondaryFace?: Seed | null, pureOneFace?: boolean, taps: Tap[] }) => {
+    return (
+    <div className="mb-6 pt-6">
+        <div className="max-w-4xl mx-auto flex flex-col items-center text-center gap-y-4">
+            {/* Face name and sticker on one line */}
+            <div className="flex items-center gap-x-3">
                 <h1
-                    className="m-0 font-bold tracking-tight"
+                    className="m-0 font-bold tracking-tight relative"
                     style={{
-                        fontSize: '56px',
+                        fontSize: '48px',
                         lineHeight: 1.1,
                         color: getFaceLight(finalWinner?.face || ''),
+                        background: `linear-gradient(135deg, ${getFaceLight(finalWinner?.face || '')}, ${getFaceLight(finalWinner?.face || '')}cc)`,
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        backgroundClip: 'text'
                     }}
                 >
                     {finalWinner?.face}
@@ -122,43 +187,32 @@ const HeroBand = ({ finalWinner, secondaryFace, pureOneFace }: { finalWinner: Se
                 <img
                     src={`/${(finalWinner?.face || 'Sovereign').toLowerCase()}.png`}
                     alt={`${finalWinner?.face || 'Sovereign'} emblem.`}
-                    width={80}
-                    height={80}
-                    className="rounded-lg"
+                    width={72}
+                    height={72}
+                    className="rounded"
                     style={{
                         objectFit: 'contain',
-                        transform: 'translateY(20px)'
+                        transform: 'translateY(5px)'
                     }}
                 />
             </div>
-            <div className="flex items-center gap-x-6 mt-1">
+            {/* Compact chips row */}
+            <div className="flex items-center gap-x-3 flex-wrap">
                 {pureOneFace && (
-                    <div className="px-3 py-1 rounded-full text-sm font-medium bg-white/10 border border-solid border-white/20 text-white/80">
+                    <div className="px-2 py-1 rounded-full text-xs font-medium bg-white/10 border border-solid border-white/20 text-white/80">
                         Pure Match
                     </div>
                 )}
                 {secondaryFace && secondaryFace.face !== finalWinner?.face && (
-                    <div className="flex items-center gap-x-3">
-                        <div
-                            className="px-3 py-1 rounded-full text-sm font-medium"
-                            style={{
-                                background: `rgba(${getFaceLight(secondaryFace.face).replace('#', '').match(/.{2}/g)?.map(hex => parseInt(hex, 16)).join(', ') || '148, 163, 184'}, 0.1)`,
-                                color: getFaceLight(secondaryFace.face),
-                                border: `1px solid rgba(${getFaceLight(secondaryFace.face).replace('#', '').match(/.{2}/g)?.map(hex => parseInt(hex, 16)).join(', ') || '148, 163, 184'}, 0.2)`
-                            }}
-                        >
-                            Secondary: {secondaryFace.face}
-                        </div>
-                        <div className="relative w-[72px] h-[6px]">
-                            <div className="absolute inset-0 bg-white/20 rounded-full"></div>
-                            <div
-                                className="absolute top-1/2 -translate-y-1/2 w-2 h-2 rounded-full"
-                                style={{
-                                    left: '36%', // This would be computed
-                                    background: getFaceLight(secondaryFace.face)
-                                }}
-                            ></div>
-                        </div>
+                    <div
+                        className="px-2 py-1 rounded-full text-xs font-medium"
+                        style={{
+                            background: `rgba(${getFaceLight(secondaryFace.face).replace('#', '').match(/.{2}/g)?.map(hex => parseInt(hex, 16)).join(', ') || '148, 163, 184'}, 0.1)`,
+                            color: getFaceLight(secondaryFace.face),
+                            border: `1px solid rgba(${getFaceLight(secondaryFace.face).replace('#', '').match(/.{2}/g)?.map(hex => parseInt(hex, 16)).join(', ') || '148, 163, 184'}, 0.2)`
+                        }}
+                    >
+                        Secondary: {secondaryFace.face}
                     </div>
                 )}
             </div>
@@ -181,7 +235,73 @@ const HeroBand = ({ finalWinner, secondaryFace, pureOneFace }: { finalWinner: Se
             </p>
         </div>
     </div>
+    );
+};
+
+const LegendSection = () => (
+    <div className="mb-6 max-w-6xl mx-auto">
+        <div className="bg-black/40 rounded-lg p-4 border border-white/10">
+            <div className="flex flex-wrap gap-x-8 gap-y-3 text-sm text-white">
+                <div className="flex items-center gap-2">
+                    <span className="text-white/60">⚡</span>
+                    <strong>Main Archetype (Driver):</strong> your baseline way of moving through the world.
+                </div>
+                
+                <div className="flex items-center gap-2">
+                    <span className="text-white/60">🎭</span>
+                    <strong>Secondary Archetype (Presenter):</strong> the parallel pattern that shapes how the main shows up.
+                </div>
+                
+                <div className="flex items-center gap-2">
+                    <span className="text-white/60">🔑</span>
+                    <strong>Prize:</strong> the required pattern — the one you chase in yourself and look for in others, the lock that makes your movement click.
+                </div>
+                
+                <div className="flex items-center gap-2">
+                    <span className="text-white/60">🏛️</span>
+                    <strong>Families:</strong> seven decision jobs where your patterns show up.
+                </div>
+                
+                <div className="flex items-center gap-2">
+                    <span className="text-white/60">🎯</span>
+                    <strong>Styles:</strong> Action (push forward), Weighing (hold and compare), Reset (stop and restart).
+                </div>
+            </div>
+        </div>
+    </div>
 );
+
+const PrizeSection = ({ finalWinner, secondaryFace, taps }: { finalWinner: Seed | null, secondaryFace?: Seed | null, taps: Tap[] }) => {
+    const prizeActivation = finalWinner ? evaluatePrizeActivation(finalWinner.face, secondaryFace || null, taps) : null;
+    
+    if (!prizeActivation) return null;
+    
+    return (
+        <div className="mb-6 flex justify-center">
+            <div className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm" style={{ 
+                backgroundColor: prizeActivation.state === "ACTIVE" ? 'rgba(34, 197, 94, 0.1)' : 'rgba(156, 163, 175, 0.1)',
+                border: `1px solid ${prizeActivation.state === "ACTIVE" ? 'rgba(34, 197, 94, 0.3)' : 'rgba(156, 163, 175, 0.3)'}`
+            }}>
+                <span style={{ color: prizeActivation.state === "ACTIVE" ? '#22c55e' : '#9ca3af' }}>
+                    {prizeActivation.state === "ACTIVE" ? '✓' : '○'}
+                </span>
+                <span style={{ color: prizeActivation.state === "ACTIVE" ? '#22c55e' : '#9ca3af' }}>
+                    {prizeActivation.state === "ACTIVE" ? "Prize active" : "Prize dark"}
+                </span>
+                <span className="text-white/80">
+                    {prizeActivation.state === "ACTIVE" 
+                        ? `${prizeActivation.main} clicks when paired with ${prizeActivation.secondary}.`
+                        : (
+                            <>
+                                you need <span style={{ color: getFaceLight(prizeActivation.required) }}><strong>{prizeActivation.required.toUpperCase()}</strong></span> as Secondary for full alignment.
+                            </>
+                        )
+                    }
+                </span>
+            </div>
+        </div>
+    );
+};
 
 const SummaryTab = ({ familyResults, taps, duels, finalWinner }: { familyResults: any[], taps: Tap[], duels: MatchLog[], finalWinner: Seed | null }) => {
     const { A, S, R } = useMemo(() => {
@@ -272,7 +392,24 @@ const BlindspotsCard = ({ archetype }: { archetype: any }) => (
     </div>
 );
 
-const FamilyGrid = ({ triad, finalWinner }: { triad: any[], finalWinner: Seed | null }) => (
+const FamilyGrid = ({ triad, finalWinner, secondaryFace, taps }: { triad: any[], finalWinner: Seed | null, secondaryFace?: Seed | null, taps: Tap[] }) => {
+    const [expandedCards, setExpandedCards] = useState<Set<string>>(new Set());
+    
+    const toggleCard = (familyName: string) => {
+        setExpandedCards(prev => {
+            const newSet = new Set(prev);
+            if (newSet.has(familyName)) {
+                newSet.delete(familyName);
+            } else {
+                newSet.add(familyName);
+            }
+            return newSet;
+        });
+    };
+    
+    const prizeActivation = finalWinner ? evaluatePrizeActivation(finalWinner.face, secondaryFace || null, taps) : null;
+    
+    return (
     <div className="mb-10 max-w-6xl mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {triad.map((item: any) => {
@@ -281,11 +418,17 @@ const FamilyGrid = ({ triad, finalWinner }: { triad: any[], finalWinner: Seed | 
                 const scanLine = item.lines.find((l: any) => l.mv === 'S' && !l.undetected);
                 const resetLine = item.lines.find((l: any) => l.mv === 'R' && !l.undetected);
                 
+                const isExpanded = expandedCards.has(item.family);
+                const isPrizeActive = prizeActivation?.state === "ACTIVE" && item.family === "Control";
+                
                 return (
                     <div
                         key={item.family}
-                        className="bg-white/5 rounded-lg p-4 flex flex-col"
+                        className={`bg-white/5 rounded-lg p-4 flex flex-col cursor-pointer transition-all duration-200 hover:bg-white/10 ${
+                            isPrizeActive ? 'bg-gradient-to-br from-orange-500/10 to-orange-600/5 border border-orange-500/20' : ''
+                        }`}
                         style={{ minHeight: '200px' }}
+                        onClick={() => toggleCard(item.family)}
                     >
                         <div className="flex items-start mb-2">
                             <h3 className="text-md font-semibold flex items-center gap-x-2">
@@ -297,11 +440,18 @@ const FamilyGrid = ({ triad, finalWinner }: { triad: any[], finalWinner: Seed | 
                             <p style={{ color: getFaceLight(finalWinner?.face || '') }}>
                                 {item.headline.substring(0, 90)}{item.headline.length > 90 && '...'}
                             </p>
-                            <div className="space-y-1.5">
-                                {actionLine && <div><span className="font-medium" style={{ color: getFaceLight(finalWinner?.face || '') }}>Action style:</span> {actionLine.sentence}</div>}
-                                {scanLine && <div><span className="font-medium" style={{ color: getFaceLight(finalWinner?.face || '') }}>Weighing style:</span> {scanLine.sentence}</div>}
-                                {resetLine && <div><span className="font-medium" style={{ color: getFaceLight(finalWinner?.face || '') }}>Reset style:</span> {resetLine.sentence}</div>}
-                            </div>
+                            
+                            {!isExpanded ? (
+                                <div className="text-sm text-white/60">
+                                    Click to reveal your decision styles
+                                </div>
+                            ) : (
+                                <div className="space-y-1.5">
+                                    {actionLine && <div><span className="font-medium" title="This describes how you push forward and commit to decisions" style={{ color: getFaceLight(finalWinner?.face || '') }}>Action style:</span> {actionLine.sentence}</div>}
+                                    {scanLine && <div><span className="font-medium" title="This describes your thought process when evaluating options" style={{ color: getFaceLight(finalWinner?.face || '') }}>Weighing style:</span> {scanLine.sentence}</div>}
+                                    {resetLine && <div><span className="font-medium" title="This describes how you stop, reframe, and restart when needed" style={{ color: getFaceLight(finalWinner?.face || '') }}>Reset style:</span> {resetLine.sentence}</div>}
+                                </div>
+                            )}
                         </div>
                     </div>
                 );
@@ -315,7 +465,8 @@ const FamilyGrid = ({ triad, finalWinner }: { triad: any[], finalWinner: Seed | 
             </div>
         </div>
     </div>
-);
+    );
+};
 
 const EvidenceDrawer = ({ duels }: { duels: MatchLog[] }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -469,9 +620,11 @@ const ResultsScreen = ({ taps, finalWinner, duels, secondaryFace, pureOneFace, o
 
     return (
         <div className='fade-in pb-20'>
-            <HeroBand finalWinner={finalWinner} secondaryFace={secondaryFace} pureOneFace={pureOneFace} />
+            <HeroBand finalWinner={finalWinner} secondaryFace={secondaryFace} pureOneFace={pureOneFace} taps={taps} />
+            <LegendSection />
+            <PrizeSection finalWinner={finalWinner} secondaryFace={secondaryFace} taps={taps} />
 
-            <FamilyGrid triad={triad} finalWinner={finalWinner} />
+            <FamilyGrid triad={triad} finalWinner={finalWinner} secondaryFace={secondaryFace} taps={taps} />
 
             <div className="mb-10">
                 <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-5">

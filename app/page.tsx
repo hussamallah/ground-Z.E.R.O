@@ -400,12 +400,18 @@ const IntroScreen = ({ onStart }: { onStart: () => void }) => (
       </div>
       <h1>Ground Zero</h1>
       <p className="lead">
-        The only diagnostic quiz that reveals <em>how you think</em>, not just what you are.
+        The diagnostic quiz that shows how you move through reality.
+      </p>
+      <p className="sub">
+        Not ONLY who you are, but ALSO how you decide, adapt, and reset.
       </p>
       <div className="mt-4">
         <button className="btn" onClick={onStart}>
-          Begin
+          Start Quiz
         </button>
+        <div className="note" style={{marginTop: '12px', fontSize: '14px', color: 'var(--muted)'}}>
+          TOTALLY FREE • RESULTS NOW • NO SIGN UP REQUIRED
+        </div>
       </div>
     </section>
 
@@ -415,12 +421,10 @@ const IntroScreen = ({ onStart }: { onStart: () => void }) => (
           <div className="kicker">About</div>
           <h2>Not Another Personality Test</h2>
           <div className="divider" />
-          <p className="p">Most quizzes hand you a random label. Theyâ€™re built on shallow point systems that shift with every attempt.</p>
+          <p className="p"><b>Most quizzes hand you a label. Ground Zero gives you a movement.</b></p>
           <p className="p">
-            Ground Zero is <b>deterministic</b>. Same choices, same results â€” always. It captures the logic of how you decide: the patterns,
-            pauses, and resets that shape your moves in the real world.
+            Same choices = same results. No randomness, no swaps. Just a replayable map of how you carry calls, set pace, draw lines, and reset.
           </p>
-          <p className="p">Transparent. Fair. Un-gameable.</p>
 
           <div className="diagram mt-3" aria-hidden="true">
             <div className="step">
@@ -441,21 +445,21 @@ const IntroScreen = ({ onStart }: { onStart: () => void }) => (
         </div>
 
         <div>
-          <div className="kicker">Why itâ€™s different</div>
+          <div className="kicker">Why it's different</div>
           <h2>What powers the insight</h2>
           <div className="divider" />
           <div className="mini">
             <div className="card">
-              <h3>Evidence, not vibes</h3>
-              <div className="muted">Multi-phase questions build a replayable record of your logic.</div>
+              <h3>Families</h3>
+              <div className="muted">Seven decision jobs tested.</div>
             </div>
             <div className="card">
-              <h3>Deterministic</h3>
-              <div className="muted">Same inputs, same outputs. No randomness, no mood swings.</div>
+              <h3>Styles</h3>
+              <div className="muted">Action, Weighing, Reset.</div>
             </div>
             <div className="card">
-              <h3>Fair by design</h3>
-              <div className="muted">Clear rules, rotated tie breaks, and transparent weights.</div>
+              <h3>Prize Pattern</h3>
+              <div className="muted">Activates only with your exact partner face.</div>
             </div>
           </div>
         </div>
@@ -466,9 +470,11 @@ const IntroScreen = ({ onStart }: { onStart: () => void }) => (
 
     <section className="cta">
       <button className="btn" onClick={onStart}>
-        Start the 5-minute assessment
+        Take the Quiz (5 min)
       </button>
-      <div className="note">No sign-up required. Youâ€™ll see your decision-making fingerprint at the end.</div>
+      <div className="note" style={{marginTop: '12px', fontSize: '14px', color: 'var(--muted)'}}>
+        TOTALLY FREE • RESULTS NOW • NO SIGN UP REQUIRED
+      </div>
     </section>
   </div>
 );
