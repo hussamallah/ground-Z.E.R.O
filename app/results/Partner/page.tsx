@@ -489,8 +489,6 @@ const ResultsScreen = ({ taps, finalWinner, duels, secondaryFace, pureOneFace, o
             )}
         </div>
     );
-                                });
-                            })()}
                         </div>
                     </div>
 
