@@ -81,10 +81,10 @@ type PrizeActivation =
     | { state: "DARK"; main: string; secondary: string; required: string; reason: "missing_partner" | "low_evidence" | "wide_margin" };
 
 // Prize activation logic
-const evaluatePrizeActivation = (main: string, secondary: string | null, taps: Tap[]): PrizeActivation => {
+const evaluatePrizeActivation = (main: string, secondary: Seed | null, taps: Tap[]): PrizeActivation => {
     const required = PRIZE_LOCKS[main];
     if (!required) {
-        return { state: "DARK", main, secondary: secondary || "none", required: "none", reason: "missing_partner" };
+        return { state: "DARK", main, secondary: secondary?.face || "none", required: "none", reason: "missing_partner" };
     }
     
     if (!secondary) {
