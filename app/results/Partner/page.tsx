@@ -487,8 +487,6 @@ const ResultsScreen = ({ taps, finalWinner, duels, secondaryFace, pureOneFace, o
                     onClose={closeModal}
                 />
             )}
-        </div>
-    );
 
                     {/* Evidence Count */}
                     <div className="proof-card">
@@ -503,7 +501,6 @@ const ResultsScreen = ({ taps, finalWinner, duels, secondaryFace, pureOneFace, o
                     </div>
                 </div>
             </div>
-
             {/* Combined Archetype Profile Section */}
             <div className="fade-in mb-8">
                 <div className="text-center">
@@ -647,6 +644,57 @@ const ResultsScreen = ({ taps, finalWinner, duels, secondaryFace, pureOneFace, o
                     onClose={closeModal}
                 />
             )}
+
+            {/* Combined Archetype Profile Section */}
+            <div className="fade-in mb-8">
+                <div className="text-center">
+                    <div className="proof-card" style={{ maxWidth: '600px', margin: '0 auto' }}>
+                        <div className="proof-card-header">Your Archetype Profile</div>
+                        <div className="flex items-center justify-center gap-6">
+                            {/* Primary Archetype */}
+                            <div className="archetype-profile-item">
+                                <div className="archetype-profile-label">Primary</div>
+                                <div 
+                                    className="archetype-profile-face"
+                                    style={{
+                                        background: `rgba(${getFaceLight(finalWinner?.face || '').replace('#', '').match(/.{2}/g)?.map(hex => parseInt(hex, 16)).join(', ') || '148, 163, 184'}, 0.15)`,
+                                        borderColor: `rgba(${getFaceLight(finalWinner?.face || '').replace('#', '').match(/.{2}/g)?.map(hex => parseInt(hex, 16)).join(', ') || '148, 163, 184'}, 0.3)`,
+                                        color: getFaceLight(finalWinner?.face || ''),
+                                        boxShadow: `0 0 12px ${getFaceLight(finalWinner?.face || '')}30`
+                                    }}
+                                >
+                                    {finalWinner?.face}
+                                </div>
+                            </div>
+
+                            {/* Plus Sign */}
+                            <div className="text-2xl text-white/40 font-bold">+</div>
+
+                            {/* Secondary Archetype */}
+                            <div className="archetype-profile-item">
+                                <div className="archetype-profile-label">Secondary</div>
+                                <div 
+                                    className="archetype-profile-face"
+                                    style={{
+                                        background: `rgba(${getFaceLight(secondaryFace?.face || '').replace('#', '').match(/.{2}/g)?.map(hex => parseInt(hex, 16)).join(', ') || '148, 163, 184'}, 0.15)`,
+                                        borderColor: `rgba(${getFaceLight(secondaryFace?.face || '').replace('#', '').match(/.{2}/g)?.map(hex => parseInt(hex, 16)).join(', ') || '148, 163, 184'}, 0.3)`,
+                                        color: getFaceLight(secondaryFace?.face || ''),
+                                        boxShadow: `0 0 12px ${getFaceLight(secondaryFace?.face || '')}30`
+                                    }}
+                                >
+                                    {secondaryFace?.face || 'Pure'}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="text-xs text-white/60 mt-4">
+                            {secondaryFace && secondaryFace.face !== finalWinner?.face 
+                                ? `Combined archetype profile showing your primary and secondary patterns`
+                                : `Pure archetype - no secondary pattern detected`
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };
