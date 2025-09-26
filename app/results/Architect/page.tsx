@@ -213,27 +213,27 @@ const ResultsScreen = ({ taps, finalWinner, duels, secondaryFace, pureOneFace, o
             {/* Winner Slice - Name First, Essence Second */}
             <div className="fade-in mb-12" style={{ paddingTop: '80px' }}>
                 <div className="text-center">
-                    {/* Winner Name + Confidence Badge Inline */}
-                    <div className="flex justify-center items-baseline gap-2 mb-2">
+                    {/* Winner Name with Emoji */}
+                    <div className="flex justify-center items-center gap-3 mb-2">
+                        <span 
+                            className="text-5xl"
+                            style={{ 
+                                color: getFaceLight(finalWinner?.face || '')
+                            }}
+                        >
+                            🏗️
+                        </span>
                         <h1 
                             className="m-0 font-bold tracking-wide"
                             style={{
                                 fontSize: '48px',
-                                color: getFaceLight(finalWinner?.face || '')
+                                color: getFaceLight(finalWinner?.face || ''),
+                                textShadow: `0 0 20px ${getFaceLight(finalWinner?.face || '')}40, 0 0 40px ${getFaceLight(finalWinner?.face || '')}20`,
+                                filter: `drop-shadow(0 0 8px ${getFaceLight(finalWinner?.face || '')}60)`
                             }}
                         >
                             {finalWinner?.face}
                         </h1>
-                        <span 
-                            className="px-2 py-1 rounded text-xs font-medium"
-                            style={{
-                                background: `rgba(${getFaceLight(finalWinner?.face || '').replace('#', '').match(/.{2}/g)?.map(hex => parseInt(hex, 16)).join(', ') || '148, 163, 184'}, 0.12)`,
-                                color: getFaceLight(finalWinner?.face || ''),
-                                border: `1px solid rgba(${getFaceLight(finalWinner?.face || '').replace('#', '').match(/.{2}/g)?.map(hex => parseInt(hex, 16)).join(', ') || '148, 163, 184'}, 0.3)`
-                            }}
-                        >
-                            {(computeFinal as any).isProvisional ? 'Provisional' : 'Stable'}
-                        </span>
                     </div>
                     
                     {/* Secondary with Tug Meter */}
@@ -325,7 +325,7 @@ const ResultsScreen = ({ taps, finalWinner, duels, secondaryFace, pureOneFace, o
                                                                 className="h-1 rounded-full"
                                                                 style={{ 
                                                                     width: `${value}%`,
-                                                                    background: '#FFC94D'
+                                                                    background: getFaceLight(finalWinner?.face || '')
                                                                 }}
                                                             />
                                                         </div>
@@ -453,8 +453,8 @@ const ResultsScreen = ({ taps, finalWinner, duels, secondaryFace, pureOneFace, o
                         className='btn primary' 
                         onClick={() => router.push('/results/Architect/archetype')}
                         style={{ 
-                            backgroundColor: '#4169E1', 
-                            borderColor: '#4169E1',
+                            backgroundColor: getFaceLight(finalWinner?.face || ''), 
+                            borderColor: getFaceLight(finalWinner?.face || ''),
                             color: 'white',
                             fontSize: '16px',
                             padding: '12px 24px'

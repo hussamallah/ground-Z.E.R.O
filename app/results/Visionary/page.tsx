@@ -13,6 +13,25 @@ import { FAMILIES, RESULTS_LIB,
     Seed,
     MatchLog
 } from '../../quiz-data';
+// Face light color mapping
+const FACE_LIGHT: { [key: string]: string } = {
+  Guardian: '#14b8a6',        // Teal
+  Spotlight: '#a3e635',       // Yellow-green
+  Partner: '#ec4899',         // Pink
+  Catalyst: '#f4a300',        // Golden-orange
+  Provider: '#22d3ee',        // Aqua-teal
+  Diplomat: '#5eead4',        // Soft teal
+  Axiarch: '#ffbf00',         // Amber
+  Architect: '#8b5cf6',       // Violet
+  Seeker: '#67e8f9',          // Light cyan
+  Visionary: '#3b82f6',       // Blue
+  Navigator: '#a855f7',       // Purple
+  Sovereign: '#f59e0b',       // Orange-gold
+  Rebel: '#f97316',           // Red-orange
+  Equalizer: '#22c55e'        // Green
+};
+
+const getFaceLight = (face: string): string => FACE_LIGHT[face] || '#94a3b8';
 
 
 const CURRENT_ARCHETYPE = "Visionary";
@@ -191,192 +210,272 @@ const ResultsScreen = ({ taps, finalWinner, duels, secondaryFace, pureOneFace, o
 
     return (
         <div className='fade-in'>
-            {/* Header - Archetype */}
-            {computeFinal && (computeFinal as any).winnerArchetype && (
-                <div className='fade-in'>
-                    {/* Visionary Header with Glow Effect */}
-                    <div className="text-center relative mb-8">
-                        <div className="relative inline-block mb-2">
+            {/* Winner Slice - Name First, Essence Second */}
+            <div className="fade-in mb-12" style={{ paddingTop: '80px' }}>
+                <div className="text-center">
+                    {/* Winner Name with Emoji */}
+                    <div className="flex justify-center items-center gap-3 mb-2">
+                        <span 
+                            className="text-5xl"
+                            style={{ 
+                                color: getFaceLight(finalWinner?.face || '')
+                            }}
+                        >
+                            🔮
+                        </span>
+                        <h1 
+                            className="m-0 font-bold tracking-wide"
+                            style={{
+                                fontSize: '48px',
+                                color: getFaceLight(finalWinner?.face || ''),
+                                textShadow: `0 0 20px ${getFaceLight(finalWinner?.face || '')}40, 0 0 40px ${getFaceLight(finalWinner?.face || '')}20`,
+                                filter: `drop-shadow(0 0 8px ${getFaceLight(finalWinner?.face || '')}60)`
+                            }}
+                        >
+                            {finalWinner?.face}
+                        </h1>
+                    </div>
+                    
+                    {/* Secondary with Tug Meter */}
+                    {secondaryFace && secondaryFace.face !== finalWinner?.face && (
+                        <div className="flex items-center justify-center gap-3 mb-6">
                             <div 
-                                className="absolute inset-0 rounded-full -z-10 blur-7"
+                                className="px-3 py-1 rounded-full text-sm font-medium"
                                 style={{
-                                    background: 'radial-gradient(circle at 50% 40%, rgba(43, 124, 255, 0.20) 0%, transparent 70%)',
-                                    filter: 'blur(28px)'
-                                }}
-                            ></div>
-                            <h1 
-                                className="m-0 uppercase font-black tracking-wider"
-                                style={{
-                                    fontSize: 'clamp(36px, 6vw, 56px)',
-                                    color: '#2b7cff',
-                                    textShadow: '0 0 30px rgba(43, 124, 255, 0.6), 0 0 60px rgba(43, 124, 255, 0.33)',
-                                    filter: 'drop-shadow(0 0 14px #2b7cff) drop-shadow(0 0 36px #2b7cff)'
+                                    background: `rgba(${getFaceLight(secondaryFace.face).replace('#', '').match(/.{2}/g)?.map(hex => parseInt(hex, 16)).join(', ') || '148, 163, 184'}, 0.08)`,
+                                    color: getFaceLight(secondaryFace.face),
+                                    border: `1px solid rgba(${getFaceLight(secondaryFace.face).replace('#', '').match(/.{2}/g)?.map(hex => parseInt(hex, 16)).join(', ') || '148, 163, 184'}, 0.18)`
                                 }}
                             >
-                                {computeFinal.winner}
-                            </h1>
-                        </div>
-                        <div 
-                            className="text-lg text-gold italic"
-                            style={{ marginTop: '8px' }}
-                        >
-                            {(computeFinal as any).winnerArchetype.definition}
-                        </div>
-                        
-                        {/* Top Tells under subheader */}
-                        <div style={{ marginTop: '16px' }}>
-                            <div className="guardian-section-label" style={{ marginBottom: '8px' }}>
-                                Top Tells
+                                secondary: {secondaryFace.face}
                             </div>
-                            <div className="flex flex-wrap justify-center" style={{ gap: '6px' }}>
-                                {(computeFinal as any).winnerArchetype.tells.map((tell: string, index: number) => {
-                                    // Extract family name from tell (e.g., "A1a (Command)" -> "Control")
-                                    const tellCode = tell.split(' ')[0]; // Get the code part like "A1a"
-                                    const family = FAMILIES.find(fam => {
-                                        const familyTells = Object.keys((RESULTS_LIB as any)[fam] || {});
-                                        return familyTells.includes(tellCode);
-                                    });
-                                    
-                                    // Extract just the descriptive name (e.g., "A1a (Command)" -> "Command")
-                                    const descriptiveName = tell.includes('(') ? tell.split('(')[1].replace(')', '') : tell;
-                                    
-                                    return (
-                                        <button
-                                            key={index}
-                                            onClick={() => family && handleFamilyClick(family)}
-                                            className="guardian-chip"
-                                        >
-                                            {descriptiveName}
-                                        </button>
-                                    );
-                                })}
+                            {/* Tug Meter: dot on bar */}
+                            <div className="relative" style={{ width: '72px', height: '6px' }}>
+                                <div className="absolute inset-0 bg-white/20 rounded-full"></div>
+                                <div 
+                                    className="absolute -top-[3px] w-2 h-2 rounded-full"
+                                    style={{
+                                        left: '30%',
+                                        background: getFaceLight(secondaryFace.face)
+                                    }}
+                                ></div>
                             </div>
                         </div>
-                        
-                        {(computeFinal as any).isProvisional && (
-                            <div className="mt-2">
-                                <span className='tag'>Provisional</span>
-                            </div>
-                        )}
-                    </div>
-                </div>
-            )}
-
-            {/* Secondary Archetype Section */}
-            {secondaryFace && secondaryFace.face !== finalWinner?.face && (
-                <div className="fade-in mb-8">
-                    <div className="text-center relative">
-                        <div className="relative inline-block mb-2">
+                    )}
+                    
+                    {/* Pure Match Badge */}
+                    {pureOneFace && (
+                        <div className="flex items-center justify-center mb-6">
                             <div 
-                                className="absolute inset-0 rounded-full -z-10 blur-7"
+                                className="px-3 py-1 rounded-full text-sm font-medium text-white/80"
                                 style={{
-                                    background: 'radial-gradient(circle at 50% 40%, rgba(124, 58, 237, 0.15) 0%, transparent 70%)',
-                                    filter: 'blur(20px)'
-                                }}
-                            ></div>
-                            <h2 
-                                className="m-0 uppercase font-bold tracking-wide"
-                                style={{
-                                    fontSize: 'clamp(24px, 4vw, 36px)',
-                                    color: '#7C3AED',
-                                    textShadow: '0 0 20px rgba(124, 58, 237, 0.4)',
-                                    filter: 'drop-shadow(0 0 8px #7C3AED)'
+                                    background: 'rgba(255, 255, 255, 0.1)',
+                                    border: '1px solid rgba(255, 255, 255, 0.2)'
                                 }}
                             >
-                                Secondary: {secondaryFace.face}
-                            </h2>
-                        </div>
-                        <div 
-                            className="text-sm text-purple-300 italic"
-                            style={{ marginTop: '4px' }}
-                        >
-                            Your secondary archetype influence
-                        </div>
-                        {pureOneFace && (
-                            <div className="mt-2">
-                                <span className='tag' style={{ backgroundColor: 'rgba(124, 58, 237, 0.2)', color: '#A78BFA' }}>
-                                    Pure Match
-                                </span>
+                                Pure Match
                             </div>
-                        )}
-                    </div>
-                </div>
-            )}
-
-            {/* 7 Family Cards Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-                {triad.map((item: any, index: number) => (
+                        </div>
+                    )}
+                    
+                    {/* Essence Line */}
                     <div 
-                        key={item.family} 
-                        className='card fade-in cursor-pointer hover:bg-white/8 transition-all duration-300 hover:scale-105 hover:shadow-xl' 
-                        style={{ animationDelay: `${(index + 1) * 0.1}s` }}
-                        onClick={() => handleFamilyClick(item.family)}
+                        className="text-lg text-white/90"
+                        style={{ fontSize: '18px' }}
                     >
-                        <div className="text-center">
-                            <h3 className="text-xl font-semibold text-white mb-3">{item.family}</h3>
-                            {item.intro && (
-                                <p className="text-sm text-gold italic leading-relaxed">{item.intro}</p>
-                            )}
-                            <div className="mt-4 text-xs text-white/50">
-                                Click to explore details →
-                            </div>
-                        </div>
+                        Tests tempos and options; prefers exploration before commitment.
                     </div>
-                ))}
+                </div>
             </div>
 
-            {/* Details Card - Guardian Style */}
-            {computeFinal && (computeFinal as any).winnerArchetype && (
-                <div className="guardian-panel">
-                    <div className='grid cols2 gap-6 relative'>
-                        <div>
-                            <div className="guardian-section-label">
-                                Strengths
+            {/* Proof Row - Two Column with Shared Baseline */}
+            <div className="fade-in mb-12">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    {/* Three Bars */}
+                    <div className="proof-card">
+                        <div className="space-y-4">
+                            {familyResults && familyResults.length > 0 && (() => {
+                                const totalShare = familyResults.reduce((acc, fr) => ({
+                                    A: acc.A + fr.share.A,
+                                    S: acc.S + fr.share.S,
+                                    R: acc.R + fr.share.R
+                                }), { A: 0, S: 0, R: 0 });
+                                const total = totalShare.A + totalShare.S + totalShare.R;
+                                const normalized = {
+                                    A: total > 0 ? (totalShare.A / total) * 100 : 0,
+                                    S: total > 0 ? (totalShare.S / total) * 100 : 0,
+                                    R: total > 0 ? (totalShare.R / total) * 100 : 0
+                                };
+                                
+                                return (
+                                    <>
+                                        {/* Three Horizontal Bars */}
+                                        <div className="space-y-3">
+                                            {['A', 'S', 'R'].map(phase => {
+                                                const value = normalized[phase as keyof typeof normalized];
+                                                const phaseLabel = phase === 'A' ? 'Act' : phase === 'S' ? 'Scan' : 'Reset';
+                                                
+                                                return (
+                                                    <div key={phase} className="space-y-1">
+                                                        <div className="text-xs text-white/70">
+                                                            <span>{phaseLabel}</span>
+                                                        </div>
+                                                        <div className="w-full bg-white/10 rounded-full h-1">
+                                                            <div 
+                                                                className="h-1 rounded-full"
+                                                                style={{ 
+                                                                    width: `${value}%`,
+                                                                    background: getFaceLight(finalWinner?.face || '')
+                                                                }}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                        
+                                    </>
+                                );
+                            })()}
+                        </div>
+                    </div>
+
+                    {/* Evidence Stats Block */}
+                    <div className="proof-card">
+                        <div className="text-center space-y-4">
+                            <div>
+                                <div className="text-4xl font-bold text-white">{taps.length}</div>
+                                <div className="text-sm text-white/70">Taps analyzed</div>
                             </div>
-                            <div className="guardian-value-text">
-                                {(computeFinal as any).winnerArchetype.strengths}
+                            <div>
+                                <div className="text-4xl font-bold text-white">{familyResults ? familyResults.length : 0}</div>
+                                <div className="text-sm text-white/70">Families resolved</div>
                             </div>
                         </div>
-                        <div className="relative" style={{ paddingLeft: '28px' }}>
-                            <div className="guardian-vertical-divider"></div>
-                            <div className="guardian-section-label">
-                                Blindspots
+                    </div>
+                </div>
+            </div>
+
+            {/* Strengths/Blindspots Section */}
+            {computeFinal && (computeFinal as any).winnerArchetype && (
+                <div className="mb-12">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        {/* Strengths */}
+                        <div className="bg-gradient-to-br from-green-500/10 to-emerald-600/5 rounded-2xl p-6 border border-green-500/20">
+                            <div className="flex items-center gap-3 mb-6">
+                                <div className="w-2 h-2 rounded-full bg-green-400"></div>
+                                <h3 className="text-lg font-semibold text-white">Strengths</h3>
                             </div>
-                            <div className="guardian-value-text">
-                                {(computeFinal as any).winnerArchetype.blindspots}
+                            <div className="space-y-3">
+                                {(() => {
+                                    const txt = (computeFinal as any).winnerArchetype.strengths as any;
+                                    const str = Array.isArray(txt) ? txt.join('; ') : String(txt || '');
+                                    return str.split(/\u2022|•|;|\.|\n|-,/).map(s => s.trim()).filter(Boolean).slice(0,6);
+                                })().map((b: string, i: number) => (
+                                    <div key={i} className="flex items-start gap-3">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-green-400 mt-2 flex-shrink-0"></div>
+                                        <p className="text-sm text-white/80 leading-relaxed">{b}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Blindspots */}
+                        <div className="bg-gradient-to-br from-amber-500/10 to-orange-600/5 rounded-2xl p-6 border border-amber-500/20">
+                            <div className="flex items-center gap-3 mb-6">
+                                <div className="w-2 h-2 rounded-full bg-amber-400"></div>
+                                <h3 className="text-lg font-semibold text-white">Blindspots</h3>
+                            </div>
+                            <div className="space-y-3">
+                                {(() => {
+                                    const txt = (computeFinal as any).winnerArchetype.blindspots as any;
+                                    const str = Array.isArray(txt) ? txt.join('; ') : String(txt || '');
+                                    return str.split(/\u2022|•|;|\.|\n|-,/).map(s => s.trim()).filter(Boolean).slice(0,6);
+                                })().map((b: string, i: number) => (
+                                    <div key={i} className="flex items-start gap-3">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-2 flex-shrink-0"></div>
+                                        <p className="text-sm text-white/80 leading-relaxed">{b}</p>
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     </div>
                     
-                    { (computeFinal as any).runnerUp && (
-                        <div style={{ marginTop: '20px' }}>
-                            <div className="guardian-section-label">
-                                Near Flavor
+                    {(computeFinal as any).runnerUp && (
+                        <div className="mt-8 bg-gradient-to-r from-blue-500/10 to-purple-600/5 rounded-2xl p-6 border border-blue-500/20">
+                            <div className="flex items-center gap-3 mb-3">
+                                <div className="w-2 h-2 rounded-full bg-blue-400"></div>
+                                <h3 className="text-lg font-semibold text-white">Near Flavor</h3>
                             </div>
-                            <div className="guardian-value-text">
-                                {(computeFinal as any).runnerUp}
-                            </div>
+                            <p className="text-white/80">{(computeFinal as any).runnerUp}</p>
                         </div>
                     )}
                 </div>
             )}
 
+            {/* Family Cards Grid with Mini Triads */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
+                {triad.map((item: any, index: number) => (
+                    <div 
+                        key={item.family} 
+                        className='card fade-in cursor-pointer hover:bg-white/8 transition-all duration-200 hover:scale-102' 
+                        style={{ animationDelay: `${(index + 1) * 0.1}s` }}
+                        onClick={() => handleFamilyClick(item.family)}
+                    >
+                        <div className="space-y-3 p-4">
+                            <h3 className="text-lg font-semibold text-white">{item.family}</h3>
+                            
+                            {/* Pattern Insights */}
+                            {item.joiners && item.joiners.length > 0 && (
+                                <div className="space-y-2">
+                                    <div className="text-xs font-medium text-white/60 uppercase tracking-wider">
+                                        Pattern Insights
+                                    </div>
+                                    {item.joiners.slice(0, 2).map((joiner: string, joinerIndex: number) => (
+                                        <div 
+                                            key={joinerIndex} 
+                                            className="text-sm text-white/80 leading-relaxed italic"
+                                        >
+                                            {joiner}
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                ))}
+            </div>
+
             {/* Action Buttons */}
             <div className='card fade-in' style={{ animationDelay: '1s' }}>
-                <div className="flex flex-col sm:flex-row gap-3">
+                <div className="flex flex-col sm:flex-row gap-3 justify-center">
                     <button 
-                        className='btn' 
+                        className='btn primary' 
                         onClick={() => router.push('/results/Visionary/archetype')}
                         style={{ 
-                            backgroundColor: '#4169E1', 
-                            borderColor: '#4169E1',
-                            color: 'white'
+                            backgroundColor: getFaceLight(finalWinner?.face || ''), 
+                            borderColor: getFaceLight(finalWinner?.face || ''),
+                            color: 'white',
+                            fontSize: '16px',
+                            padding: '12px 24px'
                         }}
                     >
-                        If you agree, enter
+                        Enter Chamber
                     </button>
-                    <button className='btn primary' onClick={download}>Download Session JSON</button>
-                    <button className='btn' onClick={onRestart}>Restart</button>
+                    <button 
+                        className='btn' 
+                        onClick={download}
+                        style={{ fontSize: '14px', padding: '10px 20px' }}
+                    >
+                        Download
+                    </button>
+                    <button 
+                        className='btn' 
+                        onClick={onRestart}
+                        style={{ fontSize: '14px', padding: '10px 20px' }}
+                    >
+                        Restart
+                    </button>
                 </div>
             </div>
 
