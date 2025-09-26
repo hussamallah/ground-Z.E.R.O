@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect, useRef } from 'react';
+import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { PHASE1, PHASE2, PHASE3, FaceArt, FaceCopy, familyPair, PROB_WINDOW, MIN_FINALISTS, PROB_BACKOFF, resolveAllFamilies, Tap, FamilyResult, Seed, MatchLog } from '../quiz-data';
 import Image from 'next/image';
@@ -210,9 +210,9 @@ export default function Home() {
 
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [gameState, handleOptionClick]);
+    }, [gameState]);
 
-    const handleOptionClick = (tapData: Omit<Tap, 'ts'>) => {
+    const handleOptionClick = useCallback((tapData: Omit<Tap, 'ts'>) => {
         if (lockRef.current) return;
         lockRef.current = true;
         
@@ -251,7 +251,7 @@ export default function Home() {
         setGameState({ taps: newTaps, phase, p1Index, p2Index, p3Index });
             setIsFading(false);
         }, 90);
-    };
+    }, [gameState]);
     
     const restart = () => setGameState({ phase: 'intro', p1Index: 0, p2Index: 0, p3Index: 0, taps: [] });
 

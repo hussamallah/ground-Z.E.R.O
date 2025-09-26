@@ -258,7 +258,7 @@ const CoreLegendSection = () => (
                 
                 <div className="flex items-center gap-2">
                     <span className="text-white/60">🎭</span>
-                    <strong>Secondary (Shaper):</strong> What's shaping you right now.
+                    <strong>Secondary (Shaper):</strong> What&apos;s shaping you right now.
                 </div>
                 
             </div>

@@ -369,7 +369,7 @@ const SecondaryArchetypeSection = ({ finalWinner, secondaryFace, pureOneFace }: 
 //             </div>
 //         </div>
 //     );
-};
+// };
 
 const SummaryTab = ({ familyResults, taps, duels, finalWinner }: { familyResults: any[], taps: Tap[], duels: MatchLog[], finalWinner: Seed | null }) => {
     const { A, S, R } = useMemo(() => {
@@ -688,7 +688,7 @@ const ResultsScreen = ({ taps, finalWinner, duels, secondaryFace, pureOneFace, o
 
     return (
         <div className='fade-in pb-20'>
-            <HeroBand finalWinner={finalWinner} secondaryFace={secondaryFace} pureOneFace={pureOneFace} taps={taps} />
+            <HeroBand finalWinner={finalWinner} secondaryFace={secondaryFace} taps={taps} />
             <CoreLegendSection />
             <SecondaryArchetypeSection finalWinner={finalWinner} secondaryFace={secondaryFace} pureOneFace={pureOneFace} />
             <div className="mb-10">

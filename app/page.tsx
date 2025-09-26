@@ -12,16 +12,15 @@ import {
   FaceArt,
   FaceCopy,
   familyPair,
-  PROB_WINDOW,
-  MIN_FINALISTS,
-  PROB_BACKOFF,
+  // PROB_WINDOW,
+  // MIN_FINALISTS,
+  // PROB_BACKOFF,
   resolveAllFamilies,
   Tap,
   FamilyResult,
   Seed,
   MatchLog
 } from './quiz-data';
-import Image from 'next/image';
 
 // #region Determinism helpers
 // FNV-1a (uint32) for lightweight hashing of canonical strings (used for tie-breaks)
@@ -88,32 +87,32 @@ const seedFromFace = (fr: FamilyResult, face: string, taps: Tap[]): Omit<Seed, '
 
 // Internal pool used to compute a "bye champion" if you ever re-enable grand finals later.
 // const makeSeedsHybridPool = (familyResults: FamilyResult[], taps: Tap[]): Seed[] => {
-  const seeded = familyResults
-    .map(fr => seedFromFace(fr, fr.winner, taps))
-    .sort(
-      (a, b) =>
-        // Higher is better for votes/p/margin; on full tie, use strict deterministic TB
-        (b.votes - a.votes) ||
-        (b.p - a.p) ||
-        (b.margin - a.margin) ||
-        cmpSeedTB(a, b)
-    );
+//   const seeded = familyResults
+//     .map(fr => seedFromFace(fr, fr.winner, taps))
+//     .sort(
+//       (a, b) =>
+//         // Higher is better for votes/p/margin; on full tie, use strict deterministic TB
+//         (b.votes - a.votes) ||
+//         (b.p - a.p) ||
+//         (b.margin - a.margin) ||
+//         cmpSeedTB(a, b)
+//     );
 
-  if (seeded.length === 0) return [];
+//   if (seeded.length === 0) return [];
 
-  const topVotes = seeded[0].votes;
-  const byVotes = seeded.filter(s => s.votes === topVotes);
-  const refProb = Math.max(...byVotes.map(s => s.p));
-  let pool = byVotes.filter(s => (refProb - s.p) <= PROB_WINDOW);
-  if (pool.length < MIN_FINALISTS) {
-    pool = byVotes.filter(s => (refProb - s.p) <= PROB_BACKOFF);
-  }
-  if (pool.length < MIN_FINALISTS) {
-    const extras = seeded.filter(s => !pool.includes(s)).slice(0, MIN_FINALISTS - pool.length);
-    pool = pool.concat(extras);
-  }
-  return pool.map((f, i) => ({ ...f, seed: i + 1 }));
-};
+//   const topVotes = seeded[0].votes;
+//   const byVotes = seeded.filter(s => s.votes === topVotes);
+//   const refProb = Math.max(...byVotes.map(s => s.p));
+//   let pool = byVotes.filter(s => (refProb - s.p) <= PROB_WINDOW);
+//   if (pool.length < MIN_FINALISTS) {
+//     pool = byVotes.filter(s => (refProb - s.p) <= PROB_BACKOFF);
+//   }
+//   if (pool.length < MIN_FINALISTS) {
+//     const extras = seeded.filter(s => !pool.includes(s)).slice(0, MIN_FINALISTS - pool.length);
+//     pool = pool.concat(extras);
+//   }
+//   return pool.map((f, i) => ({ ...f, seed: i + 1 }));
+// };
 
 // Ranked list for the actual tournament: 7 winners + 1 wildcard (best runner-up) = Top-8.
 // Falls back to Top-4 or Top-2 when necessary. Fully deterministic ordering.
@@ -276,7 +275,7 @@ export default function Home() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [gameState, selectedOption, handleOptionClick]);
+  }, [gameState, selectedOption]);
 
   const handleOptionClick = (tapData: Omit<Tap, 'ts'>) => {
     if (lockRef.current) return;
@@ -1194,20 +1193,20 @@ const SampleResultsModal = ({ onClose, onPick }: { onClose: () => void; onPick: 
 };
 
 // Infer which family an archetype belongs to
-const findFamilyForFace = (face: string): string => {
-  for (const fam of Object.keys(ARCHETYPES as any)) {
-    const def = (ARCHETYPES as any)[fam];
-    if (def?.L?.name === face || def?.R?.name === face) return fam;
-  }
-  // Fallbacks based on known pairs
-  const pairs: Record<string, string> = {
-    Sovereign: 'Control', Rebel: 'Control', Visionary: 'Pace', Navigator: 'Pace',
-    Equalizer: 'Boundary', Guardian: 'Boundary', Seeker: 'Truth', Architect: 'Truth',
-    Diplomat: 'Recognition', Spotlight: 'Recognition', Partner: 'Bonding', Provider: 'Bonding',
-    Artisan: 'Stress', Catalyst: 'Stress'
-  };
-  return pairs[face] || 'Control';
-};
+// const findFamilyForFace = (face: string): string => {
+//   for (const fam of Object.keys(ARCHETYPES as any)) {
+//     const def = (ARCHETYPES as any)[fam];
+//     if (def?.L?.name === face || def?.R?.name === face) return fam;
+//   }
+//   // Fallbacks based on known pairs
+//   const pairs: Record<string, string> = {
+//     Sovereign: 'Control', Rebel: 'Control', Visionary: 'Pace', Navigator: 'Pace',
+//     Equalizer: 'Boundary', Guardian: 'Boundary', Seeker: 'Truth', Architect: 'Truth',
+//     Diplomat: 'Recognition', Spotlight: 'Recognition', Partner: 'Bonding', Provider: 'Bonding',
+//     Artisan: 'Stress', Catalyst: 'Stress'
+//   };
+//   return pairs[face] || 'Control';
+// };
 
 // Weighted pick helper using seeded RNG (demo-only)
 const pickWeightedSeeded = <T,>(items: T[], weights: number[], rnd: () => number): T => {
