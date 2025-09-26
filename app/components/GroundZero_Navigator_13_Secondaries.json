@@ -1,0 +1,215 @@
+{
+  "main": "Navigator",
+  "baseline": {
+    "title": "Navigator",
+    "Psychological Profile": "You lead by mapping the terrain. You make decisions anchored to constraints, tradeoffs, and clear routes — not slogans. Speed matters, but only when it follows a nailed-down plan that reduces wasted movement.",
+    "Origin": "You learned the hard way that loud directives without a map cause waste. After being handed impossible paths, you trained yourself to hold the wheel and the coordinates so decisions land where they should.",
+    "Inner Conflict": "You balance analysis with the need for a hard yes. Seeing multiple viable routes slows you; yet choosing blind feels reckless. The tension is between a precise plan and the hurry to move.",
+    "Field Presence": "Teams feel steadied by your maps: risks named, lanes clear. Your presence lowers flailing and saves rework, though impatient actors call you slow. Signal: Maps tame risk.",
+    "signal": "Maps tame risk",
+    "_word_counts": {
+      "Psychological Profile": 33,
+      "Origin": 34,
+      "Inner Conflict": 33,
+      "Field Presence": 27
+    },
+    "_total_words": 127
+  },
+  "variants": [
+    {
+      "title": "Navigator × Sovereign",
+      "Psychological Profile": "You command with a chart. You assert authority through route clarity: you decide and you explain the path, making fast, enforceable moves that others can follow without guessing.",
+      "Origin": "You saw leaders bark orders into fog. You learned to combine authority with coordinates so directives actually land and don’t waste people’s time.",
+      "Inner Conflict": "You wrestle with whether to lock the route for speed or leave options open. Locked decisions move faster but risk blind spots you’d rather map first.",
+      "Field Presence": "People follow because your orders come with a map. Your command reduces confusion, but it can feel rigid to those who prize flexibility. Signal: Charted authority moves teams.",
+      "signal": "Charted authority moves teams",
+      "_word_counts": {
+        "Psychological Profile": 28,
+        "Origin": 23,
+        "Inner Conflict": 26,
+        "Field Presence": 28
+      },
+      "_total_words": 105
+    },
+    {
+      "title": "Navigator × Rebel",
+      "Psychological Profile": "You map by probing weak spots. You provoke systems to reveal hidden constraints, then route around or through them. Your maps are alive, updated by disruption rather than doctrine.",
+      "Origin": "You learned that static plans die under pressure. So you test the limits, force cracks, and redraw the map based on what actually holds.",
+      "Inner Conflict": "You enjoy exposing fault lines but must avoid burning essential bridges. Your method yields truth at the risk of temporary chaos.",
+      "Field Presence": "Teams get a clearer path after your interventions, though the journey may start with jolts. Signal: Probed maps find truth.",
+      "signal": "Probed maps find truth",
+      "_word_counts": {
+        "Psychological Profile": 29,
+        "Origin": 24,
+        "Inner Conflict": 21,
+        "Field Presence": 20
+      },
+      "_total_words": 94
+    },
+    {
+      "title": "Navigator × Visionary",
+      "Psychological Profile": "You map toward a horizon. Your routes are chosen because they lead to a specific future; you prioritize paths that scale the vision rather than short diversions that don’t.",
+      "Origin": "You saw tactical wins undermine strategic aims. You learned to pick lanes that stack toward a meaningful destination, not merely reach the next checkpoint.",
+      "Inner Conflict": "You balance the elegant route against messy, faster options. Choosing a path that preserves future capabilities often slows immediate momentum.",
+      "Field Presence": "People follow because your maps promise arrival at a meaningful place. Your specificity reassures planners and frustrates sprint-first folks. Signal: Routed vision guides.",
+      "signal": "Routed vision guides",
+      "_word_counts": {
+        "Psychological Profile": 29,
+        "Origin": 24,
+        "Inner Conflict": 20,
+        "Field Presence": 23
+      },
+      "_total_words": 96
+    },
+    {
+      "title": "Navigator × Equalizer",
+      "Psychological Profile": "You route with fairness in mind. Your maps avoid paths that privilege a few at the expense of many; you seek routes that distribute access and reduce hidden costs.",
+      "Origin": "You watched decisions favor the loud and leave others stranded. You learned to design paths that level opportunity and avoid shortcuts that entrench imbalance.",
+      "Inner Conflict": "You may reject a fast corridor because it leaves people behind. The tension is speed versus equitable inclusion of the team.",
+      "Field Presence": "Your plans feel safer and more inclusive. Some call them slow; others call them just. Signal: Fair routes hold together.",
+      "signal": "Fair routes hold together",
+      "_word_counts": {
+        "Psychological Profile": 29,
+        "Origin": 24,
+        "Inner Conflict": 21,
+        "Field Presence": 20
+      },
+      "_total_words": 94
+    },
+    {
+      "title": "Navigator × Guardian",
+      "Psychological Profile": "You map to protect. Your routes minimize exposure and prioritize survivability; you choose lanes that keep the crew intact under stress, even if they’re longer.",
+      "Origin": "You saw short cuts consume people. You learned to value endurance and to chart ways that crews can survive the journey, not just win a moment.",
+      "Inner Conflict": "You face the trade-off between safer, longer paths and the temptation to sprint. Choosing safety can feel like missing an opportunity.",
+      "Field Presence": "Under your command, teams feel secure in the route. The plan may be slower but it keeps people whole. Signal: Safe routes preserve teams.",
+      "signal": "Safe routes preserve teams",
+      "_word_counts": {
+        "Psychological Profile": 25,
+        "Origin": 26,
+        "Inner Conflict": 21,
+        "Field Presence": 24
+      },
+      "_total_words": 96
+    },
+    {
+      "title": "Navigator × Seeker",
+      "Psychological Profile": "You map by testing. You design experiments that clarify terrain and reveal which paths are proveable, preferring routes validated by repeated checks over guesses.",
+      "Origin": "You learned that assumptions break plans. You now build and test small probes to confirm the map before committing the whole team.",
+      "Inner Conflict": "You delay commitments until the probes line up, which can stall moves that require boldness. The tension is between validated certainty and timely action.",
+      "Field Presence": "People trust your routes because they’re evidence-backed. Your method prevents costly mistakes but can feel overly cautious when speed matters. Signal: Tested routes reduce risk.",
+      "signal": "Tested routes reduce risk",
+      "_word_counts": {
+        "Psychological Profile": 24,
+        "Origin": 22,
+        "Inner Conflict": 24,
+        "Field Presence": 25
+      },
+      "_total_words": 95
+    },
+    {
+      "title": "Navigator × Architect",
+      "Psychological Profile": "You map for scale. Your plans include interfaces, guardrails, and handoffs so the route supports growth; you care about the systemic consequences of a path, not just the immediate move.",
+      "Origin": "You watched work fail in the seams between teams. You learned to route with integration in mind so the system grows without breaking.",
+      "Inner Conflict": "You trade immediate gains for system integrity. The choice is between shipping now and ensuring the path won’t collapse under load.",
+      "Field Presence": "Your maps make scaling predictable. People respect the foresight, though some call it over-engineering in early sprints. Signal: Scaled routes endure.",
+      "signal": "Scaled routes endure",
+      "_word_counts": {
+        "Psychological Profile": 30,
+        "Origin": 23,
+        "Inner Conflict": 21,
+        "Field Presence": 21
+      },
+      "_total_words": 95
+    },
+    {
+      "title": "Navigator × Spotlight",
+      "Psychological Profile": "You map by spotlighting choke points. You focus attention on the bottlenecks that, once cleared, open whole new lanes; you design routes that follow the light.",
+      "Origin": "You saw invisibility kill momentum. So you learned to point attention at the true bottlenecks and route work through cleared space.",
+      "Inner Conflict": "You must balance drawing attention with keeping the map useful. Spotlight can create temporary distraction if not tightly aimed.",
+      "Field Presence": "Under your guidance, teams focus on the right bottlenecks and make disproportionate progress. Some grumble about show; others thank you for clarity. Signal: Spotlight clears bottlenecks.",
+      "signal": "Spotlight clears bottlenecks",
+      "_word_counts": {
+        "Psychological Profile": 26,
+        "Origin": 21,
+        "Inner Conflict": 19,
+        "Field Presence": 26
+      },
+      "_total_words": 92
+    },
+    {
+      "title": "Navigator × Diplomat",
+      "Psychological Profile": "You map for coalition. Your routes are phrased so different stakeholders can follow without losing face; you design pathways that minimize friction across interests.",
+      "Origin": "You saw sharp plans fail because nobody could agree to walk the same path. You learned to route moves in ways that preserve alliances and practical buy-in.",
+      "Inner Conflict": "You often slow to preserve alignment, trading bold edges for shared steps. The question is whether a smaller agreed path beats a bolder split move.",
+      "Field Presence": "People move together because your plans translate across groups. Your maps land more often, though sometimes at a lower peak. Signal: Coalition routes stick.",
+      "signal": "Coalition routes stick",
+      "_word_counts": {
+        "Psychological Profile": 24,
+        "Origin": 27,
+        "Inner Conflict": 25,
+        "Field Presence": 24
+      },
+      "_total_words": 100
+    },
+    {
+      "title": "Navigator × Partner",
+      "Psychological Profile": "You map to carry people. Your routes prioritize handoffs and support so those who travel the path aren’t dropped; you design movement that preserves relationships.",
+      "Origin": "You saw teams fracture under ambitious plans. You learned to route moves that preserve trust and make the journey survivable for everyone involved.",
+      "Inner Conflict": "You temper speed to protect bonds, which can slow critical momentum. The trade-off is between relational durability and fast traction.",
+      "Field Presence": "Teams follow because the route looks survivable and human. Your maps reduce burnout but sometimes miss aggressive opportunity windows. Signal: Caring routes sustain.",
+      "signal": "Caring routes sustain",
+      "_word_counts": {
+        "Psychological Profile": 25,
+        "Origin": 23,
+        "Inner Conflict": 20,
+        "Field Presence": 23
+      },
+      "_total_words": 91
+    },
+    {
+      "title": "Navigator × Provider",
+      "Psychological Profile": "You map around provisioning. Your routes assume required resources and cover; you refuse paths that look doable in theory but starve execution.",
+      "Origin": "You watched plans falter for lack of basics. You learned to design routes that include resource stops and realistic buffers so work can actually ship.",
+      "Inner Conflict": "You delay paths until resourcing feels solid, which saves crises but can stall momentum. The choice is between readiness and seizing windows.",
+      "Field Presence": "Under your route, teams move with supplies and support. Execution succeeds more often, though it can take longer to assemble. Signal: Provisioned routes deliver.",
+      "signal": "Provisioned routes deliver",
+      "_word_counts": {
+        "Psychological Profile": 22,
+        "Origin": 25,
+        "Inner Conflict": 22,
+        "Field Presence": 24
+      },
+      "_total_words": 93
+    },
+    {
+      "title": "Navigator × Catalyst",
+      "Psychological Profile": "You map to spark change. Your routes emphasize leverage points and minimal moves that flip states, so the system reorients with a small, decisive nudge.",
+      "Origin": "You saw endless tinkering waste time. You learned to pick pathways that hit critical mass quickly and force a new trajectory.",
+      "Inner Conflict": "You sometimes pick disruptive paths that shock the system to life at a cost. The ethical and practical trade-offs are ever-present.",
+      "Field Presence": "Teams accelerate when they follow your levered routes; inertia breaks and motion follows. Risk is higher, reward often outsized. Signal: Levered routes ignite.",
+      "signal": "Levered routes ignite",
+      "_word_counts": {
+        "Psychological Profile": 25,
+        "Origin": 21,
+        "Inner Conflict": 21,
+        "Field Presence": 23
+      },
+      "_total_words": 90
+    },
+    {
+      "title": "Navigator × Artisan",
+      "Psychological Profile": "You map by craft. Your routes include quality gates and refinement points; you care that the path produces durable, well-made outcomes, not just speed.",
+      "Origin": "You watched sloppy launches collapse under pressure. You learned to design routes that bake in quality so the outcome survives the first real test.",
+      "Inner Conflict": "You refine until the window passes. The tension is between craft and meeting the moment; sometimes the perfect route is too late.",
+      "Field Presence": "People trust the durability of outcomes that follow your routes. Your approach reduces rework, though it can feel slow to those chasing velocity. Signal: Crafted routes endure.",
+      "signal": "Crafted routes endure",
+      "_word_counts": {
+        "Psychological Profile": 24,
+        "Origin": 24,
+        "Inner Conflict": 22,
+        "Field Presence": 27
+      },
+      "_total_words": 97
+    }
+  ]
+}

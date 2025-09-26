@@ -1,0 +1,215 @@
+{
+  "main": "Architect",
+  "baseline": {
+    "title": "Architect",
+    "Psychological Profile": "You design the scaffolding that makes decisions survive friction. You set interfaces, roles, and constraints so action scales without falling apart. Speed is valuable when the structure carries it; without proper shape, momentum becomes technical debt you’ll have to repay.",
+    "Origin": "You learned leadership the hard way: beautiful launches crumbled because seams weren’t thought through. After seeing systems fail under load, you trained yourself to prefer durable design over fast fixes, building lanes that future effort can reliably travel.",
+    "Inner Conflict": "You trade immediate tempo for long-term coherence. You’ll slow or refactor a launch to fix seams, then take heat for the delay. The question that haunts you: ship now and pay interest, or redesign and pay heat in the short term.",
+    "Field Presence": "Under you, chaos becomes legible. People know their roles, handoffs are smooth, and surprises drop. Your insistence on structure prevents repeat failures, though some call it bureaucracy in the heat of launch. Signal: Structure scales action.",
+    "signal": "Structure scales action",
+    "_word_counts": {
+      "Psychological Profile": 40,
+      "Origin": 38,
+      "Inner Conflict": 41,
+      "Field Presence": 36
+    },
+    "_total_words": 155
+  },
+  "variants": [
+    {
+      "title": "Architect × Sovereign",
+      "Psychological Profile": "You assert authority by setting the architecture. You make decisive calls that lock the system into a working shape so teams can move quickly within clear constraints rather than guessing at boundaries.",
+      "Origin": "You watched leaders give orders into fog and saw the chaos that followed. So you married command with design — decisions that come with clear rails so they can be executed with speed and clarity.",
+      "Inner Conflict": "You must balance enforcing a structure for speed against allowing flexibility. Locking rails moves faster but can feel authoritarian; leaving them loose invites rework and drift.",
+      "Field Presence": "People follow because your directives include a map of how to act. Your mix of authority and architecture reduces friction, though it can feel rigid to those who prize improvisation. Signal: Commanded architecture enables speed.",
+      "signal": "Commanded architecture enables speed",
+      "_word_counts": {
+        "Psychological Profile": 32,
+        "Origin": 35,
+        "Inner Conflict": 26,
+        "Field Presence": 35
+      },
+      "_total_words": 128
+    },
+    {
+      "title": "Architect × Rebel",
+      "Psychological Profile": "You design by demolition and reassembly. You remove brittle modules, then rebuild with cleaner interfaces so the system can breathe instead of calcifying around bad habits.",
+      "Origin": "You learned that small fixes layered on junk architecture produce brittle systems. You trained to cut the rot and craft better seams instead of forever patching failure-prone bits.",
+      "Inner Conflict": "You risk over-pruning useful legacy in your rush to clean. The trade-off is between removing rot and keeping valuable, battle-tested pieces that still work.",
+      "Field Presence": "After your interventions, systems are leaner and more adaptable. The work may be rough at first, but the rebuilt structure outlives the old mess. Signal: Rebuilt seams last.",
+      "signal": "Rebuilt seams last",
+      "_word_counts": {
+        "Psychological Profile": 26,
+        "Origin": 28,
+        "Inner Conflict": 24,
+        "Field Presence": 28
+      },
+      "_total_words": 106
+    },
+    {
+      "title": "Architect × Visionary",
+      "Psychological Profile": "You architect toward a future state. Your designs aren’t just functional now; they anticipate scale and steer present choices so the outcome aligns with a longer horizon.",
+      "Origin": "You saw short-term designs choke future opportunity. So you learned to impose shape that preserves optionality and keeps the long arc available for later moves.",
+      "Inner Conflict": "You balance elegant, future-proof structure against the demand to ship now. Designing for scale can delay immediate wins, and that tension sits with you constantly.",
+      "Field Presence": "People trust that your systems will support growth. Your blueprints make scaling plausible, though some call them overengineered for the present moment. Signal: Blueprint secures scale.",
+      "signal": "Blueprint secures scale",
+      "_word_counts": {
+        "Psychological Profile": 27,
+        "Origin": 25,
+        "Inner Conflict": 25,
+        "Field Presence": 26
+      },
+      "_total_words": 103
+    },
+    {
+      "title": "Architect × Navigator",
+      "Psychological Profile": "You craft structures that map routes. Your architecture clarifies interfaces and handoffs so teams can follow predictable paths rather than improvising connections in the dark.",
+      "Origin": "You watched projects collapse where boundaries were unclear. You learned to design with handoffs in mind so the map includes where responsibility lives and how work flows across teams.",
+      "Inner Conflict": "You sometimes over-define corridors, which can straitjacket creative exploration. The tension is between predictable flow and emergent adaptation.",
+      "Field Presence": "Teams move with less friction because interfaces are clear. Your maps reduce coordination costs though they can be seen as constraining when exploration is needed. Signal: Mapped architecture reduces friction.",
+      "signal": "Mapped architecture reduces friction",
+      "_word_counts": {
+        "Psychological Profile": 25,
+        "Origin": 29,
+        "Inner Conflict": 18,
+        "Field Presence": 30
+      },
+      "_total_words": 102
+    },
+    {
+      "title": "Architect × Equalizer",
+      "Psychological Profile": "You embed fairness into systems. Your designs distribute authority, visibility, and access so the structure itself prevents recurring concentration of benefit.",
+      "Origin": "You saw rules that advantaged insiders and cemented inequality. You learned to rewrite interfaces and flows so fairness is not an afterthought but a built-in property.",
+      "Inner Conflict": "Structural fairness can be slower to implement and face resistance from those who profit from the status quo. The friction is political as much as technical.",
+      "Field Presence": "People notice fairer distribution in how work and credit flow. The system becomes more resilient socially, though change can feel bureaucratic to speed-seekers. Signal: Fair structure sustains.",
+      "signal": "Fair structure sustains",
+      "_word_counts": {
+        "Psychological Profile": 21,
+        "Origin": 26,
+        "Inner Conflict": 26,
+        "Field Presence": 27
+      },
+      "_total_words": 100
+    },
+    {
+      "title": "Architect × Guardian",
+      "Psychological Profile": "You make safety systemic. Your architecture includes guardrails and failure modes so people aren’t exposed when the system is stressed; protection is baked in, not bolted on.",
+      "Origin": "You watched ad-hoc processes injure teams. You learned to design containment and recovery so the organization survives shocks without collapsing people into the breach.",
+      "Inner Conflict": "You can be accused of over-guarding the system, slowing innovation to protect against hypothetical failures. The choice is between resilience and raw velocity.",
+      "Field Presence": "Under your designs, surprises produce fewer casualties. The team trusts the work because failure paths are managed; critics call it slow until something breaks and your systems hold. Signal: Built-in resilience protects.",
+      "signal": "Built-in resilience protects",
+      "_word_counts": {
+        "Psychological Profile": 27,
+        "Origin": 24,
+        "Inner Conflict": 23,
+        "Field Presence": 32
+      },
+      "_total_words": 106
+    },
+    {
+      "title": "Architect × Seeker",
+      "Psychological Profile": "You validate architecture through experiments. Your designs include probes and observability so assumptions get tested early and the structure is iterated based on what proves true.",
+      "Origin": "You saw untested infrastructure fail under load. You learned to instrument and probe so the architecture evolves only when validated by real-world signals.",
+      "Inner Conflict": "You sometimes slow delivery to prove assumptions, which can frustrate stakeholders eager to move. The tension is between proven integrity and shipping speed.",
+      "Field Presence": "Teams respect systems that are testable and observable. Your approach reduces surprise and gives leaders confidence to scale. Signal: Testable design prevents failure.",
+      "signal": "Testable design prevents failure",
+      "_word_counts": {
+        "Psychological Profile": 26,
+        "Origin": 23,
+        "Inner Conflict": 23,
+        "Field Presence": 23
+      },
+      "_total_words": 95
+    },
+    {
+      "title": "Architect × Spotlight",
+      "Psychological Profile": "You design so the important things are visible. Your architecture includes dashboards, signals, and story-first interfaces so the right work gets attention at the right time.",
+      "Origin": "You watched invisible work fail because no one tracked it. You learned to make key metrics and flows obvious so priorities get the resources they need.",
+      "Inner Conflict": "You risk creating glare that distracts from the actual problem. The balance is between visibility that drives action and spectacle that wastes focus.",
+      "Field Presence": "Under your systems, priorities snap into view and teams align faster. The cost is trimming down noise so only high-impact signals shine. Signal: Visible systems focus effort.",
+      "signal": "Visible systems focus effort",
+      "_word_counts": {
+        "Psychological Profile": 26,
+        "Origin": 26,
+        "Inner Conflict": 23,
+        "Field Presence": 27
+      },
+      "_total_words": 102
+    },
+    {
+      "title": "Architect × Diplomat",
+      "Psychological Profile": "You design for interoperability across groups. Your architecture includes translation layers and shared contracts so different teams can integrate without stepping on each other.",
+      "Origin": "You saw integrations fail because teams used different assumptions. You learned to define interfaces that different cultures can accept and implement.",
+      "Inner Conflict": "You sometimes trade purity of design for coalition compatibility. The result is designs that land more often but may not be technically pristine.",
+      "Field Presence": "People find it easier to cooperate because contracts are explicit and expectations are clear. Your approach lowers coordination failure though it can feel compromised to perfectionists. Signal: Shared contracts enable cooperation.",
+      "signal": "Shared contracts enable cooperation",
+      "_word_counts": {
+        "Psychological Profile": 24,
+        "Origin": 21,
+        "Inner Conflict": 23,
+        "Field Presence": 31
+      },
+      "_total_words": 99
+    },
+    {
+      "title": "Architect × Partner",
+      "Psychological Profile": "You design with ownership in mind. Your architectures include humane handoffs and support paths so people can take responsibility without being set up to fail.",
+      "Origin": "You watched responsibility get dumped on teams without the support to succeed. You learned to design roles and coverage so ownership is realistic and sustainable.",
+      "Inner Conflict": "You may add friction to protect people, which can slow progress. The trade-off is between enabling ownership and moving fast without care.",
+      "Field Presence": "Teams feel empowered because the system expects and supports ownership. Your patterns reduce burnout and increase accountability; sometimes they slow initial velocity. Signal: Supportive architecture sustains ownership.",
+      "signal": "Supportive architecture sustains ownership",
+      "_word_counts": {
+        "Psychological Profile": 25,
+        "Origin": 25,
+        "Inner Conflict": 22,
+        "Field Presence": 27
+      },
+      "_total_words": 99
+    },
+    {
+      "title": "Architect × Provider",
+      "Psychological Profile": "You build structures that account for provisioning. Your designs include resource checks, buffers, and fallback so plans don’t fail for lack of basics.",
+      "Origin": "You saw projects collapse from missing scaffolding. You learned to bake support into the plan so teams don’t run on hope and miracles.",
+      "Inner Conflict": "You often delay changes until provisioning is secured, which can frustrate urgency. The choice is between readiness and seizing a fleeting window.",
+      "Field Presence": "Under your architecture, execution is more reliable because the needed supports are explicit. Teams launch with confidence though setups take longer. Signal: Provisioned design ensures delivery.",
+      "signal": "Provisioned design ensures delivery",
+      "_word_counts": {
+        "Psychological Profile": 23,
+        "Origin": 23,
+        "Inner Conflict": 22,
+        "Field Presence": 26
+      },
+      "_total_words": 94
+    },
+    {
+      "title": "Architect × Catalyst",
+      "Psychological Profile": "You architect for leverage. Your designs include small interventions that unlock large effects, so minimal changes cascade through the system and flip states.",
+      "Origin": "You watched slow fixes fail to move the needle. You learned to design levers and triggers that produce outsized change with surgical moves.",
+      "Inner Conflict": "You risk fragile leverage that backfires if mis-tuned. The tension is between elegant leverage and brittle tipping points.",
+      "Field Presence": "Teams accelerate when your levers hit; inertia breaks. The payoff is high but so is the risk, so calibration matters. Signal: Levered architecture scales impact.",
+      "signal": "Levered architecture scales impact",
+      "_word_counts": {
+        "Psychological Profile": 23,
+        "Origin": 23,
+        "Inner Conflict": 18,
+        "Field Presence": 25
+      },
+      "_total_words": 89
+    },
+    {
+      "title": "Architect × Artisan",
+      "Psychological Profile": "You craft the fine details of systems. Your architecture includes well-tuned interfaces, ergonomic flows, and attention to fit so the product behaves beautifully under load.",
+      "Origin": "You watched rough builds fail in the real world. You learned to insist on craft so the system feels robust, not just functional.",
+      "Inner Conflict": "You polish until the window narrows. The tension is between artisan quality and the organization’s demand for speed.",
+      "Field Presence": "People notice the smoothness and reliability your designs produce. Your work reduces technical debt and improves outcomes, though it costs time. Signal: Crafted architecture endures.",
+      "signal": "Crafted architecture endures",
+      "_word_counts": {
+        "Psychological Profile": 25,
+        "Origin": 23,
+        "Inner Conflict": 18,
+        "Field Presence": 25
+      },
+      "_total_words": 91
+    }
+  ]
+}

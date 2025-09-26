@@ -1,0 +1,215 @@
+{
+  "main": "Visionary",
+  "baseline": {
+    "title": "Visionary",
+    "Psychological Profile": "You lead by pointing the horizon. You move with speed that’s anchored to an image of what could be — decisions are judged by whether they advance a future that matters. Your authority is persuasive because it carries meaning, not just order.",
+    "Origin": "You learned the cost of short-sighted wins when missions lost their purpose. After seeing bright sprints collapse larger aims, you trained yourself to hold the helm with a long arc in mind so each move stacks toward a coherent destination.",
+    "Inner Conflict": "You push for progress while guarding the future. The tension is between urgent wins and commitments that take time to pay off; you often delay satisfying moves that would fracture the long view you’re stewarding.",
+    "Field Presence": "People rally because they can see a destination. Your calls feel generative; followers trade patience for purpose. The downside: in the short term you can seem distant or abstract when others want immediate fixes. Signal: Future pulls the present.",
+    "signal": "Future pulls the present",
+    "_word_counts": {
+      "Psychological Profile": 42,
+      "Origin": 40,
+      "Inner Conflict": 35,
+      "Field Presence": 39
+    },
+    "_total_words": 156
+  },
+  "variants": [
+    {
+      "title": "Visionary × Sovereign",
+      "Psychological Profile": "You fuse horizon and command. You point a future clearly and insist the team move toward it; your authority frames what counts as progress, turning vision into executable calls.",
+      "Origin": "You saw leaders who dreamed but never landed. You learned to couple sight with firm direction so a long arc doesn’t become vapor but becomes a ship you can steer.",
+      "Inner Conflict": "You wrestle with whether to demand quick alignment or let ideas evolve. Pushing too hard can collapse the craftsmanship needed to realize the vision; being too patient can let momentum die.",
+      "Field Presence": "People follow because your future is clear and commanded. Your presence feels like a destination with a map; skeptics may call it rigid, but it gets things built. Signal: Commanded horizon compels.",
+      "signal": "Commanded horizon compels",
+      "_word_counts": {
+        "Psychological Profile": 29,
+        "Origin": 30,
+        "Inner Conflict": 31,
+        "Field Presence": 32
+      },
+      "_total_words": 122
+    },
+    {
+      "title": "Visionary × Rebel",
+      "Psychological Profile": "You imagine a different future and then tear down the barriers that keep it from arriving. Your vision demands rupture when the old is ossified; you won’t wait for consensus to catch up with possibility.",
+      "Origin": "You watched complacency preserve dead systems. You learned that some futures require bold disruption, so you pair imagination with tactics that break what blocks progress.",
+      "Inner Conflict": "You balance constructive demolition with stewardship of the path forward. The risk is that breaking too fast scatters the resources the vision needs to land.",
+      "Field Presence": "Your energy feels both prophetic and insurgent: people see a future and a path through fire. Some are energized; others fear the cost. Signal: Break toward horizon.",
+      "signal": "Break toward horizon",
+      "_word_counts": {
+        "Psychological Profile": 35,
+        "Origin": 25,
+        "Inner Conflict": 25,
+        "Field Presence": 27
+      },
+      "_total_words": 112
+    },
+    {
+      "title": "Visionary × Navigator",
+      "Psychological Profile": "You envision the destination and map the route. Your visions come with coordinates: you not only cast a goal but lay out the constraints, milestones, and tradeoffs that make it reachable.",
+      "Origin": "You learned that grand ideas die without practical paths. So you trained yourself to test assumptions against terrain and to turn ambition into actionable routes.",
+      "Inner Conflict": "You can get bogged down in planning the path and miss the pulse to move. The tension is between charting a durable route and seizing fleeting opportunities.",
+      "Field Presence": "Teams feel inspired and guided: they can see where they’re headed and how to get there. Your specificity calms risk-averse stakeholders but can slow impulsive actors. Signal: Mapped future guides.",
+      "signal": "Mapped future guides",
+      "_word_counts": {
+        "Psychological Profile": 31,
+        "Origin": 25,
+        "Inner Conflict": 27,
+        "Field Presence": 30
+      },
+      "_total_words": 113
+    },
+    {
+      "title": "Visionary × Equalizer",
+      "Psychological Profile": "You hold a future that includes everyone. Your vision filters success by who benefits; you push for outcomes that widen access rather than concentrate gain.",
+      "Origin": "You saw futures that profited a few and left many behind. You learned to insist that the picture you chase distributes value, not just prestige.",
+      "Inner Conflict": "You slow when a shortcut benefits a narrow group. The moral weight of inclusion can delay moves that look expedient but would fracture the long-term social fabric.",
+      "Field Presence": "People trust your vision when fairness matters: it promises a future they can belong to. Critics call it slow; those it protects call it necessary. Signal: Inclusive future endures.",
+      "signal": "Inclusive future endures",
+      "_word_counts": {
+        "Psychological Profile": 25,
+        "Origin": 25,
+        "Inner Conflict": 27,
+        "Field Presence": 29
+      },
+      "_total_words": 106
+    },
+    {
+      "title": "Visionary × Guardian",
+      "Psychological Profile": "You imagine a future that keeps people safe. Your vision prioritizes survivability and resilience, favoring pathways that protect the crew as the system grows.",
+      "Origin": "You watched ambitious plans eat people. You learned to design futures that can be lived in and that preserve the team through transition.",
+      "Inner Conflict": "You wrestle with how much risk the vision can bear. Pushing for scale too fast can expose people to harm; moving too cautiously can let the opportunity vanish.",
+      "Field Presence": "Colleagues sense a caring ambition: a future that is both bold and survivable. You temper loftier claims with checks that preserve the team. Signal: Resilient future protects.",
+      "signal": "Resilient future protects",
+      "_word_counts": {
+        "Psychological Profile": 24,
+        "Origin": 23,
+        "Inner Conflict": 28,
+        "Field Presence": 27
+      },
+      "_total_words": 102
+    },
+    {
+      "title": "Visionary × Seeker",
+      "Psychological Profile": "You search for evidence that validates the arc. Your vision requires signals that show the path is real; you test assumptions so the horizon isn’t wishful thinking.",
+      "Origin": "You saw noble plans collapse because they lacked proof. You trained to vet ideas early so the future you chase has a backbone of real data.",
+      "Inner Conflict": "You delay glamour for proof, which sometimes slows momentum. The trade is between convincing imagination and convincing evidence.",
+      "Field Presence": "Your combination of sight and tests reassures pragmatic teams. People either gain confidence in the future or feel stalled while you vet it. Signal: Evidence steadies vision.",
+      "signal": "Evidence steadies vision",
+      "_word_counts": {
+        "Psychological Profile": 27,
+        "Origin": 26,
+        "Inner Conflict": 18,
+        "Field Presence": 27
+      },
+      "_total_words": 98
+    },
+    {
+      "title": "Visionary × Architect",
+      "Psychological Profile": "You dream systems and then design them. Your vision comes with blueprints: you imagine structures that let the future scale without falling apart.",
+      "Origin": "You saw beautiful plans fail under complexity. You learned to combine imagination with principled design so aspiration can grow without collapsing.",
+      "Inner Conflict": "You battle between elegant design and market speed. The urge to perfect systems can slow launch windows the organization can’t afford to miss.",
+      "Field Presence": "People trust that your visions will survive scaling. You build confidence by mapping how the future actually functions, though some call it overengineering. Signal: Blueprint secures future.",
+      "signal": "Blueprint secures future",
+      "_word_counts": {
+        "Psychological Profile": 23,
+        "Origin": 21,
+        "Inner Conflict": 23,
+        "Field Presence": 27
+      },
+      "_total_words": 94
+    },
+    {
+      "title": "Visionary × Spotlight",
+      "Psychological Profile": "You make the future visible. Your vision works by lighting a compelling image that attracts attention and resources; you know that visibility accelerates adoption.",
+      "Origin": "You saw good ideas die because they were invisible. You learned to craft a picture that people can’t ignore so momentum follows the attention.",
+      "Inner Conflict": "You wrestle with spectacle versus substance. Making something hot can attract fat margins but also hollow imitation if the core isn’t solid.",
+      "Field Presence": "Under your lead, rooms mobilize toward an attractive north star. People feel momentum; skeptics warn that glow can outpace grounding. Signal: Attention accelerates adoption.",
+      "signal": "Attention accelerates adoption",
+      "_word_counts": {
+        "Psychological Profile": 24,
+        "Origin": 24,
+        "Inner Conflict": 22,
+        "Field Presence": 24
+      },
+      "_total_words": 94
+    },
+    {
+      "title": "Visionary × Diplomat",
+      "Psychological Profile": "You build a future everyone can sign onto. Your vision is translated into languages different stakeholders can live with; you design frames that hold coalitions together.",
+      "Origin": "You saw fragmentation derail good plans. You learned to shape futures that stick across interests so alignment becomes a durable asset, not a brittle accord.",
+      "Inner Conflict": "You slow to preserve the coalition, which can dilute boldness. The question is whether a watered-down future that everyone accepts is better than a purer future with fewer allies.",
+      "Field Presence": "People feel held by your inclusive framing: the future becomes a shared project. It lands more often, though sometimes smaller than the boldest visionaries want. Signal: Framed future gains allies.",
+      "signal": "Framed future gains allies",
+      "_word_counts": {
+        "Psychological Profile": 26,
+        "Origin": 25,
+        "Inner Conflict": 29,
+        "Field Presence": 30
+      },
+      "_total_words": 110
+    },
+    {
+      "title": "Visionary × Partner",
+      "Psychological Profile": "You imagine a future that preserves relationships. Your vision moves people because it promises shared care; you prioritize outcomes that keep bonds intact as the system evolves.",
+      "Origin": "You watched ambition sever teams. You learned to pursue futures that sustain the people who must build them, not only the markets they serve.",
+      "Inner Conflict": "You temper radical leaps to avoid breaking the social fabric. Sometimes that restraint costs speed, but it often preserves the ability to see the project through.",
+      "Field Presence": "Teams follow because they feel the future won’t abandon them. Your stewardship binds commitment and reduces burnouts. Signal: Caring future retains teams.",
+      "signal": "Caring future retains teams",
+      "_word_counts": {
+        "Psychological Profile": 27,
+        "Origin": 24,
+        "Inner Conflict": 26,
+        "Field Presence": 22
+      },
+      "_total_words": 99
+    },
+    {
+      "title": "Visionary × Provider",
+      "Psychological Profile": "You envision futures that are funded and feasible. Your plans account for provisioning and sustainability; you refuse loftiness that can’t be resourced.",
+      "Origin": "You watched dreams starve when leaders chased glory without means. You learned to pair ambition with provisioning so ideas actually happen.",
+      "Inner Conflict": "You delay visions until the runway exists, which can look like conservatism. The trade-off is between financed viability and raw inventiveness.",
+      "Field Presence": "People move because the future feels realistic and supplied. Your approach makes adoption more likely, even if it takes longer to assemble. Signal: Funded future launches.",
+      "signal": "Funded future launches",
+      "_word_counts": {
+        "Psychological Profile": 22,
+        "Origin": 21,
+        "Inner Conflict": 21,
+        "Field Presence": 26
+      },
+      "_total_words": 90
+    },
+    {
+      "title": "Visionary × Catalyst",
+      "Psychological Profile": "You design futures that flip inertia. Your vision seeks leverage points and minimal moves that create cascades, preferring catalytic shifts over gradualism.",
+      "Origin": "You saw slow drift eat opportunity. You learned to identify high-leverage interventions that force a new trajectory instead of incremental tinkering.",
+      "Inner Conflict": "You pick moves that can be disruptive; sometimes the burn is necessary, sometimes it’s costly. You weigh dramatic change against the moral and practical cost.",
+      "Field Presence": "Around you, systems reorient quickly; your visions often arrive because small changes create outsized movement. The risk is that some get burned en route. Signal: Leverage flips inertia.",
+      "signal": "Leverage flips inertia",
+      "_word_counts": {
+        "Psychological Profile": 22,
+        "Origin": 21,
+        "Inner Conflict": 25,
+        "Field Presence": 28
+      },
+      "_total_words": 96
+    },
+    {
+      "title": "Visionary × Artisan",
+      "Psychological Profile": "You craft futures by refining detail. Your vision is realized through excellence of execution — you prove the future by making it sing at a human scale.",
+      "Origin": "You watched sloppy launches cheapen big ideas. You learned to prototype, test, and perfect so the long-term picture actually survives the first hard test.",
+      "Inner Conflict": "You polish until the moment passes. The dilemma is fidelity versus timing: too much craft can delay the very future it promises.",
+      "Field Presence": "People trust that your visions will hold because they’ve been built with care. Your approach wins durability at the cost of some speed. Signal: Crafted future endures.",
+      "signal": "Crafted future endures",
+      "_word_counts": {
+        "Psychological Profile": 27,
+        "Origin": 24,
+        "Inner Conflict": 22,
+        "Field Presence": 27
+      },
+      "_total_words": 100
+    }
+  ]
+}

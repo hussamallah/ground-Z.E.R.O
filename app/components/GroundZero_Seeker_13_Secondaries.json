@@ -1,0 +1,208 @@
+{
+  "main": "Seeker",
+  "baseline": {
+    "title": "Seeker",
+    "Psychological Profile": "You move to know. You lead by probing, testing, and refusing comforting answers. Quick decisions only matter if they’re true; you’ll pause a heartbeat to confirm the signal rather than sprint on a story that collapses under the next test.",
+    "Origin": "You learned the cost of assumptions when hopeful guesses derailed work or harmed people. After enough wasted launches, you taught yourself to demand evidence, to point a light where it matters, and to let failure-free facts guide the next call.",
+    "Inner Conflict": "You hunger for speed but stop for proof. That tension freezes you sometimes: act too soon and you risk error; wait too long and opportunity slips. You live on the knife-edge between decisive moves and measured verification.",
+    "Field Presence": "Around you, conversations sharpen and clutter falls away. People either feel steadied by your insistence on evidence or bruised by your blunt filters. You clear fog, but you also clear warmth. Signal: Proof enables action.",
+    "signal": "Proof enables action"
+  },
+  "variants": [
+    {
+      "title": "Seeker × Rebel",
+      "Psychological Profile": "You test truth by provoking it. You stir the system to see what holds, preferring pressure tests to polite checks. You value evidence that survives rupture more than consensus that soothes, and you use disruption as a lens for what’s real.",
+      "Origin": "You watched brittle systems collapse under polite pressure and learned that soft tests hide rot. So you trained yourself to hit hard, observe the breakpoints, and keep only the parts that endure the shock.",
+      "Inner Conflict": "You chase clarity through rupture but risk burning bridges. Your shock-tests produce honest signals but can alienate people whose cooperation you need. The choice between true data and preserved relationships haunts you.",
+      "Field Presence": "People feel jolted awake around you. Your tactics expose rot quickly; followers either rally to rebuild or step back from the heat. Signal: Disruption proofs the claim.",
+      "signal": "Disruption proofs the claim",
+      "_word_counts": {
+        "Psychological Profile": 41,
+        "Origin": 34,
+        "Inner Conflict": 32,
+        "Field Presence": 27
+      },
+      "_total_words": 134
+    },
+    {
+      "title": "Seeker × Visionary",
+      "Psychological Profile": "You search with a horizon in mind. You test ideas not just for truth but for future fit, preferring signals that scale toward a clear destination. Your evidence must point to a path, not merely a fact.",
+      "Origin": "You saw short-term fixes swallow long-term goals. You learned to demand evidence that held across time, so present decisions stack toward the outcome you believe matters most.",
+      "Inner Conflict": "You balance immediate clarity against long-range coherence. A true data point that doesn’t advance the vision feels incomplete, and you often delay decisions until the signal aligns with the arc you’re guarding.",
+      "Field Presence": "Your questions widen the room’s sightline; people either buy into the arc or tune you out as distant. You convert evidence into direction. Signal: Future-fit guides choice.",
+      "signal": "Future-fit guides choice",
+      "_word_counts": {
+        "Psychological Profile": 37,
+        "Origin": 27,
+        "Inner Conflict": 32,
+        "Field Presence": 27
+      },
+      "_total_words": 123
+    },
+    {
+      "title": "Seeker × Navigator",
+      "Psychological Profile": "You hunt truth that maps to routes. You design tests that reveal constraints, tradeoffs, and safe passages. Evidence is useful when it produces a navigable plan, not just an abstract fact.",
+      "Origin": "You learned that raw answers fail if they ignore terrain. After being handed plans that couldn’t be executed, you trained yourself to test with context and chart feasible paths.",
+      "Inner Conflict": "You can be slowed by too many viable routes; mapping options dilutes the decision that needs a hard yes. You wrestle with analysis paralysis versus reckless certainty.",
+      "Field Presence": "Teams feel steadier because your findings include the how. You turn data into pathways, which calms risk-averse colleagues and annoys impatient actors. Signal: Maps tame risk.",
+      "signal": "Maps tame risk",
+      "_word_counts": {
+        "Psychological Profile": 31,
+        "Origin": 29,
+        "Inner Conflict": 27,
+        "Field Presence": 26
+      },
+      "_total_words": 113
+    },
+    {
+      "title": "Seeker × Equalizer",
+      "Psychological Profile": "You seek truths that hold across the whole system. Your tests expose bias and imbalance; you reject signals that advantage the loud at the expense of the quiet. Fairness is a primary filter for what you accept as true.",
+      "Origin": "You watched outcomes favor the visible while the invisible suffered. That taught you to interrogate claims for hidden costs and to demand evidence that distributes benefit, not just wins headlines.",
+      "Inner Conflict": "You delay when quick gains favor the few. The moral weight of fairness can stall action, and you must choose between right-speed and equitable-speed often enough to feel it.",
+      "Field Presence": "People trust your verdicts when inclusion matters. Your filters prevent exploitative moves, though they sometimes read as brakes to those chasing rapid advantage. Signal: Balance proves the plan.",
+      "signal": "Balance proves the plan",
+      "_word_counts": {
+        "Psychological Profile": 39,
+        "Origin": 30,
+        "Inner Conflict": 29,
+        "Field Presence": 28
+      },
+      "_total_words": 126
+    },
+    {
+      "title": "Seeker × Guardian",
+      "Psychological Profile": "You test for survivability. Your evidence questions whether a move keeps people safe under pressure; you prioritize durability and the team’s ability to endure, not just immediate wins.",
+      "Origin": "You saw initiatives succeed while people paid the price. You learned to value truths that preserve the crew and to measure claims against their cost in human terms.",
+      "Inner Conflict": "You hesitate when exposing truth risks morale. Sometimes the honest call destabilizes teams, and you must decide whether short-term shock prevents long-term collapse.",
+      "Field Presence": "Colleagues feel safer under your inquiry; you prevent reckless launches. Your caution sometimes blocks fast movers but keeps the group intact. Signal: Survivability secures action.",
+      "signal": "Survivability secures action",
+      "_word_counts": {
+        "Psychological Profile": 28,
+        "Origin": 28,
+        "Inner Conflict": 23,
+        "Field Presence": 25
+      },
+      "_total_words": 104
+    },
+    {
+      "title": "Seeker × Sovereign",
+      "Psychological Profile": "You seek facts to enable decisive orders. Your evidence gathering has authority in mind: you want clarity you can translate into commands that move people reliably and quickly.",
+      "Origin": "After watching hesitation cost outcomes, you learned that proof must convert into orders. You honed tests that produce readable signals for leaders to act on.",
+      "Inner Conflict": "You push for evidence that yields fast decisions, but the search for perfect proof can delay the call you need to make. The pressure is to be both certain and immediate.",
+      "Field Presence": "Teams feel relieved when you deliver actionable verdicts; your facts reduce hesitation. At times nuance is lost in the rush for orders. Signal: Proof enables command.",
+      "signal": "Proof enables command",
+      "_word_counts": {
+        "Psychological Profile": 28,
+        "Origin": 25,
+        "Inner Conflict": 31,
+        "Field Presence": 26
+      },
+      "_total_words": 110
+    },
+    {
+      "title": "Seeker × Architect",
+      "Psychological Profile": "You test for structural truths. You value evidence that reveals which frameworks will scale and which fixes will fail when the system grows. You build tests that expose longevity.",
+      "Origin": "You saw messy fixes collapse as complexity grew, so you learned to demand proofs that survive integration and scaling, prioritizing long-term integrity over quick wins.",
+      "Inner Conflict": "You slow for coherence; sometimes the right structural choice costs time the project lacks. The trade is between durable systems and rapid delivery.",
+      "Field Presence": "People trust findings that lead to cleaner systems. Your work prevents future debt but can be criticized as over-engineering in urgent moments. Signal: Structure endures.",
+      "signal": "Structure endures",
+      "_word_counts": {
+        "Psychological Profile": 29,
+        "Origin": 25,
+        "Inner Conflict": 23,
+        "Field Presence": 25
+      },
+      "_total_words": 102
+    },
+    {
+      "title": "Seeker × Spotlight",
+      "Psychological Profile": "You test for signals that shape attention. You value evidence that, once amplified, moves behavior. Your work asks which facts change what people care about.",
+      "Origin": "You watched important work fail because no one noticed it. You learned to hunt for evidence that rewards visibility and turns possibility into momentum.",
+      "Inner Conflict": "You balance substance against packaging. Some truths only work if framed; you wrestle with shaping the story without betraying the fact.",
+      "Field Presence": "Under your inquiry, priorities snap into view and teams mobilize quickly. Critics may call it showmanship; you call it leverage. Signal: Visibility drives shift.",
+      "signal": "Visibility drives shift",
+      "_word_counts": {
+        "Psychological Profile": 25,
+        "Origin": 24,
+        "Inner Conflict": 21,
+        "Field Presence": 24
+      },
+      "_total_words": 94
+    },
+    {
+      "title": "Seeker × Diplomat",
+      "Psychological Profile": "You look for truths that can be translated across groups. You design tests that produce signals different audiences can accept, prioritizing shareable evidence over niche precision.",
+      "Origin": "You saw fragmentation torpedo action. You learned to seek facts that hold in different value languages so diverse stakeholders can align on the same move.",
+      "Inner Conflict": "You pause to translate, which slows the call. The right fact might fracture the table if not framed; you balance fidelity against coalition survival.",
+      "Field Presence": "People sense your findings aim to keep the room together. Your work sticks more often, though it takes longer to land. Signal: Translation holds coalition.",
+      "signal": "Translation holds coalition",
+      "_word_counts": {
+        "Psychological Profile": 26,
+        "Origin": 25,
+        "Inner Conflict": 24,
+        "Field Presence": 25
+      },
+      "_total_words": 100
+    },
+    {
+      "title": "Seeker × Partner",
+      "Psychological Profile": "You test with relationships in mind. Your evidence filters include emotional cost and reciprocity: will the truth preserve the people who must carry it out?",
+      "Origin": "You watched leaders win plans but lose teams. So you learned to value proofs that keep trust intact and to measure claims by their effect on bonds.",
+      "Inner Conflict": "You temper blunt facts to protect ties, sometimes at the cost of urgency. Choosing kindness over exposure is a constant friction point.",
+      "Field Presence": "Your inquiries feel like care; people trust your verdicts because they’re tested against relational impact. Some wish you were sterner, but the team stays whole. Signal: Trust preserves motion.",
+      "signal": "Trust preserves motion",
+      "_word_counts": {
+        "Psychological Profile": 25,
+        "Origin": 27,
+        "Inner Conflict": 22,
+        "Field Presence": 29
+      },
+      "_total_words": 103
+    },
+    {
+      "title": "Seeker × Provider",
+      "Psychological Profile": "You test for practicality. Your evidence checks ask whether the truth is actionable given current resources, coverage, and risk tolerance. You refuse claims that can’t be resourced.",
+      "Origin": "You saw ideas die for lack of basics. You trained yourself to insist on proofs that consider provisioning and real-world execution constraints.",
+      "Inner Conflict": "You delay essential truth-telling until the team can survive it. That prudence prevents crashes but can keep necessary corrections on hold.",
+      "Field Presence": "Under your scrutiny, moves feel provisioned and therefore safer. People move because the path looks survivable; sometimes that means slower pivots. Signal: Resources enable truth.",
+      "signal": "Resources enable truth",
+      "_word_counts": {
+        "Psychological Profile": 27,
+        "Origin": 22,
+        "Inner Conflict": 21,
+        "Field Presence": 25
+      },
+      "_total_words": 95
+    },
+    {
+      "title": "Seeker × Catalyst",
+      "Psychological Profile": "You hunt for leverage points. Your tests seek minimal truths that trigger outsized change; you value signals that flip inertia rather than incremental facts.",
+      "Origin": "You endured paralysis that passed for planning. You learned to find the smallest provable move that forces the system into a new state.",
+      "Inner Conflict": "You risk choosing shocks that clarify but harm. The choice isn’t between truth and action but between a clean burn and slow compromise, and both have costs.",
+      "Field Presence": "Rooms accelerate around your findings. Your minimal truths either ignite or repel; people either rally or recoil. Signal: Leverage accelerates movement.",
+      "signal": "Leverage accelerates movement",
+      "_word_counts": {
+        "Psychological Profile": 24,
+        "Origin": 23,
+        "Inner Conflict": 27,
+        "Field Presence": 21
+      },
+      "_total_words": 95
+    },
+    {
+      "title": "Seeker × Artisan",
+      "Psychological Profile": "You test by refinement. Your evidence comes from iteration and touch: you prove things by doing them well and seeing which details hold under stress.",
+      "Origin": "You watched sloppy execution collapse good intent. You trained to validate through craft and iteration so truth survives the first trial by fire.",
+      "Inner Conflict": "You refine until the moment passes. The tension is between fidelity and speed: perfecting details can cost necessary tempo.",
+      "Field Presence": "People trust your findings because they’re proven in practice. Your insistence on craft can slow a sprint but prevents fragile outcomes. Signal: Craft secures truth.",
+      "signal": "Craft secures truth",
+      "_word_counts": {
+        "Psychological Profile": 25,
+        "Origin": 23,
+        "Inner Conflict": 19,
+        "Field Presence": 25
+      },
+      "_total_words": 92
+    }
+  ]
+}

@@ -1,0 +1,215 @@
+{
+  "main": "Partner",
+  "baseline": {
+    "title": "Partner",
+    "Psychological Profile": "You lead by linking. Your authority is relational: you move to keep bonds intact while making progress. You prioritize mutual care and reliable handoffs, believing that momentum that burns people isn’t worth the short-term gain.",
+    "Origin": "You learned the cost of broken trust when plans succeeded but relationships didn’t. After seeing teams fracture under pressure, you trained yourself to make decisions that preserve the people who must carry them forward.",
+    "Inner Conflict": "You balance urgency against the risk of harming ties. You sometimes soften truths to avoid rupture, which can delay necessary action. The tension between care and candor shapes how and when you press the throttle.",
+    "Field Presence": "People follow you because they feel seen and supported. Your moves build sustainable commitment, though others may call you too cautious when speed is required. Signal: Trust preserves motion.",
+    "signal": "Trust preserves motion",
+    "_word_counts": {
+      "Psychological Profile": 35,
+      "Origin": 34,
+      "Inner Conflict": 35,
+      "Field Presence": 29
+    },
+    "_total_words": 133
+  },
+  "variants": [
+    {
+      "title": "Partner × Sovereign",
+      "Psychological Profile": "You take charge to protect connection. You make decisive calls but frame them as commitments to the team’s safety, emphasizing that authority exists to carry people forward, not crush them.",
+      "Origin": "You saw leaders command without care and watched relationships fray. You learned that power is useful only when it preserves the people it governs.",
+      "Inner Conflict": "You push hard when necessary but fear the fallout on trust. Decisive moves feel efficient but risk eroding the very bonds you aim to protect.",
+      "Field Presence": "Teams feel steady because your orders come with explicit support. You shorten debates but provide the guardrails people need. Signal: Protective command sustains trust.",
+      "signal": "Protective command sustains trust",
+      "_word_counts": {
+        "Psychological Profile": 30,
+        "Origin": 24,
+        "Inner Conflict": 25,
+        "Field Presence": 24
+      },
+      "_total_words": 103
+    },
+    {
+      "title": "Partner × Rebel",
+      "Psychological Profile": "You partner to rebuild after rupture. You use relationships as the scaffolding for necessary disruption, ensuring that when systems are broken, people aren’t left behind in the rebuild.",
+      "Origin": "You watched upheaval leave people stranded. You learned to pair bold change with deliberate repair so disruption builds new capacity instead of wrecking what remains.",
+      "Inner Conflict": "You must decide how much shock you can tolerate without breaking ties. Provocation clarifies truth but can cost the cooperation you need later.",
+      "Field Presence": "People experience your approach as disruptive but humane: you force change then help others find their footing. Signal: Repairing disruption restores cohesion.",
+      "signal": "Repairing disruption restores cohesion",
+      "_word_counts": {
+        "Psychological Profile": 28,
+        "Origin": 25,
+        "Inner Conflict": 23,
+        "Field Presence": 22
+      },
+      "_total_words": 98
+    },
+    {
+      "title": "Partner × Visionary",
+      "Psychological Profile": "You partner toward a shared horizon. You mobilize relationships around a future people can commit to, aligning care with ambition so the journey doesn’t burn the crew.",
+      "Origin": "You saw dreams that sacrificed teams for the sake of an idea. You learned to bind people to the vision with practices that protect relationships through the climb.",
+      "Inner Conflict": "You balance keeping the dream alive with tending the bonds that make it possible. Sometimes the arc demands hard choices that risk morale.",
+      "Field Presence": "Followers commit because they trust the path will not abandon them. Your stewardship combines hope with care. Signal: Shared horizon retains teams.",
+      "signal": "Shared horizon retains teams",
+      "_word_counts": {
+        "Psychological Profile": 27,
+        "Origin": 28,
+        "Inner Conflict": 23,
+        "Field Presence": 22
+      },
+      "_total_words": 100
+    },
+    {
+      "title": "Partner × Navigator",
+      "Psychological Profile": "You partner by planning handoffs. Your collaboration focuses on clear roles, timing, and support so people aren’t dropped between phases — movement is people-preserving, not just directional.",
+      "Origin": "You saw talented folks fail at seams. You learned to design collaborations that include the support people need during transitions.",
+      "Inner Conflict": "You sometimes slow progress to ensure handoffs are humane. The trade-off is between flawless transitions and seizing the window.",
+      "Field Presence": "Teams move more reliably because responsibility is clear and supported. Your maps protect relationships across execution. Signal: Supported handoffs sustain flow.",
+      "signal": "Supported handoffs sustain flow",
+      "_word_counts": {
+        "Psychological Profile": 27,
+        "Origin": 20,
+        "Inner Conflict": 19,
+        "Field Presence": 21
+      },
+      "_total_words": 87
+    },
+    {
+      "title": "Partner × Equalizer",
+      "Psychological Profile": "You partner to share advantage. Your collaborative moves redistribute attention and resources so the group advances together rather than amplifying a few voices.",
+      "Origin": "You watched credit and power concentrate while contributors were overlooked. You learned to use partnerships to spread influence and keep people invested.",
+      "Inner Conflict": "You may temper fast wins to avoid consolidating benefit. The friction is between efficient victories and equitable participation.",
+      "Field Presence": "Work under your leadership feels more inclusive and durable. People stay because the system recognizes their stake. Signal: Distributed partnership sustains engagement.",
+      "signal": "Distributed partnership sustains engagement",
+      "_word_counts": {
+        "Psychological Profile": 23,
+        "Origin": 22,
+        "Inner Conflict": 18,
+        "Field Presence": 22
+      },
+      "_total_words": 85
+    },
+    {
+      "title": "Partner × Guardian",
+      "Psychological Profile": "You partner to shelter people. Your collaboration prioritizes safety nets: cover, time, and buffers so those carrying the work aren’t exposed to unnecessary harm.",
+      "Origin": "You watched teams burn out under pressure. You learned to embed protection into partnership so progress doesn’t equate to attrition.",
+      "Inner Conflict": "You may resist fast pushes that risk people’s wellbeing. The decision is often between a quick win and preserving the crew.",
+      "Field Presence": "Colleagues feel held and covered under your partnerships, moving when they’re ready and supported. Signal: Protective partnership sustains work.",
+      "signal": "Protective partnership sustains work",
+      "_word_counts": {
+        "Psychological Profile": 24,
+        "Origin": 20,
+        "Inner Conflict": 21,
+        "Field Presence": 19
+      },
+      "_total_words": 84
+    },
+    {
+      "title": "Partner × Seeker",
+      "Psychological Profile": "You partner to test together. Your collaborations include shared experiments and joint proofs so relationships and decisions are validated in public, not assumed.",
+      "Origin": "You saw assumptions break trust. You learned to make discovery a joint act, reducing surprise and building shared understanding.",
+      "Inner Conflict": "You can delay moves while proving things together, which may frustrate urgency but preserves confidence in the outcome.",
+      "Field Presence": "Teams gain clarity because experiments are communal; people feel ownership of the truth. Signal: Co-tested proof builds trust.",
+      "signal": "Co-tested proof builds trust",
+      "_word_counts": {
+        "Psychological Profile": 23,
+        "Origin": 19,
+        "Inner Conflict": 18,
+        "Field Presence": 18
+      },
+      "_total_words": 78
+    },
+    {
+      "title": "Partner × Architect",
+      "Psychological Profile": "You partner to design sustainable roles. You collaborate to create structures that make ownership realistic and support reliable handoffs, reducing blame and burnout.",
+      "Origin": "You watched responsibility get dumped without support. You learned to design partnerships with clear interfaces so people can own without collapse.",
+      "Inner Conflict": "You may introduce friction to protect people with proper structures, which can slow momentum. The trade-off is stability versus immediate speed.",
+      "Field Presence": "Under your designs, partnerships are durable and reliable. People stay because roles and supports are explicit. Signal: Structural partnership prevents churn.",
+      "signal": "Structural partnership prevents churn",
+      "_word_counts": {
+        "Psychological Profile": 23,
+        "Origin": 21,
+        "Inner Conflict": 21,
+        "Field Presence": 21
+      },
+      "_total_words": 86
+    },
+    {
+      "title": "Partner × Spotlight",
+      "Psychological Profile": "You partner by amplifying others. Your leadership uses visibility to lift collaborators, ensuring credit and resources follow the people doing the work.",
+      "Origin": "You watched invisible contributors go unrewarded. You learned to use the mic to make sure people who deliver are seen and supported.",
+      "Inner Conflict": "You must decide how much to highlight without exposing people to undue pressure. The balance matters for sustained contribution.",
+      "Field Presence": "People stay and perform because they know their work will be recognized. Your amplification converts effort into sustained engagement. Signal: Amplified credit sustains contribution.",
+      "signal": "Amplified credit sustains contribution",
+      "_word_counts": {
+        "Psychological Profile": 22,
+        "Origin": 22,
+        "Inner Conflict": 19,
+        "Field Presence": 24
+      },
+      "_total_words": 87
+    },
+    {
+      "title": "Partner × Diplomat",
+      "Psychological Profile": "You partner to hold the table. Your deals preserve relationships and include sequencing that lets partners deliver without losing face, keeping collaboration possible under stress.",
+      "Origin": "You saw partnerships dissolve under hard terms. You learned to structure agreements that protect dignity and capacity so people continue to contribute.",
+      "Inner Conflict": "You may compromise clarity to avoid ruptures, sometimes leaving obligations fuzzy. The tension is between clean contracts and relational endurance.",
+      "Field Presence": "People commit because the pact keeps them whole. Your negotiated partnership lowers churn. Signal: Durable deals preserve contribution.",
+      "signal": "Durable deals preserve contribution",
+      "_word_counts": {
+        "Psychological Profile": 25,
+        "Origin": 22,
+        "Inner Conflict": 20,
+        "Field Presence": 18
+      },
+      "_total_words": 85
+    },
+    {
+      "title": "Partner × Provider",
+      "Psychological Profile": "You partner to provision. Your collaborations ensure the team has the resources and cover to execute, turning promises into funded, supported work.",
+      "Origin": "You saw good intentions fail for lack of basics. You learned to pair partnership with provisioning so work can actually happen.",
+      "Inner Conflict": "You sometimes delay commitments until resources exist, slowing starts but preventing avoidable failure.",
+      "Field Presence": "People move because they feel supplied and backed. Your partnerships reduce friction and increase follow-through. Signal: Funded partnership enables delivery.",
+      "signal": "Funded partnership enables delivery",
+      "_word_counts": {
+        "Psychological Profile": 22,
+        "Origin": 21,
+        "Inner Conflict": 13,
+        "Field Presence": 20
+      },
+      "_total_words": 76
+    },
+    {
+      "title": "Partner × Catalyst",
+      "Psychological Profile": "You partner to ignite responsibly. You use relationships to seed small, high-leverage moves that others can scale, combining spark with support so ignition doesn’t burn the crew.",
+      "Origin": "You watched sparks that weren’t supported turn into damage. You learned to coordinate ignition with coverage to make movement sustainable.",
+      "Inner Conflict": "You risk too much acceleration too fast; the challenge is choosing sparks that people can absorb without wrecking trust.",
+      "Field Presence": "Rooms energize around your partnered ignitions; people act because they have both impetus and safety. Signal: Supported sparks create momentum.",
+      "signal": "Supported sparks create momentum",
+      "_word_counts": {
+        "Psychological Profile": 27,
+        "Origin": 20,
+        "Inner Conflict": 19,
+        "Field Presence": 20
+      },
+      "_total_words": 86
+    },
+    {
+      "title": "Partner × Artisan",
+      "Psychological Profile": "You partner to perfect execution. Your collaborations emphasize craft, shared standards, and joint ownership so the work produced is both beautiful and reliable.",
+      "Origin": "You watched sloppy partnerships produce fragile results. You learned that mutual standards and care create durable craft and shared pride.",
+      "Inner Conflict": "You polish collaboratively even when time is short, risking missed windows for the sake of durable quality.",
+      "Field Presence": "People deliver work that holds because they co-owned the craft. Your partnerships raise the bar and reduce rework. Signal: Co-crafted standards secure outcomes.",
+      "signal": "Co-crafted standards secure outcomes",
+      "_word_counts": {
+        "Psychological Profile": 23,
+        "Origin": 20,
+        "Inner Conflict": 17,
+        "Field Presence": 23
+      },
+      "_total_words": 83
+    }
+  ]
+}

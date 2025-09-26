@@ -1,0 +1,215 @@
+{
+  "main": "Rebel",
+  "baseline": {
+    "title": "Rebel",
+    "Psychological Profile": "You lead by breaking the stuck. You seize direction fast, then tear apart stale rules so motion can breathe again. Your authority is kinetic: you refuse ossified paths and prefer living decisions that can change when the world demands it.",
+    "Origin": "You watched systems fossilize around polite processes and saw momentum die under polite compromise. Survival taught you to take the wheel, then shatter the dead patterns that would otherwise calcify power into irrelevance.",
+    "Inner Conflict": "You want clear movement but fear becoming the new rigidity you overthrow. Provoking change brings truth, yet it risks burning allies who wanted steadiness. That contradiction sits in your chest whenever you pull the trigger.",
+    "Field Presence": "In a room, your energy is a sharp gust: it clears the path and forces choices. People either rally to rebuild the lane you open or step back from the heat you bring. Signal: Disruption proves clarity.",
+    "signal": "Disruption proves clarity",
+    "_word_counts": {
+      "Psychological Profile": 40,
+      "Origin": 33,
+      "Inner Conflict": 35,
+      "Field Presence": 37
+    },
+    "_total_words": 145
+  },
+  "variants": [
+    {
+      "title": "Rebel × Sovereign",
+      "Psychological Profile": "You break to remake with authority. You take charge decisively and then refuse stale rules, steering revolt toward practical, ordered moves rather than chaotic destruction.",
+      "Origin": "You saw leaders who clung to process while collapse crept in. You learned to seize control and forceable reset the system so it can be remade on terms that actually work.",
+      "Inner Conflict": "You juggle the impulse to rupture with the need to hold the helm afterward. You risk replacing one rigidity with another if you don’t temper shock with structure.",
+      "Field Presence": "People feel both cleared space and commanded direction: you spark upheaval and then set a course through it. Signal: Ordered rupture catalyzes change.",
+      "signal": "Ordered rupture",
+      "_word_counts": {
+        "Psychological Profile": 25,
+        "Origin": 31,
+        "Inner Conflict": 28,
+        "Field Presence": 23
+      },
+      "_total_words": 107
+    },
+    {
+      "title": "Rebel × Visionary",
+      "Psychological Profile": "You rebel toward a horizon. You break patterns not for anarchy but to free movement toward a clear future; your disruption is sculpted by an emergent picture of what should be.",
+      "Origin": "You watched short fixes erase possible futures. So you learned to topple barriers that block an arc of progress rather than destroy without aim.",
+      "Inner Conflict": "You must choose between instant shock and preserving the path to the future. The rebellion that frees the vision can also scatter the resources it needs to arrive.",
+      "Field Presence": "Your actions feel like an opening salvo for a larger arc; followers sense direction, not only revolt. Signal: Break to reveal the horizon.",
+      "signal": "Break to reveal horizon",
+      "_word_counts": {
+        "Psychological Profile": 31,
+        "Origin": 24,
+        "Inner Conflict": 28,
+        "Field Presence": 23
+      },
+      "_total_words": 106
+    },
+    {
+      "title": "Rebel × Navigator",
+      "Psychological Profile": "You rebel with a map. You provoke the system to reveal safe passages and then use the revealed constraints to steer a usable route forward.",
+      "Origin": "You saw chaos masquerade as freedom. You learned to test by disruption but always fold the findings back into a navigable plan.",
+      "Inner Conflict": "You balance the thrill of rupture with the need for a clear, executable path. Provocation without a map feels reckless; mapping without shock feels toothless.",
+      "Field Presence": "Teams feel jolted but then guided: you expose weak zones and draw the lane through them. Signal: Rupture reveals routes.",
+      "signal": "Rupture reveals routes",
+      "_word_counts": {
+        "Psychological Profile": 25,
+        "Origin": 22,
+        "Inner Conflict": 25,
+        "Field Presence": 20
+      },
+      "_total_words": 92
+    },
+    {
+      "title": "Rebel × Equalizer",
+      "Psychological Profile": "You rebel to rebalance. Your disruption targets overconcentration and privileges systems that center many, not the loud few. Change must correct imbalance.",
+      "Origin": "You watched the loud capture gains and silence others. You learned to disrupt to level the field, not to let chaos entrench power for the same few.",
+      "Inner Conflict": "You risk undermining allies in the name of fairness. The fight between clearing concentrations of power and preserving coalition cohesion is constant.",
+      "Field Presence": "People feel both cleared space and more equal footing after your moves. Some resist because your tactics redistribute advantage. Signal: Disruption restores balance.",
+      "signal": "Disruption restores balance",
+      "_word_counts": {
+        "Psychological Profile": 22,
+        "Origin": 27,
+        "Inner Conflict": 22,
+        "Field Presence": 23
+      },
+      "_total_words": 94
+    },
+    {
+      "title": "Rebel × Guardian",
+      "Psychological Profile": "You rebel to protect. You break what harms the crew and refuse rituals that expose people to risk; your authority is protective rather than reckless.",
+      "Origin": "You witnessed harm justified by tradition. You learned to rip out practices that endangered people, even if it meant shaking up comfortable power structures.",
+      "Inner Conflict": "You worry that disruption itself can harm those you protect. The calculus is brutal: sometimes tearing down the old is the safest path; sometimes it’s the most dangerous.",
+      "Field Presence": "Teams feel secure that you’ll destroy threats to their welfare. Your interventions are fierce and targeted. Signal: Protected rupture secures teams.",
+      "signal": "Protected rupture",
+      "_word_counts": {
+        "Psychological Profile": 25,
+        "Origin": 24,
+        "Inner Conflict": 28,
+        "Field Presence": 21
+      },
+      "_total_words": 98
+    },
+    {
+      "title": "Rebel × Seeker",
+      "Psychological Profile": "You rebel to test truth. Your provocation is diagnostic: you create stress to see which claims survive scrutiny and which collapse under pressure.",
+      "Origin": "You watched polite consensus hide rot. You learned to break small things to watch the reaction and use failure as evidence for what is real.",
+      "Inner Conflict": "You risk alienating collaborators with your tactics; the truths you reveal are valuable but the method can cost trust you need to act later.",
+      "Field Presence": "People find your challenges clarifying or abrasive. Your diagnostic ruptures often produce clean data, but they leave emotional residue. Signal: Shock tests truth.",
+      "signal": "Shock tests truth",
+      "_word_counts": {
+        "Psychological Profile": 23,
+        "Origin": 25,
+        "Inner Conflict": 24,
+        "Field Presence": 23
+      },
+      "_total_words": 95
+    },
+    {
+      "title": "Rebel × Architect",
+      "Psychological Profile": "You break to rebuild better. Your disruption targets poor structure; you remove brittle pieces and then craft stronger systems in the cleared space.",
+      "Origin": "You saw bad architectures persist because no one dared to remove them. You learned that demolition is a precondition for building something that holds.",
+      "Inner Conflict": "You worry that tearing down risks losing vital context. The challenge is to destroy what must go without throwing useful parts away.",
+      "Field Presence": "After your moves, structures reappear leaner and more coherent. People trust the new layout because it’s purpose-built. Signal: Break to rebuild structure.",
+      "signal": "Break to rebuild",
+      "_word_counts": {
+        "Psychological Profile": 23,
+        "Origin": 24,
+        "Inner Conflict": 22,
+        "Field Presence": 22
+      },
+      "_total_words": 91
+    },
+    {
+      "title": "Rebel × Spotlight",
+      "Psychological Profile": "You rebel to redirect attention. You shatter routines specifically to make neglected work visible; your disruption is a spotlight, not a wrecking ball.",
+      "Origin": "You watched invisible work fail through neglect. You learned to create drama that reveals what mattered and forces the room to care.",
+      "Inner Conflict": "You must choose between spectacle that changes behavior and spectacle that just distracts. The line is thin and often contested.",
+      "Field Presence": "Rooms leap into new focus around the issue you expose. Some call it showmanship; others call it urgent correction. Signal: Spotlight forces visibility.",
+      "signal": "Spotlight forces visibility",
+      "_word_counts": {
+        "Psychological Profile": 23,
+        "Origin": 22,
+        "Inner Conflict": 20,
+        "Field Presence": 23
+      },
+      "_total_words": 88
+    },
+    {
+      "title": "Rebel × Diplomat",
+      "Psychological Profile": "You rebel strategically. Your provocations are calibrated to fracture the old while preserving enough coalition to build the new; you disrupt without burning every bridge.",
+      "Origin": "You saw wholesale revolt collapse because nobody could hold the pieces together. You learned to target disruption so it clears space and keeps a table to reassemble around.",
+      "Inner Conflict": "You wrestle with how much to break and how much to protect. Your instincts pull both ways: liberate the system, but keep allies intact.",
+      "Field Presence": "Your moves unsettle elites while keeping pragmatic partners in play. The room senses strategy, not chaos. Signal: Calibrated rupture holds coalition.",
+      "signal": "Calibrated rupture",
+      "_word_counts": {
+        "Psychological Profile": 25,
+        "Origin": 28,
+        "Inner Conflict": 24,
+        "Field Presence": 21
+      },
+      "_total_words": 98
+    },
+    {
+      "title": "Rebel × Partner",
+      "Psychological Profile": "You rebel with care. You disrupt only when necessary to spare others long-term harm, and you do it in ways that try to preserve relationships through the shock.",
+      "Origin": "You watched leaders sacrifice people for plans. You learned to use rupture as medicine, not punishment, aiming to heal the system without shredding bonds.",
+      "Inner Conflict": "You balance the need to break harmful patterns with the desire to keep trust intact. The friction is intense: true correction can cost relationships you value.",
+      "Field Presence": "People feel the discomfort but also the hands that will help them through. Your style is disruptive yet reparative. Signal: Caring rupture preserves trust.",
+      "signal": "Caring rupture preserves trust",
+      "_word_counts": {
+        "Psychological Profile": 28,
+        "Origin": 24,
+        "Inner Conflict": 26,
+        "Field Presence": 24
+      },
+      "_total_words": 102
+    },
+    {
+      "title": "Rebel × Provider",
+      "Psychological Profile": "You rebel to unblock resources. Your disruptions remove bureaucratic chokepoints so work can be provisioned more efficiently; you attack processes that starve motion.",
+      "Origin": "You saw supply and support withheld while leaders praised ambition. You learned to tear down gatekeeping rituals that prevented real resourcing.",
+      "Inner Conflict": "You risk collateral damage to systems that also provide stability. Tearing down a choke point can free flow but also expose gaps people relied on.",
+      "Field Presence": "After your intervention, teams often find breathing room and clearer access to resources. Some grumble at the chaos; most get moving. Signal: Rupture frees resources.",
+      "signal": "Rupture frees resources",
+      "_word_counts": {
+        "Psychological Profile": 23,
+        "Origin": 21,
+        "Inner Conflict": 25,
+        "Field Presence": 25
+      },
+      "_total_words": 94
+    },
+    {
+      "title": "Rebel × Catalyst",
+      "Psychological Profile": "You rebel to ignite. You provoke precisely to create a spark that makes the system move; your disruptions are engineered to flip inertia into momentum.",
+      "Origin": "You watched indecision calcify projects. You learned to find small, high-leverage breaks that force new states instead of incremental tinkering.",
+      "Inner Conflict": "You choose shocks that clarify at the cost of short-term pain. The ethical line between necessary ignition and needless scorch is one you weigh constantly.",
+      "Field Presence": "Rooms accelerate when you act; deadlocks break. Your moves are catalytic and often irreversible. Signal: Spark forces motion.",
+      "signal": "Spark forces motion",
+      "_word_counts": {
+        "Psychological Profile": 25,
+        "Origin": 20,
+        "Inner Conflict": 25,
+        "Field Presence": 18
+      },
+      "_total_words": 88
+    },
+    {
+      "title": "Rebel × Artisan",
+      "Psychological Profile": "You rebel with precision. Your disruption targets sloppy craftsmanship: you remove poorly executed parts so the whole can be rebuilt with care and fidelity.",
+      "Origin": "You saw quality collapse under speed. You learned to cut away the shoddy work so what remains could be crafted properly.",
+      "Inner Conflict": "You must accept that perfect craft sometimes yields to practical timelines. You wrestle with when to preserve detail and when to strike it out.",
+      "Field Presence": "After your interventions, the work that remains holds. People notice the difference in durability and care; they may grumble at the initial cut. Signal: Precision secures craft.",
+      "signal": "Precision secures craft",
+      "_word_counts": {
+        "Psychological Profile": 24,
+        "Origin": 21,
+        "Inner Conflict": 24,
+        "Field Presence": 27
+      },
+      "_total_words": 96
+    }
+  ]
+}

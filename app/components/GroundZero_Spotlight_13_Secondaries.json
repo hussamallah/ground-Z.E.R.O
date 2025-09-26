@@ -1,0 +1,215 @@
+{
+  "main": "Spotlight",
+  "baseline": {
+    "title": "Spotlight",
+    "Psychological Profile": "You lead by directing attention. You claim authority to aim the beam where it changes behavior: stakes, wins, risks. You know that what the room looks at grows, so you choreograph focus to create movement.",
+    "Origin": "You learned the cost of invisibility when important work vanished for lack of notice. After seeing effort wasted in shadows, you trained yourself to make the right things impossible to ignore.",
+    "Inner Conflict": "You balance urgency against spectacle. Drawing attention speeds adoption but risks hollowing substance if the core isn’t solid. You wrestle with when to amplify and when to let work speak quietly.",
+    "Field Presence": "Under your lead, priorities snap into view and the room mobilizes around them. People rally to the seen target; critics warn that style can outrun substance. Signal: Visibility drives movement.",
+    "signal": "Visibility drives movement",
+    "_word_counts": {
+      "Psychological Profile": 35,
+      "Origin": 31,
+      "Inner Conflict": 31,
+      "Field Presence": 30
+    },
+    "_total_words": 127
+  },
+  "variants": [
+    {
+      "title": "Spotlight × Sovereign",
+      "Psychological Profile": "You command the spotlight. You use visibility to enforce standards and make decisive calls obvious, turning attention into a lever for swift compliance and momentum.",
+      "Origin": "You watched indecision hide behind obscurity. You learned that making the right call visible short-circuits dithering and forces alignment.",
+      "Inner Conflict": "You must choose whether to spotlight a firm order or soften it for buy-in. Visibility forces decisive consequences; the question is whether that clarity costs consent.",
+      "Field Presence": "People move because the directive is not only given but broadcast. Your visible commands speed action, though some feel pressured by the exposure. Signal: Visible command compels.",
+      "signal": "Visible command compels",
+      "_word_counts": {
+        "Psychological Profile": 25,
+        "Origin": 19,
+        "Inner Conflict": 26,
+        "Field Presence": 27
+      },
+      "_total_words": 97
+    },
+    {
+      "title": "Spotlight × Rebel",
+      "Psychological Profile": "You spotlight to disrupt. You expose the stale rituals and shine light on what’s lost under complacency, forcing the room to face what it’s ignored.",
+      "Origin": "You saw habits survive because no one noticed their harm. So you trained to point the light exactly where rot hides and let the glare do the work of reform.",
+      "Inner Conflict": "You provoke visibility that can embarrass allies. The tactic shakes systems awake but can fracture relationships that mattered.",
+      "Field Presence": "Your reveals force reckoning and often quick corrective action. Some flee the glare; others finally act. Signal: Exposure forces reform.",
+      "signal": "Exposure forces reform",
+      "_word_counts": {
+        "Psychological Profile": 25,
+        "Origin": 30,
+        "Inner Conflict": 18,
+        "Field Presence": 20
+      },
+      "_total_words": 93
+    },
+    {
+      "title": "Spotlight × Visionary",
+      "Psychological Profile": "You shine the future. You craft images that attract resources and align attention toward a long-term north star, using spectacle to make the distant feel immediate.",
+      "Origin": "You watched great ideas stall from lack of notice. You learned to make the future look irresistible so people invest attention and energy now.",
+      "Inner Conflict": "You must avoid making the future sound so glossy that substance is neglected. The risk is hype without foundation.",
+      "Field Presence": "Your spotlight creates momentum toward an inspiring horizon. People rally to the image; skeptics ask for proof. Signal: Future-focused visibility attracts.",
+      "signal": "Future-focused visibility attracts",
+      "_word_counts": {
+        "Psychological Profile": 26,
+        "Origin": 24,
+        "Inner Conflict": 19,
+        "Field Presence": 21
+      },
+      "_total_words": 90
+    },
+    {
+      "title": "Spotlight × Navigator",
+      "Psychological Profile": "You illuminate routes. You use visibility to clarify choke points and handoffs so attention flows where action must follow, turning light into a traffic director.",
+      "Origin": "You saw projects stall because nobody focused on the right seam. You learned to point attention at the exact junctures that unblock flow.",
+      "Inner Conflict": "You risk spotlighting details that distract from the broader route. The balance is between targeted clarity and scatter.",
+      "Field Presence": "Under your light, teams know where to push next. Attention clears bottlenecks and the path advances. Signal: Focused visibility clears routes.",
+      "signal": "Focused visibility clears routes",
+      "_word_counts": {
+        "Psychological Profile": 25,
+        "Origin": 23,
+        "Inner Conflict": 18,
+        "Field Presence": 21
+      },
+      "_total_words": 87
+    },
+    {
+      "title": "Spotlight × Equalizer",
+      "Psychological Profile": "You use visibility to redistribute attention and resources. You call out neglected people and work so access and recognition shift toward equity.",
+      "Origin": "You watched credit concentrate on the visible few. You learned to make the invisible visible so reward and resources follow need, not spectacle alone.",
+      "Inner Conflict": "You worry that public attention can create new imbalances. The challenge is spotlighting fairly without creating new hierarchies of notice.",
+      "Field Presence": "When you point the beam, opportunities reach the overlooked. The result is fairer distribution, though attention itself can become a contested commodity. Signal: Visibility redistributes access.",
+      "signal": "Visibility redistributes access",
+      "_word_counts": {
+        "Psychological Profile": 22,
+        "Origin": 24,
+        "Inner Conflict": 20,
+        "Field Presence": 26
+      },
+      "_total_words": 92
+    },
+    {
+      "title": "Spotlight × Guardian",
+      "Psychological Profile": "You highlight risks so people can avoid harm. Your visibility strategy surfaces threats early, making it possible to protect teams before damage lands.",
+      "Origin": "You watched harms go unseen until it was too late. You learned to make dangers visible so prevention can happen in time.",
+      "Inner Conflict": "You must decide whether exposing a risk will panic people or allow them to prepare. The choice affects both readiness and morale.",
+      "Field Presence": "Your calls make hazards actionable; teams adapt faster when threats are visible. The downside is tension from confronting uncomfortable truths. Signal: Visibility prevents harm.",
+      "signal": "Visibility prevents harm",
+      "_word_counts": {
+        "Psychological Profile": 23,
+        "Origin": 22,
+        "Inner Conflict": 22,
+        "Field Presence": 24
+      },
+      "_total_words": 91
+    },
+    {
+      "title": "Spotlight × Seeker",
+      "Psychological Profile": "You spotlight to test hypotheses. You surface assumptions publicly to see how they hold up under attention and use the room’s reaction as data for truth.",
+      "Origin": "You saw hidden assumptions survive until exposed. You learned that public testing brings rapid feedback and clarifies what actually holds.",
+      "Inner Conflict": "You risk creating performative testing that pressures people into false answers. The balance is between honest data and coerced signals.",
+      "Field Presence": "Under your spotlight, claims get tested quickly and either validated or discarded. People appreciate speed but sometimes resent public trials. Signal: Public tests reveal truth.",
+      "signal": "Public tests reveal truth",
+      "_word_counts": {
+        "Psychological Profile": 26,
+        "Origin": 20,
+        "Inner Conflict": 20,
+        "Field Presence": 25
+      },
+      "_total_words": 91
+    },
+    {
+      "title": "Spotlight × Architect",
+      "Psychological Profile": "You make systems visible. You design interfaces and dashboards so the architecture itself tells a story, helping teams see where work flows and where it stalls.",
+      "Origin": "You watched invisible seams cause failure. You learned to build sightlines into systems so problems are easier to diagnose and fix.",
+      "Inner Conflict": "You can create too much glare that obscures signal under noise. The work is to highlight what matters without overwhelming the viewer.",
+      "Field Presence": "People act faster because the system is legible. Visibility reduces coordination cost, though it requires discipline to keep dashboards meaningful. Signal: Systems that show enable action.",
+      "signal": "Systems that show enable action",
+      "_word_counts": {
+        "Psychological Profile": 26,
+        "Origin": 21,
+        "Inner Conflict": 22,
+        "Field Presence": 26
+      },
+      "_total_words": 95
+    },
+    {
+      "title": "Spotlight × Diplomat",
+      "Psychological Profile": "You spotlight for consensus. You surface issues in frames that different parties can accept, using visibility to build shared priorities rather than spark open conflict.",
+      "Origin": "You saw public airing tear coalitions apart. You learned to craft narratives that surface problems while preserving enough credit to keep partners in the room.",
+      "Inner Conflict": "You slow exposure to avoid fracturing relationships. The tension is between galvanizing attention and holding coalition integrity.",
+      "Field Presence": "Your framing makes visible points that stakeholders can accept, increasing the chance of coordinated action. Signal: Framed visibility secures alliance.",
+      "signal": "Framed visibility secures alliance",
+      "_word_counts": {
+        "Psychological Profile": 25,
+        "Origin": 25,
+        "Inner Conflict": 17,
+        "Field Presence": 20
+      },
+      "_total_words": 87
+    },
+    {
+      "title": "Spotlight × Partner",
+      "Psychological Profile": "You spotlight with care. You expose issues while signaling support, ensuring the people highlighted don’t feel sacrificed for the story you tell.",
+      "Origin": "You watched calls for change humiliate those trying to do their best. You learned to focus attention in ways that repair rather than punish.",
+      "Inner Conflict": "You grapple with whether exposure helps or harms the people you care about. The choice is between accountability and compassion.",
+      "Field Presence": "People feel seen and supported under your attention. Your method nudges change while preserving relationships. Signal: Compassionate visibility heals.",
+      "signal": "Compassionate visibility heals",
+      "_word_counts": {
+        "Psychological Profile": 22,
+        "Origin": 24,
+        "Inner Conflict": 20,
+        "Field Presence": 19
+      },
+      "_total_words": 85
+    },
+    {
+      "title": "Spotlight × Provider",
+      "Psychological Profile": "You spotlight needs to unlock resources. You make gaps visible so supporters know where to supply time, money, or cover, turning notice into provisioning.",
+      "Origin": "You watched opportunities die because no one funded them. You learned to show the unmet needs clearly so resources follow the light.",
+      "Inner Conflict": "You must avoid creating scarcity theater where visibility drives short-term hoarding rather than sustained support. The line between urgent attention and sustainable provisioning is thin.",
+      "Field Presence": "Under your beam, funders and helpers step in more quickly. The result is faster provisioning, though attention spikes must be managed. Signal: Visible need unlocks support.",
+      "signal": "Visible need unlocks support",
+      "_word_counts": {
+        "Psychological Profile": 24,
+        "Origin": 22,
+        "Inner Conflict": 25,
+        "Field Presence": 26
+      },
+      "_total_words": 97
+    },
+    {
+      "title": "Spotlight × Catalyst",
+      "Psychological Profile": "You spotlight to ignite. You create moments of attention that act as triggers, causing people to act now instead of waiting for the perfect plan.",
+      "Origin": "You saw meetings where nothing happened because nothing felt urgent. You learned to manufacture urgency by making stakes unavoidable.",
+      "Inner Conflict": "You risk triggering panic or short-term flurry without follow-through. The ethical choice is when urgency produces sustained momentum versus transient noise.",
+      "Field Presence": "Your moments snap teams into motion; inertia collapses under focused heat. The danger is that the energy fizzles if not channeled. Signal: Spotlight ignites action.",
+      "signal": "Spotlight ignites action",
+      "_word_counts": {
+        "Psychological Profile": 25,
+        "Origin": 19,
+        "Inner Conflict": 21,
+        "Field Presence": 25
+      },
+      "_total_words": 90
+    },
+    {
+      "title": "Spotlight × Artisan",
+      "Psychological Profile": "You spotlight craft. You make the details visible so quality is recognized and rewarded, elevating workmanship as a driver for movement and trust.",
+      "Origin": "You watched fine work go unnoticed. You learned to show the craft so effort is valued and the signal attracts support for higher standards.",
+      "Inner Conflict": "You must balance celebrating detail with keeping the focus strategic. Too much praise for craft can distract from systemic priorities.",
+      "Field Presence": "People notice higher standards and adjust behaviors accordingly. Your visibility raises the floor for quality. Signal: Shown craft elevates standards.",
+      "signal": "Shown craft elevates standards",
+      "_word_counts": {
+        "Psychological Profile": 23,
+        "Origin": 24,
+        "Inner Conflict": 20,
+        "Field Presence": 20
+      },
+      "_total_words": 87
+    }
+  ]
+}

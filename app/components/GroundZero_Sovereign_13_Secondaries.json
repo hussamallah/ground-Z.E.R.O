@@ -1,0 +1,117 @@
+{
+  "main": "Sovereign",
+  "baseline": {
+    "title": "Sovereign",
+    "Psychological Profile": "You feel most at ease once authority is claimed and direction is clear. Drift looks dangerous to you, and indecision feels like time leaking out of the system. Your reflex is to establish order early, frame the path, and expect others to recognize it. You value decisiveness over comfort, often trading smoothness for momentum when the clock is bleeding.",
+    "Origin": "You became this way because hesitation cost you. A parent didn’t act, a team stalled, a leader folded under stress. You learned that claiming the helm is how collapse is prevented. When nobody else will make the call, you do, because you remember what it costs when no one does.",
+    "Inner Conflict": "Your struggle sits between clarity and control. You want real alignment, not quiet obedience, yet your speed can leave others feeling pushed. You keep asking yourself whether being respected is different from being obeyed, and how much tempo you can keep without flattening people.",
+    "Field Presence": "In groups, people orient toward you almost automatically. Your voice cuts noise, creates relief in crisis, and creates tension in calm. Others lean on your steadiness, but some bristle at the mass your authority throws across the room.",
+    "signal": "Authority anchors action"
+  },
+  "variants": [
+    {
+      "title": "Sovereign × Partner",
+      "Psychological Profile": "You claim authority with a protective edge. When drift shows up, you step in fast, not just to keep order but to carry others with you. Command, for you, isn’t cold — it’s tied to care. You don’t separate direction from responsibility.",
+      "Origin": "You became this way because you saw what happens when people are left behind. Collapse cut deep, and you swore not just to seize control but to make sure no one close to you is abandoned.",
+      "Inner Conflict": "Your struggle is the pull between speed and protection. You want momentum, yet you feel the weight of every bond. Moving too hard risks hurting those you guard; slowing down feels like failure. That tension rides with you every time you lead.",
+      "Field Presence": "In groups, you steady the room. People follow because they feel both directed and safe under your call. The loyalty this builds is strong, but it also means you carry more weight than you should. You don’t just move the line — you hold the people inside it.",
+      "signal": "Loyalty anchors movement"
+    },
+    {
+      "title": "Sovereign × Rebel",
+      "Psychological Profile": "You take the helm, then cut your own wake. You claim direction fast, but you refuse stale routes. You break patterns to keep movement alive, rejecting any rule that slows the strike. You’ll hold authority so long as it stays honest and sharp; the second it calcifies, you snap it and rebuild mid‑flow.",
+      "Origin": "You watched authority turn rigid and useless. People hid behind rules instead of making calls. You taught yourself to lead by rupture: seize control, then refuse the dead habits that killed it last time.",
+      "Inner Conflict": "You want clean direction, but your instinct to challenge can fracture your own plan. You’re torn between locking the path and shattering it to keep it alive. Stability feels safe; revolt feels true.",
+      "Field Presence": "Groups feel your charge as both clarity and heat. You clear the lane, then jolt it. In crisis, you’re the cut‑through. In calm, your appetite for disruption can exhaust followers who wanted the simplicity you just refused.",
+      "signal": "Disruption fuels clarity"
+    },
+    {
+      "title": "Sovereign × Visionary",
+      "Psychological Profile": "You seize authority by painting horizon. You move fast, but your speed is guided by a long arc. Calls are framed by destination and meaning, not just control. You push people toward a picture big enough to carry their effort through friction.",
+      "Origin": "You saw short‑sighted leaders win the minute and lose the mission. You swore to hold the helm with future sight, making decisions that keep today aligned with what tomorrow demands.",
+      "Inner Conflict": "You wrestle with the drag between vision and urgency. The future asks for patience; the present punishes delay. You strain to keep tempo without shrinking the picture to something small enough to ship now but regret later.",
+      "Field Presence": "People rally because they can see where this is going. Your calls feel meaningful, not just efficient. In calm times, your altitude inspires; under pressure, it can read as distance if you don’t drop lower and land specifics.",
+      "signal": "Future pulls the present"
+    },
+    {
+      "title": "Sovereign × Navigator",
+      "Psychological Profile": "You claim direction by charting paths, not just issuing commands. You keep authority tethered to terrain: constraints, timing, tradeoffs. Your speed is precise rather than blunt. You would rather steer cleanly than shout loudly.",
+      "Origin": "You lived through leaders who had volume but no map. You learned to hold the wheel and the coordinates at once, making calls that respect the shape of reality as it is, not as people wish it were.",
+      "Inner Conflict": "You fight the urge to over‑optimize. You can see too many routes and cost curves, which slows a move that needs a hard yes. Analysis serves you until it owns you.",
+      "Field Presence": "Groups experience you as calm force. You lower risk by naming it, then thread the narrow passage others miss. In a sprint, your measured tempo can frustrate the impatient even as it saves the mission.",
+      "signal": "Maps tame risk"
+    },
+    {
+      "title": "Sovereign × Equalizer",
+      "Psychological Profile": "You assert authority to restore balance. You move quickly to correct overreach, close gaps, and redistribute attention where it’s overdue. You don’t chase control for its own sake; you enforce a fair line so momentum doesn’t crush the ignored.",
+      "Origin": "You watched decisions tilt toward the loud, not the right. You learned to step in, set weight evenly, and hold calls that keep the whole system upright.",
+      "Inner Conflict": "You crave clean speed, but you can’t stand lopsided gains. You hesitate when progress helps the few at the cost of the many, and that pause can read as resistance to winning.",
+      "Field Presence": "People feel protected by your leadership. The room breathes when you level it. In hard pushes, your insistence on balance can sound like braking to those addicted to unqualified acceleration.",
+      "signal": "Balance steadies momentum"
+    },
+    {
+      "title": "Sovereign × Guardian",
+      "Psychological Profile": "You take command to secure the perimeter. You move quickly to stabilize, contain risk, and keep the team intact. You treat authority as a promise: everyone inside the line gets home.",
+      "Origin": "You saw what happens when leaders chase wins and lose people. You chose to lead by fortifying the ground under every step, so the mission doesn’t eat the crew.",
+      "Inner Conflict": "You want momentum, but you watch for cracks others ignore. The urge to shield can slow a necessary strike; the urge to strike can expose someone you vowed to protect.",
+      "Field Presence": "Groups relax under your call. Trust climbs, volatility drops. In calm times you’re a harbor; in a blitz you can sound like a brake until you’ve verified that the hull will hold.",
+      "signal": "Protection preserves progress"
+    },
+    {
+      "title": "Sovereign × Seeker",
+      "Psychological Profile": "You demand clarity to enable decisive leadership. Your evidence‑seeking serves action: you test so decisions can be made cleanly and quickly.",
+      "Origin": "You experienced paralysis that cost outcomes. You learned to value truth that can be translated into clear orders, not just cleverness.",
+      "Inner Conflict": "You push for speed informed by signal, but the thirst for proof can delay the call you hate to miss. The pressure is to be both certain and fast.",
+      "Field Presence": "Teams feel relieved when you produce a sound verdict they can act on. Your insistence on usable facts cuts hesitation — occasionally at the cost of nuance.",
+      "signal": "Proof enables orders"
+    },
+    {
+      "title": "Sovereign × Architect",
+      "Psychological Profile": "You exercise authority by structuring reality. You move fast to define interfaces, roles, and rules so action scales without falling apart. You don’t just decide; you design the lane that makes future decisions obvious.",
+      "Origin": "You watched teams grind because nothing fit together. You learned to lead by building shape: containers that protect flow and constraints that keep power from drifting.",
+      "Inner Conflict": "You trade tempo for coherence. You’ll slow a launch to fix a seam, then take heat for the delay. The question that haunts you: ship now and pay interest, or refactor and pay heat.",
+      "Field Presence": "Under you, chaos turns legible. People can see where they fit and how to move. When energy is high and patience is low, your insistence on structure can read as bureaucracy to the restless.",
+      "signal": "Structure scales action"
+    },
+    {
+      "title": "Sovereign × Spotlight",
+      "Psychological Profile": "You lead by directing attention. You claim authority to aim the beam where it creates movement: stakes, wins, risks. You know that what the room looks at grows, so you choreograph the focus to drive action.",
+      "Origin": "You watched good work vanish because no one saw it. You learned to hold the mic and point it, turning visibility into velocity.",
+      "Inner Conflict": "You want clean direction, but you also want the message to land. You can spend too much cycle packaging the call, polishing the moment while the moment moves on.",
+      "Field Presence": "With you, rooms wake up. Momentum rises because the story snaps into view. Skeptics may complain that style is doing too much work, even when style is what gets the move made.",
+      "signal": "Visibility drives movement"
+    },
+    {
+      "title": "Sovereign × Diplomat",
+      "Psychological Profile": "You claim authority with calibration. You still move quickly, but you adjust tone and pacing so decisions stick across factions. You treat alignment as force multiplier, not decoration.",
+      "Origin": "You saw blunt power win the hour and lose the coalition. You trained yourself to hold the helm while speaking in ways that prevent unnecessary fracture.",
+      "Inner Conflict": "Tempo versus optics. You could close now, but you sense the cost of doing it rough. Wait for clean landing or press for raw speed? You feel that drag daily.",
+      "Field Presence": "People experience you as orchestrating rather than ordering. In crisis, you still cut through; in calm, your measured cadence can feel like persuasion stretched longer than some want.",
+      "signal": "Alignment multiplies force"
+    },
+    {
+      "title": "Sovereign × Provider",
+      "Psychological Profile": "You take charge to resource the move. You see what the work needs and make sure it’s there: time, tools, cover, air. Authority, to you, means removing friction so others can execute cleanly.",
+      "Origin": "You watched projects starve for basics while leaders chased drama. You lead by supplying the boring essentials that keep momentum real.",
+      "Inner Conflict": "You’ll delay a call to secure the kit. That prudence saves disasters but can look like caution. You debate whether to launch lean and risk stall, or stock up and risk staleness.",
+      "Field Presence": "Under your call, work feels supported. People move because they’re provisioned. The downside: some assume you’ll always cushion the fall, and they under‑own their part of the load.",
+      "signal": "Resources unblock movement"
+    },
+    {
+      "title": "Sovereign × Catalyst",
+      "Psychological Profile": "You assert authority to ignite motion. You push the system into reaction so it can’t drift back to sleep. You care less about polish than activation; sparks matter because sparks become fire.",
+      "Origin": "You lived through paralysis camouflaged as planning. You learned to hit go, create heat, and force the next state where progress is possible.",
+      "Inner Conflict": "You know ignition without containment burns people. You wrestle with when to throttle and when to blast, aware that your acceleration can outpace the team’s tolerance.",
+      "Field Presence": "Rooms quicken around you. Dead loops break. Skeptics will call it chaos; you call it life returning to the system. Your power is the spark; your risk is the scorch.",
+      "signal": "Ignition breaks paralysis"
+    },
+    {
+      "title": "Sovereign × Artisan",
+      "Psychological Profile": "You lead by touch. You take the helm so the work is done right, at the fidelity reality actually responds to. Authority lets you set the standard and refuse the brittle shortcuts that unravel under stress.",
+      "Origin": "You saw speed worship ruin quality and trust. You learned to move with craft: fewer words, cleaner lines, better fits, so the system doesn’t buckle the first time it’s tested.",
+      "Inner Conflict": "You want to ship, but you can’t ignore flaws your hands can feel. You fight the itch to keep refining past the moment the market needs a decisive release.",
+      "Field Presence": "People relax when you’re on the call because the output holds. In panic, your insistence on quality reads like delay; after impact, it reads like the reason everything still works.",
+      "signal": "Craft secures outcomes"
+    }
+  ]
+}

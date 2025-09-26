@@ -13,6 +13,7 @@ import { FAMILIES, RESULTS_LIB,
     Seed,
     MatchLog
 } from '../../quiz-data';
+import ArchitectSecondaries from '../../components/GroundZero_Architect_13_Secondaries.json';
 // Face light color mapping
 const FACE_LIGHT: { [key: string]: string } = {
   Guardian: '#14b8a6',        // Teal
@@ -272,6 +273,65 @@ const LegendSection = () => (
         </div>
     </div>
 );
+
+const SecondaryArchetypeSection = ({ finalWinner, secondaryFace, pureOneFace }: { finalWinner: Seed | null, secondaryFace?: Seed | null, pureOneFace?: boolean }) => {
+    if (!finalWinner || finalWinner.face !== 'Architect') return null;
+    const data: any = ArchitectSecondaries as any;
+
+    let content: any = null;
+    if (pureOneFace) {
+        content = data.baseline;
+    } else if (secondaryFace && secondaryFace.face) {
+        const title = `Architect × ${secondaryFace.face}`;
+        content = (data.variants || []).find((v: any) => v.title === title) || data.baseline;
+    } else {
+        content = data.baseline;
+    }
+
+    const color = getFaceLight(finalWinner.face);
+
+    return (
+        <div className="mb-6">
+            <div className="max-w-4xl mx-auto bg-white/5 rounded-lg p-4 border border-white/10">
+                <div className="mb-2">
+                    <h2 className="text-xl font-semibold" style={{ color }}>{content.title}</h2>
+                </div>
+                <div className="space-y-2 text-sm text-white/80" style={{ lineHeight: 1.5 }}>
+                    {content['Psychological Profile'] && (
+                        <div>
+                            <div className="text-white/60 font-medium">Psychological Profile</div>
+                            <p className="m-0">{content['Psychological Profile']}</p>
+                        </div>
+                    )}
+                    {content['Origin'] && (
+                        <div>
+                            <div className="text-white/60 font-medium">Origin</div>
+                            <p className="m-0">{content['Origin']}</p>
+                        </div>
+                    )}
+                    {content['Inner Conflict'] && (
+                        <div>
+                            <div className="text-white/60 font-medium">Inner Conflict</div>
+                            <p className="m-0">{content['Inner Conflict']}</p>
+                        </div>
+                    )}
+                    {content['Field Presence'] && (
+                        <div>
+                            <div className="text-white/60 font-medium">Field Presence</div>
+                            <p className="m-0">{content['Field Presence']}</p>
+                        </div>
+                    )}
+                    {content['signal'] && (
+                        <div>
+                            <div className="text-white/60 font-medium">Signal</div>
+                            <p className="m-0" style={{ color }}>{content['signal']}</p>
+                        </div>
+                    )}
+                </div>
+            </div>
+        </div>
+    );
+};
 
 const PrizeSection = ({ finalWinner, secondaryFace, taps }: { finalWinner: Seed | null, secondaryFace?: Seed | null, taps: Tap[] }) => {
     const prizeActivation = finalWinner ? evaluatePrizeActivation(finalWinner.face, secondaryFace || null, taps) : null;

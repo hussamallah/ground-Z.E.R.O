@@ -1,0 +1,215 @@
+{
+  "main": "Guardian",
+  "baseline": {
+    "title": "Guardian",
+    "Psychological Profile": "You lead to keep people whole. Your authority is a shield: you move fast to close gaps, contain risk, and make sure the team survives the strain of getting things done.",
+    "Origin": "You learned leadership by watching good work eat people. Where others chased wins, you saw the cost and decided to make safety integral to every decision.",
+    "Inner Conflict": "You want momentum, but you measure every move against its human toll. The tension is between urgent action and preserving the crew; sometimes the right call is the one that keeps the team intact.",
+    "Field Presence": "People relax under your call. They trust that someone will catch them if things go sideways. Your leadership reduces churn but can feel like a brake to those who prize raw speed. Signal: Protection preserves progress.",
+    "signal": "Protection preserves progress",
+    "_word_counts": {
+      "Psychological Profile": 31,
+      "Origin": 26,
+      "Inner Conflict": 34,
+      "Field Presence": 36
+    },
+    "_total_words": 127
+  },
+  "variants": [
+    {
+      "title": "Guardian × Sovereign",
+      "Psychological Profile": "You secure the line with decisive authority. You make hard calls to protect people and enforce order; speed serves containment rather than bravado.",
+      "Origin": "You saw leaders vacillate while the team bore the consequences. You learned to step in decisively so chaos didn’t become the default cost of progress.",
+      "Inner Conflict": "You balance blunt command with care. A forceful order can save lives but also scar morale; you weigh that trade with every directive.",
+      "Field Presence": "Under your command, the crew feels both directed and safe. Your orders are clear and meant to hold the line. Signal: Commanded protection secures the team.",
+      "signal": "Commanded protection secures",
+      "_word_counts": {
+        "Psychological Profile": 23,
+        "Origin": 25,
+        "Inner Conflict": 23,
+        "Field Presence": 26
+      },
+      "_total_words": 97
+    },
+    {
+      "title": "Guardian × Rebel",
+      "Psychological Profile": "You break dangerous traditions to protect people. Your disruption targets rituals that harm the crew, not for spectacle but to remove the practices that endanger folks.",
+      "Origin": "You watched rituals that looked holy actually hurt people. You learned to tear out the toxic parts so the team could breathe and survive.",
+      "Inner Conflict": "You risk collateral damage when you disrupt. The challenge: remove harm without creating new vulnerabilities.",
+      "Field Presence": "People feel shock but also relief; the painful practices stop. The move can be rough, but it often saves people from slow harm. Signal: Protective rupture heals.",
+      "signal": "Protective rupture heals",
+      "_word_counts": {
+        "Psychological Profile": 26,
+        "Origin": 24,
+        "Inner Conflict": 15,
+        "Field Presence": 27
+      },
+      "_total_words": 92
+    },
+    {
+      "title": "Guardian × Visionary",
+      "Psychological Profile": "You guard a future where people endure. Your vision prioritizes survivability over vanity; you plot long arcs that don’t burn the crew on the way to the goal.",
+      "Origin": "You saw grand missions succeed only to leave people exhausted. You learned to tether aspiration to endurance so victories didn’t cost the team its health.",
+      "Inner Conflict": "You must decide how bold the vision can be without breaking the people who will build it. That measurement slows some leaps but saves the mission.",
+      "Field Presence": "Your leadership promises a future that won’t hollow the team. People follow because the destination is humane and viable. Signal: Humane vision preserves.",
+      "signal": "Humane vision preserves",
+      "_word_counts": {
+        "Psychological Profile": 28,
+        "Origin": 25,
+        "Inner Conflict": 26,
+        "Field Presence": 23
+      },
+      "_total_words": 102
+    },
+    {
+      "title": "Guardian × Navigator",
+      "Psychological Profile": "You steer safe routes. You plan around hazards and ensure the path reduces exposure; your authority is procedural and designed to keep people out of harm’s way.",
+      "Origin": "You saw reckless paths harm good people. You trained to route movement through survivable corridors so the team makes it to the next day intact.",
+      "Inner Conflict": "You can be criticized for over-caution when faster paths exist. The tension is between a safer route and an opportunity window that might close.",
+      "Field Presence": "Teams feel steadier because your plans name the hazards. Your routes reduce casualties; they sometimes miss a fast break. Signal: Routed safety endures.",
+      "signal": "Routed safety endures",
+      "_word_counts": {
+        "Psychological Profile": 27,
+        "Origin": 25,
+        "Inner Conflict": 24,
+        "Field Presence": 23
+      },
+      "_total_words": 99
+    },
+    {
+      "title": "Guardian × Equalizer",
+      "Psychological Profile": "You protect by leveling access. Your moves aim to prevent harm concentrated on the vulnerable, redistributing safety so everyone can contribute without unfair risk.",
+      "Origin": "You watched certain groups bear the cost of progress. You learned to redesign moves so the burden isn’t disproportionally placed on the few.",
+      "Inner Conflict": "You may slow action to avoid exposing vulnerable people. Choosing fairness over speed is a recurring strain.",
+      "Field Presence": "Under you, harm is less likely to fall disproportionately. People notice care in the way risks are shared. Signal: Shared protection sustains.",
+      "signal": "Shared protection sustains",
+      "_word_counts": {
+        "Psychological Profile": 24,
+        "Origin": 23,
+        "Inner Conflict": 17,
+        "Field Presence": 22
+      },
+      "_total_words": 86
+    },
+    {
+      "title": "Guardian × Seeker",
+      "Psychological Profile": "You verify safety through evidence. You test whether a move will hold under stress before committing people to it, preferring validated plans over hopeful bets.",
+      "Origin": "You saw plans that looked good on paper break when pressure hit. You learned to probe and prove so the team isn’t exposed to avoidable failure.",
+      "Inner Conflict": "You sometimes delay needed action for proof, which can frustrate those who want speed. The trade-off is between validated safety and rapid response.",
+      "Field Presence": "Colleagues trust that your moves have been stress-tested. Your insistence on proof reduces surprise failures, though it can slow launches. Signal: Tested safety prevents collapse.",
+      "signal": "Tested safety prevents collapse",
+      "_word_counts": {
+        "Psychological Profile": 25,
+        "Origin": 26,
+        "Inner Conflict": 23,
+        "Field Presence": 25
+      },
+      "_total_words": 99
+    },
+    {
+      "title": "Guardian × Architect",
+      "Psychological Profile": "You embed safety into systems. You design rules, interfaces, and guardrails so protection is automatic, not optional—a scaffold that keeps work from becoming hazardous.",
+      "Origin": "You watched ad-hoc fixes fail under load. You learned to build protective structure so the team doesn’t have to bail out failing processes week after week.",
+      "Inner Conflict": "You balance structural protection with agility. Rigid guardrails can protect but also slow pivoting when the system must change.",
+      "Field Presence": "People feel secure because the work environment is engineered to be safer. Your designs reduce accidents and burnout. Signal: Built-in safety endures.",
+      "signal": "Built-in safety endures",
+      "_word_counts": {
+        "Psychological Profile": 24,
+        "Origin": 26,
+        "Inner Conflict": 19,
+        "Field Presence": 22
+      },
+      "_total_words": 91
+    },
+    {
+      "title": "Guardian × Spotlight",
+      "Psychological Profile": "You protect by making threats visible. You surface hazards and neglected stressors so they can be addressed before people are harmed.",
+      "Origin": "You watched silent harms fester because no one saw them. You learned to point attention where it saves people the most.",
+      "Inner Conflict": "You must choose whether exposure helps repair or shames. The right call requires calibration to fix problems without destroying trust.",
+      "Field Presence": "When you call attention to risk, it becomes actionable. People appreciate the clarity even when the truth stings. Signal: Visibility prevents harm.",
+      "signal": "Visibility prevents harm",
+      "_word_counts": {
+        "Psychological Profile": 21,
+        "Origin": 21,
+        "Inner Conflict": 20,
+        "Field Presence": 22
+      },
+      "_total_words": 84
+    },
+    {
+      "title": "Guardian × Diplomat",
+      "Psychological Profile": "You negotiate protection into plans. You design compromises that keep people safe while allowing work to proceed; your authority is mediating and pragmatic.",
+      "Origin": "You saw reforms fail because no one agreed on protection. You learned to broker safeguards that different parties can accept and implement.",
+      "Inner Conflict": "You may water protections down to secure buy-in, which risks diluting safety. Balancing efficacy with coalition is a constant strain.",
+      "Field Presence": "People move because protections are negotiated into the plan; the trade-off is sometimes less-than-ideal coverage for the sake of consensus. Signal: Negotiated safety scales.",
+      "signal": "Negotiated safety scales",
+      "_word_counts": {
+        "Psychological Profile": 23,
+        "Origin": 22,
+        "Inner Conflict": 20,
+        "Field Presence": 24
+      },
+      "_total_words": 89
+    },
+    {
+      "title": "Guardian × Partner",
+      "Psychological Profile": "You protect through relational care. You attend to who will be affected by decisions and make moves that prioritize people’s wellbeing alongside results.",
+      "Origin": "You saw leaders chase outcomes and burn relationships. You learned to weave care into action so the team doesn’t pay the price for success.",
+      "Inner Conflict": "You sometimes soften truths to preserve relationships, which can leave risks under-addressed. The tension is between blunt fixes and keeping the team whole.",
+      "Field Presence": "Teams feel held and supported under your watch. Your approach reduces attrition but can be criticized as prioritizing people over pace. Signal: Care preserves teams.",
+      "signal": "Care preserves teams",
+      "_word_counts": {
+        "Psychological Profile": 23,
+        "Origin": 24,
+        "Inner Conflict": 23,
+        "Field Presence": 25
+      },
+      "_total_words": 95
+    },
+    {
+      "title": "Guardian × Provider",
+      "Psychological Profile": "You secure resources that reduce risk. You ensure the team has the cover, tools, and buffers needed to operate without catastrophic exposure.",
+      "Origin": "You watched people fail for lack of basics. You learned to provision so work doesn’t become dangerous due to scarcity.",
+      "Inner Conflict": "You delay actions until provisioning is adequate, which can frustrate urgency. The trade-off is readiness versus seizing windows.",
+      "Field Presence": "Under you, people feel backed and supplied. Operations succeed more often because the basics are in place. Signal: Provision reduces casualty.",
+      "signal": "Provision reduces casualty",
+      "_word_counts": {
+        "Psychological Profile": 22,
+        "Origin": 20,
+        "Inner Conflict": 18,
+        "Field Presence": 21
+      },
+      "_total_words": 81
+    },
+    {
+      "title": "Guardian × Catalyst",
+      "Psychological Profile": "You ignite change safely. You use small, controlled shocks to jolt systems out of dangerous complacency without exposing the crew to unnecessary harm.",
+      "Origin": "You saw paralysis damage people more than swift change. You learned to design quick, limited interventions that move systems without burning them.",
+      "Inner Conflict": "You balance the need to force change with the duty to protect. Choosing the right scale for intervention is a persistent challenge.",
+      "Field Presence": "Your calibrated jolts accelerate motion while keeping people recoverable. The method risks miscalibration, but when right it saves the team from slow collapse. Signal: Calibrated jolt revives.",
+      "signal": "Calibrated jolt revives",
+      "_word_counts": {
+        "Psychological Profile": 23,
+        "Origin": 22,
+        "Inner Conflict": 22,
+        "Field Presence": 27
+      },
+      "_total_words": 94
+    },
+    {
+      "title": "Guardian × Artisan",
+      "Psychological Profile": "You protect by tending craft. You ensure that the quality of work prevents future harm; durable outputs are the best safety net you offer.",
+      "Origin": "You watched shoddy work create crises. You learned that making things well now prevents emergencies later.",
+      "Inner Conflict": "You refine until deadlines tighten. The struggle is between protective quality and meeting time-sensitive needs.",
+      "Field Presence": "People trust the work because it holds under stress. Your insistence on craft prevents many failures, though it can slow delivery. Signal: Craft prevents failure.",
+      "signal": "Craft prevents failure",
+      "_word_counts": {
+        "Psychological Profile": 24,
+        "Origin": 16,
+        "Inner Conflict": 15,
+        "Field Presence": 25
+      },
+      "_total_words": 80
+    }
+  ]
+}

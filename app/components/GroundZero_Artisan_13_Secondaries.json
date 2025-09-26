@@ -1,0 +1,215 @@
+{
+  "main": "Artisan",
+  "baseline": {
+    "title": "Artisan",
+    "Psychological Profile": "You prove things by making them well. You lead through craft: iteration, attention to detail, and standards that survive stress. Speed is useful only when the work holds under real pressure.",
+    "Origin": "You learned the cost of sloppy execution when good intentions failed in practice. After seeing fragile outputs collapse, you trained yourself to test by doing and to prefer quality that endures.",
+    "Inner Conflict": "You polish until deadlines threaten to close. The tension is between perfecting the object and shipping something that moves the project forward now.",
+    "Field Presence": "People trust outcomes because your standards make them reliable. Your insistence on craft prevents costly failures, though it can feel slow to those chasing velocity. Signal: Craft secures outcomes.",
+    "signal": "Craft secures outcomes",
+    "_word_counts": {
+      "Psychological Profile": 31,
+      "Origin": 31,
+      "Inner Conflict": 23,
+      "Field Presence": 29
+    },
+    "_total_words": 114
+  },
+  "variants": [
+    {
+      "title": "Artisan × Sovereign",
+      "Psychological Profile": "You enforce standards so decisions stick. You use authority to set and protect quality thresholds, ensuring orders translate into durable work rather than brittle output.",
+      "Origin": "You watched decrees produce fragile results. You learned to pair command with craft so directives survive real use.",
+      "Inner Conflict": "You must balance enforcing quality with accepting pragmatic trade-offs. Too strict and you slow progress; too loose and the work fails in the field.",
+      "Field Presence": "Teams deliver more reliable results because you hold the bar. Your orders land as durable practices. Signal: Standardized craft secures delivery.",
+      "signal": "Standardized craft secures delivery",
+      "_word_counts": {
+        "Psychological Profile": 25,
+        "Origin": 18,
+        "Inner Conflict": 24,
+        "Field Presence": 21
+      },
+      "_total_words": 88
+    },
+    {
+      "title": "Artisan × Rebel",
+      "Psychological Profile": "You break norms to refine practice. You refuse sloppy tradition and replace it with better-made alternatives, using disruption as a tool to raise the craft floor.",
+      "Origin": "You watched rituals survive despite poor outcomes. You learned to rip out the worst bits and rebuild with better workmanship.",
+      "Inner Conflict": "You risk alienating artisans who relied on older rhythms. The push to improve can be read as dismissal of past effort.",
+      "Field Presence": "After your interventions, the work is stronger and more honest. The process can be painful, but it yields better outputs. Signal: Rebuilt craft raises standards.",
+      "signal": "Rebuilt craft raises standards",
+      "_word_counts": {
+        "Psychological Profile": 26,
+        "Origin": 20,
+        "Inner Conflict": 21,
+        "Field Presence": 25
+      },
+      "_total_words": 92
+    },
+    {
+      "title": "Artisan × Visionary",
+      "Psychological Profile": "You craft in service of an imagined future. Your work combines beauty and usability to make the long-term vision tangible and persuasive.",
+      "Origin": "You saw polished vision fail when the details betrayed the idea. You learned to prototype the future at human scale so it can actually be built.",
+      "Inner Conflict": "You must choose between exquisite work and delivering a visible step toward the future. The ideal piece can delay momentum.",
+      "Field Presence": "People are inspired because your outputs embody the future you describe. Your craftsmanship makes ambition believable. Signal: Crafted vision convinces.",
+      "signal": "Crafted vision convinces",
+      "_word_counts": {
+        "Psychological Profile": 22,
+        "Origin": 26,
+        "Inner Conflict": 20,
+        "Field Presence": 20
+      },
+      "_total_words": 88
+    },
+    {
+      "title": "Artisan × Navigator",
+      "Psychological Profile": "You make handoffs smooth through design. Your craft focuses on the points where work passes hands so the route stays clean and predictable.",
+      "Origin": "You saw quality collapse in the seams. You learned to tune interfaces and documentation so the journey between teams doesn’t shred the outcome.",
+      "Inner Conflict": "You may over-document to protect craft, which can feel bureaucratic. The trade-off is between durable handoffs and nimble improvisation.",
+      "Field Presence": "Teams experience fewer surprises because your craft preserves continuity across phases. Signal: Crafted handoffs reduce rework.",
+      "signal": "Crafted handoffs reduce rework",
+      "_word_counts": {
+        "Psychological Profile": 23,
+        "Origin": 23,
+        "Inner Conflict": 19,
+        "Field Presence": 16
+      },
+      "_total_words": 81
+    },
+    {
+      "title": "Artisan × Equalizer",
+      "Psychological Profile": "You make inclusion tangible through detail. You craft processes and outputs that consider varied users so quality benefits a wider set of people.",
+      "Origin": "You watched one-size-fits-all work exclude many. You learned to attend to edge cases so the product serves more people well.",
+      "Inner Conflict": "You sometimes slow to accommodate marginal cases; the effort spreads scarce time thinner. The question is whether broader fit outweighs lost tempo.",
+      "Field Presence": "Work under your hand feels more usable to more people. The result is durable adoption, even if delivery takes longer. Signal: Inclusive craft widens impact.",
+      "signal": "Inclusive craft widens impact",
+      "_word_counts": {
+        "Psychological Profile": 23,
+        "Origin": 20,
+        "Inner Conflict": 22,
+        "Field Presence": 25
+      },
+      "_total_words": 90
+    },
+    {
+      "title": "Artisan × Guardian",
+      "Psychological Profile": "You craft to prevent harm. Your standards minimize brittle failure modes and protect users and teams from breakdowns when stress hits.",
+      "Origin": "You saw harm arise from shoddy work. You learned to design for safety and resilience so outputs don’t become liabilities.",
+      "Inner Conflict": "You may over-specify for safety and stifle speed. The balance is between preventing failure and enabling timely progress.",
+      "Field Presence": "People trust the product because it survives use. Your attention to durability reduces accidents and crises. Signal: Durable craft prevents harm.",
+      "signal": "Durable craft prevents harm",
+      "_word_counts": {
+        "Psychological Profile": 21,
+        "Origin": 20,
+        "Inner Conflict": 18,
+        "Field Presence": 21
+      },
+      "_total_words": 80
+    },
+    {
+      "title": "Artisan × Seeker",
+      "Psychological Profile": "You validate craft by testing. You iterate in service of truth: prototypes, user tests, and refinements prove whether the workmanship actually works.",
+      "Origin": "You watched beautiful things fail under real conditions. You learned to verify through doing and to let feedback shape the final form.",
+      "Inner Conflict": "You refine until evidence satisfies you, which can stall shipping. The trade-off is between proven quality and timely delivery.",
+      "Field Presence": "Teams gain confidence because outcomes are repeatedly validated. Your craft is trusted because it’s been tested. Signal: Tested craft holds up.",
+      "signal": "Tested craft holds up",
+      "_word_counts": {
+        "Psychological Profile": 22,
+        "Origin": 22,
+        "Inner Conflict": 19,
+        "Field Presence": 21
+      },
+      "_total_words": 84
+    },
+    {
+      "title": "Artisan × Architect",
+      "Psychological Profile": "You craft interfaces that scale. You ensure low-level workmanship composes into resilient systems, so small decisions don’t become systemic flaws.",
+      "Origin": "You saw tiny mismatches explode into major failures. You learned to apply artisan rigor to the parts that matter for system integrity.",
+      "Inner Conflict": "You polish details that matter to the whole, sometimes at the expense of rapid iteration. The tension is fidelity versus speed.",
+      "Field Presence": "The system behaves better because details were attended to. Your craftsmanship reduces technical debt and increases reliability. Signal: Precise craft supports scale.",
+      "signal": "Precise craft supports scale",
+      "_word_counts": {
+        "Psychological Profile": 20,
+        "Origin": 22,
+        "Inner Conflict": 21,
+        "Field Presence": 22
+      },
+      "_total_words": 85
+    },
+    {
+      "title": "Artisan × Spotlight",
+      "Psychological Profile": "You show the work so care is rewarded. You make craftsmanship visible so standards are recognized and emulated, turning quality into a social good.",
+      "Origin": "You watched quiet excellence go unnoticed. You learned to surface craft so it attracts backing and cultural reinforcement.",
+      "Inner Conflict": "You must avoid turning display into shallow praise. The challenge is honoring true skill without creating performance theater.",
+      "Field Presence": "People up their game because craft gets noticed and rewarded. Your visibility raises the floor for quality. Signal: Shown craft elevates practice.",
+      "signal": "Shown craft elevates practice",
+      "_word_counts": {
+        "Psychological Profile": 24,
+        "Origin": 18,
+        "Inner Conflict": 18,
+        "Field Presence": 22
+      },
+      "_total_words": 82
+    },
+    {
+      "title": "Artisan × Diplomat",
+      "Psychological Profile": "You craft agreements with finesse. Your workmanship extends to the social contracts you build: clear expectations, fair sequencing, and elegant language that people can actually execute.",
+      "Origin": "You watched clumsy terms torpedo collaboration. You learned that the way a deal is written and sequenced affects whether the work will be done well.",
+      "Inner Conflict": "You may ritualize niceties that delay hard choices. The tension is between well-phrased commitments and the need for blunt clarity.",
+      "Field Presence": "People follow because agreements are practical and respectful. Your craft reduces misunderstandings and keeps momentum. Signal: Crafted terms reduce churn.",
+      "signal": "Crafted terms reduce churn",
+      "_word_counts": {
+        "Psychological Profile": 26,
+        "Origin": 25,
+        "Inner Conflict": 20,
+        "Field Presence": 20
+      },
+      "_total_words": 91
+    },
+    {
+      "title": "Artisan × Partner",
+      "Psychological Profile": "You co-create with care. Your workmanship prioritizes shared standards, mutual reviews, and joint ownership so partners deliver quality together.",
+      "Origin": "You saw mismatched expectations fracture collaborations. You learned to build shared definitions of done so partnership produces reliable outcomes.",
+      "Inner Conflict": "You sometimes over-invest in alignment rituals that slow output. The trade-off is durable shared quality versus rapid, possibly messy, delivery.",
+      "Field Presence": "Teams produce dependable work because standards were co-created and maintained. Your approach reduces blame and increases pride. Signal: Co-crafted standards secure outcomes.",
+      "signal": "Co-crafted standards secure outcomes",
+      "_word_counts": {
+        "Psychological Profile": 19,
+        "Origin": 19,
+        "Inner Conflict": 20,
+        "Field Presence": 22
+      },
+      "_total_words": 80
+    },
+    {
+      "title": "Artisan × Provider",
+      "Psychological Profile": "You secure the resources artisans need. You ensure time, tools, and materials are available so craft doesn’t get shortcut by scarcity.",
+      "Origin": "You watched creatives fail for lack of essentials. You learned to provision craft so outputs hold under stress.",
+      "Inner Conflict": "You may over-allocate to quality, tightening other parts of the system. The question is whether investment in craft yields enough durability to justify the cost.",
+      "Field Presence": "Work is more reliable because the craft was resourced. People deliver prideful results when they have what they need. Signal: Resourced craft yields durability.",
+      "signal": "Resourced craft yields durability",
+      "_word_counts": {
+        "Psychological Profile": 21,
+        "Origin": 18,
+        "Inner Conflict": 25,
+        "Field Presence": 24
+      },
+      "_total_words": 88
+    },
+    {
+      "title": "Artisan × Catalyst",
+      "Psychological Profile": "You craft small moves that change behavior. Your refined interventions nudge systems with subtle but powerful adjustments rather than blunt shocks.",
+      "Origin": "You watched rough stunts create short-term noise but no durable shift. You learned to design precise, repeatable nudges that produce lasting change.",
+      "Inner Conflict": "You may finesse opportunities until they pass. The balance is between precise influence and seizing the moment.",
+      "Field Presence": "People adjust habits because the crafted nudge fits their workflow and sticks. Your interventions are small but persistent. Signal: Crafted nudges change habits.",
+      "signal": "Crafted nudges change habits",
+      "_word_counts": {
+        "Psychological Profile": 21,
+        "Origin": 22,
+        "Inner Conflict": 17,
+        "Field Presence": 23
+      },
+      "_total_words": 83
+    }
+  ]
+}

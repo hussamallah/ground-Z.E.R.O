@@ -1,0 +1,215 @@
+{
+  "main": "Diplomat",
+  "baseline": {
+    "title": "Diplomat",
+    "Psychological Profile": "You build moves everyone can live with. You broker language, cadence, and concessions so decisions land across factions. Speed matters, but only when the framing prevents fractures; your authority is persuasive because it preserves the table for action.",
+    "Origin": "You learned the cost of splits when good plans collapsed under political friction. After seeing coalitions fall apart, you trained yourself to shape options people could accept, so collective action could actually happen.",
+    "Inner Conflict": "You balance boldness against coalition health. Pushing hard can win fast but splinter allies; holding for alignment can dilute the sharpness a moment needed. That tension shapes every move you broker.",
+    "Field Presence": "People feel steadied by your framing: the room stays together and decisions stick more often. Your work slows some moments but amplifies follow-through. Signal: Framed agreement enables action.",
+    "signal": "Framed agreement enables action",
+    "_word_counts": {
+      "Psychological Profile": 38,
+      "Origin": 33,
+      "Inner Conflict": 31,
+      "Field Presence": 28
+    },
+    "_total_words": 130
+  },
+  "variants": [
+    {
+      "title": "Diplomat × Sovereign",
+      "Psychological Profile": "You broker decisive order. You use calibrated authority to close debate and lock alignment, ensuring the group moves together under a clear command rather than fragmenting into factions.",
+      "Origin": "You saw messy consensus waste time and learned that sometimes a firm steer is the only way to preserve unity and progress. So you pair mediation with the will to decide.",
+      "Inner Conflict": "You wrestle with when to broker and when to decide. Closing the table secures action but risks appearing authoritarian to those who value voice.",
+      "Field Presence": "Teams follow because you both gather consent and, when needed, close the gap with authority. Your presence creates swift, supported action. Signal: Decisive framing secures unity.",
+      "signal": "Decisive framing secures unity",
+      "_word_counts": {
+        "Psychological Profile": 28,
+        "Origin": 31,
+        "Inner Conflict": 24,
+        "Field Presence": 26
+      },
+      "_total_words": 109
+    },
+    {
+      "title": "Diplomat × Rebel",
+      "Psychological Profile": "You negotiate through rupture. You channel insurgent energy into a new frame that the room can accept, turning disruption into an agreed-upon reset.",
+      "Origin": "You watched revolts burn bridges and learned to temper insurgency with translation so change could land without total collapse.",
+      "Inner Conflict": "You must decide how much heat to tame. Too much translation and rebellion loses potency; too little and coalitions fragment.",
+      "Field Presence": "People feel the force of change made legible: the shock is softened into a path others can follow. Signal: Translated disruption gains buy-in.",
+      "signal": "Translated disruption gains buy-in",
+      "_word_counts": {
+        "Psychological Profile": 23,
+        "Origin": 19,
+        "Inner Conflict": 20,
+        "Field Presence": 23
+      },
+      "_total_words": 85
+    },
+    {
+      "title": "Diplomat × Visionary",
+      "Psychological Profile": "You frame big futures so they’re adoptable. You translate lofty aims into tangible terms that diverse stakeholders can commit to, aligning imagination with practical steps.",
+      "Origin": "You saw grand ideas fail because no one could see how to belong in them. You learned to translate vision into obligations people could sign onto.",
+      "Inner Conflict": "You balance preserving the magic of a vision while making it concrete enough for coalitions to act on. The cut between awe and implementation is where you live.",
+      "Field Presence": "People buy into big ideas because you make them feel real and shared. Your framing pulls resources and coordination toward the horizon. Signal: Shared vision unlocks support.",
+      "signal": "Shared vision unlocks support",
+      "_word_counts": {
+        "Psychological Profile": 25,
+        "Origin": 26,
+        "Inner Conflict": 28,
+        "Field Presence": 27
+      },
+      "_total_words": 106
+    },
+    {
+      "title": "Diplomat × Navigator",
+      "Psychological Profile": "You broker routes, not just agreements. You translate options into stepwise paths that different groups can follow without stepping on each other’s toes.",
+      "Origin": "You watched plans fail in the seams between teams. You learned to craft agreements that include clear handoffs and responsibilities so cooperation isn’t just verbal.",
+      "Inner Conflict": "You sometimes over-specify to avoid surprises, which can feel controlling. The trade-off is between clarity that prevents failure and flexibility that enables innovation.",
+      "Field Presence": "Teams execute together because the plan spells out who does what and when. Your agreements lower coordination risk. Signal: Routed agreements reduce friction.",
+      "signal": "Routed agreements reduce friction",
+      "_word_counts": {
+        "Psychological Profile": 23,
+        "Origin": 25,
+        "Inner Conflict": 23,
+        "Field Presence": 23
+      },
+      "_total_words": 94
+    },
+    {
+      "title": "Diplomat × Equalizer",
+      "Psychological Profile": "You negotiate fairness into deals. You shape terms so benefits and burdens are shared, preventing alignment that privileges the powerful at the expense of the many.",
+      "Origin": "You saw coalitions form around unequal advantage and collapse. You learned to structure compromises that distribute value, making agreements durable and just.",
+      "Inner Conflict": "You sometimes water options down to get buy-in, which can frustrate those who want faster, bolder moves.",
+      "Field Presence": "People trust that agreements won’t entrench unfairness. Your deals last because they account for equity. Signal: Equitable deals sustain coalitions.",
+      "signal": "Equitable deals sustain coalitions",
+      "_word_counts": {
+        "Psychological Profile": 26,
+        "Origin": 22,
+        "Inner Conflict": 17,
+        "Field Presence": 20
+      },
+      "_total_words": 85
+    },
+    {
+      "title": "Diplomat × Guardian",
+      "Psychological Profile": "You secure parties through protection clauses. You frame agreements with safety nets and clear recovery steps so partners feel safe committing to change.",
+      "Origin": "You watched deals break when people feared exposure. You learned to stitch protections into bargains so risk-averse stakeholders could still move.",
+      "Inner Conflict": "You may bog down negotiations with too many safeguards, which slows implementation. The balance is between safety and momentum.",
+      "Field Presence": "People sign on because they know protections exist; the trade-off is sometimes slower settlement. Signal: Protected agreements enable movement.",
+      "signal": "Protected agreements enable movement",
+      "_word_counts": {
+        "Psychological Profile": 23,
+        "Origin": 21,
+        "Inner Conflict": 19,
+        "Field Presence": 19
+      },
+      "_total_words": 82
+    },
+    {
+      "title": "Diplomat × Seeker",
+      "Psychological Profile": "You broker on evidence. You insist agreements be anchored to verified assumptions and small tests so commitments are grounded in what’s provable.",
+      "Origin": "You saw promises collapse because they weren’t tied to reality. You learned to negotiate with experiments and proofs so agreements didn’t rest on wishful thinking.",
+      "Inner Conflict": "You often slow talks to secure data, which can frustrate those pushed by timelines. The choice is between confident speed and proven steps.",
+      "Field Presence": "People accept deals because they’re built on tests and agreed milestones. Your bargains reduce downstream surprises. Signal: Verified terms prevent backslide.",
+      "signal": "Verified terms prevent backslide",
+      "_word_counts": {
+        "Psychological Profile": 22,
+        "Origin": 25,
+        "Inner Conflict": 23,
+        "Field Presence": 21
+      },
+      "_total_words": 91
+    },
+    {
+      "title": "Diplomat × Architect",
+      "Psychological Profile": "You make binding interfaces. You turn agreements into concrete contracts, roles, and protocols so the social system can interoperate without constant arbitration.",
+      "Origin": "You watched verbal agreements fail in practice. You learned to codify decisions into structures that make compliance predictable and accountable.",
+      "Inner Conflict": "You may over-formalize, which squashes adaptive advantage. The tension is between durable contracts and nimble responsiveness.",
+      "Field Presence": "Teams perform because expectations and handoffs are explicit. Your agreements reduce ambiguity and blame. Signal: Contracted clarity secures action.",
+      "signal": "Contracted clarity secures action",
+      "_word_counts": {
+        "Psychological Profile": 22,
+        "Origin": 20,
+        "Inner Conflict": 16,
+        "Field Presence": 19
+      },
+      "_total_words": 77
+    },
+    {
+      "title": "Diplomat × Spotlight",
+      "Psychological Profile": "You use visibility to build consent. You surface issues in public frames that generate pressure and legitimacy, making it easier for parties to align without private coercion.",
+      "Origin": "You saw backroom deals collapse under scrutiny. You learned to use light to legitimize choices so they survive public expectations.",
+      "Inner Conflict": "You sometimes weaponize visibility to force decisions, risking resentment. The trick is to create pressure that builds durable support, not brittle compliance.",
+      "Field Presence": "People align because the issue is framed publicly and perceived as urgent. Your method accelerates consensus through attention. Signal: Public framing builds mandate.",
+      "signal": "Public framing builds mandate",
+      "_word_counts": {
+        "Psychological Profile": 27,
+        "Origin": 20,
+        "Inner Conflict": 22,
+        "Field Presence": 23
+      },
+      "_total_words": 92
+    },
+    {
+      "title": "Diplomat × Partner",
+      "Psychological Profile": "You make agreements that preserve relationships. You prioritize language and sequencing that keep trust intact so partners can deliver without feeling sacrificed.",
+      "Origin": "You saw partnerships collapse under harsh terms. You learned to craft deals that protect people’s dignity while still achieving the collective aim.",
+      "Inner Conflict": "You sometimes soften terms to protect ties, which can leave obligations vague. The trade-off is clarity versus relational health.",
+      "Field Presence": "People commit because they trust you to keep them whole. Your deals survive because they include care as a constraint. Signal: Trust-based deals hold.",
+      "signal": "Trust-based deals hold",
+      "_word_counts": {
+        "Psychological Profile": 22,
+        "Origin": 22,
+        "Inner Conflict": 19,
+        "Field Presence": 24
+      },
+      "_total_words": 87
+    },
+    {
+      "title": "Diplomat × Provider",
+      "Psychological Profile": "You negotiate with provisioning in mind. You ensure agreements include realistic resourcing and timelines so commitments are deliverable, not aspirational.",
+      "Origin": "You watched grand bargains fail for lack of funding or cover. You learned to fold provisioning into the terms so promises can be kept.",
+      "Inner Conflict": "You may push for more resources that slow agreement but reduce downstream failures. The tension is between speed of commitment and readiness to deliver.",
+      "Field Presence": "Deals land with the means to execute; teams are less likely to overpromise. Your approach raises the chance of follow-through. Signal: Funded terms increase delivery.",
+      "signal": "Funded terms increase delivery",
+      "_word_counts": {
+        "Psychological Profile": 20,
+        "Origin": 24,
+        "Inner Conflict": 24,
+        "Field Presence": 25
+      },
+      "_total_words": 93
+    },
+    {
+      "title": "Diplomat × Catalyst",
+      "Psychological Profile": "You broker catalytic deals. You craft agreements that create conditions for rapid change, using minimal commitments that unlock larger movement.",
+      "Origin": "You saw incremental deals stall momentum. You learned to structure pacts that seed momentum and create follow-on dynamics instead of slow attrition.",
+      "Inner Conflict": "You risk making bets that ignite but also overshoot capacity. The ethical tension is between scoring quick leverage and ensuring the system can absorb it.",
+      "Field Presence": "Parties sign because the pact promises catalytic effects; the payoff can be large but risky. Signal: Seeded pacts unlock momentum.",
+      "signal": "Seeded pacts unlock momentum",
+      "_word_counts": {
+        "Psychological Profile": 20,
+        "Origin": 22,
+        "Inner Conflict": 25,
+        "Field Presence": 20
+      },
+      "_total_words": 87
+    },
+    {
+      "title": "Diplomat × Artisan",
+      "Psychological Profile": "You negotiate with craft. You smooth language and sequence obligations so the agreement is elegant, executable, and respects the workmanship required to deliver.",
+      "Origin": "You watched clumsy contracts sour relationships. You learned that well-crafted terms lower friction and enable better outcomes by respecting the work.",
+      "Inner Conflict": "You polish terms until the moment slips, risking missed windows. The choice is between elegant detail and timely closure.",
+      "Field Presence": "People sign confident the agreement is practical and fair. Your craftsmanship reduces rework and misunderstandings. Signal: Crafted terms reduce churn.",
+      "signal": "Crafted terms reduce churn",
+      "_word_counts": {
+        "Psychological Profile": 23,
+        "Origin": 21,
+        "Inner Conflict": 19,
+        "Field Presence": 20
+      },
+      "_total_words": 83
+    }
+  ]
+}

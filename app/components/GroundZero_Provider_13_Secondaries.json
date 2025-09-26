@@ -1,0 +1,215 @@
+{
+  "main": "Provider",
+  "baseline": {
+    "title": "Provider",
+    "Psychological Profile": "You lead by making moves possible. Your authority shows up as provisioning: time, cover, budget, and tools. You act to remove friction so others can execute; without what’s needed, speed is just noise.",
+    "Origin": "You learned the hard truth that good ideas die for lack of basics. Seeing promising work fail for want of support taught you to secure the essentials before betting on momentum.",
+    "Inner Conflict": "You often delay action until resources exist, which prevents crashes but can miss windows. The tension is between readiness and seizing opportunity, and it sits in every launch decision you make.",
+    "Field Presence": "Under your lead, teams move because the path is supplied and covered. Execution succeeds more often, though critics call your prep cautious. Signal: Resources unlock motion.",
+    "signal": "Resources unlock motion",
+    "_word_counts": {
+      "Psychological Profile": 33,
+      "Origin": 31,
+      "Inner Conflict": 31,
+      "Field Presence": 26
+    },
+    "_total_words": 121
+  },
+  "variants": [
+    {
+      "title": "Provider × Sovereign",
+      "Psychological Profile": "You provision to enable decisive action. Your authority guarantees the kit and cover leaders need to make fast, enforceable calls that won’t leave people exposed.",
+      "Origin": "You watched leaders make orders without backing and witnessed the fallout. You learned to pair command with the supplies that make compliance safe and practical.",
+      "Inner Conflict": "You must choose whether to push a leader to act before support is fully in place. Acting early can win opportunities but risks exposing the team.",
+      "Field Presence": "People follow your directives because they know the resources and cover are real. Your backing turns orders into survivable actions. Signal: Funded command enables delivery.",
+      "signal": "Funded command enables delivery",
+      "_word_counts": {
+        "Psychological Profile": 25,
+        "Origin": 25,
+        "Inner Conflict": 26,
+        "Field Presence": 25
+      },
+      "_total_words": 101
+    },
+    {
+      "title": "Provider × Rebel",
+      "Psychological Profile": "You provision disruption. You break bottlenecks and then supply the patchwork needed to let bold moves stick, so insurgent action isn’t left unsupported.",
+      "Origin": "You saw revolutionary moves sputter for lack of follow-through. You learned to pair bold action with immediate provisioning so change actually takes hold.",
+      "Inner Conflict": "You risk over-allocating to support a risky break. The choice is whether the disruption is worth the resource burn.",
+      "Field Presence": "After your interventions, the room has both momentum and the cover to sustain it. Signal: Supported disruption sustains change.",
+      "signal": "Supported disruption sustains change",
+      "_word_counts": {
+        "Psychological Profile": 23,
+        "Origin": 23,
+        "Inner Conflict": 19,
+        "Field Presence": 19
+      },
+      "_total_words": 84
+    },
+    {
+      "title": "Provider × Visionary",
+      "Psychological Profile": "You fund the future. Your provisioning aligns resources with long arcs so big bets get the runway they need instead of dying at first friction.",
+      "Origin": "You watched promising horizons fail because no one funded the climb. You learned to secure the runway and align backers before chasing the long view.",
+      "Inner Conflict": "You must balance funding long shots with short-term returns. Too much runway and accountability blurs; too little and the vision dies.",
+      "Field Presence": "People commit to long bets because the resources make the journey survivable. Signal: Funded futures enable commitment.",
+      "signal": "Funded futures enable commitment",
+      "_word_counts": {
+        "Psychological Profile": 25,
+        "Origin": 25,
+        "Inner Conflict": 21,
+        "Field Presence": 17
+      },
+      "_total_words": 88
+    },
+    {
+      "title": "Provider × Navigator",
+      "Psychological Profile": "You provision for the route. Your resources are placed at critical waypoints so teams can follow mapped plans without running dry at the seams.",
+      "Origin": "You saw plans die between milestones for lack of support. You learned to place buffers and refueling stops where execution needed them most.",
+      "Inner Conflict": "You sometimes over-index on buffers and miss fast opportunities. The tension is between robustness and seizing fleeting windows.",
+      "Field Presence": "Teams trust the route because supply lines exist. Execution flows with fewer stalls. Signal: Waypoint provisioning reduces stalls.",
+      "signal": "Waypoint provisioning reduces stalls",
+      "_word_counts": {
+        "Psychological Profile": 24,
+        "Origin": 23,
+        "Inner Conflict": 18,
+        "Field Presence": 18
+      },
+      "_total_words": 83
+    },
+    {
+      "title": "Provider × Equalizer",
+      "Psychological Profile": "You provision to level play. You allocate time, attention, and tools to those historically overlooked so opportunity isn’t gated by visibility or politics.",
+      "Origin": "You watched talent go unused because support favored insiders. You learned to shift resources to create fairer access and sustained participation.",
+      "Inner Conflict": "You may be accused of redistributing scarce assets away from high-return bets. The trade-off is between equity and short-term efficiency.",
+      "Field Presence": "Under your provisioning, more people can contribute. The system feels fairer and more durable. Signal: Shared resources expand capacity.",
+      "signal": "Shared resources expand capacity",
+      "_word_counts": {
+        "Psychological Profile": 23,
+        "Origin": 21,
+        "Inner Conflict": 20,
+        "Field Presence": 19
+      },
+      "_total_words": 83
+    },
+    {
+      "title": "Provider × Guardian",
+      "Psychological Profile": "You provision protection. You ensure cover, backups, and recovery so people can act without existential fear of failure.",
+      "Origin": "You watched teams get punished for honest experiments. You learned to provide safe scaffolding so useful risk-taking isn’t career suicide.",
+      "Inner Conflict": "You balance security with ambition; too much cover breeds complacency, too little breeds fear. Choosing the right level of buffer is a constant tension.",
+      "Field Presence": "People test and iterate because the fallback exists. Your provisioning reduces risk and encourages experimentation. Signal: Protective provisioning enables risk.",
+      "signal": "Protective provisioning enables risk",
+      "_word_counts": {
+        "Psychological Profile": 18,
+        "Origin": 20,
+        "Inner Conflict": 24,
+        "Field Presence": 20
+      },
+      "_total_words": 82
+    },
+    {
+      "title": "Provider × Seeker",
+      "Psychological Profile": "You provision experiments. You fund probes and measurement so truth finds usable tests; your support makes small bets informative rather than fatal.",
+      "Origin": "You watched hypotheses die because no one funded the check. You learned to underwrite discovery so learning is safe and decisions are evidence-driven.",
+      "Inner Conflict": "You must decide which probes deserve limited resources. Spreading support thinly wastes runway; focusing too narrowly misses signals.",
+      "Field Presence": "Teams trust that experiments will be resourced and that failures won’t be punitive. Your approach speeds learning. Signal: Funded probes accelerate learning.",
+      "signal": "Funded probes accelerate learning",
+      "_word_counts": {
+        "Psychological Profile": 22,
+        "Origin": 23,
+        "Inner Conflict": 18,
+        "Field Presence": 22
+      },
+      "_total_words": 85
+    },
+    {
+      "title": "Provider × Architect",
+      "Psychological Profile": "You provision the build. You secure the staffing, tools, and staging environments that let architectures be realized without being starved during construction.",
+      "Origin": "You saw blueprints fail because execution lacked scaffolding. You learned to match design ambition with the operational resources that make it viable.",
+      "Inner Conflict": "You sometimes over-provision to avoid rework, which can waste scarce capacity. The trade is between upfront investment and iterative economy.",
+      "Field Presence": "Under your provisioning, designs ship with fewer surprises and less rework. Signal: Provisioned builds reduce debt.",
+      "signal": "Provisioned builds reduce debt",
+      "_word_counts": {
+        "Psychological Profile": 22,
+        "Origin": 22,
+        "Inner Conflict": 20,
+        "Field Presence": 16
+      },
+      "_total_words": 80
+    },
+    {
+      "title": "Provider × Spotlight",
+      "Psychological Profile": "You provision visibility. You fund storytelling, metrics, and showcases so the right work catches attention and draws the resources it needs.",
+      "Origin": "You watched invisible impact fail for lack of notice. You learned to pair visibility with resourcing so exposure actually converts into support.",
+      "Inner Conflict": "You worry that attention without sustained resources creates short-term spikes. The challenge is aligning spotlight with real backing.",
+      "Field Presence": "Work gains traction because attention brings actual support. Your method turns notice into usable fuel. Signal: Visible needs attract support.",
+      "signal": "Visible needs attract support",
+      "_word_counts": {
+        "Psychological Profile": 21,
+        "Origin": 22,
+        "Inner Conflict": 18,
+        "Field Presence": 20
+      },
+      "_total_words": 81
+    },
+    {
+      "title": "Provider × Diplomat",
+      "Psychological Profile": "You provision agreements. You ensure deals include realistic funding, timelines, and responsibilities so negotiated commitments can actually be delivered.",
+      "Origin": "You watched deals fail because promises weren’t backed. You learned to fold provisioning into terms so collaboration translates into executed outcomes.",
+      "Inner Conflict": "You may slow talks to secure resources, but unsecured deals collapse. The balance is between speed of closure and deliverability.",
+      "Field Presence": "Deals under your watch land because they include the means to execute. Signal: Funded agreements increase follow-through.",
+      "signal": "Funded agreements increase follow-through",
+      "_word_counts": {
+        "Psychological Profile": 19,
+        "Origin": 21,
+        "Inner Conflict": 20,
+        "Field Presence": 17
+      },
+      "_total_words": 77
+    },
+    {
+      "title": "Provider × Partner",
+      "Psychological Profile": "You provision to support people. Your focus is on giving collaborators the cover and tools they need, so partnership isn’t just a promise but practical support.",
+      "Origin": "You saw partnerships fail because one side was left to carry the load. You learned to match promises with the resources that make shared work possible.",
+      "Inner Conflict": "You might delay joint moves until provisioning is sorted, which can frustrate urgency but prevents collapses of trust when things go wrong.",
+      "Field Presence": "People commit because they know the partnership includes real backing. Your approach sustains collaboration. Signal: Backed partnership sustains delivery.",
+      "signal": "Backed partnership sustains delivery",
+      "_word_counts": {
+        "Psychological Profile": 26,
+        "Origin": 26,
+        "Inner Conflict": 22,
+        "Field Presence": 19
+      },
+      "_total_words": 93
+    },
+    {
+      "title": "Provider × Catalyst",
+      "Psychological Profile": "You provision ignition. You supply the minimal fuel needed for catalytic moves so sparks land and grow instead of sputtering out for lack of support.",
+      "Origin": "You watched sparks die for want of oxygen. You learned to seed catalytic actions with just enough resources to create cascades without waste.",
+      "Inner Conflict": "You must calibrate how much to underwrite; too little and the spark dies, too much and you subsidize unsustainable burns.",
+      "Field Presence": "Catalytic moves succeed more often because the initial push is resourced. Your interventions convert sparks into fires. Signal: Seeded fuel unlocks cascades.",
+      "signal": "Seeded fuel unlocks cascades",
+      "_word_counts": {
+        "Psychological Profile": 25,
+        "Origin": 23,
+        "Inner Conflict": 20,
+        "Field Presence": 22
+      },
+      "_total_words": 90
+    },
+    {
+      "title": "Provider × Artisan",
+      "Psychological Profile": "You provision craft. You ensure artisans have time, materials, and space to do work at fidelity, recognizing that quality requires specific support.",
+      "Origin": "You watched skilled work get rushed and break. You learned to protect craft with resources so outputs hold under pressure.",
+      "Inner Conflict": "You may invest heavily in quality that delays delivery. The trade-off is between polished durability and the need to move now.",
+      "Field Presence": "Work under your provisioning endures because craft was supported. People notice the difference in reliability and pride. Signal: Provisioned craft secures quality.",
+      "signal": "Provisioned craft secures quality",
+      "_word_counts": {
+        "Psychological Profile": 22,
+        "Origin": 20,
+        "Inner Conflict": 21,
+        "Field Presence": 22
+      },
+      "_total_words": 85
+    }
+  ]
+}

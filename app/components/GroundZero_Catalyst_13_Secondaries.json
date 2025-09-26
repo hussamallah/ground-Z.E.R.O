@@ -1,0 +1,215 @@
+{
+  "main": "Catalyst",
+  "baseline": {
+    "title": "Catalyst",
+    "Psychological Profile": "You pick the smallest proven lever and pull it hard. You value moves that flip inertia into motion: tiny, precise interventions that force the system into a new state. Speed matters when it’s catalytic, not busy.",
+    "Origin": "You learned the cost of slow drip change when opportunity passed. After seeing plans stall, you trained yourself to find high-leverage actions that create outsized momentum with minimal initial cost.",
+    "Inner Conflict": "You wrestle with the harm sparks can cause. A well-timed jolt clarifies and propels; a misjudged one scorches. You constantly weigh ignition against collateral damage.",
+    "Field Presence": "Rooms accelerate around your moves; deadlocks snap and choices become real. People either rally to the new trajectory or flinch at the heat. Signal: Leverage accelerates movement.",
+    "signal": "Leverage accelerates movement",
+    "_word_counts": {
+      "Psychological Profile": 36,
+      "Origin": 30,
+      "Inner Conflict": 25,
+      "Field Presence": 27
+    },
+    "_total_words": 118
+  },
+  "variants": [
+    {
+      "title": "Catalyst × Sovereign",
+      "Psychological Profile": "You ignite with authority. You pick a decisive lever and push the system, then own the consequences — guiding the energy into clear, enforceable momentum rather than letting chaos spread.",
+      "Origin": "You watched half-measures crumble under indecision. You learned to couple spark with command so ignition leads to coherent movement instead of confused motion.",
+      "Inner Conflict": "You balance ruthless ignition with stewardship. Pushing hard creates clarity but risks flattening consent; your role is to ensure the flame has direction and restraint.",
+      "Field Presence": "People move fast because someone both lit the match and directed the burn. Your interventions are decisive and often irreversible. Signal: Commanded ignition spurs motion.",
+      "signal": "Commanded ignition spurs motion",
+      "_word_counts": {
+        "Psychological Profile": 30,
+        "Origin": 23,
+        "Inner Conflict": 25,
+        "Field Presence": 25
+      },
+      "_total_words": 103
+    },
+    {
+      "title": "Catalyst × Rebel",
+      "Psychological Profile": "You ignite by breaking norms. Your sparks target ossified practices, forcing systems to reconfigure; you prefer disruptive openings that make new routes visible.",
+      "Origin": "You saw slow change preserved the status quo. You learned to provoke precisely so the old protections fracture and new possibilities appear.",
+      "Inner Conflict": "You risk alienating allies in the name of leverage. The cost of clean breaks is often relationships, and you weigh that loss against the value of the shift.",
+      "Field Presence": "Your moves jolt the room into new possibilities; some cheer, some recoil. The result is a cleared field for unconventional progress. Signal: Disruptive ignition clears paths.",
+      "signal": "Disruptive ignition clears paths",
+      "_word_counts": {
+        "Psychological Profile": 23,
+        "Origin": 22,
+        "Inner Conflict": 28,
+        "Field Presence": 26
+      },
+      "_total_words": 99
+    },
+    {
+      "title": "Catalyst × Visionary",
+      "Psychological Profile": "You seed catalytic moves that pull toward a long-term horizon. Your sparks are chosen because they scale the vision, not merely because they create motion.",
+      "Origin": "You watched ad-hoc energy lead nowhere. You learned to pick levers that nudge systems toward the future you intend, not sidetrack them into noise.",
+      "Inner Conflict": "You select sparks that risk diverting attention from long-term coherence. The tension is between immediate momentum and preserving the fidelity of the arc.",
+      "Field Presence": "People gain forward pull because the ignition points in the right direction. Your leverage tends to build enduring momentum. Signal: Visionary sparks align movement.",
+      "signal": "Visionary sparks align movement",
+      "_word_counts": {
+        "Psychological Profile": 25,
+        "Origin": 24,
+        "Inner Conflict": 23,
+        "Field Presence": 24
+      },
+      "_total_words": 96
+    },
+    {
+      "title": "Catalyst × Navigator",
+      "Psychological Profile": "You plant levers at strategic chokepoints. Your catalytic moves are routed to reveal viable paths, turning small pushes into predictable progress along mapped corridors.",
+      "Origin": "You saw scatter fail to move the ship. You learned to place ignition where the map shows maximum downstream effect so motion is both rapid and navigable.",
+      "Inner Conflict": "You sometimes choose efficiency over inclusivity in lever selection. The trade-off is between clean, directional ignition and wider buy-in.",
+      "Field Presence": "Teams move along clearer lanes after your nudges; the system reorients efficiently. Signal: Levered routes create directed momentum.",
+      "signal": "Levered routes create directed momentum",
+      "_word_counts": {
+        "Psychological Profile": 24,
+        "Origin": 27,
+        "Inner Conflict": 19,
+        "Field Presence": 18
+      },
+      "_total_words": 88
+    },
+    {
+      "title": "Catalyst × Equalizer",
+      "Psychological Profile": "You use targeted shocks to redistribute power. Your catalytic moves are deliberate and aim to open access points for the overlooked, not just speed for the already privileged.",
+      "Origin": "You watched leverage consolidate advantage. You learned to aim interventions where they widen participation and prevent a new concentration of power.",
+      "Inner Conflict": "You risk causing harm even as you pursue fairness. The calculation is whether rapid correction justifies the disruption it brings to some stakeholders.",
+      "Field Presence": "Your moves force openings for the excluded; the room recalibrates advantage quickly. Signal: Targeted shocks widen access.",
+      "signal": "Targeted shocks widen access",
+      "_word_counts": {
+        "Psychological Profile": 28,
+        "Origin": 21,
+        "Inner Conflict": 23,
+        "Field Presence": 17
+      },
+      "_total_words": 89
+    },
+    {
+      "title": "Catalyst × Guardian",
+      "Psychological Profile": "You ignite safely. Your catalytic actions include built-in fallbacks so the team can absorb the change without unnecessary casualties — small burns with recovery plans.",
+      "Origin": "You watched reckless sparks injure people. You learned to design jolts with containment and recovery so progress didn’t cost the crew.",
+      "Inner Conflict": "You balance urgency with duty of care. Sometimes the restraint needed to protect slows the ignition you want to deliver.",
+      "Field Presence": "People move because the ignition is survivable; the energy is channeled and recoverable. Signal: Safe sparks preserve teams.",
+      "signal": "Safe sparks preserve teams",
+      "_word_counts": {
+        "Psychological Profile": 25,
+        "Origin": 21,
+        "Inner Conflict": 20,
+        "Field Presence": 18
+      },
+      "_total_words": 84
+    },
+    {
+      "title": "Catalyst × Seeker",
+      "Psychological Profile": "You ignite by proving minimal hypotheses. Your catalytic moves are small, testable interventions that demonstrate new states quickly and reduce the risk of large failures.",
+      "Origin": "You saw grand changes fail because they weren’t validated. You learned to seed small experiments that, when they work, justify bigger swings.",
+      "Inner Conflict": "You sometimes undercut boldness with excessive caution, preferring slow, provable ignition to high-risk leaps.",
+      "Field Presence": "Your tiny wins create confidence and scale. People trust the momentum because it’s built on tested moves. Signal: Proven sparks scale safely.",
+      "signal": "Proven sparks scale safely",
+      "_word_counts": {
+        "Psychological Profile": 25,
+        "Origin": 22,
+        "Inner Conflict": 14,
+        "Field Presence": 22
+      },
+      "_total_words": 83
+    },
+    {
+      "title": "Catalyst × Architect",
+      "Psychological Profile": "You craft levers into the system. Your catalytic interventions come with design changes so the ignition is supported by structure and doesn’t produce brittle outcomes.",
+      "Origin": "You watched sparks collapse systems when seams were weak. You learned to pair ignition with architecture so the move holds under load.",
+      "Inner Conflict": "You may delay pure speed to ensure the structure will absorb the change. The trade-off is immediate surge versus long-term stability.",
+      "Field Presence": "Momentum builds in ways that can be sustained because the underlying design is sound. Signal: Architected levers sustain impact.",
+      "signal": "Architected levers sustain impact",
+      "_word_counts": {
+        "Psychological Profile": 25,
+        "Origin": 22,
+        "Inner Conflict": 21,
+        "Field Presence": 19
+      },
+      "_total_words": 87
+    },
+    {
+      "title": "Catalyst × Spotlight",
+      "Psychological Profile": "You make catalytic moments visible. Your ignitions are staged and broadcast so the spark turns into widespread attention and resources fast.",
+      "Origin": "You saw lonely sparks fizzle in quiet rooms. You learned to couple ignition with visibility so the moment becomes a movement.",
+      "Inner Conflict": "You risk creating spectacle over substance. The challenge is to make the flame big enough to matter without turning it into empty noise.",
+      "Field Presence": "The room mobilizes quickly because the moment is visible and convincing. Signal: Visible ignition attracts fuel.",
+      "signal": "Visible ignition attracts fuel",
+      "_word_counts": {
+        "Psychological Profile": 21,
+        "Origin": 21,
+        "Inner Conflict": 23,
+        "Field Presence": 16
+      },
+      "_total_words": 81
+    },
+    {
+      "title": "Catalyst × Diplomat",
+      "Psychological Profile": "You seed catalytic moves that parties can accept. Your interventions are negotiated so the ignition has permission and reduces the chance of destructive backlash.",
+      "Origin": "You watched uncoordinated sparks fracture coalitions. You learned to shape ignition so it lands with enough consent to be carried forward.",
+      "Inner Conflict": "You sometimes water down leverage to preserve alliances, which can blunt impact. The balance is necessary but costly.",
+      "Field Presence": "Energy spreads because stakeholders see a path to follow without losing face. Signal: Negotiated ignition preserves coalition.",
+      "signal": "Negotiated ignition preserves coalition",
+      "_word_counts": {
+        "Psychological Profile": 24,
+        "Origin": 21,
+        "Inner Conflict": 18,
+        "Field Presence": 17
+      },
+      "_total_words": 80
+    },
+    {
+      "title": "Catalyst × Partner",
+      "Psychological Profile": "You ignite with mutual support. Your catalytic actions are launched in partnership so the burden of change is shared and recovery is collective.",
+      "Origin": "You saw lone sparks burn out support. You learned to coordinate ignition with partners who can absorb and amplify the effect responsibly.",
+      "Inner Conflict": "You must manage shared risk: partnering diffuses blame but can slow the moment needed to flip inertia.",
+      "Field Presence": "People act because the spark comes with a team to back it up. Signal: Shared ignition scales safely.",
+      "signal": "Shared ignition scales safely",
+      "_word_counts": {
+        "Psychological Profile": 23,
+        "Origin": 22,
+        "Inner Conflict": 17,
+        "Field Presence": 18
+      },
+      "_total_words": 80
+    },
+    {
+      "title": "Catalyst × Provider",
+      "Psychological Profile": "You underwrite sparks. You provide the minimal fuel and cover so catalytic moves don’t sputter, ensuring ignition has what it needs to grow.",
+      "Origin": "You watched promising triggers starve for support. You learned to seed catalytic moves with the right amount of resources to sustain them.",
+      "Inner Conflict": "You must choose how much to fund a risky flip; too little and it dies, too much and you subsidize unsustainable change.",
+      "Field Presence": "Catalytic actions succeed more often because they’re provisioned. People move because the spark is viable. Signal: Seeded fuel secures ignition.",
+      "signal": "Seeded fuel secures ignition",
+      "_word_counts": {
+        "Psychological Profile": 23,
+        "Origin": 22,
+        "Inner Conflict": 22,
+        "Field Presence": 20
+      },
+      "_total_words": 87
+    },
+    {
+      "title": "Catalyst × Artisan",
+      "Psychological Profile": "You craft precise sparks. Your catalytic moves emphasize refinement: small, beautifully executed interventions that change behavior with subtlety and durability.",
+      "Origin": "You saw clumsy stunts fail to create lasting change. You learned to make small moves that are executed with craft so they resonate and hold.",
+      "Inner Conflict": "You may perfect the moment until the chance passes. The tension is between executed beauty and hitting windows of opportunity.",
+      "Field Presence": "People respond to your finely tuned moves because they ring true and are replicable. Signal: Crafted sparks create durable change.",
+      "signal": "Crafted sparks create durable change",
+      "_word_counts": {
+        "Psychological Profile": 20,
+        "Origin": 25,
+        "Inner Conflict": 20,
+        "Field Presence": 20
+      },
+      "_total_words": 85
+    }
+  ]
+}
