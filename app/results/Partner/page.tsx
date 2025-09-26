@@ -499,8 +499,7 @@ const ResultsScreen = ({ taps, finalWinner, duels, secondaryFace, pureOneFace, o
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+
             {/* Combined Archetype Profile Section */}
             <div className="fade-in mb-8">
                 <div className="text-center">
