@@ -695,7 +695,7 @@ const ResultsScreen = ({ taps, finalWinner, duels, secondaryFace, pureOneFace, o
 
     return (
         <div className='fade-in pb-20'>
-            <HeroBand finalWinner={finalWinner} secondaryFace={secondaryFace} pureOneFace={pureOneFace} taps={taps} />
+            <HeroBand finalWinner={finalWinner} secondaryFace={secondaryFace} taps={taps} />
             <CoreLegendSection />
             <SecondaryArchetypeSection finalWinner={finalWinner} secondaryFace={secondaryFace} pureOneFace={pureOneFace} />
 
