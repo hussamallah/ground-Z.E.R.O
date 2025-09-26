@@ -105,65 +105,6 @@ const evaluatePrizeActivation = (main: string, secondary: Seed | null, taps: Tap
     return { state: "DARK", main, secondary: secondary.face, required, reason: "missing_partner" };
 };
 
-// Prize pattern locks - "X needs Y" means X only clicks when Y is the Secondary
-const PRIZE_LOCKS: { [key: string]: string } = {
-    // Control → needs Recognition
-    'Sovereign': 'Diplomat',
-    'Rebel': 'Spotlight',
-    
-    // Recognition → needs Truth
-    'Spotlight': 'Seeker',
-    'Diplomat': 'Architect',
-    
-    // Truth → needs Control
-    'Seeker': 'Sovereign',
-    'Architect': 'Rebel',
-    
-    // Pace → needs Stress
-    'Visionary': 'Catalyst',
-    'Navigator': 'Artisan',
-    
-    // Stress → needs Pace
-    'Catalyst': 'Navigator',
-    'Artisan': 'Visionary',
-    
-    // Boundary → needs Bonding
-    'Equalizer': 'Provider',
-    'Guardian': 'Partner',
-    
-    // Bonding → needs Boundary
-    'Partner': 'Guardian',
-    'Provider': 'Equalizer'
-};
-
-type PrizeActivation =
-    | { state: "ACTIVE"; main: string; secondary: string; required: string }
-    | { state: "DARK"; main: string; secondary: string; required: string; reason: "missing_partner" | "low_evidence" | "wide_margin" };
-
-// Prize activation logic
-const evaluatePrizeActivation = (main: string, secondary: Seed | null, taps: Tap[]): PrizeActivation => {
-    const required = PRIZE_LOCKS[main];
-    if (!required) {
-        return { state: "DARK", main, secondary: secondary?.face || "none", required: "none", reason: "missing_partner" };
-    }
-    
-    if (!secondary) {
-        return { state: "DARK", main, secondary: "none", required, reason: "missing_partner" };
-    }
-    
-    // Check evidence threshold (taps >= 18)
-    if (taps.length < 18) {
-        return { state: "DARK", main, secondary: secondary.face, required, reason: "low_evidence" };
-    }
-    
-    // Check if secondary matches required partner
-    if (secondary.face === required) {
-        return { state: "ACTIVE", main, secondary: secondary.face, required };
-    }
-    
-    return { state: "DARK", main, secondary: secondary.face, required, reason: "missing_partner" };
-};
-
 export default function ArtisanResultsPage() {
     const router = useRouter();
     
