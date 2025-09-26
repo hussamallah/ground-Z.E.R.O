@@ -166,8 +166,6 @@ export default function ArtisanResultsPage() {
 
 // #13) Component contract
 const HeroBand = ({ finalWinner, secondaryFace, pureOneFace, taps }: { finalWinner: Seed | null, secondaryFace?: Seed | null, pureOneFace?: boolean, taps: Tap[] }) => {
-    const prizeActivation = finalWinner ? evaluatePrizeActivation(finalWinner.face, secondaryFace || null, taps) : null;
-    
     return (
     <div className="mb-8 pt-6">
         <div className="max-w-4xl mx-auto flex flex-col items-center text-center gap-y-6">
@@ -219,19 +217,6 @@ const HeroBand = ({ finalWinner, secondaryFace, pureOneFace, taps }: { finalWinn
                  'Builds rules from repeated signals; commits once the pattern holds.'}
             </p>
             
-            {/* Prize Banner: Clean, centered stripe */}
-            {prizeActivation && (
-                <div className="w-full max-w-2xl mx-auto px-6 py-3 rounded-lg" style={{
-                    backgroundColor: prizeActivation.state === "ACTIVE" ? 'rgba(34, 197, 94, 0.1)' : 'rgba(156, 163, 175, 0.1)',
-                    border: `1px solid ${prizeActivation.state === "ACTIVE" ? 'rgba(34, 197, 94, 0.3)' : 'rgba(156, 163, 175, 0.3)'}`
-                }}>
-                    <div className="text-center">
-                        <span className="text-sm font-medium" style={{ color: prizeActivation.state === "ACTIVE" ? '#22c55e' : '#9ca3af' }}>
-                            Your pattern unlock: {prizeActivation.required}
-                        </span>
-                    </div>
-                </div>
-            )}
             
             {/* Secondary Archetype Tag: Small pill-style highlight */}
             {secondaryFace && secondaryFace.face !== finalWinner?.face && (
