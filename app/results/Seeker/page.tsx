@@ -167,7 +167,7 @@ export default function SeekerResultsPage() {
 
 // #13) Component contract
 const HeroBand = ({ finalWinner, secondaryFace, pureOneFace, taps }: { finalWinner: Seed | null, secondaryFace?: Seed | null, pureOneFace?: boolean, taps: Tap[] }) => {
-    const prizeActivation = finalWinner ? evaluatePrizeActivation(finalWinner.face, secondaryFace, taps) : null;
+    const prizeActivation = finalWinner ? evaluatePrizeActivation(finalWinner.face, secondaryFace || null, taps) : null;
     
     return (
     <div className="mb-6 pt-6">
@@ -335,7 +335,7 @@ const BlindspotsCard = ({ archetype }: { archetype: any }) => (
 );
 
 const FamilyGrid = ({ triad, finalWinner, secondaryFace, taps }: { triad: any[], finalWinner: Seed | null, secondaryFace?: Seed | null, taps: Tap[] }) => {
-    const prizeActivation = finalWinner ? evaluatePrizeActivation(finalWinner.face, secondaryFace, taps) : null;
+    const prizeActivation = finalWinner ? evaluatePrizeActivation(finalWinner.face, secondaryFace || null, taps) : null;
     const [expandedCards, setExpandedCards] = useState<Set<string>>(new Set());
     
     const toggleCard = (family: string) => {
@@ -450,7 +450,7 @@ const LegendSection = () => (
 );
 
 const PrizeSection = ({ finalWinner, secondaryFace, taps }: { finalWinner: Seed | null, secondaryFace?: Seed | null, taps: Tap[] }) => {
-    const prizeActivation = finalWinner ? evaluatePrizeActivation(finalWinner.face, secondaryFace, taps) : null;
+    const prizeActivation = finalWinner ? evaluatePrizeActivation(finalWinner.face, secondaryFace || null, taps) : null;
     
     if (!prizeActivation) return null;
     

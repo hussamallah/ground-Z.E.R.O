@@ -272,7 +272,7 @@ const LegendSection = () => (
 );
 
 const PrizeSection = ({ finalWinner, secondaryFace, taps }: { finalWinner: Seed | null, secondaryFace?: Seed | null, taps: Tap[] }) => {
-    const prizeActivation = finalWinner ? evaluatePrizeActivation(finalWinner.face, secondaryFace, taps) : null;
+    const prizeActivation = finalWinner ? evaluatePrizeActivation(finalWinner.face, secondaryFace || null, taps) : null;
     
     if (!prizeActivation) return null;
     
