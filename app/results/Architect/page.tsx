@@ -166,14 +166,14 @@ export default function ArchitectResultsPage() {
 // #13) Component contract
 const HeroBand = ({ finalWinner, secondaryFace, pureOneFace, taps }: { finalWinner: Seed | null, secondaryFace?: Seed | null, pureOneFace?: boolean, taps: Tap[] }) => {
     return (
-    <div className="mb-6 pt-6">
-        <div className="max-w-4xl mx-auto flex flex-col items-center text-center gap-y-4">
-            {/* Face name and sticker on one line */}
-            <div className="flex items-center gap-x-3">
+    <div className="mb-8 pt-6">
+        <div className="max-w-4xl mx-auto flex flex-col items-center text-center gap-y-6">
+            {/* Top Block: Archetype name + emblem + one-liner */}
+            <div className="flex items-center gap-x-4">
                 <h1
-                    className="m-0 font-bold tracking-tight relative"
+                    className="m-0 font-bold tracking-tight"
                     style={{
-                        fontSize: '48px',
+                        fontSize: '52px',
                         lineHeight: 1.1,
                         color: getFaceLight(finalWinner?.face || ''),
                         background: `linear-gradient(135deg, ${getFaceLight(finalWinner?.face || '')}, ${getFaceLight(finalWinner?.face || '')}cc)`,
@@ -187,36 +187,18 @@ const HeroBand = ({ finalWinner, secondaryFace, pureOneFace, taps }: { finalWinn
                 <img
                     src={`/${(finalWinner?.face || 'Architect').toLowerCase()}.png`}
                     alt={`${finalWinner?.face || 'Architect'} emblem.`}
-                    width={72}
-                    height={72}
-                    className="rounded"
+                    width={80}
+                    height={80}
+                    className="rounded-lg"
                     style={{
                         objectFit: 'contain',
-                        transform: 'translateY(5px)'
+                        transform: 'translateY(2px)'
                     }}
                 />
             </div>
-            {/* Compact chips row */}
-            <div className="flex items-center gap-x-3 flex-wrap">
-                {pureOneFace && (
-                    <div className="px-2 py-1 rounded-full text-xs font-medium bg-white/10 border border-solid border-white/20 text-white/80">
-                        Pure Match
-                    </div>
-                )}
-                {secondaryFace && secondaryFace.face !== finalWinner?.face && (
-                    <div
-                        className="px-2 py-1 rounded-full text-xs font-medium"
-                        style={{
-                            background: `rgba(${getFaceLight(secondaryFace.face).replace('#', '').match(/.{2}/g)?.map(hex => parseInt(hex, 16)).join(', ') || '148, 163, 184'}, 0.1)`,
-                            color: getFaceLight(secondaryFace.face),
-                            border: `1px solid rgba(${getFaceLight(secondaryFace.face).replace('#', '').match(/.{2}/g)?.map(hex => parseInt(hex, 16)).join(', ') || '148, 163, 184'}, 0.2)`
-                        }}
-                    >
-                        Secondary: {secondaryFace.face}
-                    </div>
-                )}
-            </div>
-            <p className="text-white/80 text-lg max-w-prose" style={{ lineHeight: 1.4 }}>
+            
+            {/* One-liner */}
+            <p className="text-lg text-white/90 max-w-2xl mx-auto leading-relaxed">
                 {finalWinner?.face === 'Seeker' ? 'Runs alternatives and waits for decisive evidence.' : 
                  finalWinner?.face === 'Architect' ? 'Builds a proof path from sources and sequences to closure.' :
                  finalWinner?.face === 'Sovereign' ? 'Sets direction directly, enforces the move, expects alignment.' :
@@ -233,6 +215,34 @@ const HeroBand = ({ finalWinner, secondaryFace, pureOneFace, taps }: { finalWinn
                  finalWinner?.face === 'Catalyst' ? 'Initiates motion under pressure and drives recovery.' :
                  'Builds rules from repeated signals; commits once the pattern holds.'}
             </p>
+            
+            {/* Prize Banner: Clean, centered stripe */}
+            {prizeActivation && (
+                <div className="w-full max-w-2xl mx-auto px-6 py-3 rounded-lg" style={{
+                    backgroundColor: prizeActivation.state === "ACTIVE" ? 'rgba(34, 197, 94, 0.1)' : 'rgba(156, 163, 175, 0.1)',
+                    border: `1px solid ${prizeActivation.state === "ACTIVE" ? 'rgba(34, 197, 94, 0.3)' : 'rgba(156, 163, 175, 0.3)'}`
+                }}>
+                    <div className="text-center">
+                        <span className="text-sm font-medium" style={{ color: prizeActivation.state === "ACTIVE" ? '#22c55e' : '#9ca3af' }}>
+                            Your pattern unlock: {prizeActivation.required}
+                        </span>
+                    </div>
+                </div>
+            )}
+            
+            {/* Secondary Archetype Tag: Small pill-style highlight */}
+            {secondaryFace && secondaryFace.face !== finalWinner?.face && (
+                <div
+                    className="px-3 py-1 rounded-full text-sm font-medium"
+                    style={{
+                        background: `rgba(${getFaceLight(secondaryFace.face).replace('#', '').match(/.{2}/g)?.map(hex => parseInt(hex, 16)).join(', ') || '148, 163, 184'}, 0.15)`,
+                        color: getFaceLight(secondaryFace.face),
+                        border: `1px solid rgba(${getFaceLight(secondaryFace.face).replace('#', '').match(/.{2}/g)?.map(hex => parseInt(hex, 16)).join(', ') || '148, 163, 184'}, 0.3)`
+                    }}
+                >
+                    Secondary: {secondaryFace.face}
+                </div>
+            )}
         </div>
     </div>
     );
