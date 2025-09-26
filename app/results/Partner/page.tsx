@@ -14,6 +14,25 @@ import { FAMILIES, RESULTS_LIB,
     MatchLog
 } from '../../quiz-data';
 
+// Face light color mapping
+const FACE_LIGHT: { [key: string]: string } = {
+  Guardian: '#14b8a6',        // Teal
+  Spotlight: '#a3e635',       // Yellow-green
+  Partner: '#ec4899',         // Pink
+  Catalyst: '#f4a300',        // Golden-orange
+  Provider: '#22d3ee',        // Aqua-teal
+  Diplomat: '#5eead4',        // Soft teal
+  Axiarch: '#ffbf00',         // Amber
+  Architect: '#8b5cf6',       // Violet
+  Seeker: '#67e8f9',          // Light cyan
+  Visionary: '#3b82f6',       // Blue
+  Navigator: '#a855f7',       // Purple
+  Sovereign: '#f59e0b',       // Orange-gold
+  Rebel: '#f97316',           // Red-orange
+  Equalizer: '#22c55e'        // Green
+};
+
+const getFaceLight = (face: string): string => FACE_LIGHT[face] || '#94a3b8';
 
 const CURRENT_ARCHETYPE = "Partner";
 
@@ -24,6 +43,8 @@ export default function PartnerResultsPage() {
         taps: Tap[];
         finalWinner: Seed | null;
         duels: MatchLog[];
+        secondaryFace?: Seed | null;
+        pureOneFace?: boolean;
     } | null>(null);
 
     useEffect(() => {
@@ -65,6 +86,8 @@ export default function PartnerResultsPage() {
                 taps={resultsData.taps}
                 finalWinner={resultsData.finalWinner}
                 duels={resultsData.duels}
+                secondaryFace={resultsData.secondaryFace}
+                pureOneFace={resultsData.pureOneFace}
                 onRestart={handleRestart}
                 router={router}
             />
@@ -72,7 +95,7 @@ export default function PartnerResultsPage() {
     );
 }
 
-const ResultsScreen = ({ taps, finalWinner, duels, onRestart, router }: { taps: Tap[], finalWinner: Seed | null, duels: MatchLog[], onRestart: () => void, router: any }) => {
+const ResultsScreen = ({ taps, finalWinner, duels, secondaryFace, pureOneFace, onRestart, router }: { taps: Tap[], finalWinner: Seed | null, duels: MatchLog[], secondaryFace?: Seed | null, pureOneFace?: boolean, onRestart: () => void, router: any }) => {
     const familyResults = useMemo(() => resolveAllFamilies(taps), [taps]);
     const [selectedFamily, setSelectedFamily] = useState<string | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -204,9 +227,9 @@ const ResultsScreen = ({ taps, finalWinner, duels, onRestart, router }: { taps: 
                                 className="m-0 uppercase font-black tracking-wider"
                                 style={{
                                     fontSize: 'clamp(36px, 6vw, 56px)',
-                                    color: '#2b7cff',
-                                    textShadow: '0 0 30px rgba(43, 124, 255, 0.6), 0 0 60px rgba(43, 124, 255, 0.33)',
-                                    filter: 'drop-shadow(0 0 14px #2b7cff) drop-shadow(0 0 36px #2b7cff)'
+                                    color: getFaceLight(computeFinal.winner),
+                                    textShadow: `0 0 30px ${getFaceLight(computeFinal.winner)}60, 0 0 60px ${getFaceLight(computeFinal.winner)}33`,
+                                    filter: `drop-shadow(0 0 14px ${getFaceLight(computeFinal.winner)}) drop-shadow(0 0 36px ${getFaceLight(computeFinal.winner)})`
                                 }}
                             >
                                 {computeFinal.winner}
@@ -257,6 +280,138 @@ const ResultsScreen = ({ taps, finalWinner, duels, onRestart, router }: { taps: 
                     </div>
                 </div>
             )}
+
+            {/* Proof Strip - Credibility in 10 seconds */}
+            <div className="fade-in mb-8">
+                <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
+                    {/* Secondary Path */}
+                    <div className="proof-card">
+                        <div className="proof-card-header">Secondary Path</div>
+                        <div className="flex items-center gap-2">
+                            {secondaryFace ? (
+                                <div className="flex items-center gap-1">
+                                    <div className="secondary-face">
+                                        {secondaryFace.face}
+                                    </div>
+                                    <span className="text-xs text-white/60">influence</span>
+                                </div>
+                            ) : (
+                                <div className="text-xs text-white/60">Pure archetype</div>
+                            )}
+                        </div>
+                    </div>
+
+                    {/* Triad Signature */}
+                    <div className="proof-card">
+                        <div className="proof-card-header">Triad Signature</div>
+                        <div className="triad-signature-container">
+                            {familyResults && familyResults.length > 0 && (() => {
+                                const totalShare = familyResults.reduce((acc, fr) => ({
+                                    A: acc.A + fr.share.A,
+                                    S: acc.S + fr.share.S,
+                                    R: acc.R + fr.share.R
+                                }), { A: 0, S: 0, R: 0 });
+                                const maxShare = Math.max(totalShare.A, totalShare.S, totalShare.R);
+                                return ['A', 'S', 'R'].map(phase => {
+                                    const value = totalShare[phase as keyof typeof totalShare];
+                                    const intensity = Math.round((value / maxShare) * 5);
+                                    const percentage = Math.round((value / maxShare) * 100);
+                                    const phaseLabel = phase === 'A' ? 'Act' : phase === 'S' ? 'Scan' : 'Reset';
+                                    return (
+                                        <div key={phase} className="triad-signature-item">
+                                            <div className="triad-phase-header">
+                                                <div className="triad-phase-label">{phaseLabel}</div>
+                                                <div className="triad-phase-value">{percentage}%</div>
+                                            </div>
+                                            <div className="triad-bar-container">
+                                                <div className="triad-bar-fill" style={{ width: `${percentage}%` }}></div>
+                                            </div>
+                                            <div className="triad-levels">
+                                                {[1, 2, 3, 4, 5].map(level => (
+                                                    <div 
+                                                        key={level}
+                                                        className={`triad-level ${level <= intensity ? 'active' : ''}`}
+                                                    />
+                                                ))}
+                                            </div>
+                                        </div>
+                                    );
+                                });
+                            })()}
+                        </div>
+                    </div>
+
+                    {/* Evidence Count */}
+                    <div className="proof-card">
+                        <div className="proof-card-header">Evidence Count</div>
+                        <div className="text-center">
+                            <div className="evidence-number">{taps.length}</div>
+                            <div className="evidence-label">taps analyzed</div>
+                            <div className="evidence-detail">
+                                {familyResults ? familyResults.length : 0} families resolved
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Combined Archetype Profile Section */}
+            <div className="fade-in mb-8">
+                <div className="text-center">
+                    <div className="proof-card" style={{ maxWidth: '600px', margin: '0 auto' }}>
+                        <div className="proof-card-header">Your Archetype Profile</div>
+                        <div className="flex items-center justify-center gap-6">
+                            {/* Primary Archetype */}
+                            <div className="archetype-profile-item">
+                                <div className="archetype-profile-label">Primary</div>
+                                <div 
+                                    className="archetype-profile-face"
+                                    style={{
+                                        background: `rgba(${getFaceLight(finalWinner?.face || '').replace('#', '').match(/.{2}/g)?.map(hex => parseInt(hex, 16)).join(', ') || '148, 163, 184'}, 0.15)`,
+                                        borderColor: `rgba(${getFaceLight(finalWinner?.face || '').replace('#', '').match(/.{2}/g)?.map(hex => parseInt(hex, 16)).join(', ') || '148, 163, 184'}, 0.3)`,
+                                        color: getFaceLight(finalWinner?.face || ''),
+                                        boxShadow: `0 0 12px ${getFaceLight(finalWinner?.face || '')}30`
+                                    }}
+                                >
+                                    {finalWinner?.face}
+                                </div>
+                            </div>
+
+                            {/* Plus Sign */}
+                            <div className="text-2xl text-white/40 font-bold">+</div>
+
+                            {/* Secondary Archetype */}
+                            <div className="archetype-profile-item">
+                                <div className="archetype-profile-label">Secondary</div>
+                                <div 
+                                    className="archetype-profile-face"
+                                    style={{
+                                        background: `rgba(${getFaceLight(secondaryFace?.face || '').replace('#', '').match(/.{2}/g)?.map(hex => parseInt(hex, 16)).join(', ') || '148, 163, 184'}, 0.15)`,
+                                        borderColor: `rgba(${getFaceLight(secondaryFace?.face || '').replace('#', '').match(/.{2}/g)?.map(hex => parseInt(hex, 16)).join(', ') || '148, 163, 184'}, 0.3)`,
+                                        color: getFaceLight(secondaryFace?.face || ''),
+                                        boxShadow: `0 0 12px ${getFaceLight(secondaryFace?.face || '')}30`
+                                    }}
+                                >
+                                    {secondaryFace?.face || 'Pure'}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="text-xs text-white/60 mt-4">
+                            {secondaryFace && secondaryFace.face !== finalWinner?.face 
+                                ? 'Your decision pattern shows influence from both archetypes'
+                                : 'You have a pure archetype profile with no secondary influence'
+                            }
+                        </div>
+                        {pureOneFace && (
+                            <div className="mt-3">
+                                <span className='tag' style={{ backgroundColor: 'rgba(124, 58, 237, 0.2)', color: '#A78BFA' }}>
+                                    Pure Match
+                                </span>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            </div>
 
             {/* 7 Family Cards Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">

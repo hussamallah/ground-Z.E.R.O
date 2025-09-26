@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ground Zero — Mini Sticker</title>
+  <style>
+    :root{
+      --bg:#0b0b0c;
+      --fg:#f5f7fb;
+      --muted:#a9b0bd;
+      --accent:#8b5cf6;
+      --good:#22c55e;
+      --warn:#f59e0b;
+      --bad:#ef4444;
+      --card:#121317;
+      --bar:#2a2d36;
+      --ring:rgba(139,92,246,0.3);
+    }
+    html,body{height:100%;background:var(--bg);color:var(--fg);margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial,"Noto Sans",sans-serif;}
+    /* Sticker container */
+    .sticker{
+      position:fixed;
+      right:16px;
+      bottom:16px;
+      width:280px;
+      max-width:90vw;
+      background:var(--card);
+      border:1px solid #1d2028;
+      border-radius:14px;
+      box-shadow:
+        0 6px 18px rgba(0,0,0,0.35),
+        0 0 0 2px var(--ring) inset;
+      overflow:hidden;
+      z-index:9999;
+    }
+    .sticker header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+      padding:10px 12px;
+      background:linear-gradient(180deg, rgba(139,92,246,0.12), rgba(139,92,246,0.04));
+      border-bottom:1px solid #1f2230;
+    }
+    .title{
+      font-weight:700;
+      letter-spacing:0.2px;
+      font-size:13px;
+      color:var(--fg);
+    }
+    .meta{
+      display:flex; gap:8px; font-size:11px; color:var(--muted);
+    }
+    .dot{width:6px;height:6px;border-radius:999px;background:var(--accent);box-shadow:0 0 6px var(--accent);display:inline-block;margin-right:6px}
+    button.icon{
+      appearance:none;
+      background:#191b22;
+      color:var(--fg);
+      border:1px solid #242733;
+      width:26px; height:26px; border-radius:8px;
+      cursor:pointer; display:grid; place-items:center;
+    }
+    button.icon:hover{border-color:#2c3142}
+    .content{padding:12px}
+    h4{margin:0 0 8px 0; font-size:12px; text-transform:uppercase; letter-spacing:.8px; color:var(--muted)}
+    .kv{margin:8px 0 12px 0}
+    .kv div{font-size:12px; line-height:1.5}
+    .section{margin:10px 0 12px 0; padding:10px; background:#0f1116; border:1px solid #1a1d27; border-radius:10px}
+    .section strong{display:block; margin-bottom:6px; font-size:12px}
+    .bars .row{display:grid; grid-template-columns:68px 1fr; gap:8px; align-items:center; margin:8px 0}
+    .label{font-size:12px; color:var(--fg)}
+    .bar{height:8px; background:var(--bar); border-radius:999px; overflow:hidden; position:relative}
+    .fill{height:100%; width:0; background:linear-gradient(90deg,var(--accent),#60a5fa); box-shadow:0 0 10px rgba(139,92,246,.5)}
+    .fill.good{background:linear-gradient(90deg,var(--good),#34d399)}
+    .fill.warn{background:linear-gradient(90deg,var(--warn),#fbbf24)}
+    .fill.bad{background:linear-gradient(90deg,var(--bad),#f87171)}
+    .foot{display:flex; justify-content:space-between; font-size:11px; color:var(--muted); margin-top:6px}
+    .pill{display:inline-flex; align-items:center; gap:6px; padding:4px 8px; border-radius:999px; background:#141621; border:1px solid #222633; font-size:11px}
+    /* collapse */
+    .collapsed .content{display:none}
+    .collapsed .pill.hide-text{visibility:hidden; width:0; padding:0; margin:0}
+    /* print */
+    @media print{
+      body{background:#fff;color:#000}
+      .sticker{position:static; box-shadow:none; border:1px solid #000; width:280px}
+    }
+  </style>
+</head>
+<body>
+  <div class="sticker" id="gz-sticker" role="complementary" aria-label="Ground Zero summary sticker">
+    <header>
+      <div class="title"><span class="dot" aria-hidden="true"></span>Ground Zero — Summary</div>
+      <div style="display:flex;gap:6px">
+        <button class="icon" id="toggle" aria-label="Collapse or expand" title="Collapse">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7 10l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <button class="icon" id="close" aria-label="Hide sticker" title="Hide">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+    <div class="content">
+      <div class="section">
+        <strong>Strengths</strong>
+        <div class="kv">
+          <div>convincing cases, defensible decisions</div>
+        </div>
+        <strong>Blindspots</strong>
+        <div class="kv">
+          <div>can over-index on a single source</div>
+        </div>
+      </div>
+
+      <div class="section bars" aria-label="Movement keys">
+        <strong>Movement Keys</strong>
+        <div class="row">
+          <div class="label">Act</div>
+          <div class="bar" aria-label="Act level"><div class="fill good" style="width:76%"></div></div>
+        </div>
+        <div class="row">
+          <div class="label">Scan</div>
+          <div class="bar" aria-label="Scan level"><div class="fill warn" style="width:54%"></div></div>
+        </div>
+        <div class="row">
+          <div class="label">Reset</div>
+          <div class="bar" aria-label="Reset level"><div class="fill bad" style="width:22%"></div></div>
+        </div>
+        <div class="foot">
+          <span class="pill" title="Evidence count">21 taps analyzed</span>
+          <span class="pill" title="Scope">7 families resolved</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Tiny behavior: collapse and close
+    const sticker = document.getElementById('gz-sticker');
+    const toggle = document.getElementById('toggle');
+    const closeBtn = document.getElementById('close');
+    let collapsed = false;
+    toggle.addEventListener('click', () => {
+      collapsed = !collapsed;
+      sticker.classList.toggle('collapsed', collapsed);
+      toggle.title = collapsed ? 'Expand' : 'Collapse';
+      toggle.setAttribute('aria-label', collapsed ? 'Expand' : 'Collapse');
+      toggle.innerHTML = collapsed
+        ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 14l5-5 5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+        : '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 10l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    });
+    closeBtn.addEventListener('click', () => {
+      sticker.style.display = 'none';
+    });
+
+    // Expose a tiny API for your app to set bar widths:
+    window.GZSticker = {
+      set(values){
+        // values: { act: number 0-100, scan: number 0-100, reset: number 0-100, taps?: number, families?: number, strengths?: string, blindspots?: string }
+        const fills = sticker.querySelectorAll('.fill');
+        const [act, scan, reset] = [values.act, values.scan, values.reset].map(v => Math.max(0, Math.min(100, Number(v)||0)));
+        fills[0].style.width = act + '%';
+        fills[1].style.width = scan + '%';
+        fills[2].style.width = reset + '%';
+        if(typeof values.taps !== 'undefined') sticker.querySelector('.foot .pill:nth-child(1)').textContent = values.taps + ' taps analyzed';
+        if(typeof values.families !== 'undefined') sticker.querySelector('.foot .pill:nth-child(2)').textContent = values.families + ' families resolved';
+        if(values.strengths) sticker.querySelectorAll('.section .kv div')[0].textContent = values.strengths;
+        if(values.blindspots) sticker.querySelectorAll('.section .kv div')[1].textContent = values.blindspots;
+      }
+    };
+  </script>
+</body>
+</html>

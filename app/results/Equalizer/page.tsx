@@ -24,6 +24,8 @@ export default function EqualizerResultsPage() {
         taps: Tap[];
         finalWinner: Seed | null;
         duels: MatchLog[];
+        secondaryFace?: Seed | null;
+        pureOneFace?: boolean;
     } | null>(null);
 
     useEffect(() => {
@@ -65,6 +67,8 @@ export default function EqualizerResultsPage() {
                 taps={resultsData.taps}
                 finalWinner={resultsData.finalWinner}
                 duels={resultsData.duels}
+                secondaryFace={resultsData.secondaryFace}
+                pureOneFace={resultsData.pureOneFace}
                 onRestart={handleRestart}
                 router={router}
             />
@@ -72,7 +76,7 @@ export default function EqualizerResultsPage() {
     );
 }
 
-const ResultsScreen = ({ taps, finalWinner, duels, onRestart, router }: { taps: Tap[], finalWinner: Seed | null, duels: MatchLog[], onRestart: () => void, router: any }) => {
+const ResultsScreen = ({ taps, finalWinner, duels, secondaryFace, pureOneFace, onRestart, router }: { taps: Tap[], finalWinner: Seed | null, duels: MatchLog[], secondaryFace?: Seed | null, pureOneFace?: boolean, onRestart: () => void, router: any }) => {
     const familyResults = useMemo(() => resolveAllFamilies(taps), [taps]);
     const [selectedFamily, setSelectedFamily] = useState<string | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -252,6 +256,47 @@ const ResultsScreen = ({ taps, finalWinner, duels, onRestart, router }: { taps: 
                         {(computeFinal as any).isProvisional && (
                             <div className="mt-2">
                                 <span className='tag'>Provisional</span>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            )}
+
+            {/* Secondary Archetype Section */}
+            {secondaryFace && secondaryFace.face !== finalWinner?.face && (
+                <div className="fade-in mb-8">
+                    <div className="text-center relative">
+                        <div className="relative inline-block mb-2">
+                            <div 
+                                className="absolute inset-0 rounded-full -z-10 blur-7"
+                                style={{
+                                    background: 'radial-gradient(circle at 50% 40%, rgba(124, 58, 237, 0.15) 0%, transparent 70%)',
+                                    filter: 'blur(20px)'
+                                }}
+                            ></div>
+                            <h2 
+                                className="m-0 uppercase font-bold tracking-wide"
+                                style={{
+                                    fontSize: 'clamp(24px, 4vw, 36px)',
+                                    color: '#7C3AED',
+                                    textShadow: '0 0 20px rgba(124, 58, 237, 0.4)',
+                                    filter: 'drop-shadow(0 0 8px #7C3AED)'
+                                }}
+                            >
+                                Secondary: {secondaryFace.face}
+                            </h2>
+                        </div>
+                        <div 
+                            className="text-sm text-purple-300 italic"
+                            style={{ marginTop: '4px' }}
+                        >
+                            Your secondary archetype influence
+                        </div>
+                        {pureOneFace && (
+                            <div className="mt-2">
+                                <span className='tag' style={{ backgroundColor: 'rgba(124, 58, 237, 0.2)', color: '#A78BFA' }}>
+                                    Pure Match
+                                </span>
                             </div>
                         )}
                     </div>

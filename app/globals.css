@@ -901,3 +901,35 @@ input[type="radio"]:focus + * {
 .cta{margin:40px 0 80px; text-align:center}
 .note{font-size:13px;color:var(--muted);margin-top:10px}
 .separator{height:1px;background:linear-gradient(90deg, transparent, rgba(255,209,71,0.35), transparent);margin:40px auto; max-width:760px; filter: blur(.2px)}
+
+/* Combined Archetype Profile Styles */
+.archetype-profile-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.archetype-profile-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.archetype-profile-face {
+    border: 2px solid;
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 700;
+    min-width: 100px;
+    text-align: center;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+.archetype-profile-face:hover {
+    transform: scale(1.05);
+}
