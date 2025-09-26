@@ -2,9 +2,10 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { FAMILIES, RESULTS_LIB,
     ARCHETYPES,
-    TIE_ORDER,
+    // TIE_ORDER,
     familyPair,
     resolveAllFamilies,
     familyScoresPure,
@@ -188,7 +189,7 @@ const HeroBand = ({ finalWinner, secondaryFace, pureOneFace, taps }: { finalWinn
                 >
                     {finalWinner?.face}
                 </h1>
-                <img
+                <Image
                     src="/catalyst.png"
                     alt={`${finalWinner?.face || 'Artisan'} emblem.`}
                     width={72}
@@ -273,7 +274,7 @@ const CoreLegendSection = () => (
                 
                 <div className="flex items-center gap-2">
                     <span className="text-white/60">🎭</span>
-                    <strong>Secondary (Shaper):</strong> What's shaping your core right now.
+                    <strong>Secondary (Shaper):</strong> What&apos;s shaping your core right now.
                 </div>
                 
             </div>

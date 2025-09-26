@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { FAMILIES, RESULTS_LIB,
     ARCHETYPES,
     TIE_ORDER,
@@ -165,7 +166,7 @@ export default function ArchitectResultsPage() {
 }
 
 // #13) Component contract
-const HeroBand = ({ finalWinner, secondaryFace, pureOneFace, taps }: { finalWinner: Seed | null, secondaryFace?: Seed | null, pureOneFace?: boolean, taps: Tap[] }) => {
+const HeroBand = ({ finalWinner, secondaryFace, taps }: { finalWinner: Seed | null, secondaryFace?: Seed | null, taps: Tap[] }) => {
     return (
     <div className="mb-8 pt-6">
         <div className="max-w-4xl mx-auto flex flex-col items-center text-center gap-y-6">
@@ -185,7 +186,7 @@ const HeroBand = ({ finalWinner, secondaryFace, pureOneFace, taps }: { finalWinn
                 >
                     {finalWinner?.face}
                 </h1>
-                <img
+                <Image
                     src={`/${(finalWinner?.face || 'Architect').toLowerCase()}.png`}
                     alt={`${finalWinner?.face || 'Architect'} emblem.`}
                     width={80}
@@ -252,7 +253,7 @@ const CoreLegendSection = () => (
                 
                 <div className="flex items-center gap-2">
                     <span className="text-white/60">🎭</span>
-                    <strong>Secondary (Shaper):</strong> What's shaping your core right now.
+                    <strong>Secondary (Shaper):</strong> What&apos;s shaping your core right now.
                 </div>
                 
             </div>
@@ -338,36 +339,36 @@ const SecondaryArchetypeSection = ({ finalWinner, secondaryFace, pureOneFace }: 
 };
 
 
-const PrizeSection = ({ finalWinner, secondaryFace, taps }: { finalWinner: Seed | null, secondaryFace?: Seed | null, taps: Tap[] }) => {
-    const prizeActivation = finalWinner ? evaluatePrizeActivation(finalWinner.face, secondaryFace || null, taps) : null;
+// const PrizeSection = ({ finalWinner, secondaryFace, taps }: { finalWinner: Seed | null, secondaryFace?: Seed | null, taps: Tap[] }) => {
+//     const prizeActivation = finalWinner ? evaluatePrizeActivation(finalWinner.face, secondaryFace || null, taps) : null;
     
-    if (!prizeActivation) return null;
+//     if (!prizeActivation) return null;
     
-    return (
-        <div className="mb-6 flex justify-center">
-            <div className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm" style={{ 
-                backgroundColor: prizeActivation.state === "ACTIVE" ? 'rgba(34, 197, 94, 0.1)' : 'rgba(156, 163, 175, 0.1)',
-                border: `1px solid ${prizeActivation.state === "ACTIVE" ? 'rgba(34, 197, 94, 0.3)' : 'rgba(156, 163, 175, 0.3)'}`
-            }}>
-                {prizeActivation.state === "ACTIVE" && (
-                    <span style={{ color: '#22c55e' }}>✓</span>
-                )}
-                {prizeActivation.state === "ACTIVE" && (
-                    <span style={{ color: '#22c55e' }}>Prize active</span>
-                )}
-                <span className="text-white/80">
-                    {prizeActivation.state === "ACTIVE" 
-                        ? `${prizeActivation.main} clicks when paired with ${prizeActivation.secondary}.`
-                        : (
-                            <>
-                                you need <span style={{ color: getFaceLight(prizeActivation.required) }}><strong>{prizeActivation.required.toUpperCase()}</strong></span> as Secondary for full alignment.
-                            </>
-                        )
-                    }
-                </span>
-            </div>
-        </div>
-    );
+//     return (
+//         <div className="mb-6 flex justify-center">
+//             <div className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm" style={{ 
+//                 backgroundColor: prizeActivation.state === "ACTIVE" ? 'rgba(34, 197, 94, 0.1)' : 'rgba(156, 163, 175, 0.1)',
+//                 border: `1px solid ${prizeActivation.state === "ACTIVE" ? 'rgba(34, 197, 94, 0.3)' : 'rgba(156, 163, 175, 0.3)'}`
+//             }}>
+//                 {prizeActivation.state === "ACTIVE" && (
+//                     <span style={{ color: '#22c55e' }}>✓</span>
+//                 )}
+//                 {prizeActivation.state === "ACTIVE" && (
+//                     <span style={{ color: '#22c55e' }}>Prize active</span>
+//                 )}
+//                 <span className="text-white/80">
+//                     {prizeActivation.state === "ACTIVE" 
+//                         ? `${prizeActivation.main} clicks when paired with ${prizeActivation.secondary}.`
+//                         : (
+//                             <>
+//                                 you need <span style={{ color: getFaceLight(prizeActivation.required) }}><strong>{prizeActivation.required.toUpperCase()}</strong></span> as Secondary for full alignment.
+//                             </>
+//                         )
+//                     }
+//                 </span>
+//             </div>
+//         </div>
+//     );
 };
 
 const SummaryTab = ({ familyResults, taps, duels, finalWinner }: { familyResults: any[], taps: Tap[], duels: MatchLog[], finalWinner: Seed | null }) => {

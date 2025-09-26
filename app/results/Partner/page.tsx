@@ -2,9 +2,10 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { FAMILIES, RESULTS_LIB,
     ARCHETYPES,
-    TIE_ORDER,
+    // TIE_ORDER,
     familyPair,
     resolveAllFamilies,
     familyScoresPure,
@@ -187,7 +188,7 @@ const HeroBand = ({ finalWinner, secondaryFace, pureOneFace, taps }: { finalWinn
                 >
                     {finalWinner?.face}
                 </h1>
-                <img
+                <Image
                     src={`/${(finalWinner?.face || 'Partner').toLowerCase()}.png`}
                     alt={`${finalWinner?.face || 'Partner'} emblem.`}
                     width={72}
@@ -259,7 +260,7 @@ const CoreLegendSection = () => (
                 
                 <div className="flex items-center gap-2">
                     <span className="text-white/60">🎭</span>
-                    <strong>Secondary (Shaper):</strong> What's shaping you right now.
+                    <strong>Secondary (Shaper):</strong> What&apos;s shaping you right now.
                 </div>
                 
             </div>
@@ -376,7 +377,7 @@ const PrizeSection = ({ finalWinner, secondaryFace, taps }: { finalWinner: Seed 
     );
 };
 
-const SummaryTab = ({ familyResults, taps, duels, finalWinner }: { familyResults: any[], taps: Tap[], duels: MatchLog[], finalWinner: Seed | null }) => {
+const SummaryTab = ({ familyResults, finalWinner }: { familyResults: any[], finalWinner: Seed | null }) => {
     const { A, S, R } = useMemo(() => {
         const totalShare = familyResults.reduce((acc, fr) => ({
             A: acc.A + fr.share.A,
@@ -706,7 +707,7 @@ const ResultsScreen = ({ taps, finalWinner, duels, secondaryFace, pureOneFace, o
 
             <ResultCTAs onDownload={download} onRestart={onRestart} router={router} finalWinner={finalWinner} />
             
-            <SummaryTab familyResults={familyResults} taps={taps} duels={duels} finalWinner={finalWinner} />
+            <SummaryTab familyResults={familyResults} finalWinner={finalWinner} />
         </div>
     );
 };

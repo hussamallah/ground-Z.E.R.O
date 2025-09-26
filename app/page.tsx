@@ -3,6 +3,7 @@
 
 import { useState, useMemo, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import {
   PHASE1,
   PHASE2,
@@ -86,7 +87,7 @@ const seedFromFace = (fr: FamilyResult, face: string, taps: Tap[]): Omit<Seed, '
 };
 
 // Internal pool used to compute a "bye champion" if you ever re-enable grand finals later.
-const makeSeedsHybridPool = (familyResults: FamilyResult[], taps: Tap[]): Seed[] => {
+// const makeSeedsHybridPool = (familyResults: FamilyResult[], taps: Tap[]): Seed[] => {
   const seeded = familyResults
     .map(fr => seedFromFace(fr, fr.winner, taps))
     .sort(
@@ -275,7 +276,7 @@ export default function Home() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [gameState, selectedOption]);
+  }, [gameState, selectedOption, handleOptionClick]);
 
   const handleOptionClick = (tapData: Omit<Tap, 'ts'>) => {
     if (lockRef.current) return;
@@ -523,7 +524,7 @@ const IntroScreen = ({ onStart }: { onStart: () => void }) => (
     <section className="hero center">
       <div className="glow" />
       <div className="logo" aria-hidden="true">
-        <img src="/THE-Axiarch.png" alt="Ground Zero Emblem" />
+        <Image src="/THE-Axiarch.png" alt="Ground Zero Emblem" width={200} height={200} />
       </div>
       <h1>Ground Zero</h1>
       <p className="lead">
@@ -1224,10 +1225,10 @@ const buildSampleTaps = (targetFace: string, rnd: () => number): Tap[] => {
   const taps: Tap[] = [] as any;
   let t = 0; // deterministic tick counter
 
-  const targetFamily = findFamilyForFace(targetFace);
+  // const targetFamily = findFamilyForFace(targetFace);
 
   // PHASE 1: pick one option each deterministically with bias
-  PHASE1.forEach((q, qi) => {
+  PHASE1.forEach((q) => {
     const choices = q.choices || [];
     const fam = q.family;
     const weights = choices.map((ch: any) => {
@@ -1385,14 +1386,14 @@ const TheoryPage = () => (
                 <div className="bg-white/5 p-4 rounded-lg">
                   <h4 className="font-semibold mb-2">2. Per-family ledger.</h4>
                   <p className="text-white/80">
-                    The engine tallies A/S/R taps per family. Those tallies form the family's raw evidence.
+                    The engine tallies A/S/R taps per family. Those tallies form the family&apos;s raw evidence.
                   </p>
                 </div>
 
                 <div className="bg-white/5 p-4 rounded-lg">
                   <h4 className="font-semibold mb-2">3. Two-phase flow.</h4>
                   <ul className="text-white/80 space-y-1 ml-4">
-                    <li><strong>Phase 1</strong> provides "lean" hints (broader, softer signal).</li>
+                    <li><strong>Phase 1</strong> provides &quot;lean&quot; hints (broader, softer signal).</li>
                     <li><strong>Phase 2</strong> is the explicit A/S/R read. Phase 2 is treated as more deliberate and drives confidence in the family result.</li>
                   </ul>
                 </div>
@@ -1447,7 +1448,7 @@ const TheoryPage = () => (
                 <li><strong>Seed ordering:</strong> seeds are compared by <code className="bg-black/30 px-1 py-0.5 rounded">(votes desc, p desc, margin desc, cmpSeedTB)</code>. Votes are <code className="bg-black/30 px-1 py-0.5 rounded">1 + (p &gt;= 0.6 ? 1 : 0) + (confidence in {'{'}High,User{'}'} ? 1 : 0)</code> capped at 3.</li>
                 <li><strong>Wildcard selection:</strong> picks the strongest runner-up across families using the same deterministic comparator.</li>
                 <li><strong>Bracket rules:</strong> prefer Top-8, else Top-4, else Top-2. Pairing is fixed via index table (no shuffles).</li>
-                <li><strong>Phase flow:</strong> PHASE1 builds soft "leans"; PHASE2 supplies the direct A/S/R taps (two options shown per item in the UI so not all three are visible each time).</li>
+                <li><strong>Phase flow:</strong> PHASE1 builds soft &quot;leans&quot;; PHASE2 supplies the direct A/S/R taps (two options shown per item in the UI so not all three are visible each time).</li>
               </ul>
             </section>
 

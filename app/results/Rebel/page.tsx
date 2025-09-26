@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { FAMILIES, RESULTS_LIB,
     ARCHETYPES,
     TIE_ORDER,
@@ -13,7 +14,7 @@ import { FAMILIES, RESULTS_LIB,
     Seed,
     MatchLog
 } from '../../quiz-data';
-import DiplomatSecondaries from '../../components/GroundZero_Rebel_13_Secondaries.json';
+// import DiplomatSecondaries from '../../components/GroundZero_Rebel_13_Secondaries.json';
 import RebelSecondaries from '../../components/GroundZero_Rebel_13_Secondaries.json';
 // Face light color mapping
 const FACE_LIGHT: { [key: string]: string } = {
@@ -186,7 +187,7 @@ const HeroBand = ({ finalWinner, secondaryFace, pureOneFace, taps }: { finalWinn
                 >
                     {finalWinner?.face}
                 </h1>
-                <img
+                <Image
                     src={`/${(finalWinner?.face || 'Rebel').toLowerCase()}.png`}
                     alt={`${finalWinner?.face || 'Rebel'} emblem.`}
                     width={72}
@@ -258,7 +259,7 @@ const CoreLegendSection = () => (
                 
                 <div className="flex items-center gap-2">
                     <span className="text-white/60">🎭</span>
-                    <strong>Secondary (Shaper):</strong> What's shaping your core right now.
+                    <strong>Secondary (Shaper):</strong> What&apos;s shaping your core right now.
                 </div>
                 
             </div>

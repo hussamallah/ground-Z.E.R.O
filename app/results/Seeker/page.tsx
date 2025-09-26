@@ -2,9 +2,10 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { FAMILIES, RESULTS_LIB,
     ARCHETYPES,
-    TIE_ORDER,
+    // TIE_ORDER,
     familyPair,
     resolveAllFamilies,
     familyScoresPure,
@@ -167,7 +168,7 @@ export default function SeekerResultsPage() {
 }
 
 // #13) Component contract
-const HeroBand = ({ finalWinner, secondaryFace, pureOneFace, taps }: { finalWinner: Seed | null, secondaryFace?: Seed | null, pureOneFace?: boolean, taps: Tap[] }) => {
+const HeroBand = ({ finalWinner, secondaryFace, taps }: { finalWinner: Seed | null, secondaryFace?: Seed | null, taps: Tap[] }) => {
     return (
     <div className="mb-8 pt-6">
         <div className="max-w-4xl mx-auto flex flex-col items-center text-center gap-y-6">
@@ -187,7 +188,7 @@ const HeroBand = ({ finalWinner, secondaryFace, pureOneFace, taps }: { finalWinn
                 >
                     {finalWinner?.face}
                 </h1>
-                <img
+                <Image
                     src={`/${(finalWinner?.face || 'Seeker').toLowerCase()}.png`}
                     alt={`${finalWinner?.face || 'Seeker'} emblem.`}
                     width={80}
@@ -426,7 +427,7 @@ const CoreLegendSection = () => (
                 
                 <div className="flex items-center gap-2">
                     <span className="text-white/60">🎭</span>
-                    <strong>Secondary (Shaper):</strong> What's shaping your core right now.
+                    <strong>Secondary (Shaper):</strong> What&apos;s shaping your core right now.
                 </div>
             </div>
         </div>

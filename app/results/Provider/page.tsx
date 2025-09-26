@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { FAMILIES, RESULTS_LIB,
     ARCHETYPES,
     TIE_ORDER,
@@ -185,7 +186,7 @@ const HeroBand = ({ finalWinner, secondaryFace, pureOneFace, taps }: { finalWinn
                 >
                     {finalWinner?.face}
                 </h1>
-                <img
+                <Image
                     src={`/${(finalWinner?.face || 'Provider').toLowerCase()}.png`}
                     alt={`${finalWinner?.face || 'Provider'} emblem.`}
                     width={72}

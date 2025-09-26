@@ -163,7 +163,7 @@ export default function Home() {
                         return acc;
                     }, { A:0, S:0, R:0 } as {A:number;S:number;R:number});
                 const arr = ([{k:'A',v:counts.A},{k:'S',v:counts.S},{k:'R',v:counts.R}] as Array<{k:'A'|'S'|'R';v:number}>).sort((x,y)=>y.v-x.v);
-                const top = arr[0].k, second = arr[1].k;
+                // const top = arr[0].k, second = arr[1].k;
                 
                 // Only use movement types that actually exist in the question
                 const availableMovements = Object.keys(currentQuestion).filter(key => key !== 'family' && key !== 'stem') as ('A'|'S'|'R')[];
@@ -210,7 +210,7 @@ export default function Home() {
 
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [gameState]);
+    }, [gameState, handleOptionClick]);
 
     const handleOptionClick = (tapData: Omit<Tap, 'ts'>) => {
         if (lockRef.current) return;
@@ -651,7 +651,7 @@ const EndScreen = ({ taps, router }: { taps: Tap[], onRestart: () => void, route
             }
             if (base.stage.mode === 'full-r1') {
                 const idx = base.stage.index;
-                const pair = b.r1![idx];
+                // const pair = b.r1![idx];
                 const winners = [...base.r1Winners, winner];
                 if (idx + 1 < b.r1!.length) {
                     return { ...base, log: newLog, r1Winners: winners, stage: { mode: 'full-r1', index: idx + 1 } };
