@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import {
   PHASE1,
   PHASE2,
+  ARCHETYPES,
+  LEAN,
   FaceArt,
   FaceCopy,
   familyPair,
@@ -201,6 +203,7 @@ export default function Home() {
   const lockRef = useRef(false);
   const [isFading, setIsFading] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [showSamples, setShowSamples] = useState(false);
 
   // Keyboard flow (P1/P2 only; Phase 3 removed)
   useEffect(() => {
@@ -342,7 +345,29 @@ export default function Home() {
   const inIntro = gameState.phase === 'intro';
 
   return (
-    <div className={inIntro ? '' : 'max-w-3xl mx-auto px-4 md:px-6 py-2 md:py-4 space-y-8 -mt-10'}>
+    <div className={inIntro ? 'min-h-screen overflow-x-hidden' : 'max-w-3xl mx-auto px-3 sm:px-4 md:px-6 py-2 md:py-4 space-y-6 sm:space-y-8 -mt-6 sm:-mt-10'}>
+      {inIntro && (
+        <button
+          className="fixed top-3 right-3 sm:top-4 sm:right-4 z-50 px-2 py-1.5 sm:px-3 sm:py-2 text-xs sm:text-sm font-semibold rounded-lg bg-white/10 hover:bg-white/20 border border-white/15 text-white backdrop-blur-sm"
+          onClick={() => setShowSamples(true)}
+        >
+          Sample Results
+        </button>
+      )}
+
+      {inIntro && showSamples && (
+        <SampleResultsModal
+          onClose={() => setShowSamples(false)}
+          onPick={(face) => {
+            setShowSamples(false);
+            try {
+              generateSampleAndGoto(face);
+            } catch (e) {
+              console.error(e);
+            }
+          }}
+        />
+      )}
       <div role="status" aria-live="polite" className="sr-only">
         {gameState.phase !== 'intro' &&
           gameState.phase !== 'end' &&
@@ -350,28 +375,28 @@ export default function Home() {
       </div>
 
       {!inIntro && !isTournamentPhase && (
-        <header className="flex items-center justify-center py-3">
+        <header className="flex items-center justify-center py-2 sm:py-3">
           <Image
             src="/THE-Axiarch.png"
             alt="Ground Zero"
             width={192}
             height={192}
-            className="h-48 [filter:drop-shadow(0_0_10px_rgba(212,175,55,.35))]"
+            className="h-32 sm:h-40 md:h-48 [filter:drop-shadow(0_0_10px_rgba(212,175,55,.35))]"
           />
         </header>
       )}
 
       {!inIntro && !isTournamentPhase && (
-        <div className="absolute bottom-4 left-0 right-0 px-4 md:px-6 z-10">
-          <div className="flex items-center gap-3">
-            <div aria-label="Progress" className="relative h-1.5 w-full rounded-full bg-white/5 overflow-hidden">
+        <div className="fixed bottom-2 sm:bottom-4 left-0 right-0 px-3 sm:px-4 md:px-6 z-10">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div aria-label="Progress" className="relative h-1 sm:h-1.5 w-full rounded-full bg-white/5 overflow-hidden">
               <div
                 className="h-full bg-gradient-to-r from-yellow-400 to-yellow-300 transition-[width] duration-200 rounded-full"
                 style={{ width: `${progress}%` }}
               >
                 <span
                   aria-live="polite"
-                  className="absolute right-2 top-1/2 -translate-y-1/2 text-[11px] text-black/80 font-medium tabular-nums"
+                  className="absolute right-1 sm:right-2 top-1/2 -translate-y-1/2 text-[10px] sm:text-[11px] text-black/80 font-medium tabular-nums"
                 >
                   {progress}%
                 </span>
@@ -381,7 +406,7 @@ export default function Home() {
         </div>
       )}
 
-      <div id="stage" className={inIntro ? '' : 'min-h-[500px]'}>
+      <div id="stage" className={inIntro ? 'min-h-screen pb-16 sm:pb-8' : 'min-h-[400px] sm:min-h-[500px]'}>
         <div style={isFading ? { opacity: 0, transition: 'opacity 90ms ease-out' } : { opacity: 1, transition: 'opacity 120ms ease-out' }}>
           {renderContent()}
         </div>
@@ -409,7 +434,7 @@ const IntroScreen = ({ onStart }: { onStart: () => void }) => (
         <button className="btn" onClick={onStart}>
           Start Quiz
         </button>
-        <div className="note" style={{marginTop: '12px', fontSize: '14px', color: 'var(--muted)'}}>
+        <div className="note" style={{marginTop: '12px', fontSize: '13px', color: 'var(--muted)'}}>
           TOTALLY FREE • RESULTS NOW • NO SIGN UP REQUIRED
         </div>
       </div>
@@ -439,7 +464,7 @@ const IntroScreen = ({ onStart }: { onStart: () => void }) => (
             <div className="arrow" />
             <div className="step">
               <b>Your Archetype</b>
-              <div className="muted">With proof</div>
+              <div className="muted">With your secondary pattern</div>
             </div>
           </div>
         </div>
@@ -472,7 +497,7 @@ const IntroScreen = ({ onStart }: { onStart: () => void }) => (
       <button className="btn" onClick={onStart}>
         Take the Quiz (5 min)
       </button>
-      <div className="note" style={{marginTop: '12px', fontSize: '14px', color: 'var(--muted)'}}>
+      <div className="note" style={{marginTop: '12px', fontSize: '13px', color: 'var(--muted)'}}>
         TOTALLY FREE • RESULTS NOW • NO SIGN UP REQUIRED
       </div>
     </section>
@@ -508,14 +533,14 @@ const Phase1Screen = ({
 
   return (
     <div>
-      <fieldset className="space-y-6">
-        <legend className="text-2xl md:text-[28px] font-semibold tracking-tight text-balance">{question.stem}</legend>
+      <fieldset className="space-y-4 sm:space-y-6">
+        <legend className="text-xl sm:text-2xl md:text-[28px] font-semibold tracking-tight text-balance px-1">{question.stem}</legend>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 items-stretch">
           {question.choices.map((ch: any, index: number) => (
             <div key={index} className="h-full">
               <label
-                className="group relative cursor-pointer rounded-xl border border-white/8 bg-white/[0.03] p-4 question-card-backlight
+                className="group relative cursor-pointer rounded-xl border border-white/8 bg-white/[0.03] p-3 sm:p-4 question-card-backlight
                                                hover:translate-y-[-2px] hover:shadow-[0_8px_25px_rgba(0,0,0,0.15)] hover:border-yellow-400/30 
                                                active:scale-[.99] active:border-0 transition-all duration-150 will-change-transform
                                                focus-visible:ring-2 focus-visible:ring-yellow-300/60 h-full flex flex-col
@@ -529,7 +554,7 @@ const Phase1Screen = ({
                   onKeyDown={e => onKey(e, ch.mv, ch.detail, question.family)}
                   onClick={() => onSelect({ phase: 'P1', family: question.family, mv: ch.mv, detail: ch.detail })}
                 />
-                <div className="min-h-[60px] md:min-h-[70px] text-[15px] leading-relaxed text-[#E8E8E8] flex-1 relative z-10">{ch.text}</div>
+                <div className="min-h-[50px] sm:min-h-[60px] md:min-h-[70px] text-sm sm:text-[15px] leading-relaxed text-[#E8E8E8] flex-1 relative z-10">{ch.text}</div>
                 <div className="absolute inset-0"></div>
               </label>
             </div>
@@ -537,7 +562,7 @@ const Phase1Screen = ({
         </div>
 
         <div className="flex justify-end">
-          <span className="text-[11px] px-2.5 py-1 rounded-full bg-white/5 text-white/70 border border-white/10">
+          <span className="text-[10px] sm:text-[11px] px-2 sm:px-2.5 py-1 rounded-full bg-white/5 text-white/70 border border-white/10">
             Question {qNum}/{total}
           </span>
         </div>
@@ -582,14 +607,14 @@ const Phase2Screen = ({
 
   return (
     <div>
-      <fieldset className="space-y-6">
-        <legend className="text-2xl md:text-[28px] font-semibold tracking-tight text-balance">{question.stem}</legend>
+      <fieldset className="space-y-4 sm:space-y-6">
+        <legend className="text-xl sm:text-2xl md:text-[28px] font-semibold tracking-tight text-balance px-1">{question.stem}</legend>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 items-stretch">
           {shown.map((o: any, idx: number) => (
             <div key={idx} className="h-full">
               <label
-                className="group relative cursor-pointer rounded-xl border border-white/8 bg-white/[0.03] p-4 question-card-backlight
+                className="group relative cursor-pointer rounded-xl border border-white/8 bg-white/[0.03] p-3 sm:p-4 question-card-backlight
                                                hover:translate-y-[-2px] hover:shadow-[0_8px_25px_rgba(0,0,0,0.15)] hover:border-yellow-400/30 
                                                active:scale-[.99] active:border-0 transition-all duration-150 will-change-transform
                                                focus-visible:ring-2 focus-visible:ring-yellow-300/60 h-full flex flex-col
@@ -603,7 +628,7 @@ const Phase2Screen = ({
                   onKeyDown={e => onKey(e, o.mv, o.detail, question.family)}
                   onClick={() => onSelect({ phase: 'P2', family: question.family, mv: o.mv, detail: o.detail })}
                 />
-                <div className="min-h-[60px] md:min-h-[70px] text-[15px] leading-relaxed text-[#E8E8E8] flex-1 relative z-10">{o.text}</div>
+                <div className="min-h-[50px] sm:min-h-[60px] md:min-h-[70px] text-sm sm:text-[15px] leading-relaxed text-[#E8E8E8] flex-1 relative z-10">{o.text}</div>
                 <div className="absolute inset-0"></div>
               </label>
             </div>
@@ -611,7 +636,7 @@ const Phase2Screen = ({
         </div>
 
         <div className="flex justify-end">
-          <span className="text-[11px] px-2.5 py-1 rounded-full bg-white/5 text-white/70 border border-white/10">
+          <span className="text-[10px] sm:text-[11px] px-2 sm:px-2.5 py-1 rounded-full bg-white/5 text-white/70 border border-white/10">
             Item {qNum}/{total}
           </span>
         </div>
@@ -816,8 +841,8 @@ return null;
       : (state as any).stage.mode === 'sf'
       ? `Semifinal ${((state as any).stage.index + 1)}/2`
       : (state as any).stage.mode === 'final'
-      ? 'Final â€” Tournament Crown'
-      : 'Final â€” Champion vs Bye Champion';
+      ? 'Final — Tournament Crown'
+      : 'Final — Champion vs Bye Champion';
 
   const roundLogLabel =
     (state as any).stage.mode === 'qf'
@@ -841,6 +866,11 @@ return null;
 const DuelScreen = ({ title, a, b, onPick }: { title: string; a: Seed; b: Seed; onPick: (winner: Seed) => void }) => {
   const [selectedWinner, setSelectedWinner] = useState<Seed | null>(null);
 
+  // Reset selection when duel participants change
+  useEffect(() => {
+    setSelectedWinner(null);
+  }, [a.face, b.face, a.seed, b.seed]);
+
   const handlePick = (winner: Seed) => setSelectedWinner(winner);
   const handleNext = () => {
     if (selectedWinner) onPick(selectedWinner);
@@ -848,27 +878,27 @@ const DuelScreen = ({ title, a, b, onPick }: { title: string; a: Seed; b: Seed; 
 
   return (
     <div className="fade-in">
-      <h2 className="text-2xl md:text-[28px] font-semibold tracking-tight text-balance text-center mb-6">{title}</h2>
-      <div className="flex items-center justify-center gap-2 md:gap-4">
+      <h2 className="text-xl sm:text-2xl md:text-[28px] font-semibold tracking-tight text-balance text-center mb-4 sm:mb-6 px-2">{title}</h2>
+      <div className="flex flex-row items-center justify-center gap-2 md:gap-4">
         <div className="flex-1 max-w-[400px]">
           <DuelCard key={`left-${a.face}-${a.seed}`} seed={a} onPick={() => handlePick(a)} isSelected={selectedWinner?.face === a.face} />
         </div>
         <div className="flex-shrink-0 relative">
           <div className="absolute inset-0 rounded-full bg-gradient-to-r from-red-800/20 via-red-700/30 to-red-800/20 animate-pulse blur-sm scale-110" />
           <div className="absolute inset-0 rounded-full bg-gradient-to-r from-red-800/10 via-red-700/20 to-red-800/10 animate-ping blur-md scale-125" />
-          <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-red-800 via-red-700 to-red-900 flex items-center justify-center shadow-[0_0_20px_rgba(127,29,29,0.5)] border-2 border-red-700/50">
-            <span className="text-lg md:text-xl font-bold text-white tracking-wider">VS</span>
+          <div className="relative w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-red-800 via-red-700 to-red-900 flex items-center justify-center shadow-[0_0_20px_rgba(127,29,29,0.5)] border-2 border-red-700/50">
+            <span className="text-sm sm:text-lg md:text-xl font-bold text-white tracking-wider">VS</span>
           </div>
         </div>
         <div className="flex-1 max-w-[400px]">
           <DuelCard key={`right-${b.face}-${b.seed}`} seed={b} onPick={() => handlePick(b)} isSelected={selectedWinner?.face === b.face} />
         </div>
       </div>
-      <p className="text-sm text-center text-white/60 mt-6">Choose who advances.</p>
-      <div className="sticky bottom-0 pb-[env(safe-area-inset-bottom)] mt-6">
-        <div className="flex justify-center">
+      <p className="text-xs sm:text-sm text-center text-white/60 mt-4 sm:mt-6 px-2">Choose who advances.</p>
+      <div className="sticky bottom-0 pb-[env(safe-area-inset-bottom)] mt-4 sm:mt-6">
+        <div className="flex justify-center px-4">
           <button
-            className={`px-8 py-4 text-black font-semibold rounded-2xl relative overflow-hidden
+            className={`px-6 sm:px-8 py-3 sm:py-4 text-black font-semibold rounded-2xl relative overflow-hidden w-full sm:w-auto
                                  hover:scale-105 active:scale-[.98] transition-all duration-300 group
                                  focus:ring-2 focus:ring-yellow-400/60 focus:outline-none
                                  ${!selectedWinner ? 'opacity-60 pointer-events-none' : ''}`}
@@ -892,31 +922,31 @@ const DuelScreen = ({ title, a, b, onPick }: { title: string; a: Seed; b: Seed; 
 
 const DuelCard = ({ seed, onPick, isSelected }: { seed: Seed; onPick: () => void; isSelected?: boolean }) => {
   const getSpotlightColor = (face: string) => {
-  const RGB: Record<string, [number, number, number]> = {
-    'Guardian': [13, 148, 136],
-    'Spotlight': [163, 230, 53],
-    'Partner': [236, 72, 153],
-    'Catalyst': [245, 158, 11],
-    'Provider': [45, 212, 191],
-    'Diplomat': [94, 234, 212],
-    'The Axiarch': [251, 191, 36],
-    'Architect': [139, 92, 246],
-    'Seeker': [103, 232, 249],
-    'Visionary': [59, 130, 246],
-    'Navigator': [168, 85, 247],
-    'Sovereign': [245, 158, 11],
-    'Rebel': [249, 115, 22],
-    'Equalizer': [34, 197, 94],
-    'Artisan': [125, 211, 252]
+    const RGB: Record<string, [number, number, number]> = {
+      'Guardian': [13, 148, 136],
+      'Spotlight': [163, 230, 53],
+      'Partner': [236, 72, 153],
+      'Catalyst': [245, 158, 11],
+      'Provider': [45, 212, 191],
+      'Diplomat': [94, 234, 212],
+      'The Axiarch': [251, 191, 36],
+      'Architect': [139, 92, 246],
+      'Seeker': [103, 232, 249],
+      'Visionary': [59, 130, 246],
+      'Navigator': [168, 85, 247],
+      'Sovereign': [245, 158, 11],
+      'Rebel': [249, 115, 22],
+      'Equalizer': [34, 197, 94],
+      'Artisan': [125, 211, 252]
+    };
+    const [r, g, b] = RGB[face] ?? [125, 211, 252];
+    return `rgba(${r}, ${g}, ${b}, 0.15)`;
   };
-  const [r, g, b] = RGB[face] ?? [125, 211, 252];
-  return `rgba(${r}, ${g}, ${b}, 0.15)`;
-};
 
   return (
     <button
       onClick={onPick}
-      className={`group relative w-full text-left rounded-[28px] border border-white/10 bg-white/[0.03] p-6 md:p-8
+      className={`group relative w-full text-left rounded-[20px] sm:rounded-[28px] border border-white/10 bg-white/[0.03] p-4 sm:p-6 md:p-8
                        hover:bg-white/[0.05] transition will-change-transform
                        ${isSelected ? 'shadow-[0_12px_40px_rgba(0,0,0,.45)]' : ''}`}
       onKeyDown={e => {
@@ -927,14 +957,14 @@ const DuelCard = ({ seed, onPick, isSelected }: { seed: Seed; onPick: () => void
       }}
     >
       <div
-        className="absolute inset-0 rounded-[22px] opacity-100"
+        className="absolute inset-0 rounded-[16px] sm:rounded-[22px] opacity-100"
         style={{
           background: `radial-gradient(circle at center, ${getSpotlightColor(seed.face)} 0%, transparent 70%)`
         }}
       />
 
       <div
-        className="relative rounded-[22px] bg-black/15 p-6 md:p-8 aspect-[3/4] flex items-center justify-center"
+        className="relative rounded-[16px] sm:rounded-[22px] bg-black/15 p-4 sm:p-6 md:p-8 aspect-[3/4] flex items-center justify-center"
         style={{
           border: `1px solid ${isSelected ? 'rgba(127, 29, 29, 0.6)' : getSpotlightColor(seed.face).replace('0.15','0.30')}`
         }}
@@ -944,12 +974,12 @@ const DuelCard = ({ seed, onPick, isSelected }: { seed: Seed; onPick: () => void
           alt={`${seed.face} emblem`}
           width={420}
           height={560}
-          className="max-h-[420px] object-contain mx-auto relative z-10"
+          className="max-h-[280px] sm:max-h-[350px] md:max-h-[420px] object-contain mx-auto relative z-10"
           unoptimized
         />
       </div>
-      <div className="mt-6">
-        <div className="text-xs font-medium text-white/60 uppercase tracking-wider mb-1">
+      <div className="mt-4 sm:mt-6">
+        <div className="text-[10px] sm:text-xs font-medium text-white/60 uppercase tracking-wider mb-1">
           {seed.face === 'Sovereign'
             ? 'Authority'
             : seed.face === 'Spotlight'
@@ -981,7 +1011,7 @@ const DuelCard = ({ seed, onPick, isSelected }: { seed: Seed; onPick: () => void
             : 'Essence'}
         </div>
 
-        <h3 className="font-bold text-white text-xl md:text-2xl mb-3 relative">
+        <h3 className="font-bold text-white text-lg sm:text-xl md:text-2xl mb-2 sm:mb-3 relative">
           #{seed.seed} {seed.face}
           <div
             className="absolute -bottom-1 left-0 h-0.5 w-full"
@@ -991,11 +1021,175 @@ const DuelCard = ({ seed, onPick, isSelected }: { seed: Seed; onPick: () => void
           />
         </h3>
 
-        <p className="text-white/70 leading-relaxed italic text-sm md:text-base">{FaceCopy[seed.face]}</p>
+        <p className="text-white/70 leading-relaxed italic text-xs sm:text-sm md:text-base">{FaceCopy[seed.face]}</p>
       </div>
-      {isSelected && <div className="after:absolute after:inset-0 after:rounded-[28px] after:border after:border-yellow-300/15" />}
+      {isSelected && <div className="after:absolute after:inset-0 after:rounded-[20px] sm:after:rounded-[28px] after:border after:border-yellow-300/15" />}
     </button>
   );
 };
+
+// #endregion
+
+// #region Sample Results Modal + Generator
+
+const ALL_FACES: string[] = [
+  'Sovereign','Rebel','Visionary','Navigator','Equalizer','Guardian','Seeker','Architect','Diplomat','Spotlight','Partner','Provider','Artisan','Catalyst'
+];
+
+const FACE_EMOJI: Record<string, string> = {
+  Sovereign: '👑', Rebel: '🦂', Visionary: '🔭', Navigator: '🧭', Equalizer: '⚖️', Guardian: '🛡️',
+  Seeker: '🕵️', Architect: '📐', Diplomat: '🕊️', Spotlight: '🎯', Partner: '🤝', Provider: '🛠️',
+  Artisan: '🧵', Catalyst: '⚡'
+};
+
+const SampleResultsModal = ({ onClose, onPick }: { onClose: () => void; onPick: (face: string) => void }) => {
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <div className="absolute inset-0 bg-black/60" onClick={onClose} />
+      <div className="relative max-w-4xl w-full bg-[#0b0b0b] border border-white/10 rounded-2xl p-4 sm:p-5 shadow-xl max-h-[90vh] overflow-y-auto">
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="text-base sm:text-lg font-semibold">Sample Results</h3>
+          <button className="text-white/60 hover:text-white text-sm" onClick={onClose}>Close</button>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3">
+          {ALL_FACES.map(face => (
+            <button
+              key={face}
+              className="group rounded-lg border border-white/10 bg-white/[0.03] hover:bg-white/[0.06] p-2 sm:p-3 text-left flex items-center gap-1 sm:gap-2"
+              onClick={() => onPick(face)}
+            >
+              <span className="text-lg sm:text-xl" aria-hidden>{FACE_EMOJI[face] || '🧩'}</span>
+              <span className="underline decoration-dotted underline-offset-4 group-hover:text-white text-sm sm:text-base">
+                {face}
+              </span>
+            </button>
+          ))}
+        </div>
+        <p className="mt-3 text-xs text-white/60">Generates a realistic random test run each time and opens that result.</p>
+      </div>
+    </div>
+  );
+};
+
+// Infer which family an archetype belongs to
+const findFamilyForFace = (face: string): string => {
+  for (const fam of Object.keys(ARCHETYPES as any)) {
+    const def = (ARCHETYPES as any)[fam];
+    if (def?.L?.name === face || def?.R?.name === face) return fam;
+  }
+  // Fallbacks based on known pairs
+  const pairs: Record<string, string> = {
+    Sovereign: 'Control', Rebel: 'Control', Visionary: 'Pace', Navigator: 'Pace',
+    Equalizer: 'Boundary', Guardian: 'Boundary', Seeker: 'Truth', Architect: 'Truth',
+    Diplomat: 'Recognition', Spotlight: 'Recognition', Partner: 'Bonding', Provider: 'Bonding',
+    Artisan: 'Stress', Catalyst: 'Stress'
+  };
+  return pairs[face] || 'Control';
+};
+
+// Weighted pick helper
+const pickWeighted = <T,>(items: T[], weights: number[]): T => {
+  const total = weights.reduce((a, b) => a + b, 0) || 1;
+  let r = Math.random() * total;
+  for (let i = 0; i < items.length; i++) {
+    r -= weights[i];
+    if (r <= 0) return items[i];
+  }
+  return items[items.length - 1];
+};
+
+// Build a realistic taps array by sampling PHASE1 and PHASE2 with bias toward the target face
+const buildSampleTaps = (targetFace: string): Tap[] => {
+  const taps: Tap[] = [] as any;
+  const now = Date.now();
+  let t = now;
+
+  const targetFamily = findFamilyForFace(targetFace);
+  const pair = familyPair(targetFamily);
+
+  // PHASE 1: 7 questions — pick one option each
+  PHASE1.forEach((q, qi) => {
+    const choices = q.choices || [];
+    const fam = q.family;
+    // Bias weights: if this family can yield targetFace, upweight details that lean to it
+    const weights = choices.map((ch: any) => {
+      const leanFace = (LEAN as any)[fam]?.[ch.detail];
+      const bias = (leanFace === targetFace) ? 4 : 1; // 4x chance toward target
+      return bias;
+    });
+    const pick = pickWeighted(choices, weights);
+    taps.push({ phase: 'P1', family: fam, mv: pick.mv, detail: pick.detail, ts: (t += 90 + Math.floor(Math.random() * 60)) });
+  });
+
+  // PHASE 2: sample all 14 binaries — pick shown option with bias
+  PHASE2.forEach((q, idx) => {
+    const fam = q.family;
+    const opts: any[] = [];
+    if ((q as any).A) opts.push({ mv: 'A', ...(q as any).A });
+    if ((q as any).S) opts.push({ mv: 'S', ...(q as any).S });
+    if ((q as any).R) opts.push({ mv: 'R', ...(q as any).R });
+    // In the app, sometimes only two are shown. We'll randomly choose two if three exist
+    const shown = opts.length === 3 ? [opts[0], opts[(idx % 2) + 1]] : opts;
+    const weights = shown.map((o: any) => {
+      const leanFace = (LEAN as any)[fam]?.[o.detail];
+      const bias = (leanFace === targetFace) ? 4 : 1;
+      return bias;
+    });
+    const pick = pickWeighted(shown, weights);
+    taps.push({ phase: 'P2', family: fam, mv: pick.mv, detail: pick.detail, ts: (t += 90 + Math.floor(Math.random() * 60)) });
+  });
+
+  // Optional extra: add 2-3 tie-breaker taps in random families to increase realism
+  const extraFamilies = ['Control','Pace','Boundary','Truth','Recognition','Bonding','Stress'];
+  for (let i = 0; i < 3; i++) {
+    const fam = extraFamilies[Math.floor(Math.random() * extraFamilies.length)];
+    // Prefer movements that lean to target if same family, else random movement with slight ACT/SCAN preference
+    const possible: Array<{ mv: 'A'|'S'|'R'; detail: string }> = [];
+    // Build from LEAN mapping: pick a detail code whose lean maps to target if any, else a common default
+    const leanMap = (LEAN as any)[fam] || {};
+    const entries = Object.keys(leanMap) as string[];
+    const toward = entries.filter(d => leanMap[d] === targetFace);
+    const chosenDetail = toward[ Math.floor(Math.random() * Math.max(1, toward.length)) ] || (entries[0] || 'A1a');
+    const mv: 'A'|'S'|'R' = (chosenDetail.startsWith('A') ? 'A' : chosenDetail.startsWith('S') ? 'S' : 'R') as any;
+    taps.push({ phase: 'P2', family: fam, mv, detail: chosenDetail, ts: (t += 120 + Math.floor(Math.random() * 80)) });
+  }
+
+  return taps;
+};
+
+// Navigate with a realistic sample stored in session
+function generateSampleAndGoto(face: string) {
+  const taps = buildSampleTaps(face);
+  const familyResults = resolveAllFamilies(taps);
+
+  // Construct a minimal but compatible finalWinner and extras
+  const finalWinner = { face, seed: 1 } as any;
+
+  // Choose a plausible secondary face (50% the prize lock partner, else random different)
+  const PRIZE_LOCKS: Record<string, string> = {
+    Sovereign: 'Diplomat', Rebel: 'Spotlight', Spotlight: 'Seeker', Diplomat: 'Architect',
+    Seeker: 'Sovereign', Architect: 'Rebel', Visionary: 'Catalyst', Navigator: 'Artisan',
+    Catalyst: 'Navigator', Artisan: 'Visionary', Equalizer: 'Provider', Guardian: 'Partner',
+    Partner: 'Guardian', Provider: 'Equalizer'
+  };
+  const wanted = PRIZE_LOCKS[face];
+  const secondaryName = (Math.random() < 0.5 && wanted) ? wanted : ALL_FACES.filter(f => f !== face)[Math.floor(Math.random() * 13)];
+  const secondaryFace = { face: secondaryName, seed: 2 } as any;
+
+  const resultsData = {
+    taps,
+    finalWinner,
+    duels: [],
+    secondaryFace,
+    pureOneFace: secondaryName === face
+  };
+
+  try {
+    sessionStorage.setItem('quizResult', JSON.stringify(resultsData));
+  } catch {}
+
+  // Navigate
+  window.location.href = `/results/${face}`;
+}
 
 // #endregion

@@ -743,6 +743,11 @@ const EndScreen = ({ taps, router }: { taps: Tap[], onRestart: () => void, route
 const DuelScreen = ({ title, a, b, onPick }: { title: string, a: Seed, b: Seed, onPick: (winner: Seed) => void }) => {
     const [selectedWinner, setSelectedWinner] = useState<Seed | null>(null);
     
+    // Reset selection when duel participants change
+    useEffect(() => {
+        setSelectedWinner(null);
+    }, [a.face, b.face, a.seed, b.seed]);
+    
     const handlePick = (winner: Seed) => {
         setSelectedWinner(winner);
     };
@@ -765,14 +770,40 @@ const DuelScreen = ({ title, a, b, onPick }: { title: string, a: Seed, b: Seed, 
                         isSelected={selectedWinner?.face === a.face}
                     />
                 </div>
-                <div className="flex-shrink-0 relative">
+                <div className="flex-shrink-0 relative flex flex-col items-center justify-center gap-4" style={{ minHeight: '400px' }}>
                     {/* Flare animation behind VS */}
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-red-800/20 via-red-700/30 to-red-800/20 animate-pulse blur-sm scale-110" />
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-red-800/10 via-red-700/20 to-red-800/10 animate-ping blur-md scale-125" />
-                    
-                    {/* Circular VS element */}
-                    <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-red-800 via-red-700 to-red-900 flex items-center justify-center shadow-[0_0_20px_rgba(127,29,29,0.5)] border-2 border-red-700/50">
-                        <span className="text-lg md:text-xl font-bold text-white tracking-wider">VS</span>
+                    <div className="relative" style={{ transform: 'translateY(50px)' }}>
+                        <div className="absolute inset-0 rounded-full bg-gradient-to-r from-red-800/20 via-red-700/30 to-red-800/20 animate-pulse blur-sm scale-110" />
+                        <div className="absolute inset-0 rounded-full bg-gradient-to-r from-red-800/10 via-red-700/20 to-red-800/10 animate-ping blur-md scale-125" />
+                        
+                        {/* Circular VS element */}
+                        <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-red-800 via-red-700 to-red-900 flex items-center justify-center shadow-[0_0_20px_rgba(127,29,29,0.5)] border-2 border-red-700/50">
+                            <span className="text-lg md:text-xl font-bold text-white tracking-wider">VS</span>
+                        </div>
+                    </div>
+                    <div className="flex flex-col items-center gap-4 mt-auto">
+                        <p className="text-sm text-center text-white/60">Choose who advances.</p>
+                        <button 
+                            className={`px-8 py-4 text-black font-semibold rounded-2xl relative overflow-hidden
+                                         hover:scale-105 active:scale-[.98] transition-all duration-300 group
+                                         focus:ring-2 focus:ring-yellow-400/60 focus:outline-none
+                                         ${!selectedWinner ? 'opacity-60 pointer-events-none' : ''}`}
+                            style={{
+                                background: selectedWinner ? 
+                                    'linear-gradient(135deg, #7F1D1D 0%, #991B1B 50%, #7F1D1D 100%)' :
+                                    'linear-gradient(135deg, #F4D03F 0%, #F7DC6F 50%, #F4D03F 100%)',
+                                boxShadow: selectedWinner ? 
+                                    '0 0 20px rgba(127, 29, 29, 0.4)' :
+                                    '0 0 20px rgba(244, 208, 63, 0.4)',
+                                transform: 'translateY(20px)'
+                            }}
+                            onClick={handleNext}
+                            disabled={!selectedWinner}
+                        >
+                            {/* Gradient sweep animation on hover */}
+                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                            <span className="relative z-10">Next</span>
+                        </button>
                     </div>
                 </div>
                 <div className="flex-1 max-w-[400px]">
@@ -782,31 +813,6 @@ const DuelScreen = ({ title, a, b, onPick }: { title: string, a: Seed, b: Seed, 
                         onPick={() => handlePick(b)}
                         isSelected={selectedWinner?.face === b.face}
                     />
-                </div>
-            </div>
-            <p className="text-sm text-center text-white/60 mt-6">Choose who advances.</p>
-            <div className="sticky bottom-0 pb-[env(safe-area-inset-bottom)] mt-6">
-                <div className="flex justify-center">
-                    <button 
-                        className={`px-8 py-4 text-black font-semibold rounded-2xl relative overflow-hidden
-                                 hover:scale-105 active:scale-[.98] transition-all duration-300 group
-                                 focus:ring-2 focus:ring-yellow-400/60 focus:outline-none
-                                 ${!selectedWinner ? 'opacity-60 pointer-events-none' : ''}`}
-                        style={{
-                            background: selectedWinner ? 
-                                'linear-gradient(135deg, #7F1D1D 0%, #991B1B 50%, #7F1D1D 100%)' :
-                                'linear-gradient(135deg, #F4D03F 0%, #F7DC6F 50%, #F4D03F 100%)',
-                            boxShadow: selectedWinner ? 
-                                '0 0 20px rgba(127, 29, 29, 0.4)' :
-                                '0 0 20px rgba(244, 208, 63, 0.4)'
-                        }}
-                        onClick={handleNext}
-                        disabled={!selectedWinner}
-                    >
-                        {/* Gradient sweep animation on hover */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-                        <span className="relative z-10">Next</span>
-                    </button>
                 </div>
             </div>
         </div>

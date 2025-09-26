@@ -218,23 +218,30 @@ const HeroBand = ({ finalWinner, secondaryFace, pureOneFace, taps }: { finalWinn
                     </div>
                 )}
             </div>
-            <p className="text-white/80 text-lg max-w-prose" style={{ lineHeight: 1.4 }}>
-                {finalWinner?.face === 'Seeker' ? 'Runs alternatives and waits for decisive evidence.' : 
-                 finalWinner?.face === 'Architect' ? 'Builds a proof path from sources and sequences to closure.' :
-                 finalWinner?.face === 'Sovereign' ? 'Sets direction directly, enforces the move, expects alignment.' :
-                 finalWinner?.face === 'Rebel' ? 'Disrupts imposed control or withdraws to reset the field.' :
-                 finalWinner?.face === 'Visionary' ? 'Explores tempo and options, tests rhythms before locking one.' :
-                 finalWinner?.face === 'Navigator' ? 'Plans tempo step by step and lands deadlines with clear markers.' :
-                 finalWinner?.face === 'Equalizer' ? 'Balances claims and context to draw a fair line.' :
-                 finalWinner?.face === 'Guardian' ? 'States non-negotiables and defends them without drift.' :
-                 finalWinner?.face === 'Diplomat' ? 'Distributes credit proportionally and preserves cohesion.' :
-                 finalWinner?.face === 'Spotlight' ? 'Makes contribution visible and specific, including self when needed.' :
-                 finalWinner?.face === 'Partner' ? 'Co-regulates, offers choices, keeps space open.' :
-                 finalWinner?.face === 'Provider' ? 'Delivers concrete support plans and visible care.' :
-                 finalWinner?.face === 'Artisan' ? 'Works methodically under pressure, focusing on the critical cue.' :
-                 finalWinner?.face === 'Catalyst' ? 'Initiates motion under pressure and drives recovery.' :
-                 'Builds rules from repeated signals; commits once the pattern holds.'}
-            </p>
+      {(() => {
+        const prizeActivation = finalWinner ? evaluatePrizeActivation(finalWinner.face, secondaryFace || null, taps) : null;
+        if (!prizeActivation) return null;
+        const isActive = prizeActivation.state === 'ACTIVE';
+        return (
+          <div className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm mt-1" style={{ 
+            backgroundColor: isActive ? 'rgba(34, 197, 94, 0.1)' : 'rgba(156, 163, 175, 0.1)',
+            border: `1px solid ${isActive ? 'rgba(34, 197, 94, 0.3)' : 'rgba(156, 163, 175, 0.3)'}`
+          }}>
+            <span style={{ color: isActive ? '#22c55e' : '#9ca3af' }}>{isActive ? '✓' : '○'}</span>
+            <span style={{ color: isActive ? '#22c55e' : '#9ca3af' }}>{isActive ? 'Prize active' : 'Prize dark'}</span>
+            <span className="text-white/80">
+              {isActive
+                ? `${prizeActivation.main} clicks when paired with ${prizeActivation.secondary}.`
+                : (
+                    <>
+                                        you need <span style={{ color: getFaceLight(prizeActivation.required) }}><strong>{prizeActivation.required.toUpperCase()}</strong></span> as Secondary to make your movement click.
+                    </>
+                  )
+              }
+            </span>
+          </div>
+        );
+      })()}
         </div>
     </div>
     );
@@ -291,14 +298,14 @@ const PrizeSection = ({ finalWinner, secondaryFace, taps }: { finalWinner: Seed 
                     {prizeActivation.state === "ACTIVE" ? "Prize active" : "Prize dark"}
                 </span>
                 <span className="text-white/80">
-                    {prizeActivation.state === "ACTIVE" 
-                        ? `${prizeActivation.main} clicks when paired with ${prizeActivation.secondary}.`
-                        : (
-                            <>
-                                you need <span style={{ color: getFaceLight(prizeActivation.required) }}><strong>{prizeActivation.required.toUpperCase()}</strong></span> as Secondary for full alignment.
-                            </>
-                        )
-                    }
+          {prizeActivation.state === "ACTIVE" 
+            ? `${prizeActivation.main} clicks when paired with ${prizeActivation.secondary}.`
+            : (
+                <>
+                                        you need <span style={{ color: getFaceLight(prizeActivation.required) }}><strong>{prizeActivation.required.toUpperCase()}</strong></span> as Secondary to make your movement click.
+                </>
+              )
+          }
                 </span>
             </div>
         </div>
@@ -619,7 +626,6 @@ const ResultsScreen = ({ taps, finalWinner, duels, secondaryFace, pureOneFace, o
         <div className='fade-in pb-20'>
             <HeroBand finalWinner={finalWinner} secondaryFace={secondaryFace} pureOneFace={pureOneFace} taps={taps} />
             <LegendSection />
-            <PrizeSection finalWinner={finalWinner} secondaryFace={secondaryFace} taps={taps} />
 
             <FamilyGrid triad={triad} finalWinner={finalWinner} secondaryFace={secondaryFace} taps={taps} />
 
