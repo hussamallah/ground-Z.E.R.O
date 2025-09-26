@@ -1,3 +1,4 @@
+// DETERMINISTIC EDIT — keeps tournament, removes outcome randomness, seeds demos predictably.
 "use client";
 
 import { useState, useMemo, useEffect, useRef } from 'react';
@@ -21,13 +22,41 @@ import {
 } from './quiz-data';
 import Image from 'next/image';
 
-// #region Helper Types and Functions
+// #region Determinism helpers
+// FNV-1a (uint32) for lightweight hashing of canonical strings (used for tie-breaks)
+const fhash = (s: string) => {
+  let h = 2166136261 >>> 0;
+  for (let i = 0; i < s.length; i++) {
+    h ^= s.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return h >>> 0;
+};
+
+// Stable comparator utilities that never return 0 for distinct items
+const cmpNum = (a: number, b: number) => (a < b ? -1 : a > b ? 1 : 0);
+const cmpStr = (a: string, b: string) => (a < b ? -1 : a > b ? 1 : 0);
+
+/**
+ * Final tie-break compare for seeds. We avoid modulo jitter and ensure a strict order:
+ * 1) full 32-bit hash asc, 2) face name asc, 3) family asc
+ */
+const cmpSeedTB = (a: Seed | Omit<Seed, 'seed'>, b: Seed | Omit<Seed, 'seed'>) => {
+  const byHash = cmpNum((a as any)._tb, (b as any)._tb);
+  if (byHash) return byHash;
+  const byFace = cmpStr((a as any).face, (b as any).face);
+  if (byFace) return byFace;
+  return cmpStr((a as any).family, (b as any).family);
+};
+// #endregion
+
+// #region Helper Types
 type BracketMode = 'top8' | 'top4' | 'top2';
 type Stage =
   | { mode: 'qf'; index: number }           // quarterfinals (top8 or top4)
   | { mode: 'sf'; index: number }           // semifinals (top8 only)
   | { mode: 'final' }                       // tournament final
-  | { mode: 'grand'; match: [Seed, Seed] }; // tournament winner vs bye champion
+  | { mode: 'grand'; match: [Seed, Seed] }; // reserved (not used here)
 
 type TourneyState =
   | { finalWinner: Seed | null; duels?: MatchLog[]; secondaryFace?: Seed; pureOneFace?: boolean }
@@ -41,15 +70,7 @@ type TourneyState =
       secondary: Seed | null;
       log: MatchLog[];
     };
-
-const fhash = (s: string) => {
-  let h = 2166136261 >>> 0;
-  for (let i = 0; i < s.length; i++) {
-    h ^= s.charCodeAt(i);
-    h = Math.imul(h, 16777619);
-  }
-  return h >>> 0;
-};
+// #endregion
 
 // Build a seed object for a specific face in a given family result
 const seedFromFace = (fr: FamilyResult, face: string, taps: Tap[]): Omit<Seed, 'seed'> => {
@@ -58,20 +79,23 @@ const seedFromFace = (fr: FamilyResult, face: string, taps: Tap[]): Omit<Seed, '
   let votes = 1 + (p >= 0.6 ? 1 : 0) + ((fr.confidence === 'High' || fr.confidence === 'User') ? 1 : 0);
   if (votes > 3) votes = 3;
   const margin = Math.abs(((fr.probs as any)[pair.left] ?? 0) - ((fr.probs as any)[pair.right] ?? 0));
+
+  // Deterministic tie-breaker derived ONLY from ordered taps + face label
   const tb = fhash(taps.map(t => `${t.family[0]}:${t.mv}:${t.detail}`).join('|') + '|' + face);
   return { face, family: fr.family, votes, p, margin, _tb: tb };
 };
 
-// Old hybrid pool used to compute the â€œbye championâ€ (internal systemâ€™s top pick)
+// Internal pool used to compute a "bye champion" if you ever re-enable grand finals later.
 const makeSeedsHybridPool = (familyResults: FamilyResult[], taps: Tap[]): Seed[] => {
   const seeded = familyResults
     .map(fr => seedFromFace(fr, fr.winner, taps))
     .sort(
       (a, b) =>
+        // Higher is better for votes/p/margin; on full tie, use strict deterministic TB
         (b.votes - a.votes) ||
         (b.p - a.p) ||
         (b.margin - a.margin) ||
-        ((a._tb % 997) - (b._tb % 997))
+        cmpSeedTB(a, b)
     );
 
   if (seeded.length === 0) return [];
@@ -91,7 +115,7 @@ const makeSeedsHybridPool = (familyResults: FamilyResult[], taps: Tap[]): Seed[]
 };
 
 // Ranked list for the actual tournament: 7 winners + 1 wildcard (best runner-up) = Top-8.
-// Falls back to Top-4 or Top-2 automatically when you donâ€™t have enough.
+// Falls back to Top-4 or Top-2 when necessary. Fully deterministic ordering.
 const makeSeedsRanked = (familyResults: FamilyResult[], taps: Tap[]): Seed[] => {
   if (!familyResults || familyResults.length === 0) return [];
 
@@ -105,13 +129,13 @@ const makeSeedsRanked = (familyResults: FamilyResult[], taps: Tap[]): Seed[] => 
     return seedFromFace(fr, runner, taps);
   });
 
-  // Pick the strongest runner-up
+  // Pick the strongest runner-up deterministically
   const bestRunner = runnerUps.sort(
     (a, b) =>
       (b.votes - a.votes) ||
       (b.p - a.p) ||
       (b.margin - a.margin) ||
-      ((a._tb % 997) - (b._tb % 997))
+      cmpSeedTB(a, b)
   )[0];
 
   // Combine and rank
@@ -123,17 +147,15 @@ const makeSeedsRanked = (familyResults: FamilyResult[], taps: Tap[]): Seed[] => 
         (b.votes - a.votes) ||
         (b.p - a.p) ||
         (b.margin - a.margin) ||
-        ((a._tb % 997) - (b._tb % 997))
+        cmpSeedTB(a, b)
     )
-    .map((s, i) => ({ ...s, seed: i + 1 })); // faces detected + 1, and seeds start at 1
+    .map((s, i) => ({ ...s, seed: i + 1 }));
 
   return ranked;
 };
 
-
 // Face light color mapping
 type FaceLightMap = { [key: string]: string };
-
 const FACE_LIGHT: FaceLightMap = {
   Guardian: '#14b8a6',        // Teal
   Spotlight: '#a3e635',       // Yellow-green
@@ -150,10 +172,9 @@ const FACE_LIGHT: FaceLightMap = {
   Rebel: '#f97316',           // Red-orange
   Equalizer: '#22c55e'        // Green
 };
-
 export const getFaceLight = (face: string): string => FACE_LIGHT[face] || '#94a3b8'; // slate-400 fallback
 
-// Machine-selected secondary face: best runner-up across families (same sort as ranking)
+// Machine-selected secondary face: best runner-up across families (same deterministic sort as ranking)
 const computeSecondary = (familyResults: FamilyResult[], taps: Tap[], ranked: Seed[]): Seed | null => {
   if (!familyResults || familyResults.length === 0) return null;
   const runnerUps = familyResults.map(fr => {
@@ -166,31 +187,28 @@ const computeSecondary = (familyResults: FamilyResult[], taps: Tap[], ranked: Se
       (b.votes - a.votes) ||
       (b.p - a.p) ||
       (b.margin - a.margin) ||
-      ((a._tb % 997) - (b._tb % 997))
+      cmpSeedTB(a, b)
   );
   const best = runnerUps[0];
   if (!best) return null;
   const match = ranked.find(s => s.face === best.face);
   return match || ({ ...best, seed: 0 } as Seed);
 };
-// Pairing helpers
+
+// Pairing helpers (fixed; no shuffle = reproducible bracket)
 const pairIndicesTop8: [number, number][] = [
   [0, 7], // 1 vs 8
   [3, 4], // 4 vs 5
   [1, 6], // 2 vs 7
   [2, 5], // 3 vs 6
 ];
-
 const pairIndicesTop4: [number, number][] = [
   [0, 3], // 1 vs 4
   [1, 2], // 2 vs 3
 ];
-
 const pairIndicesTop2: [number, number][] = [
   [0, 1], // 1 vs 2
 ];
-
-// #endregion
 
 export default function Home() {
   const router = useRouter();
@@ -204,8 +222,17 @@ export default function Home() {
   const [isFading, setIsFading] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [showSamples, setShowSamples] = useState(false);
+  const [activeTab, setActiveTab] = useState<'quiz' | 'theory'>('quiz');
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  // Keyboard flow (P1/P2 only; Phase 3 removed)
+  // Auto-close sidebar when quiz starts
+  useEffect(() => {
+    if (gameState.phase === 'p1' || gameState.phase === 'p2' || gameState.phase === 'end') {
+      setSidebarOpen(false);
+    }
+  }, [gameState.phase]);
+
+  // Keyboard flow (P1/P2 only)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.repeat || lockRef.current || gameState.phase === 'intro' || gameState.phase === 'end') return;
@@ -244,11 +271,6 @@ export default function Home() {
           });
         }
       }
-
-      if (e.key === 'Enter' && selectedOption) {
-        e.preventDefault();
-        // no-op: advance handled in handleOptionClick
-      }
     };
 
     window.addEventListener('keydown', handleKeyDown);
@@ -266,6 +288,7 @@ export default function Home() {
       setSelectedOption(null);
     }, 250);
 
+    // Note: we still store ts for UX, but hashes & scoring ignore it.
     const newTaps = [...gameState.taps, { ...tapData, ts: Date.now() }];
     let { phase, p1Index, p2Index } = gameState;
 
@@ -335,81 +358,160 @@ export default function Home() {
 
   const progress = useMemo(() => {
     const total = PHASE1.length + PHASE2.length;
-    const done = gameState.p1Index + gameState.p2Index;
+    const answered = Math.min(gameState.p1Index, PHASE1.length) + Math.min(gameState.p2Index, PHASE2.length);
     if (gameState.phase === 'end') return 100;
     if (gameState.phase === 'intro') return 0;
-    return Math.round(100 * done / total);
+    return Math.round(100 * answered / total);
   }, [gameState]);
 
   const isTournamentPhase = gameState.phase === 'end';
   const inIntro = gameState.phase === 'intro';
 
   return (
-    <div className={inIntro ? 'min-h-screen overflow-x-hidden' : 'max-w-3xl mx-auto px-3 sm:px-4 md:px-6 py-2 md:py-4 space-y-6 sm:space-y-8 -mt-6 sm:-mt-10'}>
-      {inIntro && (
-        <button
-          className="fixed top-3 right-3 sm:top-4 sm:right-4 z-50 px-2 py-1.5 sm:px-3 sm:py-2 text-xs sm:text-sm font-semibold rounded-lg bg-white/10 hover:bg-white/20 border border-white/15 text-white backdrop-blur-sm"
-          onClick={() => setShowSamples(true)}
-        >
-          Sample Results
-        </button>
-      )}
-
-      {inIntro && showSamples && (
-        <SampleResultsModal
-          onClose={() => setShowSamples(false)}
-          onPick={(face) => {
-            setShowSamples(false);
-            try {
-              generateSampleAndGoto(face);
-            } catch (e) {
-              console.error(e);
-            }
-          }}
-        />
-      )}
-      <div role="status" aria-live="polite" className="sr-only">
-        {gameState.phase !== 'intro' &&
-          gameState.phase !== 'end' &&
-          `Question ${gameState.p1Index + gameState.p2Index + 1}/${PHASE1.length + PHASE2.length}`}
-      </div>
-
-      {!inIntro && !isTournamentPhase && (
-        <header className="flex items-center justify-center py-2 sm:py-3">
-          <Image
-            src="/THE-Axiarch.png"
-            alt="Ground Zero"
-            width={192}
-            height={192}
-            className="h-32 sm:h-40 md:h-48 [filter:drop-shadow(0_0_10px_rgba(212,175,55,.35))]"
-          />
-        </header>
-      )}
-
-      {!inIntro && !isTournamentPhase && (
-        <div className="fixed bottom-2 sm:bottom-4 left-0 right-0 px-3 sm:px-4 md:px-6 z-10">
-          <div className="flex items-center gap-2 sm:gap-3">
-            <div aria-label="Progress" className="relative h-1 sm:h-1.5 w-full rounded-full bg-white/5 overflow-hidden">
-              <div
-                className="h-full bg-gradient-to-r from-yellow-400 to-yellow-300 transition-[width] duration-200 rounded-full"
-                style={{ width: `${progress}%` }}
+    <div className="min-h-screen flex">
+      {/* Toggle Button - Only show during intro phase */}
+      {gameState.phase === 'intro' && (
+        <div className="fixed top-4 left-4 z-50">
+          {!sidebarOpen ? (
+            <button
+              onClick={() => setSidebarOpen(true)}
+              className="text-white/70 text-sm font-medium bg-black/60 backdrop-blur-sm px-3 py-2 rounded-lg border border-white/10 hover:bg-white/10 hover:text-white transition-all duration-200"
+              aria-label="Open sidebar for more info"
+            >
+              Open for more info
+            </button>
+          ) : (
+            <button
+              onClick={() => setSidebarOpen(false)}
+              className="p-2 bg-black/80 backdrop-blur-sm border border-white/20 rounded-lg text-white hover:bg-white/10 transition-all duration-200"
+              aria-label="Close sidebar"
+              title="Close sidebar"
+            >
+              <svg
+                className="w-5 h-5 transition-transform duration-200 rotate-180"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
               >
-                <span
-                  aria-live="polite"
-                  className="absolute right-1 sm:right-2 top-1/2 -translate-y-1/2 text-[10px] sm:text-[11px] text-black/80 font-medium tabular-nums"
-                >
-                  {progress}%
-                </span>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+              </svg>
+            </button>
+          )}
+        </div>
+      )}
+
+      {/* Left Sidebar Navigation */}
+      {sidebarOpen && (
+        <div className="fixed left-0 top-0 h-full w-64 bg-black/90 backdrop-blur-sm border-r border-white/10 z-40 flex flex-col transition-transform duration-300">
+          <div className="p-4 border-b border-white/10">
+            <Image
+              src="/THE-Axiarch.png"
+              alt="Ground Zero"
+              width={48}
+              height={48}
+              className="h-12 w-12 mx-auto [filter:drop-shadow(0_0_10px_rgba(212,175,55,.35))]"
+            />
+          </div>
+          <nav className="flex-1 p-4 space-y-2">
+            <button
+              onClick={() => setActiveTab('quiz')}
+              className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-200 ${
+                activeTab === 'quiz'
+                  ? 'bg-yellow-400/20 text-yellow-300 border border-yellow-400/30'
+                  : 'text-white/70 hover:text-white hover:bg-white/10'
+              }`}
+            >
+              <div className="font-semibold">Take Quiz</div>
+              <div className="text-xs text-white/50">Start the Ground Zero quiz</div>
+            </button>
+            <button
+              onClick={() => setActiveTab('theory')}
+              className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-200 ${
+                activeTab === 'theory'
+                  ? 'bg-yellow-400/20 text-yellow-300 border border-yellow-400/30'
+                  : 'text-white/70 hover:text-white hover:bg-white/10'
+              }`}
+            >
+              <div className="font-semibold">How Ground Zero Works</div>
+              <div className="text-xs text-white/50">Theory, Sources & Quiz Engine</div>
+            </button>
+          </nav>
+        </div>
+      )}
+
+      {/* Main Content Area */}
+      <div className={`flex-1 transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-0'}`}>
+        {activeTab === 'quiz' ? (
+          <div className={inIntro ? 'min-h-screen overflow-x-hidden' : 'max-w-3xl mx-auto px-3 sm:px-4 md:px-6 py-2 md:py-4 space-y-6 sm:space-y-8 -mt-6 sm:-mt-10'}>
+            {inIntro && (
+              <button
+                className="fixed top-3 right-3 sm:top-4 sm:right-4 z-50 px-2 py-1.5 sm:px-3 sm:py-2 text-xs sm:text-sm font-semibold rounded-lg bg-white/10 hover:bg-white/20 border border-white/15 text-white backdrop-blur-sm"
+                onClick={() => setShowSamples(true)}
+              >
+                Sample Results
+              </button>
+            )}
+
+            {inIntro && showSamples && (
+              <SampleResultsModal
+                onClose={() => setShowSamples(false)}
+                onPick={(face) => {
+                  setShowSamples(false);
+                  try {
+                    generateSampleAndGoto(face);
+                  } catch (e) {
+                    console.error(e);
+                  }
+                }}
+              />
+            )}
+            <div role="status" aria-live="polite" className="sr-only">
+              {gameState.phase !== 'intro' &&
+                gameState.phase !== 'end' &&
+                `Question ${gameState.p1Index + gameState.p2Index + 1}/${PHASE1.length + PHASE2.length}`}
+            </div>
+
+            {!inIntro && !isTournamentPhase && (
+              <header className="flex items-center justify-center py-2 sm:py-3">
+                <Image
+                  src="/THE-Axiarch.png"
+                  alt="Ground Zero"
+                  width={192}
+                  height={192}
+                  className="h-32 sm:h-40 md:h-48 [filter:drop-shadow(0_0_10px_rgba(212,175,55,.35))]"
+                />
+              </header>
+            )}
+
+            {!inIntro && !isTournamentPhase && (
+              <div className="fixed bottom-2 sm:bottom-4 left-0 right-0 px-3 sm:px-4 md:px-6 z-10">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <div aria-label="Progress" className="relative h-1 sm:h-1.5 w-full rounded-full bg-white/5 overflow-hidden">
+                    <div
+                      className="h-full bg-gradient-to-r from-yellow-400 to-yellow-300 transition-[width] duration-200 rounded-full"
+                      style={{ width: `${progress}%` }}
+                    >
+                      <span
+                        aria-live="polite"
+                        className="absolute right-1 sm:right-2 top-1/2 -translate-y-1/2 text-[10px] sm:text-[11px] text-black/80 font-medium tabular-nums"
+                      >
+                        {progress}%
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <div id="stage" className={inIntro ? 'min-h-screen pb-16 sm:pb-8' : 'min-h-[400px] sm:min-h-[500px]'}>
+              <div style={isFading ? { opacity: 0, transition: 'opacity 90ms ease-out' } : { opacity: 1, transition: 'opacity 120ms ease-out' }}>
+                {renderContent()}
               </div>
             </div>
           </div>
-        </div>
-      )}
-
-      <div id="stage" className={inIntro ? 'min-h-screen pb-16 sm:pb-8' : 'min-h-[400px] sm:min-h-[500px]'}>
-        <div style={isFading ? { opacity: 0, transition: 'opacity 90ms ease-out' } : { opacity: 1, transition: 'opacity 120ms ease-out' }}>
-          {renderContent()}
-        </div>
+        ) : (
+          <TheoryPage />
+        )}
       </div>
     </div>
   );
@@ -448,7 +550,7 @@ const IntroScreen = ({ onStart }: { onStart: () => void }) => (
           <div className="divider" />
           <p className="p"><b>Most quizzes hand you a label. Ground Zero gives you a movement.</b></p>
           <p className="p">
-            Same choices = same results. No randomness, no swaps. Just a replayable map of how you carry calls, set pace, draw lines, and reset.
+            Same choices = same results. No randomness in outcomes. Just a replayable map of how you carry calls, set pace, draw lines, and reset.
           </p>
 
           <div className="diagram mt-3" aria-hidden="true">
@@ -464,7 +566,7 @@ const IntroScreen = ({ onStart }: { onStart: () => void }) => (
             <div className="arrow" />
             <div className="step">
               <b>Your Archetype</b>
-              <div className="muted">With your secondary pattern</div>
+              <div className="muted">Plus a machine-picked secondary</div>
             </div>
           </div>
         </div>
@@ -642,14 +744,12 @@ const Phase2Screen = ({
 const EndScreen = ({ taps, router }: { taps: Tap[]; onRestart: () => void; router: any }) => {
   const [state, setState] = useState<TourneyState>({ finalWinner: null });
 
-  // Build bracket + bye champion on mount
+  // Build bracket + secondary on mount — all deterministic given taps
   useEffect(() => {
     const familyResults = resolveAllFamilies(taps);
 
     // Ranked tournament seeds: 7 winners + 1 wildcard
     const ranked = makeSeedsRanked(familyResults, taps);
-
-    // Internal system pool, take top as â€œbye championâ€
 
     // Decide bracket size: prefer 8, else 4, else 2
     let bracketMode: BracketMode = 'top2';
@@ -682,13 +782,15 @@ const EndScreen = ({ taps, router }: { taps: Tap[]; onRestart: () => void; route
   useEffect(() => {
     if ('finalWinner' in state && state.finalWinner) {
       const resultsData = {
-  taps,
-  finalWinner: state.finalWinner,
-  duels: (state as any).duels || (state as any).log || [],
-  secondaryFace: (state as any).secondaryFace || (state as any).secondary || null,
-  pureOneFace: !!(((state as any).secondaryFace || (state as any).secondary) && state.finalWinner && ((state as any).secondaryFace || (state as any).secondary).face === state.finalWinner.face)
-};
-      sessionStorage.setItem('quizResult', JSON.stringify(resultsData));
+        taps,
+        finalWinner: state.finalWinner,
+        duels: (state as any).duels || (state as any).log || [],
+        secondaryFace: (state as any).secondaryFace || (state as any).secondary || null,
+        pureOneFace: !!(((state as any).secondaryFace || (state as any).secondary) && state.finalWinner && ((state as any).secondaryFace || (state as any).secondary).face === state.finalWinner.face)
+      };
+      try {
+        sessionStorage.setItem('quizResult', JSON.stringify(resultsData));
+      } catch {}
       const winnerFace = state.finalWinner.face;
       if (winnerFace) {
         window.location.href = `/results/${winnerFace}`;
@@ -719,8 +821,6 @@ const EndScreen = ({ taps, router }: { taps: Tap[]; onRestart: () => void; route
     if ((state as any).stage.mode === 'sf') {
       const idx = (state as any).stage.index as number;
       const w = (state as any).qfWinners as Seed[];
-      // semifinals only exist for top8
-      // SF pairs: [w0 vs w1], [w2 vs w3]
       const pairs: [Seed, Seed][] = [
         [w[0], w[1]],
         [w[2], w[3]],
@@ -741,7 +841,7 @@ const EndScreen = ({ taps, router }: { taps: Tap[]; onRestart: () => void; route
       // top2
       return [(state as any).ranked[0], (state as any).ranked[1]] as [Seed, Seed];
     }
-return null;
+    return null;
   };
 
   const advanceLog = (winner: Seed, other: Seed, label: string) => {
@@ -797,7 +897,7 @@ return null;
         return { ...base, sfWinners, stage: { mode: 'final' } };
       }
 
-            // Tournament Final -> crown overall champion, compute pureOneFace flag
+      // Tournament Final -> crown overall champion, compute pureOneFace flag
       if (base.stage.mode === 'final') {
         const pureOneFace = !!(base.secondary && base.secondary.face === winner.face);
         return { finalWinner: winner, duels: base.log, secondaryFace: base.secondary || undefined, pureOneFace } as any;
@@ -1026,17 +1126,42 @@ const DuelCard = ({ seed, onPick, isSelected }: { seed: Seed; onPick: () => void
 
 // #endregion
 
-// #region Sample Results Modal + Generator
-
+// #region Sample Results Modal + Deterministic Generator (demo-only, seeded by face)
 const ALL_FACES: string[] = [
   'Sovereign','Rebel','Visionary','Navigator','Equalizer','Guardian','Seeker','Architect','Diplomat','Spotlight','Partner','Provider','Artisan','Catalyst'
 ];
-
 const FACE_EMOJI: Record<string, string> = {
   Sovereign: '👑', Rebel: '🦂', Visionary: '🔭', Navigator: '🧭', Equalizer: '⚖️', Guardian: '🛡️',
   Seeker: '🕵️', Architect: '📐', Diplomat: '🕊️', Spotlight: '🎯', Partner: '🤝', Provider: '🛠️',
   Artisan: '🧵', Catalyst: '⚡'
 };
+
+// Simple seeded RNG (xmur3 + mulberry32) for deterministic demos
+function xmur3(str: string) {
+  let h = 1779033703 ^ str.length;
+  for (let i = 0; i < str.length; i++) {
+    h = Math.imul(h ^ str.charCodeAt(i), 3432918353);
+    h = (h << 13) | (h >>> 19);
+  }
+  return function() {
+    h = Math.imul(h ^ (h >>> 16), 2246822507);
+    h = Math.imul(h ^ (h >>> 13), 3266489909);
+    h ^= h >>> 16;
+    return h >>> 0;
+  };
+}
+function mulberry32(a: number) {
+  return function() {
+    a |= 0; a = a + 0x6D2B79F5 | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = t + Math.imul(t ^ (t >>> 7), 61 | t) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  }
+}
+function seededRandom(seedStr: string) {
+  const seed32 = xmur3(seedStr)();
+  return mulberry32(seed32);
+}
 
 const SampleResultsModal = ({ onClose, onPick }: { onClose: () => void; onPick: (face: string) => void }) => {
   return (
@@ -1061,7 +1186,7 @@ const SampleResultsModal = ({ onClose, onPick }: { onClose: () => void; onPick: 
             </button>
           ))}
         </div>
-        <p className="mt-3 text-xs text-white/60">Generates a realistic random test run each time and opens that result.</p>
+        <p className="mt-3 text-xs text-white/60">Deterministic demo: same face → same sample path every time.</p>
       </div>
     </div>
   );
@@ -1083,10 +1208,10 @@ const findFamilyForFace = (face: string): string => {
   return pairs[face] || 'Control';
 };
 
-// Weighted pick helper
-const pickWeighted = <T,>(items: T[], weights: number[]): T => {
+// Weighted pick helper using seeded RNG (demo-only)
+const pickWeightedSeeded = <T,>(items: T[], weights: number[], rnd: () => number): T => {
   const total = weights.reduce((a, b) => a + b, 0) || 1;
-  let r = Math.random() * total;
+  let r = rnd() * total;
   for (let i = 0; i < items.length; i++) {
     r -= weights[i];
     if (r <= 0) return items[i];
@@ -1094,74 +1219,68 @@ const pickWeighted = <T,>(items: T[], weights: number[]): T => {
   return items[items.length - 1];
 };
 
-// Build a realistic taps array by sampling PHASE1 and PHASE2 with bias toward the target face
-const buildSampleTaps = (targetFace: string): Tap[] => {
+// Build a deterministic taps array by sampling PHASE1 and PHASE2 with bias toward the target face
+const buildSampleTaps = (targetFace: string, rnd: () => number): Tap[] => {
   const taps: Tap[] = [] as any;
-  const now = Date.now();
-  let t = now;
+  let t = 0; // deterministic tick counter
 
   const targetFamily = findFamilyForFace(targetFace);
-  const pair = familyPair(targetFamily);
 
-  // PHASE 1: 7 questions — pick one option each
+  // PHASE 1: pick one option each deterministically with bias
   PHASE1.forEach((q, qi) => {
     const choices = q.choices || [];
     const fam = q.family;
-    // Bias weights: if this family can yield targetFace, upweight details that lean to it
     const weights = choices.map((ch: any) => {
       const leanFace = (LEAN as any)[fam]?.[ch.detail];
-      const bias = (leanFace === targetFace) ? 4 : 1; // 4x chance toward target
+      const bias = (leanFace === targetFace) ? 4 : 1;
       return bias;
     });
-    const pick = pickWeighted(choices, weights);
-    taps.push({ phase: 'P1', family: fam, mv: pick.mv, detail: pick.detail, ts: (t += 90 + Math.floor(Math.random() * 60)) });
+    const pick = pickWeightedSeeded(choices, weights, rnd);
+    taps.push({ phase: 'P1', family: fam, mv: pick.mv, detail: pick.detail, ts: (t += 100) });
   });
 
-  // PHASE 2: sample all 14 binaries — pick shown option with bias
+  // PHASE 2: 14 binaries — two shown in app; replicate with deterministic selection (index-based)
   PHASE2.forEach((q, idx) => {
     const fam = q.family;
     const opts: any[] = [];
     if ((q as any).A) opts.push({ mv: 'A', ...(q as any).A });
     if ((q as any).S) opts.push({ mv: 'S', ...(q as any).S });
     if ((q as any).R) opts.push({ mv: 'R', ...(q as any).R });
-    // In the app, sometimes only two are shown. We'll randomly choose two if three exist
     const shown = opts.length === 3 ? [opts[0], opts[(idx % 2) + 1]] : opts;
     const weights = shown.map((o: any) => {
       const leanFace = (LEAN as any)[fam]?.[o.detail];
       const bias = (leanFace === targetFace) ? 4 : 1;
       return bias;
     });
-    const pick = pickWeighted(shown, weights);
-    taps.push({ phase: 'P2', family: fam, mv: pick.mv, detail: pick.detail, ts: (t += 90 + Math.floor(Math.random() * 60)) });
+    const pick = pickWeightedSeeded(shown, weights, rnd);
+    taps.push({ phase: 'P2', family: fam, mv: pick.mv, detail: pick.detail, ts: (t += 110) });
   });
 
-  // Optional extra: add 2-3 tie-breaker taps in random families to increase realism
+  // Optional extra: add 3 tie-breaker taps in fixed family order with seeded pick for detail
   const extraFamilies = ['Control','Pace','Boundary','Truth','Recognition','Bonding','Stress'];
   for (let i = 0; i < 3; i++) {
-    const fam = extraFamilies[Math.floor(Math.random() * extraFamilies.length)];
-    // Prefer movements that lean to target if same family, else random movement with slight ACT/SCAN preference
-    const possible: Array<{ mv: 'A'|'S'|'R'; detail: string }> = [];
-    // Build from LEAN mapping: pick a detail code whose lean maps to target if any, else a common default
+    const fam = extraFamilies[i];
     const leanMap = (LEAN as any)[fam] || {};
     const entries = Object.keys(leanMap) as string[];
     const toward = entries.filter(d => leanMap[d] === targetFace);
-    const chosenDetail = toward[ Math.floor(Math.random() * Math.max(1, toward.length)) ] || (entries[0] || 'A1a');
+    const idx = entries.length ? Math.floor(rnd() * (toward.length || entries.length)) : 0;
+    const chosenDetail = (toward.length ? toward[idx] : entries[idx]) || 'A1a';
     const mv: 'A'|'S'|'R' = (chosenDetail.startsWith('A') ? 'A' : chosenDetail.startsWith('S') ? 'S' : 'R') as any;
-    taps.push({ phase: 'P2', family: fam, mv, detail: chosenDetail, ts: (t += 120 + Math.floor(Math.random() * 80)) });
+    taps.push({ phase: 'P2', family: fam, mv, detail: chosenDetail, ts: (t += 120) });
   }
 
   return taps;
 };
 
-// Navigate with a realistic sample stored in session
+// Navigate with a deterministic sample stored in session
 function generateSampleAndGoto(face: string) {
-  const taps = buildSampleTaps(face);
-  const familyResults = resolveAllFamilies(taps);
-
-  // Construct a minimal but compatible finalWinner and extras
+  const rnd = seededRandom('GZ-DEMO|' + face);
+  const taps = buildSampleTaps(face, rnd);
+  // Compute winner via full flow by letting results page do its normal logic;
+  // we still store a minimal compatible shape.
   const finalWinner = { face, seed: 1 } as any;
 
-  // Choose a plausible secondary face (50% the prize lock partner, else random different)
+  // Choose deterministic secondary partner using a fixed mapping, else first non-face alphabetically
   const PRIZE_LOCKS: Record<string, string> = {
     Sovereign: 'Diplomat', Rebel: 'Spotlight', Spotlight: 'Seeker', Diplomat: 'Architect',
     Seeker: 'Sovereign', Architect: 'Rebel', Visionary: 'Catalyst', Navigator: 'Artisan',
@@ -1169,7 +1288,9 @@ function generateSampleAndGoto(face: string) {
     Partner: 'Guardian', Provider: 'Equalizer'
   };
   const wanted = PRIZE_LOCKS[face];
-  const secondaryName = (Math.random() < 0.5 && wanted) ? wanted : ALL_FACES.filter(f => f !== face)[Math.floor(Math.random() * 13)];
+  const pool = ALL_FACES.filter(f => f !== face).sort();
+  const fallback = pool[0];
+  const secondaryName = wanted || fallback;
   const secondaryFace = { face: secondaryName, seed: 2 } as any;
 
   const resultsData = {
@@ -1184,8 +1305,166 @@ function generateSampleAndGoto(face: string) {
     sessionStorage.setItem('quizResult', JSON.stringify(resultsData));
   } catch {}
 
-  // Navigate
   window.location.href = `/results/${face}`;
 }
 
+// #region Theory Page Component
+const TheoryPage = () => (
+  <div className="min-h-screen bg-black text-white p-8">
+    <div className="max-w-4xl mx-auto">
+      <div className="text-center mb-12">
+        <h1 className="text-4xl font-bold mb-4">How Ground Zero Works</h1>
+        <p className="text-xl text-white/70">Theory, Sources & Quiz Engine</p>
+      </div>
+      
+      <div className="space-y-8">
+        <div className="bg-white/5 rounded-lg p-8 border border-white/10">
+          <h2 className="text-3xl font-bold mb-6">Theory, Sources & Methodology — Ground Zero Archetypes</h2>
+          
+          <div className="mb-6 p-4 bg-yellow-400/10 border border-yellow-400/20 rounded-lg">
+            <p className="text-yellow-200 font-medium">
+              <strong>What this page is:</strong> the concise, source-backed explainer of where Ground Zero archetypes come from, 
+              how the quiz detects decision style (Act / Scan / Reset), and exactly how the engine turns taps into a 
+              deterministic archetype result. No fluff, no mystical chest-beating — just the facts and the code behavior.
+            </p>
+          </div>
+
+          <div className="space-y-8">
+             <section>
+               <h3 className="text-2xl font-semibold mb-4">Quick summary</h3>
+               <p className="text-white/80 leading-relaxed">
+                 Ground Zero maps Jung-inspired archetypal imagery onto observable and readable behavior 
+                 through a deterministic quiz engine. The output is a primary archetype and a machine-picked secondary, 
+                 seeded and ranked by evidence strength, not by random chance.
+               </p>
+             </section>
+
+             <section>
+               <h3 className="text-2xl font-semibold mb-4">How detection maps to meaning</h3>
+               <ul className="space-y-2 text-white/80">
+                 <li><strong>Frequency</strong> — more taps for a style → that style leads the family.</li>
+                 <li><strong>Consistency</strong> — repeated taps across items increase confidence.</li>
+                 <li><strong>Margin</strong> — the gap between top and second candidate matters (7 vs 6 is weaker than 7 vs 2).</li>
+                 <li><strong>Cross-family echo</strong> — the same style dominating multiple families implies a global bias.</li>
+                 <li><strong>Phase 2 locks</strong> — Phase 2 answers are explicit; they strengthen confidence and influence votes/probabilities used when seeding.</li>
+               </ul>
+               
+               <div className="mt-4 p-4 bg-yellow-400/10 border border-yellow-400/20 rounded-lg">
+                 <p className="text-yellow-200 font-medium">
+                   <strong>TL;DR</strong><br/>
+                   • Act = you pick commit-and-move-now choices.<br/>
+                   • Scan = you pick evaluate/verify/measure choices.<br/>
+                   • Reset = you pick pivot/stop/switch choices.<br/>
+                   <strong>Engine:</strong> count, compare, and seed the strongest styles; Phase 2 is the spotlight.
+                 </p>
+               </div>
+             </section>
+
+             <section>
+               <h3 className="text-2xl font-semibold mb-4">Intellectual lineage (very short)</h3>
+              <ul className="space-y-2 text-white/80">
+                <li><strong>C.G. Jung — Archetypal theory</strong> (archetypes as recurring psychic patterns)</li>
+                <li><strong>James Hillman — Archetypal psychology</strong> (imaginal & cultural framing)</li>
+                <li><strong>Mark & Pearson — Brand archetypes</strong> (practical translation to roles/voice)</li>
+                <li><strong>Big Five / NEO</strong> (empirical anchors for behavioral traits)</li>
+                <li><strong>Org & behavioral research</strong> (applied validation for team dynamics)</li>
+              </ul>
+            </section>
+
+            <section>
+              <h3 className="text-2xl font-semibold mb-4">The engine, in plain terms (what it actually reads)</h3>
+              <div className="space-y-4">
+                <div className="bg-white/5 p-4 rounded-lg">
+                  <h4 className="font-semibold mb-2">1. Every quiz item is tagged.</h4>
+                  <p className="text-white/80">
+                    Each question belongs to a <em>family</em> (domain) and every answer choice maps to one of Act / Scan / Reset. 
+                    A user click becomes a <strong>tap</strong> recorded as <code className="bg-black/30 px-2 py-1 rounded">{`{ phase, family, mv, detail, ts }`}</code>.
+                  </p>
+                </div>
+
+                <div className="bg-white/5 p-4 rounded-lg">
+                  <h4 className="font-semibold mb-2">2. Per-family ledger.</h4>
+                  <p className="text-white/80">
+                    The engine tallies A/S/R taps per family. Those tallies form the family's raw evidence.
+                  </p>
+                </div>
+
+                <div className="bg-white/5 p-4 rounded-lg">
+                  <h4 className="font-semibold mb-2">3. Two-phase flow.</h4>
+                  <ul className="text-white/80 space-y-1 ml-4">
+                    <li><strong>Phase 1</strong> provides "lean" hints (broader, softer signal).</li>
+                    <li><strong>Phase 2</strong> is the explicit A/S/R read. Phase 2 is treated as more deliberate and drives confidence in the family result.</li>
+                  </ul>
+                </div>
+
+                <div className="bg-white/5 p-4 rounded-lg">
+                  <h4 className="font-semibold mb-2">4. Family resolution.</h4>
+                  <p className="text-white/80">
+                    The resolver computes, per family: probabilities (<code className="bg-black/30 px-1 py-0.5 rounded">p</code> for each face), 
+                    a winner face, and a confidence rating (User/High/Medium/Low). That becomes the <code className="bg-black/30 px-1 py-0.5 rounded">FamilyResult</code> used downstream.
+                  </p>
+                </div>
+
+                <div className="bg-white/5 p-4 rounded-lg">
+                  <h4 className="font-semibold mb-2">5. Seeds and deterministic tie-breaks.</h4>
+                  <p className="text-white/80 mb-2">For each family winner the engine builds a seed object that includes:</p>
+                  <ul className="text-white/80 space-y-1 ml-4">
+                    <li><code className="bg-black/30 px-1 py-0.5 rounded">votes</code> (a small integer summarizing strength; derived from probability thresholds and confidence),</li>
+                    <li><code className="bg-black/30 px-1 py-0.5 rounded">p</code> (face probability),</li>
+                    <li><code className="bg-black/30 px-1 py-0.5 rounded">margin</code> (gap between the two faces in that family),</li>
+                    <li><code className="bg-black/30 px-1 py-0.5 rounded">_tb</code> (a deterministic tie-breaker hash derived from the ordered taps and the face label).</li>
+                  </ul>
+                  <p className="text-white/80 mt-2">
+                    The hash function is FNV-1a applied to the tap string; it guarantees a strict, stable order for ties.
+                  </p>
+                </div>
+
+                <div className="bg-white/5 p-4 rounded-lg">
+                  <h4 className="font-semibold mb-2">6. Ranking & wildcard.</h4>
+                  <ul className="text-white/80 space-y-1 ml-4">
+                    <li>Primary seeds = one winner per family.</li>
+                    <li>Wildcard = the strongest runner-up across families (deterministically selected the same way).</li>
+                    <li>Seeds are ranked by <code className="bg-black/30 px-1 py-0.5 rounded">(votes, p, margin, tie-breaker)</code>. This ordered list becomes the tournament bracket (Top-8 / Top-4 / Top-2 depending on how many strong seeds you have).</li>
+                  </ul>
+                </div>
+
+                <div className="bg-white/5 p-4 rounded-lg">
+                  <h4 className="font-semibold mb-2">7. Tournament (duels).</h4>
+                  <p className="text-white/80">
+                    The bracket is fixed (no random shuffle). Users choose duel winners, but the initial seeding — which faces are on stage — 
+                    is driven by the A/S/R ledger and the family resolution. The final champion is recorded and used as the quiz result; 
+                    the system also records the machine-selected secondary (best runner-up).
+                  </p>
+                </div>
+              </div>
+            </section>
+
+
+            <section>
+              <h3 className="text-2xl font-semibold mb-4">Implementation details (what the code does — exact, for the curious)</h3>
+              <ul className="space-y-2 text-white/80">
+                <li><strong>Deterministic hashing:</strong> FNV-1a over a canonical tap string is used to produce <code className="bg-black/30 px-1 py-0.5 rounded">_tb</code>, a 32-bit tie-breaker hash. That prevents non-determinism when votes/p/probabilities/margins tie.</li>
+                <li><strong>Seed ordering:</strong> seeds are compared by <code className="bg-black/30 px-1 py-0.5 rounded">(votes desc, p desc, margin desc, cmpSeedTB)</code>. Votes are <code className="bg-black/30 px-1 py-0.5 rounded">1 + (p &gt;= 0.6 ? 1 : 0) + (confidence in {'{'}High,User{'}'} ? 1 : 0)</code> capped at 3.</li>
+                <li><strong>Wildcard selection:</strong> picks the strongest runner-up across families using the same deterministic comparator.</li>
+                <li><strong>Bracket rules:</strong> prefer Top-8, else Top-4, else Top-2. Pairing is fixed via index table (no shuffles).</li>
+                <li><strong>Phase flow:</strong> PHASE1 builds soft "leans"; PHASE2 supplies the direct A/S/R taps (two options shown per item in the UI so not all three are visible each time).</li>
+              </ul>
+            </section>
+
+            <section>
+              <h3 className="text-2xl font-semibold mb-4">What this means for product & diagnostics</h3>
+              <ul className="space-y-2 text-white/80">
+                <li><strong>Repeatability:</strong> same answers ⇒ same result every time. Determinism is baked in. No surprise winners.</li>
+                <li><strong>Explainability:</strong> you can show the per-family ledger, seed scores, margins, and tie-break hashes to demonstrate <em>why</em> a face won.</li>
+                <li><strong>Robustness:</strong> tie-breaker hashing + margin-aware ranking avoids flukes when evidence is thin.</li>
+                <li><strong>Actionable output:</strong> the card and the one-line Signal are tuned to the winning face; the machine-picked secondary gives context and a potential partner/contrast archetype.</li>
+              </ul>
+            </section>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+);
 // #endregion

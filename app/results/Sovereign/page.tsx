@@ -201,7 +201,7 @@ const HeroBand = ({ finalWinner, secondaryFace, pureOneFace, taps }: { finalWinn
             <div className="flex items-center gap-x-3 flex-wrap">
                 {pureOneFace && (
                     <div className="px-2 py-1 rounded-full text-xs font-medium bg-white/10 border border-solid border-white/20 text-white/80">
-                        Pure Match
+                        Pure Archetype No Secondary
                     </div>
                 )}
                 {secondaryFace && secondaryFace.face !== finalWinner?.face && (
@@ -226,14 +226,14 @@ const HeroBand = ({ finalWinner, secondaryFace, pureOneFace, taps }: { finalWinn
                         backgroundColor: isActive ? 'rgba(34, 197, 94, 0.1)' : 'rgba(156, 163, 175, 0.1)',
                         border: `1px solid ${isActive ? 'rgba(34, 197, 94, 0.3)' : 'rgba(156, 163, 175, 0.3)'}`
                     }}>
-                        <span style={{ color: isActive ? '#22c55e' : '#9ca3af' }}>{isActive ? '✓' : '○'}</span>
-                        <span style={{ color: isActive ? '#22c55e' : '#9ca3af' }}>{isActive ? 'Prize active' : 'Prize dark'}</span>
+                        {isActive && <span style={{ color: '#22c55e' }}>✓</span>}
+                        {isActive && <span style={{ color: '#22c55e' }}>Prize active</span>}
                         <span className="text-white/80">
                             {isActive
                                 ? `${prizeActivation.main} clicks when paired with ${prizeActivation.secondary}.`
                                 : (
                                     <>
-                                        you need <span style={{ color: getFaceLight(prizeActivation.required) }}><strong>{prizeActivation.required.toUpperCase()}</strong></span> as Secondary to make your movement click.
+                                        Prize - <span style={{ color: getFaceLight(prizeActivation.required) }}><strong>{prizeActivation.required}</strong></span> the secondary that complements you so movement clicks and reality aligns.
                                     </>
                                   )
                             }
@@ -246,25 +246,29 @@ const HeroBand = ({ finalWinner, secondaryFace, pureOneFace, taps }: { finalWinn
     );
 };
 
-const LegendSection = () => (
-    <div className="mb-6 max-w-6xl mx-auto">
+const CoreLegendSection = () => (
+    <div className="mb-6 max-w-4xl mx-auto">
         <div className="bg-black/40 rounded-lg p-4 border border-white/10">
             <div className="flex flex-wrap gap-x-8 gap-y-3 text-sm text-white">
                 <div className="flex items-center gap-2">
                     <span className="text-white/60">⚡</span>
-                    <strong>Main Archetype (Driver):</strong> your baseline way of moving through the world.
+                    <strong>Main:</strong> Who you are — your core archetype.
                 </div>
                 
                 <div className="flex items-center gap-2">
                     <span className="text-white/60">🎭</span>
-                    <strong>Secondary Archetype (Presenter):</strong> the parallel pattern that shapes how the main shows up.
+                    <strong>Secondary (Shaper):</strong> What's shaping you right now.
                 </div>
                 
-                <div className="flex items-center gap-2">
-                    <span className="text-white/60">🔑</span>
-                    <strong>Prize:</strong> the required pattern — the one you chase in yourself and look for in others, the lock that makes your movement click.
-                </div>
-                
+            </div>
+        </div>
+    </div>
+);
+
+const LegendSection = () => (
+    <div className="mb-6 max-w-6xl mx-auto">
+        <div className="bg-black/40 rounded-lg p-4 border border-white/10">
+            <div className="flex flex-wrap gap-x-8 gap-y-3 text-sm text-white">
                 <div className="flex items-center gap-2">
                     <span className="text-white/60">🏛️</span>
                     <strong>Families:</strong> seven decision jobs where your patterns show up.
@@ -347,12 +351,12 @@ const PrizeSection = ({ finalWinner, secondaryFace, taps }: { finalWinner: Seed 
                 backgroundColor: prizeActivation.state === "ACTIVE" ? 'rgba(34, 197, 94, 0.1)' : 'rgba(156, 163, 175, 0.1)',
                 border: `1px solid ${prizeActivation.state === "ACTIVE" ? 'rgba(34, 197, 94, 0.3)' : 'rgba(156, 163, 175, 0.3)'}`
             }}>
-                <span style={{ color: prizeActivation.state === "ACTIVE" ? '#22c55e' : '#9ca3af' }}>
-                    {prizeActivation.state === "ACTIVE" ? '✓' : '○'}
-                </span>
-                <span style={{ color: prizeActivation.state === "ACTIVE" ? '#22c55e' : '#9ca3af' }}>
-                    {prizeActivation.state === "ACTIVE" ? "Prize active" : "Prize dark"}
-                </span>
+                {prizeActivation.state === "ACTIVE" && (
+                    <span style={{ color: '#22c55e' }}>✓</span>
+                )}
+                {prizeActivation.state === "ACTIVE" && (
+                    <span style={{ color: '#22c55e' }}>Prize active</span>
+                )}
                 <span className="text-white/80">
                     {prizeActivation.state === "ACTIVE" 
                         ? `${prizeActivation.main} clicks when paired with ${prizeActivation.secondary}.`
@@ -686,18 +690,19 @@ const ResultsScreen = ({ taps, finalWinner, duels, secondaryFace, pureOneFace, o
     return (
         <div className='fade-in pb-20'>
             <HeroBand finalWinner={finalWinner} secondaryFace={secondaryFace} pureOneFace={pureOneFace} taps={taps} />
+            <CoreLegendSection />
             <SecondaryArchetypeSection finalWinner={finalWinner} secondaryFace={secondaryFace} pureOneFace={pureOneFace} />
-            <LegendSection />
-            {/* Inline prize now shown in HeroBand; removing separate section to avoid duplication */}
-
-            <FamilyGrid triad={triad} finalWinner={finalWinner} secondaryFace={secondaryFace} taps={taps} />
-
             <div className="mb-10">
                 <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-5">
                     <StrengthsCard archetype={winnerArchetype} color={winnerColor} />
                     <BlindspotsCard archetype={winnerArchetype} />
                 </div>
             </div>
+
+            <LegendSection />
+            {/* Inline prize now shown in HeroBand; removing separate section to avoid duplication */}
+
+            <FamilyGrid triad={triad} finalWinner={finalWinner} secondaryFace={secondaryFace} taps={taps} />
 
             <EvidenceDrawer duels={duels} />
 
