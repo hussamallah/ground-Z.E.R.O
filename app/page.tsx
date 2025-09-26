@@ -445,7 +445,7 @@ const IntroScreen = ({ onStart }: { onStart: () => void }) => (
         </div>
 
         <div>
-          <div className="kicker">Why it's different</div>
+          <div className="kicker">Why it&apos;s different</div>
           <h2>What powers the insight</h2>
           <div className="divider" />
           <div className="mini">
