@@ -165,6 +165,8 @@ export default function ArchitectResultsPage() {
 
 // #13) Component contract
 const HeroBand = ({ finalWinner, secondaryFace, pureOneFace, taps }: { finalWinner: Seed | null, secondaryFace?: Seed | null, pureOneFace?: boolean, taps: Tap[] }) => {
+    const prizeActivation = finalWinner ? evaluatePrizeActivation(finalWinner.face, secondaryFace || null, taps) : null;
+    
     return (
     <div className="mb-8 pt-6">
         <div className="max-w-4xl mx-auto flex flex-col items-center text-center gap-y-6">
