@@ -6,7 +6,9 @@
     "dev": "next dev --turbopack --hostname 0.0.0.0",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "sim": "node scripts/sim.js",
+    "sim:ts": "ts-node --transpile-only scripts/sim.ts"
   },
   "dependencies": {
     "next": "15.5.3",
@@ -23,6 +25,7 @@
     "eslint-config-next": "15.5.3",
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.17",
-    "typescript": "^5"
+    "typescript": "^5",
+    "ts-node": "^10.9.2"
   }
 }

@@ -1,3 +1,32 @@
+/* Sudden Death ambience */
+.sudden-death-vignette {
+  position: relative;
+}
+.sudden-death-vignette::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0) 40%, rgba(0,0,0,0.35) 100%);
+}
+.sudden-death-ambient {
+  position: absolute;
+  inset: -10%;
+  pointer-events: none;
+  background: 
+    radial-gradient(600px 200px at 20% -10%, rgba(99,102,241,0.10), transparent),
+    radial-gradient(600px 200px at 80% 110%, rgba(236,72,153,0.10), transparent);
+  filter: blur(30px);
+}
+
+/* Question transition (250ms) */
+@keyframes q-fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-q-in {
+  animation: q-fade-in 250ms ease both;
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
