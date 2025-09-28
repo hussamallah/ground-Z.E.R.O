@@ -47,6 +47,15 @@ const FAMILY_ICONS: { [key: string]: string } = {
 
 const CURRENT_ARCHETYPE = "Sovereign";
 
+// Micro-prediction anchor mapping
+type Anchor = { label: string; q: number; why: string };
+const ANCHOR_MAP: Anchor[] = [
+  { label: "Conflict", q: 3,  why: "Predicts your first move when there's heat." },
+  { label: "2AM call", q: 5,  why: "Predicts how you show up for people in crisis." },
+  { label: "When a plan stalls", q: 9,  why: "Predicts how you restart motion." },
+  { label: "New team", q: 11, why: "Predicts what you set up first on a fresh team." },
+];
+
 // Prize pattern locks - "X needs Y" means X only clicks when Y is the Secondary
 const PRIZE_LOCKS: { [key: string]: string } = {
     // Control → needs Recognition
@@ -115,6 +124,7 @@ export default function SovereignResultsPage() {
         duels: MatchLog[];
         secondaryFace?: Seed | null;
         pureOneFace?: boolean;
+        axisProbe?: { items: string[]; answers: ("Yes"|"No"|"Maybe")[]; verdict: "PURE"|"WOBBLE"|"OFF"; main: string; secondary: string };
     } | null>(null);
 
     useEffect(() => {
@@ -158,6 +168,7 @@ export default function SovereignResultsPage() {
                 duels={resultsData.duels}
                 secondaryFace={resultsData.secondaryFace}
                 pureOneFace={resultsData.pureOneFace}
+                axisProbe={resultsData.axisProbe}
                 onRestart={handleRestart}
                 router={router}
             />
@@ -568,6 +579,193 @@ const EvidenceDrawer = ({ duels }: { duels: MatchLog[] }) => {
     );
 };
 
+const AxisProbeResults = ({ axisProbe }: { axisProbe: { items: string[]; answers: ("Yes"|"No"|"Maybe")[]; verdict: "PURE"|"WOBBLE"|"OFF"; main: string; secondary: string } }) => {
+    const getVerdictColor = (verdict: string) => {
+        switch (verdict) {
+            case "PURE": return "text-green-400";
+            case "WOBBLE": return "text-yellow-400";
+            case "OFF": return "text-red-400";
+            default: return "text-gray-400";
+        }
+    };
+
+    const getVerdictText = (verdict: string) => {
+        switch (verdict) {
+            case "PURE": return "Pure Alignment";
+            case "WOBBLE": return "Balanced Tension";
+            case "OFF": return "Misaligned";
+            default: return "Unknown";
+        }
+    };
+
+    const getVerdictReadout = (verdict: string, main: string, secondary: string) => {
+        switch (verdict) {
+            case "PURE": 
+                return [
+                    `Your ${secondary} behaviors reinforce your ${main} axis without slippage.`,
+                    "Expect consistency under load. You can scale this."
+                ];
+            case "WOBBLE": 
+                return [
+                    `You run ${main}, but ${secondary} toggles: sometimes boosts, sometimes blurs.`,
+                    "Expect variability. Name the condition where ${secondary} shows up clean, and repeat it."
+                ];
+            case "OFF": 
+                return [
+                    `Your declared ${secondary} isn't participating when the axis is live.`,
+                    "Either drop it from the story or retrain the habit. Don't market what you can't keep."
+                ];
+            default: 
+                return ["Unknown verdict"];
+        }
+    };
+
+    const getActionChips = (verdict: string) => {
+        switch (verdict) {
+            case "PURE": 
+                return [
+                    { text: "Double-down habit", tooltip: "Identify the specific behaviors that work and make them automatic." },
+                    { text: "Scale pattern", tooltip: "Apply this axis to bigger decisions and more complex situations." },
+                    { text: "Guard for overreach", tooltip: "Watch for times when this strength becomes a weakness." }
+                ];
+            case "WOBBLE": 
+                return [
+                    { text: "Name trigger condition", tooltip: "Identify exactly when your secondary archetype shows up clearly." },
+                    { text: "Practice under stress", tooltip: "Test this axis when pressure is high to see what holds." },
+                    { text: "Limit context switching", tooltip: "Reduce situations where you have to toggle between modes." }
+                ];
+            case "OFF": 
+                return [
+                    { text: "Remove from pitch", tooltip: "Stop claiming this secondary archetype in your self-description." },
+                    { text: "Re-train micro-habit", tooltip: "Pick one small behavior to practice daily until it sticks." },
+                    { text: "Pick a truer secondary", tooltip: "Find a secondary archetype that actually shows up in your decisions." }
+                ];
+            default: 
+                return [];
+        }
+    };
+
+    return (
+        <div className="max-w-4xl mx-auto mb-10">
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+                <h3 className="text-xl font-semibold text-white mb-4">Axis Probe Results</h3>
+                <p className="text-white/70 mb-6">
+                    Your decision-making axis between <span className="font-semibold text-yellow-400">{axisProbe.main}</span> and <span className="font-semibold text-yellow-400">{axisProbe.secondary}</span>
+                </p>
+                
+                {/* Plain-English readout */}
+                <div className="mb-6 p-4 bg-white/5 rounded-xl">
+                    <div className="flex items-center justify-between mb-3">
+                        <span className="text-white/70">Axis Verdict:</span>
+                        <span className={`font-semibold ${getVerdictColor(axisProbe.verdict)}`}>
+                            {getVerdictText(axisProbe.verdict)}
+                        </span>
+                    </div>
+                    <div className="space-y-2">
+                        {getVerdictReadout(axisProbe.verdict, axisProbe.main, axisProbe.secondary).map((line, index) => (
+                            <p key={index} className="text-white/80 text-sm leading-relaxed">
+                                {line}
+                            </p>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Action chips */}
+                <div className="space-y-3">
+                    <h4 className="text-sm font-medium text-white/70">What to do next:</h4>
+                    <div className="flex flex-wrap gap-2">
+                        {getActionChips(axisProbe.verdict).map((chip, index) => (
+                            <div key={index} className="px-3 py-1.5 text-xs font-medium rounded-full bg-white/10 text-white/90">
+                                {chip.text}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+const MicroPredictionResults = ({ taps, finalWinner, secondaryFace }: { taps: Tap[], finalWinner: Seed | null, secondaryFace?: Seed | null }) => {
+    const main = finalWinner?.face as string | undefined;
+    const secondary = secondaryFace?.face as string | undefined;
+
+    function faceTag(f: string | undefined) {
+        if (!f) return "OFF-AXIS";
+        if (f === main) return "ON-AXIS";
+        if (f === secondary) return "SECONDARY ASSIST";
+        return "OFF-AXIS";
+    }
+
+    const rows = ANCHOR_MAP.flatMap(a => {
+        const t = [...taps].reverse().find(t =>
+            (t.qnum ?? Number((t.detail.match(/^Q(\d+):/) || [,"0"])[1])) === a.q
+        );
+        if (!t) return [];
+        const text = t.detail.replace(/^Q\d+:\s*/, "");
+        const f = t.face as string | undefined;
+        return [{
+            context: a.label,
+            text,
+            face: f,
+            axis: faceTag(f),
+            why: a.why,
+        }];
+    });
+
+    const aligned = rows.filter(r => r.axis !== "OFF-AXIS").length;
+    const total = rows.length;
+
+    if (rows.length === 0) return null;
+
+    return (
+        <div className="max-w-4xl mx-auto mb-10">
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+                <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-xl font-semibold text-white">Micro-Prediction Anchors</h3>
+                    <div className="px-3 py-1 text-sm font-medium rounded-full bg-white/10 text-white/90">
+                        Micro alignment: {aligned}/{total}
+                    </div>
+                </div>
+                <p className="text-white/70 mb-6">
+                    Key decision moments that predict your archetype alignment
+                </p>
+                
+                <div className="space-y-4">
+                    {rows.map((row, index) => (
+                        <div key={index} className="p-4 bg-white/5 rounded-xl">
+                            <div className="flex items-center gap-2 mb-2">
+                                <span className="font-medium text-white">{row.context}</span>
+                                {row.face && (
+                                    <span 
+                                        className="px-2 py-1 text-xs font-medium rounded-full"
+                                        style={{
+                                            backgroundColor: `rgba(${getFaceLight(row.face).replace('#', '').match(/.{2}/g)?.map(hex => parseInt(hex, 16)).join(', ') || '148, 163, 184'}, 0.1)`,
+                                            color: getFaceLight(row.face),
+                                            border: `1px solid rgba(${getFaceLight(row.face).replace('#', '').match(/.{2}/g)?.map(hex => parseInt(hex, 16)).join(', ') || '148, 163, 184'}, 0.2)`
+                                        }}
+                                    >
+                                        {row.face}
+                                    </span>
+                                )}
+                                <span className={`px-2 py-1 text-xs font-medium rounded-full ${
+                                    row.axis === "ON-AXIS" ? "bg-green-500/20 text-green-400" :
+                                    row.axis === "SECONDARY ASSIST" ? "bg-blue-500/20 text-blue-400" :
+                                    "bg-gray-500/20 text-gray-400"
+                                }`}>
+                                    {row.axis}
+                                </span>
+                            </div>
+                            <p className="text-white/80 text-sm mb-2">{row.text}</p>
+                            <p className="text-white/60 text-xs">{row.why}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
+};
+
 const ResultCTAs = ({ onDownload, onRestart, router, finalWinner }: { onDownload: () => void, onRestart: () => void, router: any, finalWinner: Seed | null }) => (
     <div className="md:static sticky bottom-0 z-10 py-4 bg-black/50 backdrop-blur-sm">
         <div className="max-w-4xl mx-auto flex flex-col sm:flex-row gap-4 justify-center">
@@ -587,7 +785,7 @@ const ResultCTAs = ({ onDownload, onRestart, router, finalWinner }: { onDownload
     </div>
 );
 
-const ResultsScreen = ({ taps, finalWinner, duels, secondaryFace, pureOneFace, onRestart, router }: { taps: Tap[], finalWinner: Seed | null, duels: MatchLog[], secondaryFace?: Seed | null, pureOneFace?: boolean, onRestart: () => void, router: any }) => {
+const ResultsScreen = ({ taps, finalWinner, duels, secondaryFace, pureOneFace, axisProbe, onRestart, router }: { taps: Tap[], finalWinner: Seed | null, duels: MatchLog[], secondaryFace?: Seed | null, pureOneFace?: boolean, axisProbe?: { items: string[]; answers: ("Yes"|"No"|"Maybe")[]; verdict: "PURE"|"WOBBLE"|"OFF"; main: string; secondary: string }, onRestart: () => void, router: any }) => {
     const familyResults = useMemo(() => resolveAllFamilies(taps), [taps]);
     
     useEffect(() => { try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch {} }, []);
@@ -700,12 +898,9 @@ const ResultsScreen = ({ taps, finalWinner, duels, secondaryFace, pureOneFace, o
                 </div>
             </div>
 
-            <LegendSection />
-            {/* Inline prize now shown in HeroBand; removing separate section to avoid duplication */}
+            {axisProbe && <AxisProbeResults axisProbe={axisProbe} />}
 
-            <FamilyGrid triad={triad} finalWinner={finalWinner} secondaryFace={secondaryFace} taps={taps} />
-
-            <EvidenceDrawer duels={duels} />
+            <MicroPredictionResults taps={taps} finalWinner={finalWinner} secondaryFace={secondaryFace} />
 
             <ResultCTAs onDownload={download} onRestart={onRestart} router={router} finalWinner={finalWinner} />
             

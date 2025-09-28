@@ -116,6 +116,7 @@ export default function RebelResultsPage() {
         duels: MatchLog[];
         secondaryFace?: Seed | null;
         pureOneFace?: boolean;
+        axisProbe?: { items: string[]; answers: ("Yes"|"No"|"Maybe")[]; verdict: "PURE"|"WOBBLE"|"OFF"; main: string; secondary: string };
     } | null>(null);
 
     useEffect(() => {
@@ -159,6 +160,7 @@ export default function RebelResultsPage() {
                 duels={resultsData.duels}
                 secondaryFace={resultsData.secondaryFace}
                 pureOneFace={resultsData.pureOneFace}
+                axisProbe={resultsData.axisProbe}
                 onRestart={handleRestart}
                 router={router}
             />
@@ -571,6 +573,69 @@ const EvidenceDrawer = ({ duels }: { duels: MatchLog[] }) => {
     );
 };
 
+const AxisProbeResults = ({ axisProbe }: { axisProbe: { items: string[]; answers: ("Yes"|"No"|"Maybe")[]; verdict: "PURE"|"WOBBLE"|"OFF"; main: string; secondary: string } }) => {
+    const getVerdictColor = (verdict: string) => {
+        switch (verdict) {
+            case "PURE": return "text-green-400";
+            case "WOBBLE": return "text-yellow-400";
+            case "OFF": return "text-red-400";
+            default: return "text-gray-400";
+        }
+    };
+
+    const getVerdictText = (verdict: string) => {
+        switch (verdict) {
+            case "PURE": return "Pure Alignment";
+            case "WOBBLE": return "Balanced Tension";
+            case "OFF": return "Misaligned";
+            default: return "Unknown";
+        }
+    };
+
+    return (
+        <div className="max-w-4xl mx-auto mb-10">
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+                <h3 className="text-xl font-semibold text-white mb-4">Axis Probe Results</h3>
+                <p className="text-white/70 mb-6">
+                    Your decision-making axis between <span className="font-semibold text-yellow-400">{axisProbe.main}</span> and <span className="font-semibold text-yellow-400">{axisProbe.secondary}</span>
+                </p>
+                
+                <div className="space-y-4">
+                    {axisProbe.items.map((item, index) => (
+                        <div key={index} className="flex items-start gap-4 p-4 bg-white/5 rounded-xl">
+                            <div className="flex-shrink-0 w-8 h-8 bg-white/10 rounded-full flex items-center justify-center text-sm font-medium text-white">
+                                {index + 1}
+                            </div>
+                            <div className="flex-1">
+                                <p className="text-white/90 mb-2">{item}</p>
+                                <div className="flex items-center gap-2">
+                                    <span className="text-sm text-white/60">Your response:</span>
+                                    <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                                        axisProbe.answers[index] === "Yes" ? "bg-green-500/20 text-green-400" :
+                                        axisProbe.answers[index] === "No" ? "bg-red-500/20 text-red-400" :
+                                        "bg-yellow-500/20 text-yellow-400"
+                                    }`}>
+                                        {axisProbe.answers[index]}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                
+                <div className="mt-6 p-4 bg-white/5 rounded-xl">
+                    <div className="flex items-center justify-between">
+                        <span className="text-white/70">Axis Verdict:</span>
+                        <span className={`font-semibold ${getVerdictColor(axisProbe.verdict)}`}>
+                            {getVerdictText(axisProbe.verdict)}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
 const ResultCTAs = ({ onDownload, onRestart, router, finalWinner }: { onDownload: () => void, onRestart: () => void, router: any, finalWinner: Seed | null }) => (
     <div className="md:static sticky bottom-0 z-10 py-4 bg-black/50 backdrop-blur-sm">
         <div className="max-w-4xl mx-auto flex flex-col sm:flex-row gap-4 justify-center">
@@ -590,7 +655,7 @@ const ResultCTAs = ({ onDownload, onRestart, router, finalWinner }: { onDownload
     </div>
 );
 
-const ResultsScreen = ({ taps, finalWinner, duels, secondaryFace, pureOneFace, onRestart, router }: { taps: Tap[], finalWinner: Seed | null, duels: MatchLog[], secondaryFace?: Seed | null, pureOneFace?: boolean, onRestart: () => void, router: any }) => {
+const ResultsScreen = ({ taps, finalWinner, duels, secondaryFace, pureOneFace, axisProbe, onRestart, router }: { taps: Tap[], finalWinner: Seed | null, duels: MatchLog[], secondaryFace?: Seed | null, pureOneFace?: boolean, axisProbe?: { items: string[]; answers: ("Yes"|"No"|"Maybe")[]; verdict: "PURE"|"WOBBLE"|"OFF"; main: string; secondary: string }, onRestart: () => void, router: any }) => {
     const familyResults = useMemo(() => resolveAllFamilies(taps), [taps]);
     
     useEffect(() => { try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch {} }, []);
@@ -702,6 +767,8 @@ const ResultsScreen = ({ taps, finalWinner, duels, secondaryFace, pureOneFace, o
                     <BlindspotsCard archetype={winnerArchetype} />
                 </div>
             </div>
+
+            {axisProbe && <AxisProbeResults axisProbe={axisProbe} />}
 
             <LegendSection />
             {/* Inline prize now shown in HeroBand; removing separate section to avoid duplication */}
