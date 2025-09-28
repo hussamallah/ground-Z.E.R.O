@@ -10,10 +10,13 @@ import { FAMILIES, RESULTS_LIB,
     resolveAllFamilies,
     familyScoresPure,
     renderFamilyContent,
-    Tap,
+    Tap as BaseTap,
     Seed,
     MatchLog
 } from '../../quiz-data';
+
+// Extended Tap type with qnum and face for micro-prediction anchors
+type Tap = BaseTap & { qnum?: number; face?: string };
 import SovereignSecondaries from '../../components/GroundZero_Sovereign_13_Secondaries.json';
 // Face light color mapping
 const FACE_LIGHT: { [key: string]: string } = {
