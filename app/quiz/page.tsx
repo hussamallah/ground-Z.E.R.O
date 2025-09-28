@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { PHASE1, PHASE2, PHASE3, FaceArt, FaceCopy, familyPair, PROB_WINDOW, MIN_FINALISTS, PROB_BACKOFF, resolveAllFamilies, Tap, FamilyResult, Seed, MatchLog } from '../quiz-data';
+import { PHASE1, PHASE2, PHASE3, FaceArt, FaceCopy, familyPair, PROB_WINDOW, MIN_FINALISTS, PROB_BACKOFF, resolveAllFamilies, Tap, FamilyResult, Seed, MatchLog, LEAN } from '../quiz-data';
 import Image from 'next/image';
 
 // #region Helper Types and Functions
@@ -14,6 +14,8 @@ const fhash = (s: string) => {
     return h >>> 0;
 };
 
+
+const faceForDetail = (family: string, detail: string): string => ((LEAN as any)[family]?.[detail]) || '';
 
 const seedFromFamily = (fr: FamilyResult, taps: Tap[]): Omit<Seed, 'seed'> => {
     const pair = familyPair(fr.family);
@@ -406,6 +408,7 @@ const Phase1Screen = ({ question, onSelect, qNum, total }: { question: any, onSe
                                     onClick={() => onSelect({ phase: 'P1', family: question.family, mv: ch.mv, detail: ch.detail })}
                                 />
                                 <div className="min-h-[60px] md:min-h-[70px] text-[15px] leading-relaxed text-[#E8E8E8] flex-1 relative z-10">{ch.text}</div>
+                                <div className="mt-2 inline-block text-[11px] uppercase tracking-wide text-white/80 bg-white/10 border border-white/15 rounded px-2 py-0.5 relative z-10">{faceForDetail(question.family, ch.detail)}</div>
                                 <div className="absolute inset-0"></div>
                             </label>
                     </div>
@@ -458,6 +461,7 @@ const Phase2Screen = ({ index, question, onSelect, qNum, total }: { index: numbe
                                     onClick={() => onSelect({ phase: 'P2', family: question.family, mv: o.mv, detail: o.detail })}
                                 />
                                 <div className="min-h-[60px] md:min-h-[70px] text-[15px] leading-relaxed text-[#E8E8E8] flex-1 relative z-10">{o.text}</div>
+                                <div className="mt-2 inline-block text-[11px] uppercase tracking-wide text-white/80 bg-white/10 border border-white/15 rounded px-2 py-0.5 relative z-10">{faceForDetail(question.family, o.detail)}</div>
                                 <div className="absolute inset-0"></div>
                             </label>
                     </div>
@@ -537,6 +541,7 @@ const Phase3Screen = ({ question, onSelect, qNum, total, taps }: { question: any
                                 onClick={() => onSelect({ phase: 'P3', family: question.family, mv: leftKey, detail: left.detail })}
                             />
                             <div className="min-h-[60px] md:min-h-[70px] text-[15px] leading-relaxed text-[#E8E8E8] flex-1 relative z-10">{left.text}</div>
+                            <div className="mt-2 inline-block text-[11px] uppercase tracking-wide text-white/80 bg-white/10 border border-white/15 rounded px-2 py-0.5 relative z-10">{faceForDetail(question.family, left.detail)}</div>
                             <div className="absolute inset-0"></div>
                         </label>
                     </div>
@@ -554,6 +559,7 @@ const Phase3Screen = ({ question, onSelect, qNum, total, taps }: { question: any
                                 onClick={() => onSelect({ phase: 'P3', family: question.family, mv: rightKey, detail: right.detail })}
                             />
                             <div className="min-h-[60px] md:min-h-[70px] text-[15px] leading-relaxed text-[#E8E8E8] flex-1 relative z-10">{right.text}</div>
+                            <div className="mt-2 inline-block text-[11px] uppercase tracking-wide text-white/80 bg-white/10 border border-white/15 rounded px-2 py-0.5 relative z-10">{faceForDetail(question.family, right.detail)}</div>
                             <div className="absolute inset-0"></div>
                         </label>
                     </div>
@@ -812,7 +818,7 @@ const DuelCard = ({ seed, onPick, isSelected }: { seed: Seed, onPick: () => void
         switch (face) {
             case 'Sovereign': return 'rgba(250, 204, 21, 0.15)'; // Gold
             case 'Rebel': return 'rgba(239, 68, 68, 0.15)'; // Red
-            case 'Artisan': return 'rgba(250, 204, 21, 0.15)'; // Gold
+            case 'Vessel': return 'rgba(250, 204, 21, 0.15)'; // Gold
             case 'Spotlight': return 'rgba(250, 204, 21, 0.15)'; // Gold
             default: return 'rgba(6, 182, 212, 0.15)'; // Teal for others
         }
@@ -841,7 +847,7 @@ const DuelCard = ({ seed, onPick, isSelected }: { seed: Seed, onPick: () => void
                 style={{
                     border: `1px solid ${isSelected ? 
                         'rgba(127, 29, 29, 0.6)' : 
-                        (seed.face === 'Sovereign' || seed.face === 'Artisan' || seed.face === 'Spotlight' ? 
+                        (seed.face === 'Sovereign' || seed.face === 'Vessel' || seed.face === 'Spotlight' ? 
                             'rgba(250, 204, 21, 0.3)' : 'rgba(6, 182, 212, 0.3)')}`
                 }}
             >
@@ -861,11 +867,11 @@ const DuelCard = ({ seed, onPick, isSelected }: { seed: Seed, onPick: () => void
                     {seed.face === 'Sovereign' ? 'Authority' : 
                      seed.face === 'Spotlight' ? 'Recognition' :
                      seed.face === 'Rebel' ? 'Defiance' :
-                     seed.face === 'Artisan' ? 'Craft' :
+                     seed.face === 'Vessel' ? 'Craft' :
                      seed.face === 'Guardian' ? 'Protection' :
                      seed.face === 'Navigator' ? 'Guidance' :
                      seed.face === 'Visionary' ? 'Insight' :
-                     seed.face === 'Equalizer' ? 'Balance' :
+                     seed.face === 'Navigator' ? 'Wayfinding' :
                      seed.face === 'Seeker' ? 'Discovery' :
                      seed.face === 'Architect' ? 'Structure' :
                      seed.face === 'Diplomat' ? 'Harmony' :

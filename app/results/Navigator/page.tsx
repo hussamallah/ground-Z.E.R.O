@@ -3,6 +3,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import EvidenceDrawer from '../EvidenceDrawer';
 import { FAMILIES, RESULTS_LIB,
     ARCHETYPES,
     TIE_ORDER,
@@ -29,8 +30,7 @@ const FACE_LIGHT: { [key: string]: string } = {
   Visionary: '#3b82f6',       // Blue
   Navigator: '#a855f7',       // Purple
   Sovereign: '#f59e0b',       // Orange-gold
-  Rebel: '#f97316',           // Red-orange
-  Equalizer: '#22c55e'        // Green
+  Rebel: '#f97316'            // Red-orange
 };
 
 const getFaceLight = (face: string): string => FACE_LIGHT[face] || '#94a3b8';
@@ -63,19 +63,19 @@ const PRIZE_LOCKS: { [key: string]: string } = {
     
     // Pace → needs Stress
     'Visionary': 'Catalyst',
-    'Navigator': 'Artisan',
+    'Navigator': 'Vessel',
     
     // Stress → needs Pace
     'Catalyst': 'Navigator',
-    'Artisan': 'Visionary',
+    'Vessel': 'Visionary',
     
     // Boundary → needs Bonding
-    'Equalizer': 'Provider',
+
     'Guardian': 'Partner',
     
     // Bonding → needs Boundary
     'Partner': 'Guardian',
-    'Provider': 'Equalizer'
+    'Provider': 'Navigator'
 };
 
 type PrizeActivation =
@@ -513,11 +513,7 @@ const FamilyGrid = ({ triad, finalWinner, secondaryFace, taps }: { triad: any[],
                                 {item.headline.substring(0, 90)}{item.headline.length > 90 && '...'}
                             </p>
                             
-                            {!isExpanded ? (
-                                <div className="text-sm text-white/60">
-                                    Click to reveal your decision styles
-                                </div>
-                            ) : (
+                            {isExpanded && (
                                 <div className="space-y-1.5">
                                     {actionLine && <div><span className="font-medium" title="This describes how you push forward and commit to decisions" style={{ color: getFaceLight(finalWinner?.face || '') }}>Action style:</span> {actionLine.sentence}</div>}
                                     {scanLine && <div><span className="font-medium" title="This describes your thought process when evaluating options" style={{ color: getFaceLight(finalWinner?.face || '') }}>Weighing style:</span> {scanLine.sentence}</div>}
@@ -528,47 +524,11 @@ const FamilyGrid = ({ triad, finalWinner, secondaryFace, taps }: { triad: any[],
                     </div>
                 );
             })}
-            <div className="bg-white/5 rounded-lg p-4 flex flex-col justify-between opacity-60 border-2 border-dashed border-white/20" style={{ minHeight: '180px' }}>
-                <div>
-                    <h3 className="text-md font-semibold text-white/80">Compatibility</h3>
-                    <p className="text-sm text-white/60 mt-2">Coming Soon</p>
-                </div>
-                <div className="w-full h-12 bg-white/10 rounded animate-pulse" />
-            </div>
         </div>
     </div>
     );
 };
 
-const EvidenceDrawer = ({ duels }: { duels: MatchLog[] }) => {
-    const [isOpen, setIsOpen] = useState(false);
-    return (
-        <div className="mb-10 max-w-4xl mx-auto">
-            <button
-                className="w-full text-left px-4 py-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
-                onClick={() => setIsOpen(!isOpen)}
-                aria-expanded={isOpen}
-                aria-controls="evidence-timeline"
-            >
-                <span className="font-medium">Your duels path</span>
-                <span className="text-sm text-white/60 ml-2">{isOpen ? 'Hide' : 'Show'}</span>
-            </button>
-            <div 
-                id="evidence-timeline" 
-                className={`transition-all duration-200 ease-in-out overflow-hidden ${isOpen ? 'max-h-96 mt-4' : 'max-h-0'}`}
-            >
-                <div className="space-y-1 p-4 bg-white/5 rounded-lg">
-                    {(duels || []).map((d, i) => (
-                        <div key={i} className="text-sm text-white/80 font-mono flex justify-between">
-                           <span>{d.round}: {d.left.face} vs {d.right.face}</span>
-                           <span>→ {d.chosen}</span>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </div>
-    );
-};
 
 const ResultCTAs = ({ onDownload, onRestart, router, finalWinner }: { onDownload: () => void, onRestart: () => void, router: any, finalWinner: Seed | null }) => (
     <div className="md:static sticky bottom-0 z-10 py-4 bg-black/50 backdrop-blur-sm">

@@ -15,9 +15,9 @@ import {
 } from '../../../quiz-data';
 
 
-const CURRENT_ARCHETYPE = "Equalizer";
+const CURRENT_ARCHETYPE = "Vessel";
 
-export default function EqualizerArchetypePage() {
+export default function VesselArchetypePage() {
     const router = useRouter();
     
     const [resultsData, setResultsData] = useState<{
@@ -181,7 +181,7 @@ const ArchetypeScreen = ({ taps, finalWinner, duels, onRestart, router }: { taps
                 <div className="flex flex-col sm:flex-row gap-3">
                     <button 
                         className='btn' 
-                        onClick={() => router.push('/results/Equalizer')}
+                        onClick={() => router.push('/results/Vessel')}
                         style={{ 
                             backgroundColor: '#6B7280', 
                             borderColor: '#6B7280',

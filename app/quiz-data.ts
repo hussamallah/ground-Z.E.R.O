@@ -12,7 +12,6 @@ export const FaceArt: { [key: string]: string } = {
     "Rebel": "/rebel.png",
     "Visionary": "/visionary.png",
     "Navigator": "/navigator.png",
-    "Equalizer": "/equalizer.png",
     "Guardian": "/guardian.png",
     "Seeker": "/seeker.png",
     "Architect": "/architect.png",
@@ -21,7 +20,7 @@ export const FaceArt: { [key: string]: string } = {
     "Partner": "/partner.png",
     "Provider": "/provider.png",
     "Catalyst": "/catalyst.png",
-    "Artisan": "/catalyst.png"
+    "Vessel": "/catalyst.png"
 };
 
 export const FaceCopy: { [key: string]: string } = {
@@ -29,7 +28,6 @@ export const FaceCopy: { [key: string]: string } = {
     "Rebel": "I twist through air in erratic bursts, sharp turns breaking every pattern mid-flight. Order means nothing to me.",
     "Visionary": "I carve long arcs forward, eyes set on horizons no one else has seen yet. My body lives in tomorrow's wind.",
     "Navigator": "I glide across endless distances, adjusting course through every crosswind. Storm or calm, I find the way.",
-    "Equalizer": "I hold altitude in balance, wings stretched level, symmetry unbroken. Night or day, the measure is steady.",
     "Guardian": "I circle wide, watching, shielding the formation. Approach with peace and I stay graceful; threaten and I rise fierce.",
     "Seeker": "I dive with piercing precision, cutting through veils and illusions. What lies beneath is mine to uncover.",
     "Architect": "I climb in measured steps, every angle chosen, every strand reinforced. My flight builds as much as it moves.",
@@ -38,7 +36,7 @@ export const FaceCopy: { [key: string]: string } = {
     "Partner": "I fly in water if not in sky, always wing-to-wing, never breaking from the one I've chosen.",
     "Provider": "I lift with strength enough for others, carrying their weight in my draft. My currents are never just for me.",
     "Catalyst": "I explode off the air in impossible speed, scattering stillness, igniting motion where none existed.",
-    "Artisan": "I stroke the air in slow, deliberate movements, each motion refined, each landing an act of grace."
+    "Vessel": "I stroke the air in slow, deliberate movements, each motion refined, each landing an act of grace."
 };
 
 /* ========= Canon ========= */
@@ -85,12 +83,12 @@ export const ARCHETYPES = {
     },
     Boundary: {
         L: {
-            name: "Equalizer",
-            definition: "Fairness-first boundary worker; calibrates rules to context.",
-            signature: "S-dominant with measured A.",
-            tells: ["S1a (Balance)", "S2a (Delay)", "S1b (Bias fallback)"],
-            strengths: "fairness, context-sensitive limits.",
-            blindspots: "slow enforcement; may appear indecisive."
+            name: "Navigator",
+            definition: "Designs and lands schedules; sequences and enforces tempo.",
+            signature: "High A, moderate S.",
+            tells: ["A2a (Sequence)", "A2b (Signal)", "A1a (Command)"],
+            strengths: "delivers timetables, predictable execution.",
+            blindspots: "rigidity, under-weights exploration."
         },
         R: {
             name: "Guardian",
@@ -100,7 +98,7 @@ export const ARCHETYPES = {
             strengths: "reliability, prevents boundary erosion.",
             blindspots: "overbearing, escalates conflict."
         },
-        sentences: { L: "Balances claims and context to draw a fair line.", R: "States non-negotiables and defends them without drift." }
+        sentences: { L: "Plans tempo step by step and lands deadlines with clear markers.", R: "States non-negotiables and defends them without drift." }
     },
     Truth: {
         L: {
@@ -161,7 +159,7 @@ export const ARCHETYPES = {
     },
     Stress: {
         L: {
-            name: "Artisan",
+            name: "Vessel",
             definition: "Methodical under pressure; isolates the critical cue and fixes it.",
             signature: "S/A mixed but precise—filters signals to exact responses.",
             tells: ["S2b (Filter)", "S1a (Balance)", "A2a (Sequence fixes)"],
@@ -722,7 +720,7 @@ export const TIE_ORDER: { [key: string]: string[] } = {
 export const priorLR: { [key: string]: { [key: string]: number } } = {
     Control: { A: +0.10, S: +0.00, R: -0.10 }, // Harmonized ±0.10 standard
     Pace: { A: -0.10, S: +0.10, R: 0.00 }, // Scan→Visionary(L), Act→Navigator(R)
-    Boundary: { A: -0.10, S: +0.10, R: 0.00 }, // Scan→Equalizer(L), Act→Guardian(R)
+    Boundary: { A: -0.10, S: +0.10, R: 0.00 }, // Scan→Navigator(L), Act→Guardian(R)
     Truth: { A: -0.10, S: +0.10, R: 0.00 }, // Scan→Seeker(L), Act→Architect(R)
     Recognition: { A: -0.10, S: +0.10, R: 0.00 }, // Scan→Diplomat(L), Act→Spotlight(R)
     Bonding: { A: -0.10, S: +0.10, R: 0.00 }, // Scan→Partner(L), Act→Provider(R)
@@ -743,8 +741,8 @@ export const LEAN: { [key: string]: { [key: string]: string } } = {
     },
     Boundary: {
         A1a: "Guardian", A1b: "Guardian", A2a: "Guardian", A2b: "Guardian",
-        S1a: "Equalizer", S1b: "Equalizer", S2a: "Equalizer", S2b: "Guardian",
-        R1a: "Guardian", R1b: "Guardian", R2a: "Equalizer", R2b: "Equalizer",
+        S1a: "Navigator", S1b: "Navigator", S2a: "Navigator", S2b: "Guardian",
+        R1a: "Guardian", R1b: "Guardian", R2a: "Navigator", R2b: "Navigator",
     },
     Truth: {
         A1a: "Architect", A1b: "Architect", A2a: "Architect", A2b: "Architect",
@@ -762,9 +760,9 @@ export const LEAN: { [key: string]: { [key: string]: string } } = {
         R1a: "Provider", R1b: "Partner", R2a: "Partner", R2b: "Partner",
     },
     Stress: {
-        A1a: "Catalyst", A1b: "Catalyst", A2a: "Artisan", A2b: "Catalyst",
-        S1a: "Artisan", S1b: "Artisan", S2a: "Artisan", S2b: "Artisan",
-        R1a: "Catalyst", R1b: "Catalyst", R2a: "Artisan", R2b: "Artisan",
+        A1a: "Catalyst", A1b: "Catalyst", A2a: "Vessel", A2b: "Catalyst",
+        S1a: "Vessel", S1b: "Vessel", S2a: "Vessel", S2b: "Vessel",
+        R1a: "Catalyst", R1b: "Catalyst", R2a: "Vessel", R2b: "Vessel",
     },
 };
 
@@ -772,11 +770,11 @@ export const familyPair = (family: string) => {
     const map: { [key: string]: { left: string, right: string } } = {
         Control: { left: "Sovereign", right: "Rebel" },
         Pace: { left: "Visionary", right: "Navigator" },
-        Boundary: { left: "Equalizer", right: "Guardian" },
+        Boundary: { left: "Navigator", right: "Guardian" },
         Truth: { left: "Seeker", right: "Architect" },
         Recognition: { left: "Diplomat", right: "Spotlight" },
         Bonding: { left: "Partner", right: "Provider" },
-        Stress: { left: "Artisan", right: "Catalyst" },
+        Stress: { left: "Vessel", right: "Catalyst" },
     };
     return map[family];
 }

@@ -1,7 +1,7 @@
 {
-  "main": "Artisan",
+  "main": "Vessel",
   "baseline": {
-    "title": "Artisan",
+    "title": "Vessel",
     "Psychological Profile": "You prove things by making them well. You lead through craft: iteration, attention to detail, and standards that survive stress. Speed is useful only when the work holds under real pressure.",
     "Origin": "You learned the cost of sloppy execution when good intentions failed in practice. After seeing fragile outputs collapse, you trained yourself to test by doing and to prefer quality that endures.",
     "Inner Conflict": "You polish until deadlines threaten to close. The tension is between perfecting the object and shipping something that moves the project forward now.",
@@ -17,7 +17,7 @@
   },
   "variants": [
     {
-      "title": "Artisan × Sovereign",
+      "title": "Vessel × Sovereign",
       "Psychological Profile": "You enforce standards so decisions stick. You use authority to set and protect quality thresholds, ensuring orders translate into durable work rather than brittle output.",
       "Origin": "You watched decrees produce fragile results. You learned to pair command with craft so directives survive real use.",
       "Inner Conflict": "You must balance enforcing quality with accepting pragmatic trade-offs. Too strict and you slow progress; too loose and the work fails in the field.",
@@ -32,7 +32,7 @@
       "_total_words": 88
     },
     {
-      "title": "Artisan × Rebel",
+      "title": "Vessel × Rebel",
       "Psychological Profile": "You break norms to refine practice. You refuse sloppy tradition and replace it with better-made alternatives, using disruption as a tool to raise the craft floor.",
       "Origin": "You watched rituals survive despite poor outcomes. You learned to rip out the worst bits and rebuild with better workmanship.",
       "Inner Conflict": "You risk alienating artisans who relied on older rhythms. The push to improve can be read as dismissal of past effort.",
@@ -47,7 +47,7 @@
       "_total_words": 92
     },
     {
-      "title": "Artisan × Visionary",
+      "title": "Vessel × Visionary",
       "Psychological Profile": "You craft in service of an imagined future. Your work combines beauty and usability to make the long-term vision tangible and persuasive.",
       "Origin": "You saw polished vision fail when the details betrayed the idea. You learned to prototype the future at human scale so it can actually be built.",
       "Inner Conflict": "You must choose between exquisite work and delivering a visible step toward the future. The ideal piece can delay momentum.",
@@ -62,7 +62,7 @@
       "_total_words": 88
     },
     {
-      "title": "Artisan × Navigator",
+      "title": "Vessel × Navigator",
       "Psychological Profile": "You make handoffs smooth through design. Your craft focuses on the points where work passes hands so the route stays clean and predictable.",
       "Origin": "You saw quality collapse in the seams. You learned to tune interfaces and documentation so the journey between teams doesn’t shred the outcome.",
       "Inner Conflict": "You may over-document to protect craft, which can feel bureaucratic. The trade-off is between durable handoffs and nimble improvisation.",
@@ -77,7 +77,7 @@
       "_total_words": 81
     },
     {
-      "title": "Artisan × Equalizer",
+      "title": "Vessel × Navigator",
       "Psychological Profile": "You make inclusion tangible through detail. You craft processes and outputs that consider varied users so quality benefits a wider set of people.",
       "Origin": "You watched one-size-fits-all work exclude many. You learned to attend to edge cases so the product serves more people well.",
       "Inner Conflict": "You sometimes slow to accommodate marginal cases; the effort spreads scarce time thinner. The question is whether broader fit outweighs lost tempo.",
@@ -92,7 +92,7 @@
       "_total_words": 90
     },
     {
-      "title": "Artisan × Guardian",
+      "title": "Vessel × Guardian",
       "Psychological Profile": "You craft to prevent harm. Your standards minimize brittle failure modes and protect users and teams from breakdowns when stress hits.",
       "Origin": "You saw harm arise from shoddy work. You learned to design for safety and resilience so outputs don’t become liabilities.",
       "Inner Conflict": "You may over-specify for safety and stifle speed. The balance is between preventing failure and enabling timely progress.",
@@ -107,7 +107,7 @@
       "_total_words": 80
     },
     {
-      "title": "Artisan × Seeker",
+      "title": "Vessel × Seeker",
       "Psychological Profile": "You validate craft by testing. You iterate in service of truth: prototypes, user tests, and refinements prove whether the workmanship actually works.",
       "Origin": "You watched beautiful things fail under real conditions. You learned to verify through doing and to let feedback shape the final form.",
       "Inner Conflict": "You refine until evidence satisfies you, which can stall shipping. The trade-off is between proven quality and timely delivery.",
@@ -122,7 +122,7 @@
       "_total_words": 84
     },
     {
-      "title": "Artisan × Architect",
+      "title": "Vessel × Architect",
       "Psychological Profile": "You craft interfaces that scale. You ensure low-level workmanship composes into resilient systems, so small decisions don’t become systemic flaws.",
       "Origin": "You saw tiny mismatches explode into major failures. You learned to apply artisan rigor to the parts that matter for system integrity.",
       "Inner Conflict": "You polish details that matter to the whole, sometimes at the expense of rapid iteration. The tension is fidelity versus speed.",
@@ -137,7 +137,7 @@
       "_total_words": 85
     },
     {
-      "title": "Artisan × Spotlight",
+      "title": "Vessel × Spotlight",
       "Psychological Profile": "You show the work so care is rewarded. You make craftsmanship visible so standards are recognized and emulated, turning quality into a social good.",
       "Origin": "You watched quiet excellence go unnoticed. You learned to surface craft so it attracts backing and cultural reinforcement.",
       "Inner Conflict": "You must avoid turning display into shallow praise. The challenge is honoring true skill without creating performance theater.",
@@ -152,7 +152,7 @@
       "_total_words": 82
     },
     {
-      "title": "Artisan × Diplomat",
+      "title": "Vessel × Diplomat",
       "Psychological Profile": "You craft agreements with finesse. Your workmanship extends to the social contracts you build: clear expectations, fair sequencing, and elegant language that people can actually execute.",
       "Origin": "You watched clumsy terms torpedo collaboration. You learned that the way a deal is written and sequenced affects whether the work will be done well.",
       "Inner Conflict": "You may ritualize niceties that delay hard choices. The tension is between well-phrased commitments and the need for blunt clarity.",
@@ -167,7 +167,7 @@
       "_total_words": 91
     },
     {
-      "title": "Artisan × Partner",
+      "title": "Vessel × Partner",
       "Psychological Profile": "You co-create with care. Your workmanship prioritizes shared standards, mutual reviews, and joint ownership so partners deliver quality together.",
       "Origin": "You saw mismatched expectations fracture collaborations. You learned to build shared definitions of done so partnership produces reliable outcomes.",
       "Inner Conflict": "You sometimes over-invest in alignment rituals that slow output. The trade-off is durable shared quality versus rapid, possibly messy, delivery.",
@@ -182,7 +182,7 @@
       "_total_words": 80
     },
     {
-      "title": "Artisan × Provider",
+      "title": "Vessel × Provider",
       "Psychological Profile": "You secure the resources artisans need. You ensure time, tools, and materials are available so craft doesn’t get shortcut by scarcity.",
       "Origin": "You watched creatives fail for lack of essentials. You learned to provision craft so outputs hold under stress.",
       "Inner Conflict": "You may over-allocate to quality, tightening other parts of the system. The question is whether investment in craft yields enough durability to justify the cost.",
@@ -197,7 +197,7 @@
       "_total_words": 88
     },
     {
-      "title": "Artisan × Catalyst",
+      "title": "Vessel × Catalyst",
       "Psychological Profile": "You craft small moves that change behavior. Your refined interventions nudge systems with subtle but powerful adjustments rather than blunt shocks.",
       "Origin": "You watched rough stunts create short-term noise but no durable shift. You learned to design precise, repeatable nudges that produce lasting change.",
       "Inner Conflict": "You may finesse opportunities until they pass. The balance is between precise influence and seizing the moment.",
