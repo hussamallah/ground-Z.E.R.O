@@ -18,19 +18,18 @@ import { FAMILIES, RESULTS_LIB,
 import SpotlightSecondaries from '../../components/GroundZero_Spotlight_13_Secondaries.json';
 // Face light color mapping
 const FACE_LIGHT: { [key: string]: string } = {
-  Guardian: '#14b8a6',        // Teal
-  Spotlight: '#a3e635',       // Yellow-green
-  Partner: '#ec4899',         // Pink
-  Catalyst: '#f4a300',        // Golden-orange
-  Provider: '#22d3ee',        // Aqua-teal
-  Diplomat: '#5eead4',        // Soft teal
-  Axiarch: '#ffbf00',         // Amber
-  Architect: '#8b5cf6',       // Violet
-  Seeker: '#67e8f9',          // Light cyan
-  Visionary: '#3b82f6',       // Blue
-  Navigator: '#a855f7',       // Purple
-  Sovereign: '#f59e0b',       // Orange-gold
-  Rebel: '#f97316'            // Red-orange
+  Sovereign: '#6D28D9',       // Royal violet
+  Rebel: '#111827',           // Ink black
+  Visionary: '#4338CA',       // Indigo
+  Guardian: '#DC2626',        // Signal red
+  Navigator: '#166534',       // Forest green
+  Seeker: '#2563EB',          // Deep blue
+  Vessel: '#7DD3FC',          // Light sky
+  Partner: '#64748B',         // Denim slate
+  Diplomat: '#E11D48',        // Rose
+  Spotlight: '#EAB308',       // Golden yellow
+  Architect: '#F97316',       // Orange
+  Provider: '#14B8A6'         // Teal
 };
 
 const getFaceLight = (face: string): string => FACE_LIGHT[face] || '#94a3b8';
@@ -151,7 +150,7 @@ export default function SpotlightResultsPage() {
     }
 
     return (
-        <div className="w-full px-4 md:px-6 py-2 md:py-4 space-y-2">
+        <div className="min-h-screen w-full px-4 md:px-6 py-2 md:py-4 space-y-2 bg-[#0b0f14]">
            <ResultsScreen
                 taps={resultsData.taps}
                 finalWinner={resultsData.finalWinner}
@@ -266,23 +265,6 @@ const CoreLegendSection = () => (
     </div>
 );
 
-const LegendSection = () => (
-    <div className="mb-6 max-w-6xl mx-auto">
-        <div className="bg-black/40 rounded-lg p-4 border border-white/10">
-            <div className="flex flex-wrap gap-x-8 gap-y-3 text-sm text-white">
-                <div className="flex items-center gap-2">
-                    <span className="text-white/60">🏛️</span>
-                    <strong>Families:</strong> seven decision jobs where your patterns show up.
-                </div>
-                
-                <div className="flex items-center gap-2">
-                    <span className="text-white/60">🎯</span>
-                    <strong>Styles:</strong> Action (push forward), Weighing (hold and compare), Reset (stop and restart).
-                </div>
-            </div>
-        </div>
-    </div>
-);
 
 const SecondaryArchetypeSection = ({ finalWinner, secondaryFace, pureOneFace }: { finalWinner: Seed | null, secondaryFace?: Seed | null, pureOneFace?: boolean }) => {
     if (!finalWinner || finalWinner.face !== 'Spotlight') return null;
@@ -391,7 +373,7 @@ const SummaryTab = ({ familyResults, taps, duels, finalWinner }: { familyResults
     }, [familyResults]);
 
     return (
-        <div className="fixed bottom-0 left-0 right-0 bg-black/80 backdrop-blur-sm border-t border-white/10 z-50">
+        <div className="fixed bottom-0 left-0 right-0 bg-black/20 backdrop-blur-sm border-t border-white/10 z-50">
             <div className="max-w-6xl mx-auto px-4 py-3">
                 <div className="flex items-center justify-between text-sm">
                     <div className="flex items-center gap-6">
@@ -464,74 +446,10 @@ const BlindspotsCard = ({ archetype }: { archetype: any }) => (
     </div>
 );
 
-const FamilyGrid = ({ triad, finalWinner, secondaryFace, taps }: { triad: any[], finalWinner: Seed | null, secondaryFace?: Seed | null, taps: Tap[] }) => {
-    const [expandedCards, setExpandedCards] = useState<Set<string>>(new Set());
-    
-    const toggleCard = (familyName: string) => {
-        setExpandedCards(prev => {
-            const newSet = new Set(prev);
-            if (newSet.has(familyName)) {
-                newSet.delete(familyName);
-            } else {
-                newSet.add(familyName);
-            }
-            return newSet;
-        });
-    };
-    
-    const prizeActivation = finalWinner ? evaluatePrizeActivation(finalWinner.face, secondaryFace || null, taps) : null;
-    
-    return (
-    <div className="mb-10 max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {triad.map((item: any) => {
-                // Get the top movement for each type from the actual results
-                const actionLine = item.lines.find((l: any) => l.mv === 'A' && !l.undetected);
-                const scanLine = item.lines.find((l: any) => l.mv === 'S' && !l.undetected);
-                const resetLine = item.lines.find((l: any) => l.mv === 'R' && !l.undetected);
-                
-                const isExpanded = expandedCards.has(item.family);
-                const isPrizeActive = prizeActivation?.state === "ACTIVE" && item.family === "Recognition";
-                
-                return (
-                    <div
-                        key={item.family}
-                        className={`bg-white/5 rounded-lg p-4 flex flex-col cursor-pointer transition-all duration-200 hover:bg-white/10 ${
-                            isPrizeActive ? 'bg-gradient-to-br from-yellow-500/10 to-yellow-600/5 border border-yellow-500/20' : ''
-                        }`}
-                        style={{ minHeight: '200px' }}
-                        onClick={() => toggleCard(item.family)}
-                    >
-                        <div className="flex items-start mb-2">
-                            <h3 className="text-md font-semibold flex items-center gap-x-2">
-                                <span>{FAMILY_ICONS[item.family]}</span>
-                                <span>{item.family}</span>
-                            </h3>
-                        </div>
-                        <div className="space-y-2 text-sm text-white/90 flex-grow" style={{ lineHeight: 1.4 }}>
-                            <p style={{ color: getFaceLight(finalWinner?.face || '') }}>
-                                {item.headline.substring(0, 90)}{item.headline.length > 90 && '...'}
-                            </p>
-                            
-                            {isExpanded && (
-                                <div className="space-y-1.5">
-                                    {actionLine && <div><span className="font-medium" title="This describes how you push forward and commit to decisions" style={{ color: getFaceLight(finalWinner?.face || '') }}>Action style:</span> {actionLine.sentence}</div>}
-                                    {scanLine && <div><span className="font-medium" title="This describes your thought process when evaluating options" style={{ color: getFaceLight(finalWinner?.face || '') }}>Weighing style:</span> {scanLine.sentence}</div>}
-                                    {resetLine && <div><span className="font-medium" title="This describes how you stop, reframe, and restart when needed" style={{ color: getFaceLight(finalWinner?.face || '') }}>Reset style:</span> {resetLine.sentence}</div>}
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                );
-            })}
-        </div>
-    </div>
-    );
-};
 
 
 const ResultCTAs = ({ onDownload, onRestart, router, finalWinner }: { onDownload: () => void, onRestart: () => void, router: any, finalWinner: Seed | null }) => (
-    <div className="md:static sticky bottom-0 z-10 py-4 bg-black/50 backdrop-blur-sm">
+    <div className="md:static sticky bottom-0 z-10 py-4 bg-black/10 backdrop-blur-sm">
         <div className="max-w-4xl mx-auto flex flex-col sm:flex-row gap-4 justify-center">
             <button
                 className="px-6 py-3 text-base font-bold rounded-lg transition-colors"
@@ -662,10 +580,8 @@ const ResultsScreen = ({ taps, finalWinner, duels, secondaryFace, pureOneFace, o
                 </div>
             </div>
 
-            <LegendSection />
             {/* Inline prize now shown in HeroBand; removing separate section to avoid duplication */}
 
-            <FamilyGrid triad={triad} finalWinner={finalWinner} secondaryFace={secondaryFace} taps={taps} />
 
             <EvidenceDrawer duels={duels} />
 

@@ -33,7 +33,7 @@ function violatesPairs(current, next, rules) {
   return rules.some(([x, y]) => (next === x && current.includes(y)) || (next === y && current.includes(x)));
 }
 
-const MIN_GAP = 2;
+const MIN_GAP = 1;
 
 // ring/seed helpers to mirror UI tiebreak
 function rotate(arr, by) { const n = arr.length; if (!n) return arr; const k = ((by % n) + n) % n; return arr.slice(k).concat(arr.slice(0, k)); }
@@ -73,29 +73,14 @@ function buildOptions(ctx, anchorsByBlock, forbiddenPairsSet, ring, seedEchoBudg
 
   const candidatePool = faces.filter(f => !banned.has(f));
 
-  // baseline fairness order: least-shown, then ring order
+  // baseline fairness order: strict deficit-first (least shown), then oldest-seen
   const order = candidatePool.slice().sort((a, b) => {
     const sa = shown.get(a) ?? 0;
     const sb = shown.get(b) ?? 0;
     if (sa !== sb) return sa - sb;
     const la = lastSeenAt.get(a) ?? -1;
     const lb = lastSeenAt.get(b) ?? -1;
-    if (la !== lb) return la - lb;
-    // Head-to-head tie-break: prefer the one that previously won when both co-appeared
-    const key = [a, b].slice().sort().join('|');
-    const rec = headWins.get(key);
-    if (rec) {
-      const winner = rec.winner;
-      if (winner === a) return -1;
-      if (winner === b) return 1;
-    }
-    // Fallback: stable random by seed
-    const ra = fhash(String(rng.seed) + a) % 1000;
-    const rb = fhash(String(rng.seed) + b) % 1000;
-    if (ra !== rb) return ra - rb;
-    const ia = ring.indexOf(a);
-    const ib = ring.indexOf(b);
-    return ia - ib;
+    return la - lb;
   });
 
   const lineup = [];
@@ -106,6 +91,7 @@ function buildOptions(ctx, anchorsByBlock, forbiddenPairsSet, ring, seedEchoBudg
 
   // Prefer seed echo faces first among equals
   const tryPlace = (preferSeed) => {
+    const minShown = Math.min(...order.map(f => shown.get(f) ?? 0));
     for (const c of order) {
       if (lineup.length >= K) break;
       if (lineup.includes(c)) continue;
@@ -117,7 +103,8 @@ function buildOptions(ctx, anchorsByBlock, forbiddenPairsSet, ring, seedEchoBudg
       if (violatesPairs(lineup, c, mustAvoidTogether)) continue;
       if (violatesPairs(lineup, c, globalPairs)) continue;
       if (preferSeed) {
-        if ((seedEchoBudget[c] ?? 0) > 0 && (seedEchoExpireBlock[c] ?? -1) >= Math.floor(qIndex / 3)) {
+        // Only apply seed echo to faces tied at the minimum shown to preserve fairness
+        if ((shown.get(c) ?? 0) === minShown && (seedEchoBudget[c] ?? 0) > 0 && (seedEchoExpireBlock[c] ?? -1) >= Math.floor(qIndex / 3)) {
           lineup.push(c);
         }
       } else {
@@ -144,7 +131,7 @@ function buildOptions(ctx, anchorsByBlock, forbiddenPairsSet, ring, seedEchoBudg
   return lineup.slice(0, K);
 }
 
-function answerPick(state, pick) {
+function answerPick(state, pick, mainThreshold = 4, secondaryThreshold = 3) {
   const s = {
     ...state,
     picks: state.picks.concat(pick),
@@ -159,10 +146,14 @@ function answerPick(state, pick) {
   const n = (s.hitCount.get(pick) ?? 0) + 1;
   s.hitCount.set(pick, n);
 
-  if (n === 3) {
+  // lock main first-to-4
+  if (!s.mainFace && n >= mainThreshold) {
+    s.mainFace = pick;
     s.banned.add(pick);
-    if (!s.mainFace) s.mainFace = pick;
-    else if (!s.secondaryFace && pick !== s.mainFace) s.secondaryFace = pick;
+  } else if (s.mainFace && !s.secondaryFace && pick !== s.mainFace && n >= secondaryThreshold) {
+    // lock secondary at 3 (!= main)
+    s.secondaryFace = pick;
+    s.banned.add(pick);
   }
 
   s.qIndex += 1;
@@ -206,17 +197,53 @@ function runSim(cfg, seed = 42, jsonMode = false) {
   const seedEchoExpireBlock = Object.fromEntries(cfg.faces.map(f => [f, -1]));
   // head-to-head memory: which face tended to win within a co-appearance
   const headWins = new Map(); // key a|b -> {winner}
+  let suddenDeath = false;
+  // cycle planning: cover all 12 faces exactly once per cycle (size = faces.length / K)
+  const cycleLen = Math.ceil(cfg.faces.length / cfg.K);
+  let cyclePlan = [];
+  let usedThisCycle = new Set();
 
   const exposure = {};
   const picks = {};
   cfg.faces.forEach(f => { exposure[f] = 0; picks[f] = 0; });
 
   for (let q = 0; q < cfg.totalQuestions; q++) {
-    // compute ring tiebreak from picks (proxy for taps-based seed)
+    // Start a new cycle every cycleLen questions
+    if (st.qIndex % cycleLen === 0) {
+      const ring = rotate(cfg.faces, fhash(JSON.stringify(st.picks)) % cfg.faces.length);
+      cyclePlan = [];
+      for (let i = 0; i < cycleLen; i++) {
+        cyclePlan.push(ring.slice(i * cfg.K, (i + 1) * cfg.K));
+      }
+      usedThisCycle = new Set();
+    }
+
+    // Build options from cycle plan, substituting banned or used faces with deficit-first fillers
     const ring = rotate(cfg.faces, fhash(JSON.stringify(st.picks)) % cfg.faces.length);
-    const options = buildOptions({ ...cfg, ...st }, anchors, forbiddenPairs, ring, seedEchoBudget, seedEchoExpireBlock, headWins, rng);
+    const base = (cyclePlan[st.qIndex % cycleLen] || []).slice();
+    let options = base.filter(f => !st.banned.has(f) && !usedThisCycle.has(f));
+    if (options.length < cfg.K) {
+      // deficit-first fillers
+      const order = cfg.faces
+        .filter(f => !st.banned.has(f) && !usedThisCycle.has(f) && !options.includes(f))
+        .sort((a, b) => {
+          const sa = st.shown.get(a) ?? 0;
+          const sb = st.shown.get(b) ?? 0;
+          if (sa !== sb) return sa - sb;
+          const la = st.lastSeenAt.get(a) ?? -1;
+          const lb = st.lastSeenAt.get(b) ?? -1;
+          return la - lb;
+        });
+      for (const f of order) {
+        if (options.length >= cfg.K) break;
+        const lastSeen = st.lastSeenAt.get(f) ?? -999;
+        if (st.qIndex - lastSeen < MIN_GAP) continue;
+        options.push(f);
+      }
+    }
+    // record exposure
     st = recordShown(st, options);
-    options.forEach(o => exposure[o]++);
+    options.forEach(o => { exposure[o] = (exposure[o] ?? 0) + 1; usedThisCycle.add(o); });
 
     const familiar = options.find(o => st.picks.includes(o));
     let pick;
@@ -224,7 +251,12 @@ function runSim(cfg, seed = 42, jsonMode = false) {
     else pick = options[Math.floor(rng() * options.length)];
 
     picks[pick]++;
-    st = answerPick(st, pick);
+    const beforeMain = st.mainFace;
+    const beforeSecondary = st.secondaryFace;
+    st = answerPick(st, pick, 4, 3);
+    // If someone other than main exceeded 3 without locking (more than one at >=3 while secondary not chosen), flag sudden death
+    const overThree = Array.from(st.hitCount.values()).filter(n => n >= 3).length;
+    if (!beforeSecondary && !st.secondaryFace && overThree > 2) suddenDeath = true;
     // end-of-block: add co-picked pairs to forbidden set
     if (st.qIndex % 3 === 0 && st.picks.length >= 3) {
       const block = st.picks.slice(st.picks.length - 3);
@@ -241,7 +273,8 @@ function runSim(cfg, seed = 42, jsonMode = false) {
       const blockIdx = Math.floor((st.qIndex - 1) / 3);
       block.forEach(f => { seedEchoBudget[f] = 1; seedEchoExpireBlock[f] = blockIdx + 1; });
     }
-    if (st.mainFace && st.secondaryFace) break; // stop once both locks obtained
+    // stop only at cycle boundary when both locks obtained
+    if (st.mainFace && st.secondaryFace && (st.qIndex % cycleLen === 0)) break;
     if (st.qIndex >= cfg.totalQuestions) break;
   }
 
@@ -261,7 +294,7 @@ function runSim(cfg, seed = 42, jsonMode = false) {
   const result = {
     seed,
     K: cfg.K,
-    totalQuestions: cfg.totalQuestions,
+    totalQuestions: st.qIndex, // actual number of questions asked
     main: st.mainFace ?? null,
     secondary: st.secondaryFace ?? null,
     banned: Array.from(st.banned),
@@ -269,6 +302,7 @@ function runSim(cfg, seed = 42, jsonMode = false) {
     picks,
     fairnessSpread,
     blocks,
+    suddenDeath
   };
 
   if (jsonMode) {
@@ -276,7 +310,7 @@ function runSim(cfg, seed = 42, jsonMode = false) {
   }
 
   console.log("\n=== SIM RESULTS ===");
-  console.log(`Questions: ${cfg.totalQuestions}, K=${cfg.K}`);
+  console.log(`Questions: ${result.totalQuestions}, K=${cfg.K}`);
   console.log(`Main Face: ${result.main ?? "—"} | Secondary: ${result.secondary ?? "—"}`);
   console.log(`Banned: ${result.banned.join(", ") || "—"}`);
   console.log("\nExposure per face:");

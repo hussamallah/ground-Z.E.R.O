@@ -39,108 +39,34 @@ function QuestionCard({
   const pct = Math.round((qnum - 1) / total * 100);
 
   return (
-    <section
-      aria-labelledby="q-title"
-      className={["mx-auto max-w-4xl rounded-3xl bg-slate-900/70 backdrop-blur",
-                 "ring-1 ring-slate-700/60 shadow-2xl p-6 sm:p-8"].join(" ")}
-    >
-      {/* Header */}
-      <div className="flex items-center justify-between text-slate-300 text-sm font-medium">
-        <div>Question {qnum} of {total}</div>
-        <div aria-hidden className="w-3/5 h-1.5 rounded-full bg-slate-700 overflow-hidden">
-          <div className="h-full bg-gradient-to-r from-indigo-400 to-fuchsia-400 transition-all"
-               style={{ width: `${pct}%` }} />
-        </div>
-        <div className="tabular-nums">{pct}%</div>
-      </div>
-
+    <section aria-labelledby="q-title" className="bg-[#0b0e14cc] border border-transparent rounded-[22px] shadow-[0_28px_80px_-40px_rgba(30,64,175,0.2),0_10px_50px_-35px_rgba(220,38,38,0.2)] p-8">
       <div className={classNameOverride || ""}>
-        {/* Title */}
-        <h1 id="q-title"
-            className="mt-6 text-center text-2xl sm:text-4xl font-extrabold text-slate-100 tracking-tight">
-          {stem}
-        </h1>
-
-        {/* Options */}
-        <ul role="radiogroup" aria-labelledby="q-title" className="mt-6 space-y-3">
-        {options.map((opt, i) => {
-          const selected = value === opt.id;
-          return (
-            <li key={`${qnum}:${opt.id}`}>
+        <h1 id="q-title" className="text-[clamp(22px,3vw,28px)] font-medium leading-[1.3] my-2 mb-6 text-white">{stem}</h1>
+        <div className="grid grid-cols-1 gap-3 my-3">
+          {options.map((opt, i) => {
+            const selected = value === opt.id;
+            return (
               <button
-                role="radio"
-                aria-checked={selected}
+                key={`${qnum}:${opt.id}`}
+                className={`flex items-center gap-3 w-full p-4 rounded-[14px] border border-[#1e40af66] bg-[#0b0e1499]
+                           text-white cursor-pointer transition-all duration-100 ease-out text-left text-base
+                           hover:translate-y-[-2px] hover:border-[#3b82f6] hover:shadow-[0_0_20px_0px_rgba(30,64,175,0.27)]
+                           active:translate-y-[-1px] ${selected ? 'bg-gradient-to-br from-[#dc2626] to-[#f87171] text-white border-[#dc2626] shadow-[0_0_20px_0px_rgba(220,38,38,0.33)]' : ''}`}
                 onClick={() => onSelect(opt.id)}
                 disabled={disabled}
-                className={[
-                  "group w-full text-left rounded-2xl px-4 sm:px-5 py-4 sm:py-5",
-                  "ring-1 ring-slate-700/60 bg-slate-800/60 hover:bg-slate-800",
-                  "focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400",
-                  "transition shadow-sm",
-                  selected
-                    ? "ring-2 ring-indigo-400 bg-slate-800/90 shadow-indigo-500/20 shadow-lg"
-                    : ""
-                ].join(" ")}
+                aria-pressed={selected}
               >
-                <div className="flex items-start gap-3">
-                  {/* bullet */}
-                  <span
-                    aria-hidden
-                    className={[
-                      "mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full",
-                      "ring-1 ring-slate-600",
-                      selected ? "bg-indigo-500/20 ring-indigo-400" : "bg-slate-900/40"
-                    ].join(" ")}
-                  >
-                    <span className={[
-                      "h-2.5 w-2.5 rounded-full transition-transform",
-                      selected ? "scale-100 bg-indigo-400" : "scale-75 bg-slate-500/60 group-hover:bg-slate-400/80"
-                    ].join(" ")} />
-                  </span>
-
-                  {/* text */}
-                  <div className="flex-1">
-                    <p className="text-slate-100 text-base sm:text-lg leading-relaxed">
-                      <span className="mr-2 text-slate-400">{i + 1}.</span>{opt.text}
-                    </p>
-                    {/* helper row */}
-                    <div className="mt-1.5 flex items-center gap-3">
-                      <kbd className="rounded bg-slate-900/70 px-1.5 py-0.5 text-[10px] font-semibold text-slate-400 ring-1 ring-slate-700/60">
-                        {i + 1}
-                      </kbd>
-                      <span className="inline-block rounded px-1.5 py-0.5 text-[10px] uppercase text-slate-300 bg-slate-900/60 ring-1 ring-slate-700/60">
-                        {opt.id}
-                      </span>
-                      {selected && (
-                        <span className="text-xs text-emerald-300/90">Selected</span>
-                      )}
-                    </div>
-                  </div>
-                </div>
+                <div className={`w-3 h-3 rounded-full border-2 flex-shrink-0 transition-all duration-200 ease-out ${selected ? 'bg-[#dc2626] border-[#dc2626]' : 'border-[#1e40af66]'}`} />
+                <div className="flex-1">{opt.text}</div>
               </button>
-            </li>
-          );
-        })}
-        </ul>
-      </div>
-
-      {/* Footer actions */}
-      <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-        <p className="text-xs text-slate-400">
-          Tip: press <kbd className="px-1 py-0.5 bg-slate-800/70 rounded">1–4</kbd> to choose. Press <kbd className="px-1 py-0.5 bg-slate-800/70 rounded">Enter</kbd> to continue.
-        </p>
-        <button
-          onClick={onNext}
-          disabled={!value || disabled}
-          className={[
-            "inline-flex items-center justify-center rounded-xl px-5 py-3 font-semibold",
-            "bg-indigo-500 text-white shadow-lg shadow-indigo-500/20",
-            "disabled:opacity-50 disabled:cursor-not-allowed",
-            "hover:bg-indigo-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300"
-          ].join(" ")}
-        >
-          Continue
-        </button>
+            );
+          })}
+        </div>
+        <div className="flex justify-end mt-6">
+          <span className="text-[11px] px-2.5 py-1 rounded-full bg-[#0b0e14] text-white border border-[#1e40af66]">
+            Question {qnum}/{total}
+          </span>
+        </div>
       </div>
     </section>
   );
@@ -177,34 +103,50 @@ const FACE_ESSENCE: Record<Face, string> = {
 
 // Per-face gradient + ring accent for Sudden Death cards
 const FACE_STYLE: Record<Face, { bg: string; ring: string; hoverRing: string } > = {
-  Sovereign: { bg: "bg-gradient-to-br from-amber-700/40 to-amber-400/20", ring: "ring-amber-500/40", hoverRing: "hover:ring-amber-400" },
-  Rebel: { bg: "bg-gradient-to-br from-rose-700/40 to-rose-500/20", ring: "ring-rose-500/40", hoverRing: "hover:ring-rose-400" },
-  Visionary: { bg: "bg-gradient-to-br from-indigo-700/40 to-fuchsia-500/20", ring: "ring-fuchsia-500/40", hoverRing: "hover:ring-fuchsia-400" },
-  Navigator: { bg: "bg-gradient-to-br from-teal-700/40 to-emerald-500/20", ring: "ring-emerald-500/40", hoverRing: "hover:ring-emerald-400" },
-  Guardian: { bg: "bg-gradient-to-br from-slate-700/50 to-red-600/20", ring: "ring-red-500/40", hoverRing: "hover:ring-red-400" },
-  Seeker: { bg: "bg-gradient-to-br from-cyan-700/40 to-sky-500/20", ring: "ring-cyan-500/40", hoverRing: "hover:ring-cyan-400" },
-  Architect: { bg: "bg-gradient-to-br from-violet-700/40 to-violet-400/20", ring: "ring-violet-500/40", hoverRing: "hover:ring-violet-400" },
-  Spotlight: { bg: "bg-gradient-to-br from-yellow-600/40 to-orange-500/20", ring: "ring-yellow-400/40", hoverRing: "hover:ring-yellow-300" },
-  Diplomat: { bg: "bg-gradient-to-br from-blue-700/40 to-blue-400/20", ring: "ring-blue-500/40", hoverRing: "hover:ring-blue-400" },
-  Partner: { bg: "bg-gradient-to-br from-emerald-700/40 to-lime-500/20", ring: "ring-emerald-500/40", hoverRing: "hover:ring-emerald-400" },
-  Provider: { bg: "bg-gradient-to-br from-stone-700/40 to-stone-500/20", ring: "ring-stone-400/40", hoverRing: "hover:ring-stone-300" },
-  Vessel: { bg: "bg-gradient-to-br from-zinc-700/40 to-zinc-500/20", ring: "ring-zinc-400/40", hoverRing: "hover:ring-zinc-300" },
+  Sovereign: { bg: "bg-gradient-to-br from-purple-700/40 to-purple-400/20", ring: "ring-purple-500/40", hoverRing: "hover:ring-purple-400" },
+  Rebel: { bg: "bg-gradient-to-br from-gray-700/40 to-gray-500/20", ring: "ring-gray-500/40", hoverRing: "hover:ring-gray-400" },
+  Visionary: { bg: "bg-gradient-to-br from-indigo-700/40 to-indigo-400/20", ring: "ring-indigo-500/40", hoverRing: "hover:ring-indigo-400" },
+  Navigator: { bg: "bg-gradient-to-br from-green-700/40 to-green-400/20", ring: "ring-green-500/40", hoverRing: "hover:ring-green-400" },
+  Guardian: { bg: "bg-gradient-to-br from-red-700/40 to-red-500/20", ring: "ring-red-500/40", hoverRing: "hover:ring-red-400" },
+  Seeker: { bg: "bg-gradient-to-br from-blue-700/40 to-blue-400/20", ring: "ring-blue-500/40", hoverRing: "hover:ring-blue-400" },
+  Vessel: { bg: "bg-gradient-to-br from-sky-700/40 to-sky-400/20", ring: "ring-sky-500/40", hoverRing: "hover:ring-sky-400" },
+  Partner: { bg: "bg-gradient-to-br from-slate-700/40 to-slate-500/20", ring: "ring-slate-500/40", hoverRing: "hover:ring-slate-400" },
+  Diplomat: { bg: "bg-gradient-to-br from-rose-700/40 to-rose-400/20", ring: "ring-rose-500/40", hoverRing: "hover:ring-rose-400" },
+  Spotlight: { bg: "bg-gradient-to-br from-yellow-600/40 to-yellow-400/20", ring: "ring-yellow-400/40", hoverRing: "hover:ring-yellow-300" },
+  Architect: { bg: "bg-gradient-to-br from-orange-700/40 to-orange-400/20", ring: "ring-orange-500/40", hoverRing: "hover:ring-orange-400" },
+  Provider: { bg: "bg-gradient-to-br from-teal-700/40 to-teal-400/20", ring: "ring-teal-500/40", hoverRing: "hover:ring-teal-400" },
 };
 
 // Text color accents per face for headings
 const FACE_TEXT: Record<Face, string> = {
-  Sovereign: "text-amber-300",
-  Rebel: "text-rose-300",
-  Visionary: "text-fuchsia-300",
-  Navigator: "text-emerald-300",
-  Guardian: "text-red-300",
-  Seeker: "text-cyan-300",
-  Architect: "text-violet-300",
-  Spotlight: "text-yellow-300",
-  Diplomat: "text-blue-300",
-  Partner: "text-lime-300",
-  Provider: "text-stone-200",
-  Vessel: "text-zinc-200",
+  Sovereign: "text-purple-300",     // Royal violet
+  Rebel: "text-gray-300",           // Ink black
+  Visionary: "text-indigo-300",     // Indigo
+  Navigator: "text-green-300",      // Forest green
+  Guardian: "text-red-300",         // Signal red
+  Seeker: "text-blue-300",          // Deep blue
+  Vessel: "text-sky-300",           // Light sky
+  Partner: "text-slate-300",        // Denim slate
+  Diplomat: "text-rose-300",        // Rose
+  Spotlight: "text-yellow-300",     // Golden yellow
+  Architect: "text-orange-300",     // Orange
+  Provider: "text-teal-300",        // Teal
+};
+
+// Emoji per face for quick picker
+const FACE_EMOJI: Record<Face, string> = {
+  Sovereign: "👑",
+  Rebel: "⚔️",
+  Visionary: "🌠",
+  Navigator: "🧭",
+  Guardian: "🛡️",
+  Seeker: "🔎",
+  Architect: "🏗️",
+  Spotlight: "🔦",
+  Diplomat: "🤝",
+  Partner: "🧩",
+  Provider: "📦",
+  Vessel: "🛠️"
 };
 
 // tiny FNV-ish for stable seed
@@ -587,16 +529,6 @@ function buildOptions(ctx: {
 
   if (phase !== "quiz") return [];
 
-  // Block 1 exposure: show all 12 across first 3 questions
-  if (qIndex < 3) {
-    const b1 = [
-      faces.slice(0, 4),
-      faces.slice(4, 8),
-      faces.slice(8, 12)
-    ];
-    return b1[qIndex] ?? faces.slice(0, K);
-  }
-
   let anchor: Face | null = blockAnchors[stage] ?? null;
   // Diversify early blocks: in Block 2, middle question spotlights a fresh low-shown face
   if (blockIdx === 1 && stage === 1) {
@@ -616,6 +548,15 @@ function buildOptions(ctx: {
     if (fresh) anchor = fresh;
   }
   const forb = forbiddenPairs;
+
+  // Cycle plan: cover all 12 faces once per 3-question cycle
+  const plannedRing = rotate(ring, blockIdx % ring.length);
+  const groups: Face[][] = [
+    plannedRing.slice(0, K) as Face[],
+    plannedRing.slice(K, 2*K) as Face[],
+    plannedRing.slice(2*K, 3*K) as Face[]
+  ];
+  const planned = (groups[stage] || []).filter(f => f !== main && f !== secondary);
 
   const canUse = (candidate: Face, chosen: Face[]): boolean => {
     if (candidate === main || candidate === secondary) return false;
@@ -673,9 +614,11 @@ function buildOptions(ctx: {
     return chosen.slice(0, need);
   };
 
-  const fillersNeeded = anchor ? (K - 1) : K;
+  // Build from plan first (no repeats within the block), then fairness fillers
+  const baseLine = planned.slice(0, Math.max(0, K - (anchor ? 1 : 0)));
+  const fillersNeeded = Math.max(0, (anchor ? (K - 1) : K) - baseLine.length);
   const fillers = pickFillers(fillersNeeded);
-  let lineup = uniq(anchor ? [anchor, ...fillers] : fillers);
+  let lineup = uniq(anchor ? [anchor, ...baseLine, ...fillers] : [...baseLine, ...fillers]);
 
   // Gentle relaxations if short
   if (lineup.length < K) {
@@ -703,6 +646,7 @@ export default function Page() {
   const router = useRouter();
   const [phase, setPhase] = useState<Phase>("intro");
   const [qIndex, setQIndex] = useState(0);
+  const [showPicker, setShowPicker] = useState(false);
 
   // ledgers
   const [hits, setHits] = useState<Record<Face, number>>(() => Object.fromEntries(FACES.map(f => [f, 0])) as any);
@@ -742,6 +686,15 @@ export default function Page() {
 
   /** start new run */
   const start = () => {
+    // Clear preview session result so it doesn't affect a real run
+    try {
+      const raw = sessionStorage.getItem("quizResult");
+      if (raw) {
+        const obj = JSON.parse(raw);
+        if (obj && obj.preview) sessionStorage.removeItem("quizResult");
+      }
+    } catch {}
+
     setPhase("quiz");
     setQIndex(0);
 
@@ -828,7 +781,8 @@ export default function Page() {
         const count = nh[face];
         let m = main, s = secondary;
 
-        if (!m && count >= 3) m = face;
+        // Lock thresholds: main at 4 hits, secondary at 3 (different faces)
+        if (!m && count >= 4) m = face;
         else if (m && !s && face !== m && count >= 3) s = face;
 
         if (m !== main) setMain(m!);
@@ -852,8 +806,19 @@ export default function Page() {
     // advance question or switch phases
     const nextQ = qIndex + 1;
 
-    // If both locks obtained, go to probe
-    if ((main && secondary) || (face !== main && hits[face] + 1 >= 3 && main && !secondary)) {
+    // Predict hits after this pick
+    const projectedHits = { ...hits, [face]: (hits[face] ?? 0) + 1 } as Record<Face, number>;
+    const projectedMain: Face | null = main || (projectedHits[face] >= 4 ? (face as Face) : null);
+    const overThree = Object.values(projectedHits).filter(n => n >= 3).length;
+    // If main is set but secondary not, and more than two faces have >=3 hits -> Sudden Death
+    if (projectedMain && !secondary && overThree > 2) {
+      setPhase("sudden");
+      return;
+    }
+
+    // If both locks obtained (including when secondary just hit 3), go to probe at cycle boundary
+    const atCycleBoundary = nextQ % BLOCK_SIZE === 0;
+    if (((main && secondary) || (projectedMain && !secondary && face !== projectedMain && projectedHits[face] >= 3)) && atCycleBoundary) {
       // In this branch, secondary may have just locked; switch to probe
       setPhase("probe");
       return;
@@ -967,16 +932,28 @@ export default function Page() {
 
   /** Render */
   return (
-    <div className="min-h-screen flex">
-      {phase==="intro" && (
-        <div className="fixed top-4 left-4 z-50">
-          <button onClick={start} className="text-white/70 text-sm font-medium bg-black/60 backdrop-blur-sm px-3 py-2 rounded-lg border border-white/10 hover:bg-white/10 hover:text-white transition-all duration-200">
-            Start
-          </button>
+    <div className="min-h-screen bg-[#0b0f14] text-white font-sans overflow-x-hidden">
+      
+      <div className="max-w-[980px] mx-auto px-4 md:px-8 py-4 space-y-6">
+        <header className="flex flex-col gap-2.5 p-3.5 border border-[#1e40af66] rounded-2xl bg-[#0b0e1490] backdrop-blur-sm shadow-[0_10px_40px_-20px_rgba(30,64,175,0.2)] mb-6">
+          <div className="flex items-center justify-between w-full">
+            <a className="flex gap-3 items-center text-white text-lg no-underline" href="#">
+              <strong>Ground Zero Quiz</strong>
+            </a>
+            <div className="px-2.5 py-1.5 rounded-full bg-[#0b0e14] border border-[#1e40af66] text-white text-xs whitespace-nowrap overflow-hidden text-ellipsis max-w-full">
+              {phase === 'intro' ? '21 Questions • Deterministic' : 
+               `${qIndex + 1} Questions • Deterministic`}
         </div>
-      )}
-      <div className="flex-1">
-        <div className={phase==="intro" ? "min-h-screen" : "max-w-3xl mx-auto px-3 sm:px-4 md:px-6 py-4 space-y-6 -mt-6"}>
+          </div>
+          <div className="h-1.5 bg-[#00000055] border border-[#1e40af66] rounded-full overflow-hidden shadow-[inset_0_1px_3px_0_rgba(0,0,0,0.27)]">
+            <div 
+              className="h-full bg-gradient-to-r from-[#3b82f6] to-[#93c5fd] transition-[width] duration-300 ease-out"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+        </header>
+        
+        <div className={phase==="intro" ? "min-h-screen" : "space-y-6"}>
           {phase==="intro" && <Intro onStart={start} />}
 
           {phase==="quiz" && (
@@ -1015,64 +992,133 @@ export default function Page() {
           )}
         </div>
       </div>
+
+      {/* Floating Archetype Picker Button (right side) */}
+      <button
+        aria-label="Open archetype picker"
+        className="fixed right-4 top-4 z-40 px-4 py-3 rounded-full border border-[#1e40af66] bg-[#0b0e1499] text-white shadow-[0_10px_30px_-12px_rgba(30,64,175,0.35)] hover:translate-y-[-1px] transition-all duration-150"
+        onClick={() => setShowPicker(true)}
+      >
+        <span className="mr-2">🧭</span>
+        <span className="hidden sm:inline">Faces</span>
+      </button>
+
+      {/* Right-side Drawer */}
+      {showPicker && (
+        <div className="fixed inset-0 z-50">
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-black/60"
+            onClick={() => setShowPicker(false)}
+            aria-hidden
+          />
+          {/* Panel */}
+          <aside className="absolute right-0 top-0 h-full w-[88%] sm:w-[420px] bg-[#0b0e14] border-l border-[#1e40af66] shadow-2xl p-5 overflow-y-auto">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="m-0 text-lg font-semibold">Pick an Archetype</h2>
+              <button
+                className="px-2 py-1 text-sm rounded-md bg-white/10 hover:bg-white/15 border border-white/10"
+                onClick={() => setShowPicker(false)}
+              >
+                Close
+              </button>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {FACES.map((f) => (
+                <button
+                  key={f}
+                  className="flex items-center gap-3 p-3 rounded-xl border border-[#1e40af66] bg-[#0b0e1499] text-left hover:border-[#3b82f6] hover:shadow-[0_0_18px_0_rgba(30,64,175,0.25)] transition-all"
+                  onClick={() => {
+                    setShowPicker(false);
+                    // Seed a lightweight preview result so result pages don't redirect
+                    try {
+                      const payload = {
+                        taps: [],
+                        finalWinner: { face: f, seed: 1 },
+                        duels: [],
+                        secondaryFace: null,
+                        pureOneFace: true,
+                        preview: true
+                      };
+                      sessionStorage.setItem("quizResult", JSON.stringify(payload));
+                    } catch {}
+                    try { router.push(`/results/${f}`); } catch { if (typeof window !== 'undefined') window.location.href = `/results/${f}`; }
+                  }}
+                >
+                  <span className="text-xl" aria-hidden>{FACE_EMOJI[f]}</span>
+                  <span className="font-medium">{f}</span>
+                </button>
+              ))}
+            </div>
+            <div className="mt-4 text-xs text-white/60">
+              Note: Pages may require matching quiz results to view full details.
+            </div>
+          </aside>
+        </div>
+      )}
     </div>
   );
 }
 
 function Intro({ onStart }: { onStart: ()=>void }) {
   return (
-    <div className="wrap">
-      <section className="hero center">
-        <div className="glow" />
-        <h1>Ground Zero</h1>
-        <p className="lead">Deterministic engine • 12 faces • 21Q • first-to-3 locks</p>
-        <div className="mt-4">
-          <div className="flex flex-col sm:flex-row gap-3 items-center justify-center">
-            <button className="btn-secondary" onClick={() => window.location.href = '/comparison'}>
-              Our Test vs The Rest
-            </button>
-            <button className="btn" onClick={onStart}>Start Quiz</button>
-          </div>
-          <div className="note" style={{ marginTop: 12, fontSize: 13, color: "var(--muted)" }}>
-            Blocks of 3 • B1 shows all 12 • Next blocks spotlight new picks • No RNG
-          </div>
+    <div className="bg-[#0b0e14cc] border border-transparent rounded-[22px] shadow-[0_28px_80px_-40px_rgba(30,64,175,0.2),0_10px_50px_-35px_rgba(220,38,38,0.2)] p-8">
+      <div className="text-center space-y-6">
+        <h1 className="text-[clamp(22px,3vw,28px)] font-medium leading-[1.3] my-2 mb-6 text-white">
+          Ground Zero
+        </h1>
+        <p className="text-lg leading-relaxed max-w-3xl mx-auto text-white">
+          Deterministic engine • 12 faces • 21Q • first-to-3 locks
+        </p>
+        <div className="flex justify-center gap-4 mt-6">
+          <button 
+            className="appearance-none border-none cursor-pointer font-semibold text-[15px] tracking-[0.3px]
+                     px-[18px] py-3 rounded-xl transition-all duration-150 ease-out
+                     text-white bg-gradient-to-br from-[#dc2626] to-[#f87171]
+                     shadow-[0_12px_40px_-18px_rgba(220,38,38,0.2)]
+                     hover:translate-y-[-2px] active:scale-[0.98]"
+            onClick={onStart}
+          >
+            Start Quiz
+          </button>
+          <button 
+            className="appearance-none border-none cursor-pointer font-semibold text-[15px] tracking-[0.3px]
+                     px-[18px] py-3 rounded-xl transition-all duration-150 ease-out
+                     text-white bg-[#0b0e1499] border border-[#1e40af66]
+                     hover:translate-y-[-2px] active:scale-[0.98]"
+            onClick={() => window.location.href = '/comparison'}
+          >
+            Our Test vs The Rest
+          </button>
         </div>
-      </section>
+        </div>
     </div>
   );
 }
 
 function SuddenDeath({ faces, onPick }: { faces: Face[]; onPick:(f:Face)=>void }) {
   return (
-    <div className="max-w-4xl mx-auto py-10 space-y-6">
-      <h2 className="text-center text-3xl sm:text-4xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-fuchsia-300 to-rose-300 drop-shadow">
-        Sudden Death
-      </h2>
-      <p className="text-center text-white/80 text-sm">Your results rests on this choice</p>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {faces.map(f=> (
-          <button
-            key={f}
-            onClick={()=>onPick(f)}
-            className={[
-              "relative rounded-2xl p-6 text-left transition transform",
-              "focus:outline-none",
-              "shadow-lg hover:shadow-xl active:scale-[0.98]",
-              "bg-transparent",
-              "group"
-            ].join(" ")}
+    <section className="bg-[#0b0e14cc] border border-transparent rounded-[22px] shadow-[0_28px_80px_-40px_rgba(30,64,175,0.2),0_10px_50px_-35px_rgba(220,38,38,0.2)] p-8" aria-label="Sudden Death">
+      <h1 className="text-[clamp(22px,3vw,28px)] font-medium leading-[1.3] my-2 mb-6 text-center text-white">Sudden Death</h1>
+      <div className="grid grid-cols-1 gap-3 my-3">
+        {faces.map((f) => (
+          <button 
+            key={f} 
+            className="flex items-center gap-3 w-full p-4 rounded-[14px] border border-[#1e40af66] bg-[#0b0e1499]
+                     text-white cursor-pointer transition-all duration-100 ease-out text-left text-base
+                     hover:translate-y-[-2px] hover:border-[#3b82f6] hover:shadow-[0_0_20px_0px_rgba(30,64,175,0.27)]
+                     active:translate-y-[-1px]"
+            onClick={() => onPick(f)}
           >
-            <div className="flex items-start justify-between">
-              <div>
-                <div className={["text-lg font-semibold", FACE_TEXT[f]].join(" ")}>{f}</div>
-                <div className="text-sm text-white/90 mt-1 max-w-[28ch]">{FACE_ESSENCE[f]}</div>
-              </div>
-              {/* removed sigil to avoid extra visual chrome */}
+            <div className="w-3 h-3 rounded-full border-2 border-[#1e40af66] flex-shrink-0 transition-all duration-200 ease-out" />
+            <div className="flex-1">
+              <div className="font-semibold text-white">{f}</div>
+              <div className="text-sm text-white mt-1">{FACE_ESSENCE[f]}</div>
             </div>
           </button>
         ))}
       </div>
-    </div>
+    </section>
   );
 }
 
@@ -1081,19 +1127,48 @@ function AxisProbe({ items, onAnswer }: { items: string[]; onAnswer:(a:"Yes"|"No
   const ask = items[idx] ?? "";
   const click = (a:"Yes"|"No"|"Maybe") => { onAnswer(a); setIdx(v => v+1); };
   return (
-    <div className="max-w-2xl mx-auto py-10 space-y-6">
-      <h2 className="text-center text-2xl font-semibold">Axis Probe</h2>
-      <p className="text-center text-white/70">Three quick checks. Answer with your gut.</p>
-      <div className="rounded-xl gold-card-premium p-5">
-        <div className="mb-4">{ask}</div>
-        <div className="flex gap-2">
-          <button className="btn" onClick={()=>click("Yes")}>Yes</button>
-          <button className="btn" onClick={()=>click("Maybe")}>Maybe</button>
-          <button className="btn" onClick={()=>click("No")}>No</button>
-        </div>
-        <div className="mt-4 text-xs text-white/60">Item {Math.min(idx+1,3)}/3</div>
+    <section className="bg-[#0b0e14cc] border border-transparent rounded-[22px] shadow-[0_28px_80px_-40px_rgba(30,64,175,0.2),0_10px_50px_-35px_rgba(220,38,38,0.2)] p-8" aria-label="Axis Probe">
+      <h1 className="text-[clamp(22px,3vw,28px)] font-medium leading-[1.3] my-2 mb-6 text-center text-white">Axis Probe</h1>
+      <div className="text-center text-white text-sm mb-2">Three quick checks. Answer with your gut.</div>
+      <div className="text-white mb-4 text-center">{ask}</div>
+      <div className="grid grid-cols-1 gap-3 my-3">
+        <button 
+          className="flex items-center gap-3 w-full p-4 rounded-[14px] border border-[#1e40af66] bg-[#0b0e1499]
+                   text-white cursor-pointer transition-all duration-100 ease-out text-left text-base
+                   hover:translate-y-[-2px] hover:border-[#3b82f6] hover:shadow-[0_0_20px_0px_rgba(30,64,175,0.27)]
+                   active:translate-y-[-1px]"
+          onClick={()=>click("Yes")}
+        >
+          <div className="w-3 h-3 rounded-full border-2 border-[#1e40af66] flex-shrink-0 transition-all duration-200 ease-out" />
+          <div className="flex-1">Yes</div>
+        </button>
+        <button 
+          className="flex items-center gap-3 w-full p-4 rounded-[14px] border border-[#1e40af66] bg-[#0b0e1499]
+                   text-white cursor-pointer transition-all duration-100 ease-out text-left text-base
+                   hover:translate-y-[-2px] hover:border-[#3b82f6] hover:shadow-[0_0_20px_0px_rgba(30,64,175,0.27)]
+                   active:translate-y-[-1px]"
+          onClick={()=>click("Maybe")}
+        >
+          <div className="w-3 h-3 rounded-full border-2 border-[#1e40af66] flex-shrink-0 transition-all duration-200 ease-out" />
+          <div className="flex-1">Maybe</div>
+        </button>
+        <button 
+          className="flex items-center gap-3 w-full p-4 rounded-[14px] border border-[#1e40af66] bg-[#0b0e1499]
+                   text-white cursor-pointer transition-all duration-100 ease-out text-left text-base
+                   hover:translate-y-[-2px] hover:border-[#3b82f6] hover:shadow-[0_0_20px_0px_rgba(30,64,175,0.27)]
+                   active:translate-y-[-1px]"
+          onClick={()=>click("No")}
+        >
+          <div className="w-3 h-3 rounded-full border-2 border-[#1e40af66] flex-shrink-0 transition-all duration-200 ease-out" />
+          <div className="flex-1">No</div>
+        </button>
       </div>
-    </div>
+      <div className="flex justify-end mt-6">
+        <span className="text-[11px] px-2.5 py-1 rounded-full bg-[#0b0e14] text-white border border-[#1e40af66]">
+          Item {Math.min(idx+1,3)}/3
+        </span>
+      </div>
+    </section>
   );
 }
 

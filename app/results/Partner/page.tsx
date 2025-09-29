@@ -20,19 +20,18 @@ import { FAMILIES, RESULTS_LIB,
 import PartnerSecondaries from '../../components/GroundZero_Partner_13_Secondaries.json';
 // Face light color mapping
 const FACE_LIGHT: { [key: string]: string } = {
-  Guardian: '#14b8a6',        // Teal
-  Spotlight: '#a3e635',       // Yellow-green
-  Partner: '#ec4899',         // Pink
-  Catalyst: '#f4a300',        // Golden-orange
-  Provider: '#22d3ee',        // Aqua-teal
-  Diplomat: '#5eead4',        // Soft teal
-  Axiarch: '#ffbf00',         // Amber
-  Architect: '#8b5cf6',       // Violet
-  Seeker: '#67e8f9',          // Light cyan
-  Visionary: '#3b82f6',       // Blue
-  Navigator: '#a855f7',       // Purple
-  Sovereign: '#f59e0b',       // Orange-gold
-  Rebel: '#f97316'            // Red-orange
+  Sovereign: '#6D28D9',       // Royal violet
+  Rebel: '#111827',           // Ink black
+  Visionary: '#4338CA',       // Indigo
+  Guardian: '#DC2626',        // Signal red
+  Navigator: '#166534',       // Forest green
+  Seeker: '#2563EB',          // Deep blue
+  Vessel: '#7DD3FC',          // Light sky
+  Partner: '#64748B',         // Denim slate
+  Diplomat: '#E11D48',        // Rose
+  Spotlight: '#EAB308',       // Golden yellow
+  Architect: '#F97316',       // Orange
+  Provider: '#14B8A6'         // Teal
 };
 
 const getFaceLight = (face: string): string => FACE_LIGHT[face] || '#94a3b8';
@@ -153,7 +152,17 @@ export default function PartnerResultsPage() {
     }
 
     return (
-        <div className="w-full px-4 md:px-6 py-2 md:py-4 space-y-2">
+        <div className="min-h-screen w-full px-4 md:px-6 py-2 md:py-4 space-y-2 bg-[#0b0f14]" style={{
+            background: `
+                radial-gradient(1200px 600px at 50% -10%, rgba(255,255,255,.06), transparent 60%),
+                radial-gradient(800px 400px at 20% 80%, rgba(15, 76, 117, 0.3), transparent 50%),
+                radial-gradient(600px 300px at 80% 20%, rgba(15, 76, 117, 0.2), transparent 40%),
+                linear-gradient(135deg, #0f4c75 0%, #1a5f8a 50%, #0f4c75 100%)
+            `,
+            backgroundSize: '100% 100%, 100% 100%, 100% 100%, 100% 100%',
+            backgroundPosition: '0% 0%, 0% 0%, 0% 0%, 0% 0%',
+            animation: 'oceanFlow 20s ease-in-out infinite'
+        }}>
            <ResultsScreen
                 taps={resultsData.taps}
                 finalWinner={resultsData.finalWinner}
@@ -268,23 +277,6 @@ const CoreLegendSection = () => (
     </div>
 );
 
-const LegendSection = () => (
-    <div className="mb-6 max-w-6xl mx-auto">
-        <div className="bg-black/40 rounded-lg p-4 border border-white/10">
-            <div className="flex flex-wrap gap-x-8 gap-y-3 text-sm text-white">
-                <div className="flex items-center gap-2">
-                    <span className="text-white/60">🏛️</span>
-                    <strong>Families:</strong> seven decision jobs where your patterns show up.
-                </div>
-                
-                <div className="flex items-center gap-2">
-                    <span className="text-white/60">🎯</span>
-                    <strong>Styles:</strong> Action (push forward), Weighing (hold and compare), Reset (stop and restart).
-                </div>
-            </div>
-        </div>
-    </div>
-);
 
 const SecondaryArchetypeSection = ({ finalWinner, secondaryFace, pureOneFace }: { finalWinner: Seed | null, secondaryFace?: Seed | null, pureOneFace?: boolean }) => {
     if (!finalWinner || finalWinner.face !== 'Partner') return null;
@@ -393,7 +385,7 @@ const SummaryTab = ({ familyResults, finalWinner }: { familyResults: any[], fina
     }, [familyResults]);
 
     return (
-        <div className="fixed bottom-0 left-0 right-0 bg-black/80 backdrop-blur-sm border-t border-white/10 z-50">
+        <div className="fixed bottom-0 left-0 right-0 bg-black/20 backdrop-blur-sm border-t border-white/10 z-50">
             <div className="max-w-6xl mx-auto px-4 py-3">
                 <div className="flex items-center justify-between text-sm">
                     <div className="flex items-center gap-6">
@@ -531,7 +523,7 @@ const FamilyGrid = ({ triad, finalWinner, secondaryFace, taps }: { triad: any[],
 
 
 const ResultCTAs = ({ onDownload, onRestart, router, finalWinner }: { onDownload: () => void, onRestart: () => void, router: any, finalWinner: Seed | null }) => (
-    <div className="md:static sticky bottom-0 z-10 py-4 bg-black/50 backdrop-blur-sm">
+    <div className="md:static sticky bottom-0 z-10 py-4 bg-black/10 backdrop-blur-sm">
         <div className="max-w-4xl mx-auto flex flex-col sm:flex-row gap-4 justify-center">
             <button
                 className="px-6 py-3 text-base font-bold rounded-lg transition-colors"
@@ -659,9 +651,7 @@ const ResultsScreen = ({ taps, finalWinner, duels, secondaryFace, pureOneFace, o
                 </div>
             </div>
 
-            <LegendSection />
 
-            <FamilyGrid triad={triad} finalWinner={finalWinner} secondaryFace={secondaryFace} taps={taps} />
 
             <EvidenceDrawer duels={duels} />
 
